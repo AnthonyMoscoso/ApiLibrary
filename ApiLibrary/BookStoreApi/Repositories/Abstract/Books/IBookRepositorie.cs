@@ -10,5 +10,6 @@ namespace BookStoreApi.Repositories.Abstract
 {
     interface IBookRepositorie : IRepositorie<Book>
     {
+        dynamic GetFromStore(string idStore);
     }
 }

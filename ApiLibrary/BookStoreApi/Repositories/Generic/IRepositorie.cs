@@ -13,6 +13,7 @@ namespace LibraryApiRest.Repositories.Abstract
         dynamic Get(int elements,int page);
         dynamic Update(List<T> list);
         dynamic Insert(List<T> list);
+        dynamic Insert(T entity);
         dynamic Delete(List<string> id);       
         dynamic Save();
     }

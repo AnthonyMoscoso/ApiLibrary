@@ -93,6 +93,19 @@ namespace LibraryApiRest.Repositories.Concrect
             }
         }
 
+        public dynamic Insert(TEntity entity)
+        {
+            try
+            {
+                dbSet.Add(entity);
+                return Save();
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+        }
+
         public dynamic Save()
         {
             try

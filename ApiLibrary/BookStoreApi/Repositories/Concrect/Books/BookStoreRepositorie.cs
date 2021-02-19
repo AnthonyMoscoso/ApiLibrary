@@ -11,5 +11,16 @@ namespace BookStoreApi.Repositories.Concrect.Books
 {
     public class BookStoreRepositorie : Repositorie<BookStore>,IBookStoreRepositorie
     {
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <param name="idBook"></param>
+        /// <param name="idStore"></param>
+        /// <returns></returns>
+       public int GetStock(string idBook, string idStore)
+        {
+            int stock = dbSet.Where(w => w.IdBook == idBook && w.IdStore ==idStore).SingleOrDefault().Stock;
+            return stock;
+        }
     }
 }

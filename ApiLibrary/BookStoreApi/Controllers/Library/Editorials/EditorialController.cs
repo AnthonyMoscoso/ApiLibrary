@@ -1,5 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
-using LibraryApiRest.Repositories.Concrect;
+using BookStoreApi.Repositories.Concrect.Editorials;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,16 +7,15 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace BookStoreApi.Controllers
+namespace BookStoreApi.Controllers.Library.Editorials
 {
-    [RoutePrefix("Api/Autor")]
-    public class AutorController : ApiController 
+    [RoutePrefix("Api/Editorial")]
+    public class EditorialController : ApiController
     {
-
-       public AutorRepositorie _repository = new AutorRepositorie();
+        public EditorialRepositorie _repository = new EditorialRepositorie();
 
         [HttpGet]
-        public IHttpActionResult Get ()
+        public IHttpActionResult Get()
         {
             return Ok(_repository.Get());
         }
@@ -33,25 +32,21 @@ namespace BookStoreApi.Controllers
             return Ok(_repository.Get(element, page));
         }
         [HttpPost]
-        public IHttpActionResult Post(List<Autor> list)
+        public IHttpActionResult Post(List<Editorial> list)
         {
             return Ok(_repository.Insert(list));
         }
 
         [HttpPut]
-        public IHttpActionResult Put(List<Autor>list)
+        public IHttpActionResult Put(List<Editorial> list)
         {
             return Ok(_repository.Update(list));
         }
 
         [HttpDelete]
-        public IHttpActionResult Delete(List<string>ids)
+        public IHttpActionResult Delete(List<string> ids)
         {
             return Ok(_repository.Delete(ids));
         }
-
-   
-
-
     }
 }

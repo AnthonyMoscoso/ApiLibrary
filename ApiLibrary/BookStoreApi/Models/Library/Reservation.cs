@@ -19,7 +19,6 @@ namespace BookStoreApi.Models.Library
         public Reservation()
         {
             this.ReservationLine = new HashSet<ReservationLine>();
-            
         }
     
         public string IdReservation { get; set; }
@@ -38,8 +37,7 @@ namespace BookStoreApi.Models.Library
         public virtual Store Store { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReservationLine> ReservationLine { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
+        public virtual Sale Sale { get; set; }
         public string Id { get => IdReservation; set => IdReservation=value; }
     }
 }

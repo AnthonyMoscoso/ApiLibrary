@@ -9,11 +9,10 @@
 
 namespace BookStoreApi.Models.Library
 {
-    using LibraryApiRest.Models.Abstract;
     using System;
     using System.Collections.Generic;
     
-    public partial class Discount : IEntidad
+    public partial class Discount
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Discount()
@@ -33,6 +32,5 @@ namespace BookStoreApi.Models.Library
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Book> Book { get; set; }
-        public string Id { get => IdDiscount; set => IdDiscount=value; }
     }
 }

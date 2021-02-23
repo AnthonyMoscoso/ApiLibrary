@@ -8,7 +8,10 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Schedules
 {
-    public class ScheduleRepositorie : Repositorie<Schedule> ,IScheduleRepositorie
+    public class ScheduleRepositorie : Repositorie<Schedule>, IScheduleRepositorie
     {
+        public ScheduleRepositorie(string identificator="IdSchedule") : base(identificator)
+        {
+        }
     }
 }

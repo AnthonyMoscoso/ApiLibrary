@@ -9,11 +9,10 @@
 
 namespace BookStoreApi.Models.Library
 {
-    using LibraryApiRest.Models.Abstract;
     using System;
     using System.Collections.Generic;
     
-    public partial class Permit : IEntidad
+    public partial class Permit
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Permit()
@@ -30,6 +29,5 @@ namespace BookStoreApi.Models.Library
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Rol> Rol { get; set; }
-        public string Id { get => IdPermit; set => IdPermit=value; }
     }
 }

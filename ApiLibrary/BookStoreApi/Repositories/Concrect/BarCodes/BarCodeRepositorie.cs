@@ -8,7 +8,10 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.BarCodes
 {
-    public class BarCodeRepositorie :Repositorie<Barcode>, IBarCodeRepositorie
+    public class BarCodeRepositorie : Repositorie<Barcode>, IBarCodeRepositorie
     {
+        public BarCodeRepositorie(string identificator= "IdBarcode") : base(identificator)
+        {
+        }
     }
 }

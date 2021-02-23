@@ -9,17 +9,15 @@
 
 namespace BookStoreApi.Models.Library
 {
-    using LibraryApiRest.Models.Abstract;
     using System;
     using System.Collections.Generic;
     
-    public partial class Sale : IEntidad
+    public partial class Sale
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sale()
         {
             this.ReturnSale = new HashSet<ReturnSale>();
-            this.SaleCoupon = new HashSet<SaleCoupon>();
             this.SaleLine = new HashSet<SaleLine>();
             this.Reservation = new HashSet<Reservation>();
         }
@@ -44,12 +42,10 @@ namespace BookStoreApi.Models.Library
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReturnSale> ReturnSale { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SaleCoupon> SaleCoupon { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SaleLine> SaleLine { get; set; }
-        public virtual Store Store { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reservation> Reservation { get; set; }
-        public string Id { get => IdSale; set => IdSale=value; }
+        public virtual Coupon Coupon { get; set; }
+        public virtual Store Store { get; set; }
     }
 }

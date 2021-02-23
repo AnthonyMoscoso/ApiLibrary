@@ -8,7 +8,10 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Directions
 {
-    public class DirectionRepositorie : Repositorie <Direction> ,IDirectionRepositorie
+    public class DirectionRepositorie : Repositorie<Direction>, IDirectionRepositorie
     {
+        public DirectionRepositorie(string identificator="IdDirection") : base(identificator)
+        {
+        }
     }
 }

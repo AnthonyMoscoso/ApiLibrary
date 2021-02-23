@@ -9,11 +9,10 @@
 
 namespace BookStoreApi.Models.Library
 {
-    using LibraryApiRest.Models.Abstract;
     using System;
     using System.Collections.Generic;
     
-    public partial class BookStore : IEntidad
+    public partial class BookStore
     {
         public string IdBookStore { get; set; }
         public string IdBook { get; set; }
@@ -23,6 +22,5 @@ namespace BookStoreApi.Models.Library
     
         public virtual Book Book { get; set; }
         public virtual Store Store { get; set; }
-        public string Id { get => IdBookStore; set => IdBookStore=value; }
     }
 }

@@ -9,11 +9,10 @@
 
 namespace BookStoreApi.Models.Library
 {
-    using LibraryApiRest.Models.Abstract;
     using System;
     using System.Collections.Generic;
     
-    public partial class SickLeave : IEntidad
+    public partial class SickLeave
     {
         public string IdSickLeave { get; set; }
         public string IdEmployee { get; set; }
@@ -29,6 +28,5 @@ namespace BookStoreApi.Models.Library
     
         public virtual DocumentFile DocumentFile { get; set; }
         public virtual Employee Employee { get; set; }
-        public string Id { get => IdSickLeave; set => IdSickLeave=value; }
     }
 }

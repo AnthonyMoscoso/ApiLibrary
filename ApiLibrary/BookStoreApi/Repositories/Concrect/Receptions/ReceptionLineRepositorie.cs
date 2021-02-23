@@ -10,5 +10,8 @@ namespace BookStoreApi.Repositories.Concrect.Receptions
 {
     public class ReceptionLineRepositorie : Repositorie<ReceptionLine>, IReceptionLineRepositorie
     {
+        public ReceptionLineRepositorie(string identificator="IdReceptionLine") : base(identificator)
+        {
+        }
     }
 }

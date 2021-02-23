@@ -9,11 +9,10 @@
 
 namespace BookStoreApi.Models.Library
 {
-    using LibraryApiRest.Models.Abstract;
     using System;
     using System.Collections.Generic;
     
-    public partial class PayRoll : IEntidad
+    public partial class PayRoll
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PayRoll()
@@ -46,6 +45,5 @@ namespace BookStoreApi.Models.Library
         public virtual ICollection<Store> Store { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Taxes> Taxes { get; set; }
-        public string Id { get => IdPayRoll; set => IdPayRoll=value; }
     }
 }

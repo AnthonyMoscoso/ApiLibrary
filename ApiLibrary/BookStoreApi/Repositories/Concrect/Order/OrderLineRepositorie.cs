@@ -10,5 +10,8 @@ namespace BookStoreApi.Repositories.Concrect.Order
 {
     public class OrderLineRepositorie : Repositorie<OrderLine>, IOrderLineRepositorie
     {
+        public OrderLineRepositorie(string identificator="IdOrderLine") : base(identificator)
+        {
+        }
     }
 }

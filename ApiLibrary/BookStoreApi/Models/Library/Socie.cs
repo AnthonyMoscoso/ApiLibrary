@@ -9,11 +9,10 @@
 
 namespace BookStoreApi.Models.Library
 {
-    using LibraryApiRest.Models.Abstract;
     using System;
     using System.Collections.Generic;
     
-    public partial class Socie : IEntidad
+    public partial class Socie
     {
         public string IdSocie { get; set; }
         public string IdPerson { get; set; }
@@ -25,6 +24,5 @@ namespace BookStoreApi.Models.Library
         public int StatusCode { get; set; }
     
         public virtual Person Person { get; set; }
-        public string Id { get => IdSocie; set => IdSocie=value; }
     }
 }

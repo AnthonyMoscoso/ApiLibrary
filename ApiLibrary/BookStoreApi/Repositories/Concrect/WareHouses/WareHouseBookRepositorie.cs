@@ -8,7 +8,10 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.WareHouses
 {
-    public class WareHouseBookRepositorie : Repositorie<WareHouseBook>,IWareHouseBookRepositorie
+    public class WareHouseBookRepositorie : Repositorie<WareHouseBook>, IWareHouseBookRepositorie
     {
+        public WareHouseBookRepositorie(string identificator="IdWareHouseBook") : base(identificator)
+        {
+        }
     }
 }

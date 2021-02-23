@@ -9,11 +9,10 @@
 
 namespace BookStoreApi.Models.Library
 {
-    using LibraryApiRest.Models.Abstract;
     using System;
     using System.Collections.Generic;
     
-    public partial class ScheduleLine : IEntidad
+    public partial class ScheduleLine
     {
         public string IdScheduleLine { get; set; }
         public string IdSchedule { get; set; }
@@ -29,6 +28,5 @@ namespace BookStoreApi.Models.Library
         public int StatusCode { get; set; }
     
         public virtual Schedule Schedule { get; set; }
-        public string Id { get => IdScheduleLine; set => IdScheduleLine=value; }
     }
 }

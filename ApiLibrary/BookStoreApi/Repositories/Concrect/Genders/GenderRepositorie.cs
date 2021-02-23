@@ -10,5 +10,8 @@ namespace BookStoreApi.Repositories.Concrect.Genders
 {
     public class GenderRepositorie : Repositorie<Gender>, IGenderRepositorie
     {
+        public GenderRepositorie(string identificator="IdGender") : base(identificator)
+        {
+        }
     }
 }

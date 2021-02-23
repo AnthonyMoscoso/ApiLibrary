@@ -1,8 +1,6 @@
 ﻿using BookStoreApi.Models;
 using BookStoreApi.Models.Library;
 using LibraryApiRest.Enums;
-using LibraryApiRest.Models;
-using LibraryApiRest.Models.Abstract;
 using LibraryApiRest.Repositories.Abstract;
 using System;
 using System.Collections.Generic;
@@ -13,17 +11,22 @@ using System.Web;
 
 namespace LibraryApiRest.Repositories.Concrect
 {
-    public class Repositorie<TEntity> : IRepositorie<TEntity> where TEntity : class, IEntidad
+    public class Repositorie<TEntity> : IRepositorie<TEntity> 
+        where TEntity : class,new()
     {
        public BookStoreEntities Context;
 
         public DbSet<TEntity> dbSet;
         public string name;
-        public Repositorie()
+        public string Identificator;
+        public string query;
+        public Repositorie(string identificator)
         {
             Context = new BookStoreEntities();
             dbSet = Context.Set<TEntity>();
             name = typeof(TEntity).Name;
+            Identificator = identificator;
+            
         }
 
         public dynamic Delete(List<string> ids)
@@ -31,7 +34,9 @@ namespace LibraryApiRest.Repositories.Concrect
             string message = "";
             foreach (string id  in ids)
             {
-                TEntity search = dbSet.Where(w => w.Id == id).SingleOrDefault();
+
+                query = string.Format("Select * from {0} where {1}={2}",name,Identificator,id);
+                TEntity search = dbSet.SqlQuery(query).SingleOrDefault();
                 if (search!=null)
                 {
                     dbSet.Remove(search);
@@ -59,7 +64,8 @@ namespace LibraryApiRest.Repositories.Concrect
             List<TEntity> entities = new List<TEntity>();
             foreach (string id in ids)
             {
-                TEntity search = dbSet.Where(w => w.Id == id).SingleOrDefault();
+                query = string.Format("Select * from {0} where {1}={2}", name, Identificator, id);
+                TEntity search = dbSet.SqlQuery(query).SingleOrDefault();
                 if (search != null)
                 {
                     entities.Add(search);
@@ -121,18 +127,13 @@ namespace LibraryApiRest.Repositories.Concrect
 
         public dynamic Update(List<TEntity> list)
         {
-            foreach (TEntity t in list)
+            foreach (TEntity entity in list)
             {
-                TEntity search = dbSet.Where(w=> w.Id==t.Id).SingleOrDefault();
-                if (search!=null)
-                {
-                    search = t;
-                    Context.Entry(search).State = EntityState.Modified;
-                    return Save();
-                }
-
+                dbSet.Attach(entity);
+                Context.Entry(entity).State = EntityState.Modified;
             }
-            return null;
+ 
+            return Save(); ;
         }
     }
 }

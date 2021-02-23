@@ -8,7 +8,10 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Persons
 {
-    public class SocieRepositorie : Repositorie<Socie>,ISocieRepositorie
+    public class SocieRepositorie : Repositorie<Socie>, ISocieRepositorie
     {
+        public SocieRepositorie(string identificator="IdSocie") : base(identificator)
+        {
+        }
     }
 }

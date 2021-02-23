@@ -9,11 +9,10 @@
 
 namespace BookStoreApi.Models.Library
 {
-    using LibraryApiRest.Models.Abstract;
     using System;
     using System.Collections.Generic;
     
-    public partial class Purchase : IEntidad
+    public partial class Purchase
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Purchase()
@@ -38,6 +37,5 @@ namespace BookStoreApi.Models.Library
         public virtual ICollection<PurchaseLine> PurchaseLine { get; set; }
         public virtual Store Store { get; set; }
         public virtual WareHouse WareHouse { get; set; }
-        public string Id { get => IdPurchase; set => IdPurchase=value; }
     }
 }

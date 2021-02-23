@@ -8,7 +8,10 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Receptions
 {
-    public class ReceptionRepositorie : Repositorie<Reception> , IReceptionRepositorie
+    public class ReceptionRepositorie : Repositorie<Reception>, IReceptionRepositorie
     {
+        public ReceptionRepositorie(string identificator="IdReception") : base(identificator)
+        {
+        }
     }
 }

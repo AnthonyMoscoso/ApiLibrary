@@ -10,5 +10,8 @@ namespace BookStoreApi.Repositories.Concrect.Reservations
 {
     public class ReservationLineRepositorie : Repositorie<ReservationLine>, IReservationLineRepositorie
     {
+        public ReservationLineRepositorie(string identificator="IdReservationLine") : base(identificator)
+        {
+        }
     }
 }

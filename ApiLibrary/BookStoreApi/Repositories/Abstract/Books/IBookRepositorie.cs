@@ -10,6 +10,12 @@ namespace BookStoreApi.Repositories.Abstract
 {
     interface IBookRepositorie : IRepositorie<Book>
     {
-        dynamic GetFromStore(string idStore);
+        List<Book> GetFromStore(string idStore);
+        List<Book> GetByAutor(string idAutor);
+        List<Book> SearchLikeAutorName(string text);
+        List<Book> GetByCategorie(string idCategory);
+        List<Book> GetByGender(List<string>idGender);
+
+        
     }
 }

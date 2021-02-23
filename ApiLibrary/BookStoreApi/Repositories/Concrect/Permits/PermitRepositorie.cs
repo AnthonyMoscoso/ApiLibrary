@@ -8,7 +8,10 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Permits
 {
-    public class PermitRepositorie : Repositorie<Permit> ,IPermitRepositorie
+    public class PermitRepositorie : Repositorie<Permit>, IPermitRepositorie
     {
+        public PermitRepositorie(string identificator="IdPermit") : base(identificator)
+        {
+        }
     }
 }

@@ -1,14 +1,25 @@
-﻿using BookStoreApi.Models.Library;
+﻿
+
+using BookStoreApi.Models.Library;
 using BookStoreApi.Repositories.Abstract.Books;
+using BookStoreApi.Request;
 using LibraryApiRest.Repositories.Concrect;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Books
 {
-    public class BookEditorialRepositorie : Repositorie<BookEditorial> ,IBookEditorialRepositorie
+    public class BookEditorialRepositorie : Repositorie<BookEditorial>, IBookEditorialRepositorie
     {
+        public BookEditorialRepositorie(string identificator="IdBookEditorial") : base(identificator)
+        {
+        }
+
+        public double GetPurchasePrice(string idBook,string idEditorial)
+        {
+            double PurchasePrice = dbSet.Where(w => w.IdBook.Equals(idBook) && w.IdEditorial.Equals(idEditorial)).SingleOrDefault().PurchasePrice;
+            return PurchasePrice;
+        }
+       
     }
 }

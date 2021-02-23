@@ -10,5 +10,8 @@ namespace BookStoreApi.Repositories.Concrect.Coupons
 {
     public class CouponRepositorie : Repositorie<Coupon>, ICouponRepositorie
     {
+        public CouponRepositorie(string identificator="IdCoupon") : base(identificator)
+        {
+        }
     }
 }

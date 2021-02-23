@@ -9,11 +9,10 @@
 
 namespace BookStoreApi.Models.Library
 {
-    using LibraryApiRest.Models.Abstract;
     using System;
     using System.Collections.Generic;
     
-    public partial class ReceptionLine : IEntidad
+    public partial class ReceptionLine
     {
         public string IdReceptionLine { get; set; }
         public string IdReception { get; set; }
@@ -27,6 +26,5 @@ namespace BookStoreApi.Models.Library
         public virtual Book Book { get; set; }
         public virtual Reception Reception { get; set; }
         public virtual Shipping Shipping { get; set; }
-        public string Id { get => IdReceptionLine; set => IdReceptionLine=value; }
     }
 }

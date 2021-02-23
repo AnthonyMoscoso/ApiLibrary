@@ -13,6 +13,10 @@ namespace BookStoreApi.Repositories.Concrect.Files
 {
     public class ImageFileRepositorie :Repositorie <ImageFile> ,IImageFileRepositorie
     {
+        public ImageFileRepositorie(string identificator= "IdImageFile") : base(identificator)
+        {
+        }
+
         public dynamic DonwloadImage(ImageFile imageFile)
         {
             string formato = Path.GetExtension(imageFile.ImageType);
@@ -34,15 +38,6 @@ namespace BookStoreApi.Repositories.Concrect.Files
             return response;
         }
 
-     /*   public dynamic UpdateImage()
-        {
-
-        }
-
-        public dynamic RemoveImage()
-        {
-
-        }*/
         public dynamic InsertImage(ImageFile imageFile)
         {
             var httpRequest = HttpContext.Current.Request;

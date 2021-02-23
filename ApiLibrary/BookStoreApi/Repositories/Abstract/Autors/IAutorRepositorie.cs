@@ -1,6 +1,6 @@
 ﻿using BookStoreApi.Models;
 using BookStoreApi.Models.Library;
-using LibraryApiRest.Models;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +11,6 @@ namespace LibraryApiRest.Repositories.Abstract
 {
     interface IAutorRepositorie : IRepositorie<Autor>
     {
+        List<Autor> GetAutorLikeName(string text);
     }
 }

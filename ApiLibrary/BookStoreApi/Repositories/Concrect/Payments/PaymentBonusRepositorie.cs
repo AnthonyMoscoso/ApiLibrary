@@ -8,7 +8,10 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Payments
 {
-    public class PaymentBonusRepositorie : Repositorie <PaymentBonus> ,IPaymentBonusRepositorie
+    public class PaymentBonusRepositorie : Repositorie<PaymentBonus>, IPaymentBonusRepositorie
     {
+        public PaymentBonusRepositorie(string identificator="IdPaymentBonus") : base(identificator)
+        {
+        }
     }
 }

@@ -9,11 +9,10 @@
 
 namespace BookStoreApi.Models.Library
 {
-    using LibraryApiRest.Models.Abstract;
     using System;
     using System.Collections.Generic;
     
-    public partial class Book : IEntidad
+    public partial class Book
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Book()
@@ -29,8 +28,8 @@ namespace BookStoreApi.Models.Library
             this.SaleLine = new HashSet<SaleLine>();
             this.ShippingLine = new HashSet<ShippingLine>();
             this.WareHouseBook = new HashSet<WareHouseBook>();
-            this.Gender = new HashSet<Gender>();
             this.Autor = new HashSet<Autor>();
+            this.Gender = new HashSet<Gender>();
         }
     
         public string IdBook { get; set; }
@@ -73,12 +72,11 @@ namespace BookStoreApi.Models.Library
         public virtual ICollection<ShippingLine> ShippingLine { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WareHouseBook> WareHouseBook { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Autor> Autor { get; set; }
         public virtual Discount Discount { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gender> Gender { get; set; }
         public virtual ImageFile ImageFile { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Autor> Autor { get; set; }
-        public string Id { get => IdBook; set => IdBook=value; }
     }
 }

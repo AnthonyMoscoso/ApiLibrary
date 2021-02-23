@@ -9,11 +9,10 @@
 
 namespace BookStoreApi.Models.Library
 {
-    using LibraryApiRest.Models.Abstract;
     using System;
     using System.Collections.Generic;
     
-    public partial class Barcode : IEntidad
+    public partial class Barcode
     {
         public string IdBarcode { get; set; }
         public string IdImageFile { get; set; }
@@ -21,6 +20,5 @@ namespace BookStoreApi.Models.Library
     
         public virtual Book Book { get; set; }
         public virtual ImageFile ImageFile { get; set; }
-        public string Id { get => IdBarcode; set => IdBarcode=value; }
     }
 }

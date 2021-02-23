@@ -7,13 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BookStoreApi.Models.Library
-{
-    using LibraryApiRest.Models.Abstract;
+namespace BookStoreApi.Models.Library { 
+
     using System;
     using System.Collections.Generic;
     
-    public partial class Autor : IEntidad
+    public partial class Autor 
+
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Autor()
@@ -29,7 +29,5 @@ namespace BookStoreApi.Models.Library
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Book> Book { get; set; }
-        public string Id { get => IdAutor; set => IdAutor=value; }
-        
     }
 }

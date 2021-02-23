@@ -8,7 +8,10 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Order
 {
-    public class OrderRepositorie : Repositorie<Orders> ,IOrderRepositorie
+    public class OrderRepositorie : Repositorie<Orders>, IOrderRepositorie
     {
+        public OrderRepositorie(string identificator="IdOrder") : base(identificator)
+        {
+        }
     }
 }

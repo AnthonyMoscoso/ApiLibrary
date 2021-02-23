@@ -125,41 +125,41 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\Library\Autors\AutorController.cs" />
-    <Compile Include="Controllers\Library\BarCodes\BarCodeController.cs" />
-    <Compile Include="Controllers\Library\Books\BookController.cs" />
-    <Compile Include="Controllers\Library\Books\BookEditorialController.cs" />
-    <Compile Include="Controllers\Library\Books\BookStoreController.cs" />
-    <Compile Include="Controllers\Library\Books\BookTypeController.cs" />
-    <Compile Include="Controllers\Library\Coupons\CouponController.cs" />
-    <Compile Include="Controllers\Library\Directions\DirectionController.cs" />
-    <Compile Include="Controllers\Library\Discounts\DiscountController.cs" />
-    <Compile Include="Controllers\Library\Editions\EditionController.cs" />
-    <Compile Include="Controllers\Library\Editorials\EditorialController.cs" />
-    <Compile Include="Controllers\Library\Files\DocumentFileController.cs" />
-    <Compile Include="Controllers\Library\Files\ImageFileController.cs" />
-    <Compile Include="Controllers\Library\Genders\GenderController.cs" />
-    <Compile Include="Controllers\Library\Occupations\OccupationController.cs" />
-    <Compile Include="Controllers\Library\Order\OrderController.cs" />
-    <Compile Include="Controllers\Library\Payments\PaymentBonusController.cs" />
-    <Compile Include="Controllers\Library\PayRolls\PayRollController.cs" />
-    <Compile Include="Controllers\Library\Permits\PermitController.cs" />
-    <Compile Include="Controllers\Library\Persons\EmployeeController.cs" />
-    <Compile Include="Controllers\Library\Persons\PersonController.cs" />
-    <Compile Include="Controllers\Library\Persons\SocieController.cs" />
-    <Compile Include="Controllers\Library\Provide\ProviderController.cs" />
-    <Compile Include="Controllers\Library\Purchases\PurchaseController.cs" />
-    <Compile Include="Controllers\Library\Receptions\ReceptionController.cs" />
-    <Compile Include="Controllers\Library\Registers\RegisterController.cs" />
-    <Compile Include="Controllers\Library\Reservations\ReservationController.cs" />
-    <Compile Include="Controllers\Library\Returns\ReturnController.cs" />
-    <Compile Include="Controllers\Library\Rols\RolController.cs" />
-    <Compile Include="Controllers\Library\Sales\SaleController.cs" />
-    <Compile Include="Controllers\Library\Schedules\ScheduleController.cs" />
-    <Compile Include="Controllers\Library\Shippings\ShippingController.cs" />
-    <Compile Include="Controllers\Library\Stores\StoreController.cs" />
-    <Compile Include="Controllers\Library\Taxe\TaxesController.cs" />
-    <Compile Include="Controllers\Library\WareHouses\WareHouseController.cs" />
+    <Compile Include="Controllers\Library\AutorController.cs" />
+    <Compile Include="Controllers\Library\BarCodeController.cs" />
+    <Compile Include="Controllers\Library\BookController.cs" />
+    <Compile Include="Controllers\Library\BookEditorialController.cs" />
+    <Compile Include="Controllers\Library\BookStoreController.cs" />
+    <Compile Include="Controllers\Library\BookTypeController.cs" />
+    <Compile Include="Controllers\Library\CouponController.cs" />
+    <Compile Include="Controllers\Library\DirectionController.cs" />
+    <Compile Include="Controllers\Library\DiscountController.cs" />
+    <Compile Include="Controllers\Library\EditionController.cs" />
+    <Compile Include="Controllers\Library\EditorialController.cs" />
+    <Compile Include="Controllers\Library\DocumentFileController.cs" />
+    <Compile Include="Controllers\Library\ImageFileController.cs" />
+    <Compile Include="Controllers\Library\GenderController.cs" />
+    <Compile Include="Controllers\Library\OccupationController.cs" />
+    <Compile Include="Controllers\Library\OrderController.cs" />
+    <Compile Include="Controllers\Library\PaymentBonusController.cs" />
+    <Compile Include="Controllers\Library\PayRollController.cs" />
+    <Compile Include="Controllers\Library\PermitController.cs" />
+    <Compile Include="Controllers\Library\EmployeeController.cs" />
+    <Compile Include="Controllers\Library\PersonController.cs" />
+    <Compile Include="Controllers\Library\SocieController.cs" />
+    <Compile Include="Controllers\Library\ProviderController.cs" />
+    <Compile Include="Controllers\Library\PurchaseController.cs" />
+    <Compile Include="Controllers\Library\ReceptionController.cs" />
+    <Compile Include="Controllers\Library\RegisterController.cs" />
+    <Compile Include="Controllers\Library\ReservationController.cs" />
+    <Compile Include="Controllers\Library\ReturnController.cs" />
+    <Compile Include="Controllers\Library\RolController.cs" />
+    <Compile Include="Controllers\Library\SaleController.cs" />
+    <Compile Include="Controllers\Library\ScheduleController.cs" />
+    <Compile Include="Controllers\Library\ShippingController.cs" />
+    <Compile Include="Controllers\Library\StoreController.cs" />
+    <Compile Include="Controllers\Library\TaxesController.cs" />
+    <Compile Include="Controllers\Library\WareHouseController.cs" />
     <Compile Include="Controllers\Login\LoginController.cs" />
     <Compile Include="Controllers\Login\Repositorie\LoginRepositorie.cs" />
     <Compile Include="Controllers\Login\Tokens\TokenGenerator.cs" />
@@ -168,7 +168,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Library\Abstract\IEntidad.cs" />
     <Compile Include="Models\Library\Autor.cs">
       <DependentUpon>Db.tt</DependentUpon>
     </Compile>
@@ -287,9 +286,6 @@
       <DependentUpon>Db.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\Sale.cs">
-      <DependentUpon>Db.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Library\SaleCoupon.cs">
       <DependentUpon>Db.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\SaleLine.cs">
@@ -440,6 +436,7 @@
     <Compile Include="Repositories\Generic\IRepositorie.cs" />
     <Compile Include="Repositories\Concrect\Autors\AutorRepositorie.cs" />
     <Compile Include="Repositories\Generic\Repositorie.cs" />
+    <Compile Include="Dtos\BookDto.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Models\Login\UserDb.edmx">
@@ -469,7 +466,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\Library\Concret\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -9,16 +9,15 @@
 
 namespace BookStoreApi.Models.Library
 {
-    using LibraryApiRest.Models.Abstract;
     using System;
     using System.Collections.Generic;
     
-    public partial class Coupon : IEntidad
+    public partial class Coupon
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Coupon()
         {
-            this.SaleCoupon = new HashSet<SaleCoupon>();
+            this.Sale = new HashSet<Sale>();
         }
     
         public string IdCoupon { get; set; }
@@ -32,7 +31,6 @@ namespace BookStoreApi.Models.Library
         public int StatusCode { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SaleCoupon> SaleCoupon { get; set; }
-        public string Id { get => IdCoupon; set => IdCoupon=value; }
+        public virtual ICollection<Sale> Sale { get; set; }
     }
 }

@@ -9,11 +9,10 @@
 
 namespace BookStoreApi.Models.Library
 {
-    using LibraryApiRest.Models.Abstract;
     using System;
     using System.Collections.Generic;
     
-    public partial class Providers : IEntidad
+    public partial class Providers
     {
         public string IdProvider { get; set; }
         public string IdDirection { get; set; }
@@ -27,6 +26,5 @@ namespace BookStoreApi.Models.Library
         public int StatusCode { get; set; }
     
         public virtual Direction Direction { get; set; }
-        public string Id { get => IdProvider; set => IdProvider=value; }
     }
 }

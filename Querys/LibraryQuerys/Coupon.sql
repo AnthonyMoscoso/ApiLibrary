@@ -12,8 +12,7 @@ StatusCode int not null -- 1
 );
 
 create table SaleCoupon (
-IdSaleCoupon varchar (40) primary key not null,
-IdSale varchar (40) not null unique,
+IdSale varchar (40) not null primary key ,
 IdCoupon varchar (40) not null,
 Constraint Fk_SaleCoupon_IdSale foreign key (IdSale) references Sale (IdSale),
 Constraint Fk_SaleCoupon_IdCoupon foreign key (IdCoupon) references Coupon (IdCoupon)

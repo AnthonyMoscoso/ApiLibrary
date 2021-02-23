@@ -8,7 +8,10 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Registers
 {
-    public class RegisterRepositorie : Repositorie<Register>,IRegisterRepositorie
+    public class RegisterRepositorie : Repositorie<Register>, IRegisterRepositorie
     {
+        public RegisterRepositorie(string identificator="IdRegister") : base(identificator)
+        {
+        }
     }
 }

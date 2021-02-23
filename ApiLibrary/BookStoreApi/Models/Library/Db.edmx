@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="BookStoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="BookStoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Autor">
           <Key>
             <PropertyRef Name="IdAutor" />
@@ -621,9 +621,8 @@
         </EntityType>
         <EntityType Name="SaleCoupon">
           <Key>
-            <PropertyRef Name="IdSaleCoupon" />
+            <PropertyRef Name="IdSale" />
           </Key>
-          <Property Name="IdSaleCoupon" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="IdSale" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="IdCoupon" Type="varchar" MaxLength="40" Nullable="false" />
         </EntityType>
@@ -1762,7 +1761,7 @@
         </Association>
         <Association Name="Fk_SaleCoupon_IdSale">
           <End Role="Sale" Type="Self.Sale" Multiplicity="1" />
-          <End Role="SaleCoupon" Type="Self.SaleCoupon" Multiplicity="*" />
+          <End Role="SaleCoupon" Type="Self.SaleCoupon" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Sale">
               <PropertyRef Name="IdSale" />
@@ -2500,7 +2499,8 @@
             <End Role="WareHouseSchedule" EntitySet="WareHouseSchedule" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BookStoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -2513,7 +2513,7 @@
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="StatusCode" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Book" Relationship="BookStoreModel.BookAutor" FromRole="Autor" ToRole="Book" />
+          <NavigationProperty Name="Book" Relationship="Self.BookAutor" FromRole="Autor" ToRole="Book" />
         </EntityType>
         <EntityType Name="Barcode">
           <Key>
@@ -2557,10 +2557,10 @@
           <NavigationProperty Name="SaleLine" Relationship="Self.Fk_SaleLine_IdBook" FromRole="Book" ToRole="SaleLine" />
           <NavigationProperty Name="ShippingLine" Relationship="Self.Fk_ShippingLine_IdBook" FromRole="Book" ToRole="ShippingLine" />
           <NavigationProperty Name="WareHouseBook" Relationship="Self.Fk_WareHouseBook_IdBook" FromRole="Book" ToRole="WareHouseBook" />
+          <NavigationProperty Name="Autor" Relationship="Self.BookAutor" FromRole="Book" ToRole="Autor" />
           <NavigationProperty Name="Discount" Relationship="Self.BookDiscount" FromRole="Book" ToRole="Discount" />
           <NavigationProperty Name="Gender" Relationship="Self.BookGender" FromRole="Book" ToRole="Gender" />
           <NavigationProperty Name="ImageFile" Relationship="Self.BookImageFile" FromRole="Book" ToRole="ImageFile" />
-          <NavigationProperty Name="Autor" Relationship="BookStoreModel.BookAutor" FromRole="Book" ToRole="Autor" />
         </EntityType>
         <EntityType Name="BookEditorial">
           <Key>
@@ -2614,7 +2614,7 @@
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="StatusCode" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="SaleCoupon" Relationship="Self.Fk_SaleCoupon_IdCoupon" FromRole="Coupon" ToRole="SaleCoupon" />
+          <NavigationProperty Name="Sale" Relationship="Self.SaleCoupon" FromRole="Coupon" ToRole="Sale" />
         </EntityType>
         <EntityType Name="Direction">
           <Key>
@@ -3007,7 +3007,7 @@
           <NavigationProperty Name="Person" Relationship="Self.Fk_Reservation_IdBuyer" FromRole="Reservation" ToRole="Person" />
           <NavigationProperty Name="Store" Relationship="Self.Fk_Reservation_IdStore" FromRole="Reservation" ToRole="Store" />
           <NavigationProperty Name="ReservationLine" Relationship="Self.Fk_ReservationLine_IdReservation" FromRole="Reservation" ToRole="ReservationLine" />
-          <NavigationProperty Name="Sale" Relationship="BookStoreModel.ReservationSale" FromRole="Reservation" ToRole="Sale" />
+          <NavigationProperty Name="Sale" Relationship="Self.ReservationSale" FromRole="Reservation" ToRole="Sale" />
         </EntityType>
         <EntityType Name="ReservationLine">
           <Key>
@@ -3091,20 +3091,10 @@
           <NavigationProperty Name="Employee" Relationship="Self.Fk_Sale_IdSeller" FromRole="Sale" ToRole="Employee" />
           <NavigationProperty Name="Person" Relationship="Self.Fk_Sale_IdBuyer" FromRole="Sale" ToRole="Person" />
           <NavigationProperty Name="ReturnSale" Relationship="Self.Fk_SaleReturn_IdSale" FromRole="Sale" ToRole="ReturnSale" />
-          <NavigationProperty Name="SaleCoupon" Relationship="Self.Fk_SaleCoupon_IdSale" FromRole="Sale" ToRole="SaleCoupon" />
           <NavigationProperty Name="SaleLine" Relationship="Self.Fk_SaleLine_IdSale" FromRole="Sale" ToRole="SaleLine" />
+          <NavigationProperty Name="Reservation" Relationship="Self.ReservationSale" FromRole="Sale" ToRole="Reservation" />
+          <NavigationProperty Name="Coupon" Relationship="Self.SaleCoupon" FromRole="Sale" ToRole="Coupon" />
           <NavigationProperty Name="Store" Relationship="Self.StoreSale" FromRole="Sale" ToRole="Store" />
-          <NavigationProperty Name="Reservation" Relationship="BookStoreModel.ReservationSale" FromRole="Sale" ToRole="Reservation" />
-        </EntityType>
-        <EntityType Name="SaleCoupon">
-          <Key>
-            <PropertyRef Name="IdSaleCoupon" />
-          </Key>
-          <Property Name="IdSaleCoupon" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="IdSale" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="IdCoupon" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Coupon" Relationship="Self.Fk_SaleCoupon_IdCoupon" FromRole="SaleCoupon" ToRole="Coupon" />
-          <NavigationProperty Name="Sale" Relationship="Self.Fk_SaleCoupon_IdSale" FromRole="SaleCoupon" ToRole="Sale" />
         </EntityType>
         <EntityType Name="SaleLine">
           <Key>
@@ -3507,18 +3497,6 @@
             </Principal>
             <Dependent Role="BookType1">
               <PropertyRef Name="IdFather" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="Fk_SaleCoupon_IdCoupon">
-          <End Role="Coupon" Type="Self.Coupon" Multiplicity="1" />
-          <End Role="SaleCoupon" Type="Self.SaleCoupon" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Coupon">
-              <PropertyRef Name="IdCoupon" />
-            </Principal>
-            <Dependent Role="SaleCoupon">
-              <PropertyRef Name="IdCoupon" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3930,18 +3908,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Fk_SaleCoupon_IdSale">
-          <End Role="Sale" Type="Self.Sale" Multiplicity="1" />
-          <End Role="SaleCoupon" Type="Self.SaleCoupon" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sale">
-              <PropertyRef Name="IdSale" />
-            </Principal>
-            <Dependent Role="SaleCoupon">
-              <PropertyRef Name="IdSale" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="Fk_SaleLine_IdSale">
           <End Role="Sale" Type="Self.Sale" Multiplicity="1" />
           <End Role="SaleLine" Type="Self.SaleLine" Multiplicity="*" />
@@ -3989,6 +3955,10 @@
               <PropertyRef Name="IdWareHouse" />
             </Dependent>
           </ReferentialConstraint>
+        </Association>
+        <Association Name="BookAutor">
+          <End Role="Autor" Type="Self.Autor" Multiplicity="*" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
         </Association>
         <Association Name="BookDiscount">
           <End Role="Book" Type="Self.Book" Multiplicity="*" />
@@ -4046,6 +4016,10 @@
           <End Role="Register" Type="Self.Register" Multiplicity="*" />
           <End Role="Store" Type="Self.Store" Multiplicity="0..1" />
         </Association>
+        <Association Name="ReservationSale">
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+          <End Role="Sale" Type="Self.Sale" Multiplicity="0..1" />
+        </Association>
         <Association Name="ReturnStore">
           <End Role="ReturnSale" Type="Self.ReturnSale" Multiplicity="*" />
           <End Role="Store" Type="Self.Store" Multiplicity="0..1" />
@@ -4057,6 +4031,10 @@
         <Association Name="RolPermit">
           <End Role="Permit" Type="Self.Permit" Multiplicity="*" />
           <End Role="Rol" Type="Self.Rol" Multiplicity="*" />
+        </Association>
+        <Association Name="SaleCoupon">
+          <End Role="Coupon" Type="Self.Coupon" Multiplicity="0..1" />
+          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
         </Association>
         <Association Name="StoreSale">
           <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
@@ -4106,7 +4084,6 @@
           <EntitySet Name="ReturnSale" EntityType="Self.ReturnSale" />
           <EntitySet Name="Rol" EntityType="Self.Rol" />
           <EntitySet Name="Sale" EntityType="Self.Sale" />
-          <EntitySet Name="SaleCoupon" EntityType="Self.SaleCoupon" />
           <EntitySet Name="SaleLine" EntityType="Self.SaleLine" />
           <EntitySet Name="Schedule" EntityType="Self.Schedule" />
           <EntitySet Name="ScheduleLine" EntityType="Self.ScheduleLine" />
@@ -4186,10 +4163,6 @@
           <AssociationSet Name="Fk_BookType_IdFather" Association="Self.Fk_BookType_IdFather">
             <End Role="BookType" EntitySet="BookType" />
             <End Role="BookType1" EntitySet="BookType" />
-          </AssociationSet>
-          <AssociationSet Name="Fk_SaleCoupon_IdCoupon" Association="Self.Fk_SaleCoupon_IdCoupon">
-            <End Role="Coupon" EntitySet="Coupon" />
-            <End Role="SaleCoupon" EntitySet="SaleCoupon" />
           </AssociationSet>
           <AssociationSet Name="Fk_Editorial_IdDirection" Association="Self.Fk_Editorial_IdDirection">
             <End Role="Direction" EntitySet="Direction" />
@@ -4327,10 +4300,6 @@
             <End Role="Sale" EntitySet="Sale" />
             <End Role="ReturnSale" EntitySet="ReturnSale" />
           </AssociationSet>
-          <AssociationSet Name="Fk_SaleCoupon_IdSale" Association="Self.Fk_SaleCoupon_IdSale">
-            <End Role="Sale" EntitySet="Sale" />
-            <End Role="SaleCoupon" EntitySet="SaleCoupon" />
-          </AssociationSet>
           <AssociationSet Name="Fk_SaleLine_IdSale" Association="Self.Fk_SaleLine_IdSale">
             <End Role="Sale" EntitySet="Sale" />
             <End Role="SaleLine" EntitySet="SaleLine" />
@@ -4346,6 +4315,10 @@
           <AssociationSet Name="Fk_WareHouseBook_IdWareHouse" Association="Self.Fk_WareHouseBook_IdWareHouse">
             <End Role="WareHouse" EntitySet="WareHouse" />
             <End Role="WareHouseBook" EntitySet="WareHouseBook" />
+          </AssociationSet>
+          <AssociationSet Name="BookAutor" Association="Self.BookAutor">
+            <End Role="Autor" EntitySet="Autor" />
+            <End Role="Book" EntitySet="Book" />
           </AssociationSet>
           <AssociationSet Name="BookDiscount" Association="Self.BookDiscount">
             <End Role="Book" EntitySet="Book" />
@@ -4403,6 +4376,10 @@
             <End Role="Register" EntitySet="Register" />
             <End Role="Store" EntitySet="Store" />
           </AssociationSet>
+          <AssociationSet Name="ReservationSale" Association="Self.ReservationSale">
+            <End Role="Reservation" EntitySet="Reservation" />
+            <End Role="Sale" EntitySet="Sale" />
+          </AssociationSet>
           <AssociationSet Name="ReturnStore" Association="Self.ReturnStore">
             <End Role="ReturnSale" EntitySet="ReturnSale" />
             <End Role="Store" EntitySet="Store" />
@@ -4414,6 +4391,10 @@
           <AssociationSet Name="RolPermit" Association="Self.RolPermit">
             <End Role="Permit" EntitySet="Permit" />
             <End Role="Rol" EntitySet="Rol" />
+          </AssociationSet>
+          <AssociationSet Name="SaleCoupon" Association="Self.SaleCoupon">
+            <End Role="Coupon" EntitySet="Coupon" />
+            <End Role="Sale" EntitySet="Sale" />
           </AssociationSet>
           <AssociationSet Name="StoreSale" Association="Self.StoreSale">
             <End Role="Sale" EntitySet="Sale" />
@@ -4427,23 +4408,7 @@
             <End Role="Schedule" EntitySet="Schedule" />
             <End Role="WareHouse" EntitySet="WareHouse" />
           </AssociationSet>
-          <AssociationSet Name="BookAutor" Association="BookStoreModel.BookAutor">
-            <End Role="Autor" EntitySet="Autor" />
-            <End Role="Book" EntitySet="Book" />
-          </AssociationSet>
-          <AssociationSet Name="ReservationSale" Association="BookStoreModel.ReservationSale">
-            <End Role="Reservation" EntitySet="Reservation" />
-            <End Role="Sale" EntitySet="Sale" />
-          </AssociationSet>
         </EntityContainer>
-        <Association Name="BookAutor">
-          <End Type="BookStoreModel.Autor" Role="Autor" Multiplicity="*" />
-          <End Type="BookStoreModel.Book" Role="Book" Multiplicity="*" />
-        </Association>
-        <Association Name="ReservationSale">
-          <End Type="BookStoreModel.Reservation" Role="Reservation" Multiplicity="*" />
-          <End Type="BookStoreModel.Sale" Role="Sale" Multiplicity="0..1" />
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4957,15 +4922,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SaleCoupon">
-            <EntityTypeMapping TypeName="BookStoreModel.SaleCoupon">
-              <MappingFragment StoreEntitySet="SaleCoupon">
-                <ScalarProperty Name="IdSaleCoupon" ColumnName="IdSaleCoupon" />
-                <ScalarProperty Name="IdSale" ColumnName="IdSale" />
-                <ScalarProperty Name="IdCoupon" ColumnName="IdCoupon" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="SaleLine">
             <EntityTypeMapping TypeName="BookStoreModel.SaleLine">
               <MappingFragment StoreEntitySet="SaleLine">
@@ -5142,6 +5098,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="BookAutor" TypeName="BookStoreModel.BookAutor" StoreEntitySet="BookAutor">
+            <EndProperty Name="Autor">
+              <ScalarProperty Name="IdAutor" ColumnName="IdAutor" />
+            </EndProperty>
+            <EndProperty Name="Book">
+              <ScalarProperty Name="IdBook" ColumnName="IdBook" />
+            </EndProperty>
+          </AssociationSetMapping>
           <AssociationSetMapping Name="BookDiscount" TypeName="BookStoreModel.BookDiscount" StoreEntitySet="BookDiscount">
             <EndProperty Name="Book">
               <ScalarProperty Name="IdBook" ColumnName="IdBook" />
@@ -5254,6 +5218,14 @@
               <ScalarProperty Name="IdStore" ColumnName="IdStore" />
             </EndProperty>
           </AssociationSetMapping>
+          <AssociationSetMapping Name="ReservationSale" TypeName="BookStoreModel.ReservationSale" StoreEntitySet="ReservationSale">
+            <EndProperty Name="Reservation">
+              <ScalarProperty Name="IdReservation" ColumnName="IdReservation" />
+            </EndProperty>
+            <EndProperty Name="Sale">
+              <ScalarProperty Name="IdSale" ColumnName="IdSale" />
+            </EndProperty>
+          </AssociationSetMapping>
           <AssociationSetMapping Name="ReturnStore" TypeName="BookStoreModel.ReturnStore" StoreEntitySet="ReturnStore">
             <EndProperty Name="ReturnSale">
               <ScalarProperty Name="IdReturn" ColumnName="IdReturn" />
@@ -5276,6 +5248,14 @@
             </EndProperty>
             <EndProperty Name="Rol">
               <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="SaleCoupon" TypeName="BookStoreModel.SaleCoupon" StoreEntitySet="SaleCoupon">
+            <EndProperty Name="Coupon">
+              <ScalarProperty Name="IdCoupon" ColumnName="IdCoupon" />
+            </EndProperty>
+            <EndProperty Name="Sale">
+              <ScalarProperty Name="IdSale" ColumnName="IdSale" />
             </EndProperty>
           </AssociationSetMapping>
           <AssociationSetMapping Name="StoreSale" TypeName="BookStoreModel.StoreSale" StoreEntitySet="StoreSale">
@@ -5301,23 +5281,6 @@
             <EndProperty Name="WareHouse">
               <ScalarProperty Name="IdWareHouse" ColumnName="IdWareHouse" />
             </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="BookAutor" TypeName="BookStoreModel.BookAutor" StoreEntitySet="BookAutor">
-            <EndProperty Name="Book">
-              <ScalarProperty Name="IdBook" ColumnName="IdBook" />
-            </EndProperty>
-            <EndProperty Name="Autor">
-              <ScalarProperty Name="IdAutor" ColumnName="IdAutor" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="ReservationSale" TypeName="BookStoreModel.ReservationSale" StoreEntitySet="ReservationSale">
-            <EndProperty Name="Sale">
-              <ScalarProperty Name="IdSale" ColumnName="IdSale" />
-            </EndProperty>
-            <EndProperty Name="Reservation">
-              <ScalarProperty Name="IdReservation" ColumnName="IdReservation" />
-            </EndProperty>
-            <Condition ColumnName="IdSale" IsNull="false" />
           </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>

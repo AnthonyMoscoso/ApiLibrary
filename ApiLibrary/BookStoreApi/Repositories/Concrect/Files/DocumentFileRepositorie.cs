@@ -10,5 +10,8 @@ namespace BookStoreApi.Repositories.Concrect.Files
 {
     public class DocumentFileRepositorie : Repositorie<DocumentFile>, IDocumentFileRepositorie
     {
+        public DocumentFileRepositorie(string identificator="IdDocument") : base(identificator)
+        {
+        }
     }
 }

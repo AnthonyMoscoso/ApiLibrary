@@ -10,5 +10,8 @@ namespace BookStoreApi.Repositories.Concrect.Books
 {
     public class BookTypeRepositorie : Repositorie<BookType>, IBookTypeRepositorie
     {
+        public BookTypeRepositorie(string identificator= "IdType") : base(identificator)
+        {
+        }
     }
 }

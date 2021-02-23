@@ -9,11 +9,10 @@
 
 namespace BookStoreApi.Models.Library
 {
-    using LibraryApiRest.Models.Abstract;
     using System;
     using System.Collections.Generic;
     
-    public partial class RegisterLine : IEntidad
+    public partial class RegisterLine
     {
         public string IdRegisterLine { get; set; }
         public string IdRegister { get; set; }
@@ -26,6 +25,5 @@ namespace BookStoreApi.Models.Library
     
         public virtual Employee Employee { get; set; }
         public virtual Register Register { get; set; }
-        public string Id { get => IdRegisterLine; set => IdRegisterLine=value; }
     }
 }

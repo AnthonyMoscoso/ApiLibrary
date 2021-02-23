@@ -60,7 +60,6 @@ namespace BookStoreApi.Models.Library
         public virtual DbSet<ReturnSale> ReturnSale { get; set; }
         public virtual DbSet<Rol> Rol { get; set; }
         public virtual DbSet<Sale> Sale { get; set; }
-        public virtual DbSet<SaleCoupon> SaleCoupon { get; set; }
         public virtual DbSet<SaleLine> SaleLine { get; set; }
         public virtual DbSet<Schedule> Schedule { get; set; }
         public virtual DbSet<ScheduleLine> ScheduleLine { get; set; }

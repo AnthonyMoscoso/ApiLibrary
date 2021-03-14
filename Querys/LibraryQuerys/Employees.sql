@@ -33,7 +33,7 @@ create table Employee (
 IdEmployee varchar(40) primary key not null, -- 5656565656
 IdBoss varchar (40) , --- 5655665 656
 IdOccupation varchar (40) not null,
-IdPerson varchar (40) unique,
+IdPerson varchar (40) unique not null,
 Dni varchar (15) not null unique, -- 98569596
 StartDate datetime not null, -- 12/05/2021 12:45:00
 HireDate datetime  not null,  -- 12/05/2021 12:45:00

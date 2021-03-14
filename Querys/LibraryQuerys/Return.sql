@@ -1,4 +1,5 @@
 use BookStore;
+
 create table ReturnSale (
 IdReturn varchar (40) primary key not null, -- GH56HG67GHGG56756
 IdSale varchar (40) not null, -- GH56HG67GHGG56756
@@ -40,4 +41,5 @@ IdReturn varchar (40) not null primary key,
 IdWareHouse varchar (40) not null ,
 Constraint Fk_ReturnnWareHouse_IdStore  foreign key (IdWareHouse) references WareHouse (IdWareHouse),
 Constraint Fk_ReturnnWareHouse_IdReturn foreign key (IdReturn) references ReturnSale (IdReturn)
-);
+);*/
+

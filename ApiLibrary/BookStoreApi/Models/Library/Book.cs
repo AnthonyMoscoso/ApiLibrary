@@ -23,13 +23,13 @@ namespace BookStoreApi.Models.Library
             this.OrderLine = new HashSet<OrderLine>();
             this.PurchaseLine = new HashSet<PurchaseLine>();
             this.ReceptionLine = new HashSet<ReceptionLine>();
-            this.ReservationLine = new HashSet<ReservationLine>();
             this.ReturnLine = new HashSet<ReturnLine>();
             this.SaleLine = new HashSet<SaleLine>();
             this.ShippingLine = new HashSet<ShippingLine>();
             this.WareHouseBook = new HashSet<WareHouseBook>();
             this.Autor = new HashSet<Autor>();
             this.Gender = new HashSet<Gender>();
+            this.Reservation = new HashSet<Reservation>();
         }
     
         public string IdBook { get; set; }
@@ -63,8 +63,6 @@ namespace BookStoreApi.Models.Library
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReceptionLine> ReceptionLine { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ReservationLine> ReservationLine { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReturnLine> ReturnLine { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SaleLine> SaleLine { get; set; }
@@ -78,5 +76,7 @@ namespace BookStoreApi.Models.Library
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gender> Gender { get; set; }
         public virtual ImageFile ImageFile { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Reservation> Reservation { get; set; }
     }
 }

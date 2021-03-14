@@ -29,5 +29,6 @@ namespace BookStoreApi.Models.Library
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RegisterLine> RegisterLine { get; set; }
         public virtual Store Store { get; set; }
+        public virtual WareHouse WareHouse { get; set; }
     }
 }

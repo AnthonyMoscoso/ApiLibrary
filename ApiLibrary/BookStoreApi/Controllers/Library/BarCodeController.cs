@@ -20,6 +20,7 @@ namespace BookStoreApi.Controllers.Library.BarCodes
             return Ok(_repository.Get());
         }
         [HttpPost]
+        [Route("GetList")]
         public IHttpActionResult Get(List<string> ids)
         {
             return Ok(_repository.Get(ids));

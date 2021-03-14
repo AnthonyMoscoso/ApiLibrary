@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models;
+﻿using AutoMapper;
+using BookStoreApi.Models;
 using BookStoreApi.Models.Library;
 using LibraryApiRest.Enums;
 using LibraryApiRest.Repositories.Abstract;
@@ -20,6 +21,7 @@ namespace LibraryApiRest.Repositories.Concrect
         public string name;
         public string Identificator;
         public string query;
+        public readonly IMapper mapper;
         public Repositorie(string identificator)
         {
             Context = new BookStoreEntities();
@@ -35,7 +37,7 @@ namespace LibraryApiRest.Repositories.Concrect
             foreach (string id  in ids)
             {
 
-                query = string.Format("Select * from {0} where {1}={2}",name,Identificator,id);
+                query = string.Format("Select * from {0} where {1}='{2}'",name,Identificator,id);
                 TEntity search = dbSet.SqlQuery(query).SingleOrDefault();
                 if (search!=null)
                 {
@@ -50,9 +52,6 @@ namespace LibraryApiRest.Repositories.Concrect
 
             return message;
         }
-
-        
-
         public dynamic Get()
         {
             return dbSet.ToList();
@@ -64,7 +63,7 @@ namespace LibraryApiRest.Repositories.Concrect
             List<TEntity> entities = new List<TEntity>();
             foreach (string id in ids)
             {
-                query = string.Format("Select * from {0} where {1}={2}", name, Identificator, id);
+                query = string.Format("Select * from {0} where {1}='{2}'", name, Identificator, id);
                 TEntity search = dbSet.SqlQuery(query).SingleOrDefault();
                 if (search != null)
                 {
@@ -79,11 +78,19 @@ namespace LibraryApiRest.Repositories.Concrect
             return entities;
         }
 
-        public dynamic Get(int elements, int page)
+        public dynamic Get(int elements, int pag)
         {
-            int skip = page == 1 ? 0 : elements*page; 
-            List<TEntity> list = dbSet.Skip(skip).Take(elements).ToList();
+   
+      
+            List<TEntity> list = dbSet.OrderBy(x =>Identificator).Skip((pag-1)*elements).Take(elements).ToList();
             return list;
+        }
+
+        public dynamic Get(string id)
+        {
+            query = string.Format("Select * from {0} where {1}='{2}'", name, Identificator, id);
+            TEntity search = dbSet.SqlQuery(query).SingleOrDefault();
+            return search;
         }
 
         public dynamic Insert(List<TEntity> list)

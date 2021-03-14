@@ -19,9 +19,11 @@ namespace BookStoreApi.Models.Library
         {
             this.Orders = new HashSet<Orders>();
             this.WareHouseBook = new HashSet<WareHouseBook>();
+            this.Employee = new HashSet<Employee>();
             this.Purchase = new HashSet<Purchase>();
             this.ReturnSale = new HashSet<ReturnSale>();
             this.Schedule = new HashSet<Schedule>();
+            this.Register = new HashSet<Register>();
         }
     
         public string IdWareHouse { get; set; }
@@ -42,10 +44,14 @@ namespace BookStoreApi.Models.Library
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WareHouseBook> WareHouseBook { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employee> Employee { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Purchase> Purchase { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReturnSale> ReturnSale { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Schedule> Schedule { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Register> Register { get; set; }
     }
 }

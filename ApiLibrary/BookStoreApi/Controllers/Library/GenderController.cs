@@ -19,7 +19,13 @@ namespace BookStoreApi.Controllers.Library.Genders
         {
             return Ok(_repository.Get());
         }
+        [HttpGet]
+        public IHttpActionResult Get(string id)
+        {
+            return Ok(_repository.Get(id));
+        }
         [HttpPost]
+        [Route("List")]
         public IHttpActionResult Get(List<string> ids)
         {
             return Ok(_repository.Get(ids));
@@ -30,6 +36,18 @@ namespace BookStoreApi.Controllers.Library.Genders
         public IHttpActionResult Get(int element, int page)
         {
             return Ok(_repository.Get(element, page));
+        }
+        [HttpGet]
+        [Route("SearchByName")]
+        public IHttpActionResult SearchByName(string text)
+        {
+            return Ok(_repository.SearchByName(text));
+        }
+        [HttpGet]
+        [Route("SearchByName")]
+        public IHttpActionResult SearchByName(string text, int pag, int element)
+        {
+            return Ok(_repository.SearchByName(text, pag, element));
         }
         [HttpPost]
         public IHttpActionResult Post(List<Gender> list)
@@ -48,5 +66,6 @@ namespace BookStoreApi.Controllers.Library.Genders
         {
             return Ok(_repository.Delete(ids));
         }
+
     }
 }

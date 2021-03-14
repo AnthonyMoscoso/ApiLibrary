@@ -19,7 +19,19 @@ namespace BookStoreApi.Controllers.Library.Books
         {
             return Ok(_repository.Get());
         }
+        [HttpGet]
+        public IHttpActionResult Get(string id)
+        {
+            return Ok(_repository.Get(id));
+        }
+        [HttpGet]
+        [Route("PurchasePrice")]
+        public IHttpActionResult GetPurchasePrice(string idBook,string idEditorial)
+        {
+            return Ok(_repository.GetPurchasePrice(idBook,idEditorial));
+        }
         [HttpPost]
+        [Route("List")]
         public IHttpActionResult Get(List<string> ids)
         {
             return Ok(_repository.Get(ids));

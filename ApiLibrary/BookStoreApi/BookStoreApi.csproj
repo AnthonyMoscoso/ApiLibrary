@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BookStoreApi</RootNamespace>
     <AssemblyName>BookStoreApi</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44354</IISExpressSSLPort>
@@ -23,6 +23,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,6 +44,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.10.1.1\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -62,6 +66,7 @@
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.IdentityModel.Tokens.Jwt, Version=6.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.6.8.0\lib\net461\System.IdentityModel.Tokens.Jwt.dll</HintPath>
     </Reference>
@@ -77,8 +82,6 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
@@ -86,13 +89,13 @@
     <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
@@ -164,10 +167,12 @@
     <Compile Include="Controllers\Login\Repositorie\LoginRepositorie.cs" />
     <Compile Include="Controllers\Login\Tokens\TokenGenerator.cs" />
     <Compile Include="Controllers\Login\Tokens\TokenValidationHandler.cs" />
+    <Compile Include="Enums\ReservationStatus.cs" />
     <Compile Include="Enums\StatusCode.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Mappers\MappingProfile.cs" />
     <Compile Include="Models\Library\Autor.cs">
       <DependentUpon>Db.tt</DependentUpon>
     </Compile>
@@ -273,9 +278,6 @@
     <Compile Include="Models\Library\Reservation.cs">
       <DependentUpon>Db.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Library\ReservationLine.cs">
-      <DependentUpon>Db.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Library\ReturnLine.cs">
       <DependentUpon>Db.tt</DependentUpon>
     </Compile>
@@ -343,100 +345,100 @@
     <Compile Include="Models\Login\Users.cs">
       <DependentUpon>UserDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Request\EmployeeRequest.cs" />
+    <Compile Include="Models\Request\PersonRequest.cs" />
+    <Compile Include="Models\Request\SocieRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\Abstract\Books\IBookEditorialRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Books\IBookStoreRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Books\IBookTypeRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Coupons\ICouponRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Directions\IDirectionRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Discounts\IDiscountRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Editions\IEditionRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Editorials\IEditorialRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Files\IDocumentFileRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Files\IImageFileRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Genders\IGenderRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Autors\IAutorRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\BarCodes\IBarCodeRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Books\IBookRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Occupations\IOccupationRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Order\IOrderLineRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Order\IOrderRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Payments\IPaymentBonusRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\PayRolls\IPayRollRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Permits\IPermitRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Persons\IEmployeeRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Persons\IPersonRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Persons\ISocieRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Provide\IProviderRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Purchases\IPurchaseLineRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Purchases\IPurchaseRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Receptions\IReceptionLineRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Receptions\IReceptionRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Registers\IRegisterLineRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Registers\IRegisterRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Reservations\IReservationLine.cs" />
-    <Compile Include="Repositories\Abstract\Reservations\IReservationRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Returns\IReturnLineRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Returns\IReturnSaleRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Rols\IRolRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Sales\ISaleLineRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Sales\ISaleRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Schedules\IScheduleLineRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Schedules\IScheduleRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Shippings\IShippingLineRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Shippings\IShippingRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Stores\IStoreRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\Taxe\ITaxesRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\WareHouses\IWareHouseBookRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\WareHouses\IWareHouseRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\BarCodes\BarCodeRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Books\BookEditorialRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Books\BookRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Books\BookStoreRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Books\BookTypeRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Coupons\CouponRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Directions\DirectionRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Discounts\DiscountRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Editions\EditionRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Editorials\EditorialRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Files\DocumentFileRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Files\ImageFileRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Genders\GenderRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Occupations\OccupationRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Order\OrderLineRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Order\OrderRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Payments\PaymentBonusRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\PayRolls\PayRollRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Permits\PermitRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Persons\EmployeeRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Persons\PersonRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Persons\SocieRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Provide\ProviderRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Purchases\PurchaseLineRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Purchases\PurchaseRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Receptions\ReceptionLineRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Receptions\ReceptionRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Registers\RegisterLineRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Registers\RegisterRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Reservations\ReservationLineRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Reservations\ReservationRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Returns\ReturnLineRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Returns\ReturnSaleRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Rols\RolRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Sales\SaleLineRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Sales\SaleRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Schedules\ScheduleLineRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Schedules\ScheduleRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Shippings\ShippingLineRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Shippings\ShippingRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Stores\StoreRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Taxe\TaxesRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\WareHouses\WareHouseBookRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\WareHouses\WareHouseRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IBookEditorialRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IBookStoreRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IBookTypeRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\ICouponRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IDirectionRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IDiscountRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IEditionRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IEditorialRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IDocumentFileRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IImageFileRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IGenderRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IAutorRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IBarCodeRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IBookRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IOccupationRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IOrderLineRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IOrderRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IPaymentBonusRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IPayRollRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IPermitRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IEmployeeRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IPersonRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\ISocieRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IProviderRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IPurchaseLineRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IPurchaseRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IReceptionLineRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IReceptionRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IRegisterLineRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IRegisterRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IReservationRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IReturnLineRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IReturnSaleRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IRolRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\ISaleLineRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\ISaleRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IScheduleLineRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IScheduleRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IShippingLineRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IShippingRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IStoreRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\ITaxesRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IWareHouseBookRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IWareHouseRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\BarCodeRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\BookEditorialRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\BookRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\BookStoreRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\BookTypeRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\CouponRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\DirectionRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\DiscountRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\EditionRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\EditorialRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\DocumentFileRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\ImageFileRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\GenderRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\OccupationRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\OrderLineRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\OrderRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\PaymentBonusRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\PayRollRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\PermitRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\EmployeeRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\PersonRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\SocieRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\ProviderRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\PurchaseLineRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\PurchaseRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\ReceptionLineRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\ReceptionRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\RegisterLineRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\RegisterRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\ReservationRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\ReturnLineRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\ReturnSaleRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\RolRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\SaleLineRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\SaleRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\ScheduleLineRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\ScheduleRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\ShippingLineRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\ShippingRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\StoreRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\TaxesRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\WareHouseBookRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\WareHouseRepositorie.cs" />
     <Compile Include="Repositories\Generic\IRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\Autors\AutorRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\AutorRepositorie.cs" />
     <Compile Include="Repositories\Generic\Repositorie.cs" />
-    <Compile Include="Dtos\BookDto.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Models\Login\UserDb.edmx">
@@ -470,6 +472,9 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

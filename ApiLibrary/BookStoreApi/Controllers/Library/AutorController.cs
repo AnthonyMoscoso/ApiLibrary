@@ -9,8 +9,9 @@ using System.Web.Http;
 
 namespace BookStoreApi.Controllers
 {
-
+    
     [RoutePrefix("Api/Autor")]
+    [Authorize]
     public class AutorController : ApiController 
     {
 
@@ -21,23 +22,56 @@ namespace BookStoreApi.Controllers
         {
             return Ok(_repository.Get());
         }
+        [HttpGet]
+        public IHttpActionResult Get(string id)
+        {
+            return Ok(_repository.Get(id));
+        }
         [HttpPost]
+        [Route("List")]
         public IHttpActionResult Get(List<string> ids)
         {
             return Ok(_repository.Get(ids));
         }
-
+        [HttpGet]
+        [Route("Name")]
+        public IHttpActionResult GetByName(string name)
+        {
+            return Ok(_repository.GetByName(name));
+        }
         [HttpGet]
         [Route("Pag")]
-        public IHttpActionResult Get(int element, int page)
+        public IHttpActionResult Get(int element, int pag)
         {
-            return Ok(_repository.Get(element, page));
+            return Ok(_repository.Get(element, pag));
         }
+
+        [HttpGet]
+        [Route("SearchByName")]
+        public IHttpActionResult SearchByName(string text)
+        {
+            return Ok(_repository.SearchByName(text));
+        }
+        [HttpGet]
+        [Route("SearchByName")]
+        public IHttpActionResult SearchByName(string text, int pag, int element)
+        {
+            return Ok(_repository.SearchByName(text, pag, element));
+        }
+        [HttpGet]
+        [Route("ExistName")]
+        public IHttpActionResult ExistName(string name)
+        {
+            return Ok(_repository.ExistName(name));
+        }
+
+
         [HttpPost]
         public IHttpActionResult Post(List<Autor> list)
         {
             return Ok(_repository.Insert(list));
         }
+       
 
         [HttpPut]
         public IHttpActionResult Put(List<Autor>list)

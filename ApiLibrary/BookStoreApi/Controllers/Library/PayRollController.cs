@@ -19,7 +19,74 @@ namespace BookStoreApi.Controllers.Library.PayRolls
         {
             return Ok(_repository.Get());
         }
+
+        [HttpGet]
+        public IHttpActionResult Get(string id)
+        {
+            return Ok(_repository.Get(id));
+        }
+        [HttpGet]
+        [Route("Date")]
+        public IHttpActionResult GetByDate(int year)
+        {
+            return Ok(_repository.GetByDate(year));
+        }
+        [HttpGet]
+        [Route("Date")]
+        public IHttpActionResult GetByDate(int year,int pag,int element)
+        {
+            return Ok(_repository.GetByDate(year,pag ,element));
+        }
+        [HttpGet]
+        [Route("Date")]
+        public IHttpActionResult GetByDate(int year,int month)
+        {
+            return Ok(_repository.GetByDate(year,month));
+        }
+        [HttpGet]
+        [Route("Date")]
+        public IHttpActionResult GetByDate(int year, int month, int pag, int element)
+        {
+            return Ok(_repository.GetByDate(year, month,pag,element));
+        }
+        [HttpGet]
+        [Route("Date")]
+        public IHttpActionResult GetByDate(DateTime date)
+        {
+            return Ok(_repository.GetByDate(date));
+        }
+        [HttpGet]
+        [Route("Employee")]
+        public IHttpActionResult GetByEmployee(string idEmployee)
+        {
+            return Ok(_repository.GetByEmployee(idEmployee));
+        }
+        [HttpGet]
+        [Route("Employee")]
+        public IHttpActionResult GetByEmployee(string idEmployee,int year)
+        {
+            return Ok(_repository.GetByEmployee(idEmployee,year));
+        }
+        [HttpGet]
+        [Route("Employee")]
+        public IHttpActionResult GetByEmployee(string idEmployee, int year,int pag,int element)
+        {
+            return Ok(_repository.GetByEmployee(idEmployee, year,pag,element));
+        }
+        [HttpGet]
+        [Route("Employee")]
+        public IHttpActionResult GetByEmployee(string idEmployee, int year,int month)
+        {
+            return Ok(_repository.GetByEmployee(idEmployee, year,month));
+        }
+        [HttpGet]
+        [Route("Employee")]
+        public IHttpActionResult GetByEmployee(string idEmployee, int year, int month, int pag, int element)
+        {
+            return Ok(_repository.GetByEmployee(idEmployee, year, month,pag,element));
+        }
         [HttpPost]
+        [Route("List")]
         public IHttpActionResult Get(List<string> ids)
         {
             return Ok(_repository.Get(ids));

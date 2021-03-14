@@ -20,9 +20,9 @@ IdStore varchar (40) not null primary key , -- 78JGUUITY567
 IdDirection  varchar (40) not null,  -- 78JGUUITY567
 StoreName varchar (125) not null , -- Tint Hitn Sl. AS 
 StoreDescription varchar (max) not null,
-Phone varchar (15) not null unique, -- 675894094
-Email varchar (75) not null unique, -- Hint@gmail.com		
-Web varchar (75) not null unique, --- HintEnterprise.com 
+Phone varchar (15) not null , -- 675894094
+Email varchar (75) not null , -- Hint@gmail.com		
+Web varchar (75) not null , --- HintEnterprise.com 
 Note varchar (max),
 CreateDate datetime not null, --- 12/05/2021 12:45:00
 LastUpdateDate datetime not null,--- 12/05/2021 12:45:00

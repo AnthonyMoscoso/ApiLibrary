@@ -14,12 +14,6 @@ namespace BookStoreApi.Models.Library
     
     public partial class Reservation
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Reservation()
-        {
-            this.ReservationLine = new HashSet<ReservationLine>();
-        }
-    
         public string IdReservation { get; set; }
         public string IdStore { get; set; }
         public string IdEmployee { get; set; }
@@ -30,12 +24,14 @@ namespace BookStoreApi.Models.Library
         public System.DateTime CreateDate { get; set; }
         public System.DateTime LastUpdateDate { get; set; }
         public int StatusCode { get; set; }
+        public string IdBook { get; set; }
+        public int Quantity { get; set; }
+        public double BookReservationPrice { get; set; }
     
         public virtual Employee Employee { get; set; }
         public virtual Person Person { get; set; }
         public virtual Store Store { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ReservationLine> ReservationLine { get; set; }
         public virtual Sale Sale { get; set; }
+        public virtual Book Book { get; set; }
     }
 }

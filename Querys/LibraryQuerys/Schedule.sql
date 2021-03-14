@@ -12,7 +12,7 @@ create table ScheduleLine (
 IdScheduleLine varchar (40) primary key not null,
 IdSchedule varchar(40) not null, -- 
 MonthNum int not null check(MonthNum>0 and MonthNum<13), -- 12 
-MontDay int  check(MontDay>0 and MontDay<32), -- 2
+MonthDay int  check(MonthDay>0 and MonthDay<32), -- 2
 IsClosed bit not null default (0),
 StartTime TIME , -- 10:00 
 BreakStar TIME ,  -- 14:30

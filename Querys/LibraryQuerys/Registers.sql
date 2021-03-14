@@ -1,6 +1,6 @@
 use BookStore;
 
-
+/*
 create table Register(
 IdRegister varchar (40) not null primary key,
 RegisterDate datetime not null ,
@@ -21,10 +21,17 @@ StatusCode int not null ,-- 2
 Constraint Fk_RegisterLine_IdRegister foreign key (IdRegister) references Register(IdRegister),
 Constraint Fk_RegisterLine_IdEmployee foreign key (IdEmployee) references Employee(IdEmployee)
 );
-
+*/
 create table RegisterStore (
-IdStore varchar (40) not null,
-IdRegister varchar (40) not null primary key ,
+IdStore varchar (40) not null ,
+IdRegister varchar (40) not null unique,
 Constraint Fk_RegisterStore_IdStore foreign key (IdStore) references Store(IdStore),
 Constraint Fk_RegisterStore_IdRegister foreign key (IdRegister) references Register(IdRegister)
+);
+
+create table RegisterWareHouse (
+IdWareHouse varchar (40) not null,
+IdRegister varchar (40) not null primary key ,
+Constraint Fk_RegisterWareHouse_IdWareHouse foreign key (IdWareHouse) references WareHouse(IdWareHouse),
+Constraint Fk_RegisterWareHouse_IdRegister foreign key (IdRegister) references Register(IdRegister)
 );

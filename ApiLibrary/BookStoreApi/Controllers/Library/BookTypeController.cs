@@ -15,17 +15,43 @@ namespace BookStoreApi.Controllers.Library.Books
         {
             return Ok(_repository.Get());
         }
+
+        [HttpGet]
+        public IHttpActionResult Get(string id)
+        {
+            return Ok(_repository.Get(id));
+        }
         [HttpPost]
+        [Route("List")]
         public IHttpActionResult Get(List<string> ids)
         {
             return Ok(_repository.Get(ids));
         }
 
         [HttpGet]
-        [Route("Pag")]
-        public IHttpActionResult Get(int element, int page)
+        [Route("Name")]
+        public IHttpActionResult GetByName(string name)
         {
-            return Ok(_repository.Get(element, page));
+            return Ok(_repository.GetByName(name));
+        }
+        [HttpGet]
+        [Route("Pag")]
+        public IHttpActionResult Get(int element, int pag)
+        {
+            return Ok(_repository.Get(element, pag));
+        }
+
+        [HttpGet]
+        [Route("SearchByName")]
+        public IHttpActionResult SearchByName(string text)
+        {
+            return Ok(_repository.SearchByName(text));
+        }
+        [HttpGet]
+        [Route("SearchByName")]
+        public IHttpActionResult SearchByName(string text, int pag, int element)
+        {
+            return Ok(_repository.SearchByName(text, pag, element));
         }
         [HttpPost]
         public IHttpActionResult Post(List<BookType> list)

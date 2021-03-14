@@ -4,54 +4,53 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="2f7e0160d9b9404c83e5bee9cc4e8b4b" Name="Diagram1">
-        <EntityTypeShape EntityType="BookStoreModel.Autor" Width="1.5" PointX="0.75" PointY="25.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.Barcode" Width="1.5" PointX="5.25" PointY="26" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.Book" Width="1.5" PointX="3" PointY="23.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.BookEditorial" Width="1.5" PointX="5.25" PointY="22.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.BookStore" Width="1.5" PointX="5.25" PointY="28.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.BookType" Width="1.5" PointX="0.75" PointY="21.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.Coupon" Width="1.5" PointX="0.75" PointY="33.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.Direction" Width="1.5" PointX="3.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.Discount" Width="1.5" PointX="5.25" PointY="32.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.DocumentFile" Width="1.5" PointX="3.75" PointY="53.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.Edition" Width="1.5" PointX="0.75" PointY="29.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.Editorial" Width="1.5" PointX="1.5" PointY="95.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.Employee" Width="1.5" PointX="0.75" PointY="39.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.Gender" Width="1.5" PointX="5.25" PointY="36.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.ImageFile" Width="1.5" PointX="8.25" PointY="25.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.Occupation" Width="1.5" PointX="1.5" PointY="54" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.OrderLine" Width="1.5" PointX="8.25" PointY="21.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.Orders" Width="1.5" PointX="6" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.PaymentBonus" Width="1.5" PointX="1.5" PointY="68.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.PayRoll" Width="1.5" PointX="1.5" PointY="78" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.Permit" Width="1.5" PointX="0.75" PointY="47.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.Person" Width="1.5" PointX="1.5" PointY="57.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.Providers" Width="1.5" PointX="6" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.Purchase" Width="1.5" PointX="1.5" PointY="90.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.PurchaseLine" Width="1.5" PointX="8.25" PointY="29.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.Reception" Width="1.5" PointX="9" PointY="13.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.ReceptionLine" Width="1.5" PointX="11.25" PointY="25.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.Register" Width="1.5" PointX="1.5" PointY="100.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.RegisterLine" Width="1.5" PointX="3.75" PointY="69.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.Reservation" Width="1.5" PointX="0.75" PointY="72.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.ReservationLine" Width="1.5" PointX="11.25" PointY="21.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.ReturnLine" Width="1.5" PointX="11.25" PointY="29.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.ReturnSale" Width="1.5" PointX="1.5" PointY="103.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.Rol" Width="1.5" PointX="3" PointY="41.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.Sale" Width="1.5" PointX="3" PointY="47.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.SaleLine" Width="1.5" PointX="5.25" PointY="18.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.Schedule" Width="1.5" PointX="1.5" PointY="62.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.ScheduleLine" Width="1.5" PointX="3.75" PointY="62.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.Shipping" Width="1.5" PointX="6" PointY="12.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.ShippingLine" Width="1.5" PointX="8.25" PointY="17.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.SickLeave" Width="1.5" PointX="6" PointY="40.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.Socie" Width="1.5" PointX="3.75" PointY="58.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.Store" Width="1.5" PointX="1.5" PointY="84.125" IsExpanded="true" />
+      <Diagram DiagramId="afcb69b584fa4baf8bcba9dad8205563" Name="Diagram1" ZoomLevel="59">
+        <EntityTypeShape EntityType="BookStoreModel.Autor" Width="1.5" PointX="9" PointY="41.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Barcode" Width="1.5" PointX="10.5" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Book" Width="1.5" PointX="11.25" PointY="42.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.BookEditorial" Width="1.5" PointX="13.5" PointY="43.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.BookStore" Width="1.5" PointX="15" PointY="23.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.BookType" Width="1.5" PointX="9" PointY="44.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Coupon" Width="1.5" PointX="19" PointY="31.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Direction" Width="1.5" PointX="10.5" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Discount" Width="1.5" PointX="13.5" PointY="39.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.DocumentFile" Width="1.5" PointX="9" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Edition" Width="1.5" PointX="9" PointY="47.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Editorial" Width="1.5" PointX="3" PointY="40.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Employee" Width="1.5" PointX="3" PointY="27.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Gender" Width="1.5" PointX="13.5" PointY="47.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.ImageFile" Width="1.5" PointX="5.25" PointY="29.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Occupation" Width="1.5" PointX="0.75" PointY="24.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.OrderLine" Width="1.5" PointX="13.5" PointY="29.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Orders" Width="1.5" PointX="8.25" PointY="29.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.PaymentBonus" Width="1.5" PointX="5.25" PointY="25.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.PayRoll" Width="1.5" PointX="7.5" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Permit" Width="1.5" PointX="6" PointY="41.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Person" Width="1.5" PointX="0.75" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Providers" Width="1.5" PointX="12.75" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Purchase" Width="1.5" PointX="5.25" PointY="33.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.PurchaseLine" Width="1.5" PointX="7.5" PointY="37.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Reception" Width="1.5" PointX="16" PointY="26.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.ReceptionLine" Width="1.5" PointX="21.25" PointY="26.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Register" Width="1.5" PointX="6" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.RegisterLine" Width="1.5" PointX="8.25" PointY="25.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Reservation" Width="1.5" PointX="19" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.ReturnLine" Width="1.5" PointX="25.75" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.ReturnSale" Width="1.5" PointX="23.5" PointY="31.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Rol" Width="1.5" PointX="8.25" PointY="33.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Sale" Width="1.5" PointX="21.25" PointY="30.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.SaleLine" Width="1.5" PointX="26.5" PointY="27.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Schedule" Width="1.5" PointX="0.75" PointY="34.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.ScheduleLine" Width="1.5" PointX="3" PointY="22.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Shipping" Width="1.5" PointX="19" PointY="20.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.ShippingLine" Width="1.5" PointX="21.25" PointY="36.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.SickLeave" Width="1.5" PointX="11.25" PointY="29" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Socie" Width="1.5" PointX="3" PointY="36.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Store" Width="1.5" PointX="12.75" PointY="21.875" IsExpanded="true" />
         <EntityTypeShape EntityType="BookStoreModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.Taxes" Width="1.5" PointX="3.75" PointY="79" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.WareHouse" Width="1.5" PointX="3.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.WareHouseBook" Width="1.5" PointX="8.25" PointY="33.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.Taxes" Width="1.5" PointX="9.75" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.WareHouse" Width="1.5" PointX="28.75" PointY="30.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreModel.WareHouseBook" Width="1.5" PointX="31" PointY="31.375" IsExpanded="true" />
         <AssociationConnector Association="BookStoreModel.Fk_Barcode_IdBook" ManuallyRouted="false" />
         <AssociationConnector Association="BookStoreModel.Fk_Barcode_IdImageFile" ManuallyRouted="false" />
         <AssociationConnector Association="BookStoreModel.Fk_Book_IdEdition" ManuallyRouted="false" />
@@ -61,7 +60,6 @@
         <AssociationConnector Association="BookStoreModel.Fk_OrderLine_IdBook" ManuallyRouted="false" />
         <AssociationConnector Association="BookStoreModel.Fk_PurchaseLine_IdBook" ManuallyRouted="false" />
         <AssociationConnector Association="BookStoreModel.FK_ReceptionLine_IdWareHouse" ManuallyRouted="false" />
-        <AssociationConnector Association="BookStoreModel.Fk_ReservationLine_IdEmployee" ManuallyRouted="false" />
         <AssociationConnector Association="BookStoreModel.Fk_ReturnLine_IdBook" ManuallyRouted="false" />
         <AssociationConnector Association="BookStoreModel.Fk_SaleLine_IdBook" ManuallyRouted="false" />
         <AssociationConnector Association="BookStoreModel.Fk_ShippingLine_IdBook" ManuallyRouted="false" />
@@ -100,7 +98,6 @@
         <AssociationConnector Association="BookStoreModel.Fk_ReceptionLine_IdShipping" ManuallyRouted="false" />
         <AssociationConnector Association="BookStoreModel.Fk_RegisterLine_IdRegister" ManuallyRouted="false" />
         <AssociationConnector Association="BookStoreModel.Fk_Reservation_IdStore" ManuallyRouted="false" />
-        <AssociationConnector Association="BookStoreModel.Fk_ReservationLine_IdReservation" ManuallyRouted="false" />
         <AssociationConnector Association="BookStoreModel.Fk_ReturnLine_IdReturn" ManuallyRouted="false" />
         <AssociationConnector Association="BookStoreModel.Fk_SaleReturn_IdSale" ManuallyRouted="false" />
         <AssociationConnector Association="BookStoreModel.Fk_SaleLine_IdSale" ManuallyRouted="false" />
@@ -114,6 +111,8 @@
         <AssociationConnector Association="BookStoreModel.EmployeeImageFile" ManuallyRouted="false" />
         <AssociationConnector Association="BookStoreModel.EmployeeRol" ManuallyRouted="false" />
         <AssociationConnector Association="BookStoreModel.EmployeeSchedule" ManuallyRouted="false" />
+        <AssociationConnector Association="BookStoreModel.EmployeeStore" ManuallyRouted="false" />
+        <AssociationConnector Association="BookStoreModel.EmployeeWareHouse" ManuallyRouted="false" />
         <AssociationConnector Association="BookStoreModel.PaymentBonusEmployee" ManuallyRouted="false" />
         <AssociationConnector Association="BookStoreModel.PaymentBonusOccupation" ManuallyRouted="false" />
         <AssociationConnector Association="BookStoreModel.PayRollBonus" ManuallyRouted="false" />
@@ -130,6 +129,8 @@
         <AssociationConnector Association="BookStoreModel.StoreSale" ManuallyRouted="false" />
         <AssociationConnector Association="BookStoreModel.StoreSchedule" ManuallyRouted="false" />
         <AssociationConnector Association="BookStoreModel.WareHouseSchedule" ManuallyRouted="false" />
+        <AssociationConnector Association="BookStoreModel.RegisterWareHouse" />
+        <AssociationConnector Association="BookStoreModel.Fk_Reservation_IdBook" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

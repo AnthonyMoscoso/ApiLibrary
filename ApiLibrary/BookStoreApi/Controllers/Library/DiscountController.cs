@@ -19,7 +19,43 @@ namespace BookStoreApi.Controllers.Library.Discounts
         {
             return Ok(_repository.Get());
         }
+        [HttpGet]
+        public IHttpActionResult Get(string id)
+        {
+            return Ok(_repository.Get(id));
+        }
+        [HttpGet]
+        [Route("Book")]
+        public IHttpActionResult GetByBook(string idBook)
+        {
+            return Ok(_repository.GetByBook(idBook));
+        }
+        [HttpGet]
+        [Route("Finalized")]
+        public IHttpActionResult GetFinalized()
+        {
+            return Ok(_repository.GetFinnalized());
+        }
+        [HttpGet]
+        [Route("Finalized")]
+        public IHttpActionResult GetFinalized(int pag,int element)
+        {
+            return Ok(_repository.GetFinnalized(pag,element));
+        }
+        [HttpGet]
+        [Route("NotFinalized")]
+        public IHttpActionResult GetNotFinalized()
+        {
+            return Ok(_repository.GetNotFinnalized());
+        }
+        [HttpGet]
+        [Route("NotFinalized")]
+        public IHttpActionResult GetNotFinalized(int pag, int element)
+        {
+            return Ok(_repository.GetNotFinnalized(pag, element));
+        }
         [HttpPost]
+        [Route("List")]
         public IHttpActionResult Get(List<string> ids)
         {
             return Ok(_repository.Get(ids));

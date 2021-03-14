@@ -55,7 +55,6 @@ namespace BookStoreApi.Models.Library
         public virtual DbSet<Register> Register { get; set; }
         public virtual DbSet<RegisterLine> RegisterLine { get; set; }
         public virtual DbSet<Reservation> Reservation { get; set; }
-        public virtual DbSet<ReservationLine> ReservationLine { get; set; }
         public virtual DbSet<ReturnLine> ReturnLine { get; set; }
         public virtual DbSet<ReturnSale> ReturnSale { get; set; }
         public virtual DbSet<Rol> Rol { get; set; }

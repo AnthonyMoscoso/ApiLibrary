@@ -19,7 +19,59 @@ namespace BookStoreApi.Controllers.Library.Schedules
         {
             return Ok(_repository.Get());
         }
+
+        [HttpGet]
+        public IHttpActionResult Get(string id)
+        {
+            return Ok(_repository.Get(id));
+        }
+        #region Employee
+        [HttpGet]
+        [Route("Employee")]
+        public IHttpActionResult GetByEmployee(string idEmployee)
+        {
+            return Ok(_repository.GetByEmployee(idEmployee));
+        }
+        [HttpGet]
+        [Route("Employee")]
+        public IHttpActionResult GetByEmployee(string idEmployee,int year)
+        {
+            return Ok(_repository.GetByEmployee(idEmployee,year));
+        }
+        #endregion
+
+        #region Store
+        [HttpGet]
+        [Route("Store")]
+        public IHttpActionResult GetByStore(string idStore)
+        {
+            return Ok(_repository.GetByStore(idStore));
+        }
+        [HttpGet]
+        [Route("Store")]
+        public IHttpActionResult GetByStore(string idStore, int year)
+        {
+            return Ok(_repository.GetByStore(idStore, year));
+        }
+        #endregion
+
+        #region Employee
+        [HttpGet]
+        [Route("Employee")]
+        public IHttpActionResult GetByWareHouse(string idWareHouse)
+        {
+            return Ok(_repository.GetByEmployee(idWareHouse));
+        }
+        [HttpGet]
+        [Route("Employee")]
+        public IHttpActionResult GetByWareHouse(string idWareHouse, int year)
+        {
+            return Ok(_repository.GetByEmployee(idWareHouse, year));
+        }
+        #endregion
+
         [HttpPost]
+        [Route("List")]
         public IHttpActionResult Get(List<string> ids)
         {
             return Ok(_repository.Get(ids));

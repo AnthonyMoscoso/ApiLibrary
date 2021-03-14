@@ -34,7 +34,6 @@ namespace BookStoreApi.Models.Library
         public string IdBoss { get; set; }
         public string IdOccupation { get; set; }
         public string IdPerson { get; set; }
-        public string Dni { get; set; }
         public System.DateTime StartDate { get; set; }
         public System.DateTime HireDate { get; set; }
         public Nullable<System.DateTime> DischargeDate { get; set; }
@@ -68,6 +67,8 @@ namespace BookStoreApi.Models.Library
         public virtual ICollection<Rol> Rol { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Schedule> Schedule { get; set; }
+        public virtual Store Store { get; set; }
+        public virtual WareHouse WareHouse { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PaymentBonus> PaymentBonus { get; set; }
     }

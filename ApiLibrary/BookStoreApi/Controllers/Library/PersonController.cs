@@ -20,6 +20,7 @@ namespace BookStoreApi.Controllers.Library.Persons
             return Ok(_repository.Get());
         }
         [HttpPost]
+        [Route("List")]
         public IHttpActionResult Get(List<string> ids)
         {
             return Ok(_repository.Get(ids));

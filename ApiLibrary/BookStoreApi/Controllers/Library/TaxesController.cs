@@ -24,18 +24,18 @@ namespace BookStoreApi.Controllers.Library.Taxe
         {
             return Ok(_repository.Get(id));
         }
-        [HttpPost]
-        [Route("List")]
-        public IHttpActionResult Get(List<string> ids)
+
+        [HttpGet]
+        public IHttpActionResult GetList(string ids)
         {
-            return Ok(_repository.Get(ids));
+            return Ok(_repository.GetList(ids));
         }
 
         [HttpGet]
         [Route("Pag")]
-        public IHttpActionResult Get(int element, int page)
+        public IHttpActionResult Get(int element, int pag)
         {
-            return Ok(_repository.Get(element, page));
+            return Ok(_repository.Get(element, pag));
         }
         [HttpGet]
         [Route("Type")]

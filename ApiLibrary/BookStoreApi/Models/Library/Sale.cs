@@ -45,7 +45,7 @@ namespace BookStoreApi.Models.Library
         public virtual ICollection<SaleLine> SaleLine { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reservation> Reservation { get; set; }
-        public virtual Coupon Coupon { get; set; }
         public virtual Store Store { get; set; }
+        public virtual Coupon Coupon { get; set; }
     }
 }

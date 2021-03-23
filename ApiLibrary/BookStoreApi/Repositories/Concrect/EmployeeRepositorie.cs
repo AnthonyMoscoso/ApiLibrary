@@ -17,6 +17,38 @@ namespace BookStoreApi.Repositories.Concrect.Persons
         {
         }
         #region Get
+
+        public new List<EmployeeRequest> Get()
+        {
+            List<EmployeeRequest> list = new List<EmployeeRequest>();
+                list = (from p in Context.Employee.Include("Person")
+                        select new EmployeeRequest
+                        {
+                            IdPerson = p.IdPerson,
+                            NamePerson = p.Person.NamePerson,
+                            Email = p.Person.Email,
+                            Phone = p.Person.Phone,
+                            Pass = p.Person.Pass,
+                            TypePerson = p.Person.TypePerson,
+                            CreateDate  = p.LastUpdateDate,
+                            LastUpdateDate = p.CreateDate,
+                            StatusCode = p.StatusCode,
+                            Dni = p.Person.Dni,
+                            IdEmployee = p.IdEmployee,
+                            IdBoss = p.IdBoss,
+                            IdOccupation = p.IdOccupation,
+                            StartDate = p.StartDate,
+                            HireDate = p.HireDate,
+                            DischargeDate = p.DischargeDate,
+                            TypeStatus = p.TypeStatus,
+                            Discount = p.Discount,
+                            Occupation = p.Occupation,
+                            SalePurchases = (List<Sale>)p.Person.Sale,
+                            ReservationsDo = (List<Reservation>)p.Person.Reservation
+                        }).ToList();
+            
+            return list;
+        }
         public List<Employee> GetByBoss(string idBoss)
         {
             return dbSet.Where(w=>w.IdBoss.Equals(idBoss)).ToList();
@@ -182,37 +214,37 @@ namespace BookStoreApi.Repositories.Concrect.Persons
 
         public List<Employee> SearchByName(string name)
         {
-            var list = dbSet.Where(e => (e.Person.NamePerson + e.Person.LastName1 + e.Person.LastName2).Contains(name)).ToList();
+            var list = dbSet.Where(e => (e.Person.NamePerson).Contains(name)).ToList();
             return list;
         }
 
         public List<Employee> SearchByName(string name, int pag, int element)
         {
-            return dbSet.Where(e => (e.Person.NamePerson + e.Person.LastName1 + e.Person.LastName2).Contains(name))
+            return dbSet.Where(e => (e.Person.NamePerson ).Contains(name))
                            .OrderBy(w => w.HireDate)
                 .Skip((pag - 1) * element).Take(element).ToList(); 
         }
 
         public List<Employee> SearchByNameInStore(string idStore, string name)
         {
-            return dbSet.Where(e => (e.Person.NamePerson + e.Person.LastName1 + e.Person.LastName2).Contains(name) && e.Store.IdStore.Equals(idStore)).ToList();
+            return dbSet.Where(e => (e.Person.NamePerson).Contains(name) && e.Store.IdStore.Equals(idStore)).ToList();
         }
 
         public List<Employee> SearchByNameInStore(string idStore, string name, int pag, int element)
         {
-            return dbSet.Where(e => (e.Person.NamePerson + e.Person.LastName1 + e.Person.LastName2).Contains(name) && e.Store.IdStore.Equals(idStore))
+            return dbSet.Where(e => (e.Person.NamePerson ).Contains(name) && e.Store.IdStore.Equals(idStore))
                            .OrderBy(w => w.HireDate)
                 .Skip((pag - 1) * element).Take(element).ToList();
         }
 
         public List<Employee> SearchByNameInWareHouse(string idWareHouse, string name)
         {
-            return dbSet.Where(e => (e.Person.NamePerson + e.Person.LastName1 + e.Person.LastName2).Contains(name) && e.WareHouse.IdWareHouse.Equals(idWareHouse)).ToList();
+            return dbSet.Where(e => (e.Person.NamePerson ).Contains(name) && e.WareHouse.IdWareHouse.Equals(idWareHouse)).ToList();
         }
 
         public List<Employee> SearchByNameInWareHouse(string idWareHouse, string name, int pag, int element)
         {
-            return dbSet.Where(e => (e.Person.NamePerson + e.Person.LastName1 + e.Person.LastName2).Contains(name) && e.WareHouse.IdWareHouse.Equals(idWareHouse))
+            return dbSet.Where(e => (e.Person.NamePerson).Contains(name) && e.WareHouse.IdWareHouse.Equals(idWareHouse))
                            .OrderBy(w => w.HireDate)
                 .Skip((pag - 1) * element).Take(element).ToList();
         }
@@ -222,7 +254,7 @@ namespace BookStoreApi.Repositories.Concrect.Persons
         {
             try
             {
-                new Repositorie<Employee>("IdEmployee").Insert(mapper.Map<Employee>(employee));
+                Insert(mapper.Map<Employee>(employee));
                 new Repositorie<Person>("IdPerson").Insert(mapper.Map<Person>(employee));
             }
             catch (SqlException)

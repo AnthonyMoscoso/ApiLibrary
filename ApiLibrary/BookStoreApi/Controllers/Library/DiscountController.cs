@@ -12,7 +12,11 @@ namespace BookStoreApi.Controllers.Library.Discounts
     [RoutePrefix("Api/Discount")]
     public class DiscountController : ApiController
     {
-        public DiscountRepositorie _repository = new DiscountRepositorie();
+        readonly DiscountRepositorie _repository ;
+        public DiscountController()
+        {
+            _repository = new DiscountRepositorie();
+        }
 
         [HttpGet]
         public IHttpActionResult Get()
@@ -54,18 +58,18 @@ namespace BookStoreApi.Controllers.Library.Discounts
         {
             return Ok(_repository.GetNotFinnalized(pag, element));
         }
-        [HttpPost]
+        [HttpGet]
         [Route("List")]
-        public IHttpActionResult Get(List<string> ids)
+        public IHttpActionResult GetList(string ids)
         {
-            return Ok(_repository.Get(ids));
+            return Ok(_repository.GetList(ids));
         }
 
         [HttpGet]
         [Route("Pag")]
-        public IHttpActionResult Get(int element, int page)
+        public IHttpActionResult Get(int element, int pag)
         {
-            return Ok(_repository.Get(element, page));
+            return Ok(_repository.Get(element, pag));
         }
         [HttpPost]
         public IHttpActionResult Post(List<Discount> list)

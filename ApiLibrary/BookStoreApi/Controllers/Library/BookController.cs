@@ -1,5 +1,6 @@
 ﻿using BookStoreApi.Models.Library;
 using BookStoreApi.Repositories.Concrect.Books;
+using BookStoreApi.Repositories.Concrect.WareHouses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,18 +13,23 @@ namespace BookStoreApi.Controllers.Library.Books
     [RoutePrefix("Api/Book")]
     public class BookController : ApiController
     {
-        public BookRepositorie _repository = new BookRepositorie();
+        readonly BookRepository _repository ;
+
+        public BookController()
+        {
+            _repository = new BookRepository();
+        }
 
         [HttpGet]
         public IHttpActionResult Get()
         {
             return Ok(_repository.Get());
         }
-        [HttpPost]
-        [Route("List")]
-        public IHttpActionResult Get(List<string> ids)
+
+        [HttpGet]
+        public IHttpActionResult GetList(string ids)
         {
-            return Ok(_repository.Get(ids));
+            return Ok(_repository.GetList(ids));
         }
 
         [HttpGet]
@@ -63,16 +69,16 @@ namespace BookStoreApi.Controllers.Library.Books
             return Ok(_repository.GetByAutor(idAutor,pag,element));
         }
         [HttpGet]
-        [Route("Categorie")]
-        public IHttpActionResult GetByCategorie(string idCategorie)
+        [Route("Category")]
+        public IHttpActionResult GetByCategory(string idCategorie)
         {
-            return Ok(_repository.GetByCategorie(idCategorie));
+            return Ok(_repository.GetByCategory(idCategorie));
         }
         [HttpGet]
-        [Route("Categorie")]
-        public IHttpActionResult GetByCategorie(string idCategorie,int pag,int element)
+        [Route("Category")]
+        public IHttpActionResult GetByCategory(string idCategorie,int pag,int element)
         {
-            return Ok(_repository.GetByCategorie(idCategorie,pag,element));
+            return Ok(_repository.GetByCategory(idCategorie,pag,element));
         }
         [HttpGet]
         [Route("Edition")]
@@ -100,15 +106,17 @@ namespace BookStoreApi.Controllers.Library.Books
         }
         [HttpGet]
         [Route("Gender")]
-        public IHttpActionResult GetByGender(List<string> idGender)
+        public IHttpActionResult GetByGender(string genders)
         {
-            return Ok(_repository.GetByGender(idGender));
+            List<string> ids = genders.Split(',').ToList();
+            return Ok(_repository.GetByGender(ids));
         }
         [HttpGet]
         [Route("Gender")]
-        public IHttpActionResult GetByGender(List<string> idGender, int pag, int element)
+        public IHttpActionResult GetByGender(string genders, int pag, int element)
         {
-            return Ok(_repository.GetByGender(idGender, pag, element));
+            List<string> ids = genders.Split(',').ToList();
+            return Ok(_repository.GetByGender(ids, pag, element));
         }
         [HttpPost]
         public IHttpActionResult Post(List<Book> list)

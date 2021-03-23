@@ -68,12 +68,12 @@ namespace BookStoreApi.Repositories.Concrect.Persons
 
         public List<Socie> SearchByName(string text)
         {
-            return dbSet.Where(e => (e.Person.NamePerson + e.Person.LastName1 + e.Person.LastName2).Contains(name)).ToList();
+            return dbSet.Where(e => (e.Person.NamePerson ).Contains(name)).ToList();
         }
 
         public List<Socie> SearchByName(string text, int pag, int element)
         {
-            return dbSet.Where(e => (e.Person.NamePerson + e.Person.LastName1 + e.Person.LastName2).Contains(name))
+            return dbSet.Where(e => (e.Person.NamePerson ).Contains(name))
                 .Skip((pag - 1) * element).Take(element).ToList();
         }
     }

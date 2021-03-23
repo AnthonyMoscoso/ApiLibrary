@@ -55,33 +55,33 @@ namespace BookStoreApi.Controllers.Library.Schedules
         }
         #endregion
 
-        #region Employee
+        #region WareHouse
         [HttpGet]
-        [Route("Employee")]
+        [Route("WareHouse")]
         public IHttpActionResult GetByWareHouse(string idWareHouse)
         {
             return Ok(_repository.GetByEmployee(idWareHouse));
         }
         [HttpGet]
-        [Route("Employee")]
+        [Route("WareHouse")]
         public IHttpActionResult GetByWareHouse(string idWareHouse, int year)
         {
             return Ok(_repository.GetByEmployee(idWareHouse, year));
         }
         #endregion
 
-        [HttpPost]
+        [HttpGet]
         [Route("List")]
-        public IHttpActionResult Get(List<string> ids)
+        public IHttpActionResult GetList(string ids)
         {
-            return Ok(_repository.Get(ids));
+            return Ok(_repository.GetList(ids));
         }
 
         [HttpGet]
         [Route("Pag")]
-        public IHttpActionResult Get(int element, int page)
+        public IHttpActionResult Get(int element, int pag)
         {
-            return Ok(_repository.Get(element, page));
+            return Ok(_repository.Get(element, pag));
         }
         [HttpPost]
         public IHttpActionResult Post(List<Schedule> list)

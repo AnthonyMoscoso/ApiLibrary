@@ -31,7 +31,6 @@ namespace BookStoreApi.Models.Library
         public virtual DbSet<BookEditorial> BookEditorial { get; set; }
         public virtual DbSet<BookStore> BookStore { get; set; }
         public virtual DbSet<BookType> BookType { get; set; }
-        public virtual DbSet<Coupon> Coupon { get; set; }
         public virtual DbSet<Direction> Direction { get; set; }
         public virtual DbSet<Discount> Discount { get; set; }
         public virtual DbSet<DocumentFile> DocumentFile { get; set; }
@@ -71,5 +70,6 @@ namespace BookStoreApi.Models.Library
         public virtual DbSet<Taxes> Taxes { get; set; }
         public virtual DbSet<WareHouse> WareHouse { get; set; }
         public virtual DbSet<WareHouseBook> WareHouseBook { get; set; }
+        public virtual DbSet<Coupon> Coupon { get; set; }
     }
 }

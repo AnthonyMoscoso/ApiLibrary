@@ -25,7 +25,7 @@ namespace BookStoreApi.Models.Library
         public System.DateTime StartOffert { get; set; }
         public Nullable<System.DateTime> FinishOffert { get; set; }
         public int TypeCoupon { get; set; }
-        public int CouponValue { get; set; }
+        public double CouponValue { get; set; }
         public System.DateTime CreateDate { get; set; }
         public System.DateTime LastUpdateDate { get; set; }
         public int StatusCode { get; set; }

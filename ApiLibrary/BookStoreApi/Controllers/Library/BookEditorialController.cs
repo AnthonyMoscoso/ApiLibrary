@@ -12,8 +12,11 @@ namespace BookStoreApi.Controllers.Library.Books
     [RoutePrefix("Api/BookEditorial")]
     public class BookEditorialController : ApiController
     {
-        public BookEditorialRepositorie _repository = new BookEditorialRepositorie();
-
+        readonly BookEditorialRepositorie _repository;
+        public BookEditorialController()
+        {
+            _repository = new BookEditorialRepositorie();
+        }
         [HttpGet]
         public IHttpActionResult Get()
         {
@@ -29,19 +32,6 @@ namespace BookStoreApi.Controllers.Library.Books
         public IHttpActionResult GetPurchasePrice(string idBook,string idEditorial)
         {
             return Ok(_repository.GetPurchasePrice(idBook,idEditorial));
-        }
-        [HttpPost]
-        [Route("List")]
-        public IHttpActionResult Get(List<string> ids)
-        {
-            return Ok(_repository.Get(ids));
-        }
-
-        [HttpGet]
-        [Route("Pag")]
-        public IHttpActionResult Get(int element, int page)
-        {
-            return Ok(_repository.Get(element, page));
         }
         [HttpPost]
         public IHttpActionResult Post(List<BookEditorial> list)

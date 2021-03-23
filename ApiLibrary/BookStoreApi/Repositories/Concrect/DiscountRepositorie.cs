@@ -22,23 +22,31 @@ namespace BookStoreApi.Repositories.Concrect.Discounts
 
         public List<Discount> GetFinnalized()
         {
-            return dbSet.Where(w => w.EndDate.Value > DateTime.Now).ToList();
+            return dbSet.Where(w => w.EndDate.Value <= DateTime.Now ).ToList();
         }
 
         public List<Discount> GetFinnalized(int pag, int element)
         {
-            return dbSet.Where(w => w.EndDate.Value > DateTime.Now).Skip((pag - 1) * element).Take(element).ToList();
+            return dbSet.Where(w => w.EndDate.Value <= DateTime.Now)
+                .OrderBy(w=> w.CreateDate)
+                .Skip((pag - 1) * element)
+                .Take(element)
+                .ToList();
         }
 
         public List<Discount> GetNotFinnalized()
         {
-            var list = dbSet.Where(w => w.EndDate.Value < DateTime.Now).ToList();
+            var list = dbSet.Where(w => w.EndDate.Value > DateTime.Now || !w.EndDate.HasValue).ToList();
             return list;
         }
 
         public List<Discount> GetNotFinnalized(int pag, int element)
         {
-            return dbSet.Where(w => w.EndDate.Value < DateTime.Now).Skip((pag - 1) * element).Take(element).ToList();
+            return dbSet.Where(w => w.EndDate.Value > DateTime.Now || !w.EndDate.HasValue)
+                .OrderBy(w => w.CreateDate)
+                .Skip((pag - 1) * element)
+                .Take(element)
+                .ToList();
         }
     }
 }

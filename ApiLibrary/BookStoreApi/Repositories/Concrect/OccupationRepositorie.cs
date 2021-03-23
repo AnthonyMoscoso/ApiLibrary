@@ -10,7 +10,7 @@ namespace BookStoreApi.Repositories.Concrect.Occupations
 {
     public class OccupationRepositorie : Repositorie<Occupation>, IOccupationRepositorie
     {
-        public OccupationRepositorie(string identificator="IdOccuppation") : base(identificator)
+        public OccupationRepositorie(string identificator="IdOccupation") : base(identificator)
         {
         }
 

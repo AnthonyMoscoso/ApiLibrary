@@ -9,9 +9,9 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Books
 {
-    public class BookStoreRepositorie : Repositorie<BookStore>,IBookStoreRepositorie
+    public class BookStoreRepository : Repositorie<BookStore>,IBookStoreRepositorie
     {
-        public BookStoreRepositorie(string identificator="IdBookStore") : base(identificator)
+        public BookStoreRepository(string identificator="IdBookStore") : base(identificator)
         {
         }
 

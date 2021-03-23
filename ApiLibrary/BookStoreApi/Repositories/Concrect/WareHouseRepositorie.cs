@@ -10,8 +10,10 @@ namespace BookStoreApi.Repositories.Concrect.WareHouses
 {
     public class WareHouseRepositorie : Repositorie<WareHouse>, IWareHouseRepositorie
     {
+ 
         public WareHouseRepositorie(string identificator="IdWareHouse") : base(identificator)
         {
+           
         }
 
         public List<WareHouse> GetByCountry(string country)
@@ -48,5 +50,6 @@ namespace BookStoreApi.Repositories.Concrect.WareHouses
         {
             return dbSet.Where(w => w.Direction.PostalCode.Equals(postalCode)).Skip((pag - 1) * element).Take(element).ToList();
         }
+       
     }
 }

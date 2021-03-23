@@ -84,18 +84,18 @@ namespace BookStoreApi.Controllers.Library.Order
         {
             return Ok(_repository.GetByStore(idStore, start,end, pag, element));
         }
-        [HttpPost]
+        [HttpGet]
         [Route("List")]
-        public IHttpActionResult Get(List<string> ids)
+        public IHttpActionResult GetList(string ids)
         {
-            return Ok(_repository.Get(ids));
+            return Ok(_repository.GetList(ids));
         }
 
         [HttpGet]
         [Route("Pag")]
-        public IHttpActionResult Get(int element, int page)
+        public IHttpActionResult Get(int element, int pag)
         {
-            return Ok(_repository.Get(element, page));
+            return Ok(_repository.Get(element, pag));
         }
         [HttpPost]
         public IHttpActionResult Post(List<Orders> list)

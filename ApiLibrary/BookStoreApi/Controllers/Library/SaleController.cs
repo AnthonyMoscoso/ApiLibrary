@@ -185,18 +185,17 @@ namespace BookStoreApi.Controllers.Library.Sales
         }
         #endregion
 
-        [HttpPost]
+        [HttpGet]
         [Route("List")]
-        public IHttpActionResult Get(List<string> ids)
+        public IHttpActionResult GetList(string ids)
         {
-            return Ok(_repository.Get(ids));
+            return Ok(_repository.GetList(ids));
         }
-
         [HttpGet]
         [Route("Pag")]
-        public IHttpActionResult Get(int element, int page)
+        public IHttpActionResult Get(int element, int pag)
         {
-            return Ok(_repository.Get(element, page));
+            return Ok(_repository.Get(element, pag));
         }
         [HttpPost]
         public IHttpActionResult Post(List<Sale> list)

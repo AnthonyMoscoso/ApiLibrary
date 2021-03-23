@@ -54,5 +54,28 @@ namespace BookStoreApi.Repositories.Concrect.Stores
                  .OrderBy(w => w.CreateDate)
                 .Skip((pag - 1) * element).Take(element).ToList();
         }
+
+        public new dynamic Delete(List<string> ids)
+        {
+            string message = "";
+            foreach (string id in ids)
+            {
+                var search = dbSet.Find(id);
+                if (search!=null)
+                {
+                    if (search.Direction!=null)
+                    {
+                        Context.Direction.Remove(search.Direction);
+                    }
+                    dbSet.Remove(search);
+                }
+                else
+                {
+                    message += "any store wasn't found with this id = " + id;
+                }
+               
+            }
+            return Save();
+        }
     }
 }

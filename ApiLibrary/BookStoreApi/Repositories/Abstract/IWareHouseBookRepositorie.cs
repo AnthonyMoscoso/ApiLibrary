@@ -10,5 +10,6 @@ namespace BookStoreApi.Repositories.Abstract.WareHouses
 {
     interface IWareHouseBookRepositorie : IRepositorie<WareHouseBook>
     {
+        int GetStock(string idBook, string idStore);
     }
 }

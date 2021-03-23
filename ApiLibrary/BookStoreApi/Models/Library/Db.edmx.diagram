@@ -11,7 +11,6 @@
         <EntityTypeShape EntityType="BookStoreModel.BookEditorial" Width="1.5" PointX="13.5" PointY="43.75" IsExpanded="true" />
         <EntityTypeShape EntityType="BookStoreModel.BookStore" Width="1.5" PointX="15" PointY="23.375" IsExpanded="true" />
         <EntityTypeShape EntityType="BookStoreModel.BookType" Width="1.5" PointX="9" PointY="44.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreModel.Coupon" Width="1.5" PointX="19" PointY="31.625" IsExpanded="true" />
         <EntityTypeShape EntityType="BookStoreModel.Direction" Width="1.5" PointX="10.5" PointY="15" IsExpanded="true" />
         <EntityTypeShape EntityType="BookStoreModel.Discount" Width="1.5" PointX="13.5" PointY="39.75" IsExpanded="true" />
         <EntityTypeShape EntityType="BookStoreModel.DocumentFile" Width="1.5" PointX="9" PointY="11.375" IsExpanded="true" />
@@ -125,12 +124,13 @@
         <AssociationConnector Association="BookStoreModel.ReturnStore" ManuallyRouted="false" />
         <AssociationConnector Association="BookStoreModel.ReturnWareHouse" ManuallyRouted="false" />
         <AssociationConnector Association="BookStoreModel.RolPermit" ManuallyRouted="false" />
-        <AssociationConnector Association="BookStoreModel.SaleCoupon" ManuallyRouted="false" />
         <AssociationConnector Association="BookStoreModel.StoreSale" ManuallyRouted="false" />
         <AssociationConnector Association="BookStoreModel.StoreSchedule" ManuallyRouted="false" />
         <AssociationConnector Association="BookStoreModel.WareHouseSchedule" ManuallyRouted="false" />
         <AssociationConnector Association="BookStoreModel.RegisterWareHouse" />
         <AssociationConnector Association="BookStoreModel.Fk_Reservation_IdBook" />
+        <EntityTypeShape EntityType="BookStoreModel.Coupon" Width="1.5" PointX="15" PointY="9.25" />
+        <AssociationConnector Association="BookStoreModel.SaleCoupon" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

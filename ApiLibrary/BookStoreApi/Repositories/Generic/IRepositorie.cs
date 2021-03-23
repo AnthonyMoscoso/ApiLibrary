@@ -10,7 +10,7 @@ namespace LibraryApiRest.Repositories.Abstract
     {
         dynamic Get();
         dynamic Get(string id);
-        dynamic Get(List<string>ids);
+        dynamic GetList(string ids);
         dynamic Get(int elements,int pag);
         dynamic Insert(List<T> list);
         dynamic Update(List<T> list);

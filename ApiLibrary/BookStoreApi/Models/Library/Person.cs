@@ -25,8 +25,6 @@ namespace BookStoreApi.Models.Library
     
         public string IdPerson { get; set; }
         public string NamePerson { get; set; }
-        public string LastName1 { get; set; }
-        public string LastName2 { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Pass { get; set; }

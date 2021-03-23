@@ -3,6 +3,7 @@ using BookStoreApi.Repositories.Abstract.Coupons;
 using LibraryApiRest.Repositories.Concrect;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -16,13 +17,15 @@ namespace BookStoreApi.Repositories.Concrect.Coupons
 
         public List<Coupon> GetByDate(DateTime createTime)
         {
-            var list = dbSet.Where(w => w.CreateDate.Date== createTime.Date).ToList();
+            DateTime tomorrow = createTime.AddDays(1);
+            var list = dbSet.Where(w => w.CreateDate > createTime.Date && w.CreateDate < tomorrow.Date).ToList();
             return list;
         }
 
         public List<Coupon> GetByDate(DateTime createTime, int pag, int element)
         {
-            return dbSet.Where(w => w.CreateDate.Date == createTime.Date)
+            DateTime tomorrow = createTime.AddDays(1);
+            return dbSet.Where(w => w.CreateDate > createTime.Date && w.CreateDate < tomorrow.Date)
                 .OrderByDescending(w => w.CreateDate)
                 .Skip((pag-1)*element).Take(element)
                 .ToList();
@@ -44,12 +47,14 @@ namespace BookStoreApi.Repositories.Concrect.Coupons
 
         public List<Coupon> GetFinalized()
         {
-            return dbSet.Where(w => w.FinishOffert.Value <= DateTime.Now.Date).ToList();
+            return dbSet.
+                Where(x =>x.FinishOffert.Value <= DateTime.Now)
+                .ToList();
         }
 
         public List<Coupon> GetFinalized(int pag, int element)
         {
-            return dbSet.Where(w => w.FinishOffert.Value <= DateTime.Now.Date)
+            return dbSet.Where(w => w.FinishOffert<= DateTime.Now)
                 .OrderByDescending(w => w.CreateDate)
                 .Skip((pag - 1) * element).Take(element)
                 .ToList();
@@ -57,13 +62,13 @@ namespace BookStoreApi.Repositories.Concrect.Coupons
 
         public List<Coupon> GetNotFinalized()
         {
-            var list = dbSet.Where(w => w.FinishOffert.Value > DateTime.Now).ToList();
+            var list = dbSet.Where(w => w.FinishOffert.Value > DateTime.Now || !w.FinishOffert.HasValue).ToList();
             return list;
         }
 
         public List<Coupon> GetNotFinalized(int pag, int element)
         {
-            return dbSet.Where(w => w.FinishOffert.Value > DateTime.Now)
+            return dbSet.Where(w => w.FinishOffert.Value > DateTime.Now || !w.FinishOffert.HasValue)
                 .OrderByDescending(w=> w.CreateDate)
                 .Skip((pag - 1) * element).Take(element)
                 .ToList();

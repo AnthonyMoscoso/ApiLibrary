@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace BookStoreApi.Repositories.Concrect.WareHouses
 {
-    public class WareHouseBookRepositorie : Repositorie<WareHouseBook>, IWareHouseBookRepositorie
+    public class WareHouseBookRepository : Repositorie<WareHouseBook>, IWareHouseBookRepositorie
     {
-        public WareHouseBookRepositorie(string identificator="IdWareHouseBook") : base(identificator)
+        public WareHouseBookRepository(string identificator="IdWareHouseBook") : base(identificator)
         {
         }
         public int GetStock(string idBook, string idWareHouse)

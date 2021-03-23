@@ -19,18 +19,18 @@ namespace BookStoreApi.Controllers.Library.Files
         {
             return Ok(_repository.Get());
         }
-        [HttpPost]
-        [Route("GetList")]
-        public IHttpActionResult Get(List<string> ids)
+        [HttpGet]
+        [Route("List")]
+        public IHttpActionResult GetList(string ids)
         {
-            return Ok(_repository.Get(ids));
+            return Ok(_repository.GetList(ids));
         }
 
         [HttpGet]
         [Route("Pag")]
-        public IHttpActionResult Get(int element, int page)
+        public IHttpActionResult Get(int element, int pag)
         {
-            return Ok(_repository.Get(element, page));
+            return Ok(_repository.Get(element, pag));
         }
         [HttpPost]
         public IHttpActionResult Post(List<DocumentFile> list)

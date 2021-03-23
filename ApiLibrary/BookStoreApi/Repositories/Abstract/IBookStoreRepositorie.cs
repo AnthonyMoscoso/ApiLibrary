@@ -10,6 +10,6 @@ namespace BookStoreApi.Repositories.Abstract.Books
 {
     interface IBookStoreRepositorie : IRepositorie<BookStore>
     {
-
+        int GetStock(string idBook, string idStore);
     }
 }

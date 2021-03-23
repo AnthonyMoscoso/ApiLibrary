@@ -21,7 +21,9 @@ namespace BookStoreApi.Repositories.Concrect.Provide
 
         public List<Providers> SearchByName(string text,int pag, int element)
         {
-            return dbSet.Where(w => w.ProviderName.Contains(text)).Skip((pag - 1)*element).Take(element).ToList();
+            return dbSet.Where(w => w.ProviderName.Contains(text))
+                .OrderBy(w=> w.CreateDate)
+                .Skip((pag - 1)*element).Take(element).ToList();
         }
     }
 }

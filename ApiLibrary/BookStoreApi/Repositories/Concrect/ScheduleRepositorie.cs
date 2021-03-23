@@ -43,5 +43,26 @@ namespace BookStoreApi.Repositories.Concrect.Schedules
         {
             return dbSet.Where(w => w.WareHouse.IdWareHouse.Equals(idWareHouse) && w.YearValue == year).ToList();
         }
+
+        public new dynamic Delete(List<string> ids)
+        {
+            foreach (string id in ids)
+            {
+                var search = dbSet.Find(id);
+                if (search!=null)
+                {
+                    if (search.ScheduleLine.Count>0)
+                    {
+
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
+            return null;
+        }
+
     }
 }

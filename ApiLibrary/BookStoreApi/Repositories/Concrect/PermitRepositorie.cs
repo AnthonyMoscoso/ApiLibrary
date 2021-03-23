@@ -21,7 +21,11 @@ namespace BookStoreApi.Repositories.Concrect.Permits
 
         public List<Permit> SearchByName(string text, int pag, int element)
         {
-            return dbSet.Where(w => w.PermitName.Contains(text)).Skip((pag - 1) * element).Take(element).ToList();
+            return dbSet.Where(w => w.PermitName.Contains(text))
+                .OrderBy(w=> w.CreateDate)
+                .Skip((pag - 1) * element)
+                .Take(element)
+                .ToList();
         }
     }
 }

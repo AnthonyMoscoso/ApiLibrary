@@ -27,11 +27,10 @@ namespace BookStoreApi.Controllers
         {
             return Ok(_repository.Get(id));
         }
-        [HttpPost]
-        [Route("List")]
-        public IHttpActionResult Get(List<string> ids)
+        [HttpGet]
+        public IHttpActionResult GetList(string ids)
         {
-            return Ok(_repository.Get(ids));
+            return Ok(_repository.GetList(ids));
         }
         [HttpGet]
         [Route("Name")]

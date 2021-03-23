@@ -162,6 +162,7 @@
     <Compile Include="Controllers\Library\ShippingController.cs" />
     <Compile Include="Controllers\Library\StoreController.cs" />
     <Compile Include="Controllers\Library\TaxesController.cs" />
+    <Compile Include="Controllers\Library\WareHouseBookController.cs" />
     <Compile Include="Controllers\Library\WareHouseController.cs" />
     <Compile Include="Controllers\Login\LoginController.cs" />
     <Compile Include="Controllers\Login\Repositorie\LoginRepositorie.cs" />
@@ -172,7 +173,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Mappers\MappingProfile.cs" />
+    <Compile Include="Mappers\AutoMapperConfig.cs" />
     <Compile Include="Models\Library\Autor.cs">
       <DependentUpon>Db.tt</DependentUpon>
     </Compile>
@@ -345,7 +346,9 @@
     <Compile Include="Models\Login\Users.cs">
       <DependentUpon>UserDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Request\BookStoreRequest.cs" />
     <Compile Include="Models\Request\EmployeeRequest.cs" />
+    <Compile Include="Models\Request\PermitDto.cs" />
     <Compile Include="Models\Request\PersonRequest.cs" />
     <Compile Include="Models\Request\SocieRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -395,8 +398,8 @@
     <Compile Include="Repositories\Abstract\IWareHouseRepositorie.cs" />
     <Compile Include="Repositories\Concrect\BarCodeRepositorie.cs" />
     <Compile Include="Repositories\Concrect\BookEditorialRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\BookRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\BookStoreRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\BookRepository.cs" />
+    <Compile Include="Repositories\Concrect\BookStoreRepository.cs" />
     <Compile Include="Repositories\Concrect\BookTypeRepositorie.cs" />
     <Compile Include="Repositories\Concrect\CouponRepositorie.cs" />
     <Compile Include="Repositories\Concrect\DirectionRepositorie.cs" />
@@ -434,7 +437,7 @@
     <Compile Include="Repositories\Concrect\ShippingRepositorie.cs" />
     <Compile Include="Repositories\Concrect\StoreRepositorie.cs" />
     <Compile Include="Repositories\Concrect\TaxesRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\WareHouseBookRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\WareHouseBookRepository.cs" />
     <Compile Include="Repositories\Concrect\WareHouseRepositorie.cs" />
     <Compile Include="Repositories\Generic\IRepositorie.cs" />
     <Compile Include="Repositories\Concrect\AutorRepositorie.cs" />

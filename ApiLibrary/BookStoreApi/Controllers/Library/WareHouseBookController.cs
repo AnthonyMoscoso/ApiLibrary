@@ -1,5 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
-using BookStoreApi.Repositories.Concrect.Persons;
+using BookStoreApi.Repositories.Concrect.WareHouses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,13 +7,16 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace BookStoreApi.Controllers.Library.Persons
+namespace BookStoreApi.Controllers.Library
 {
-    [RoutePrefix("Api/Socie")]
-    public class SocieController : ApiController
+    [RoutePrefix("Api/WareHouseBookC")]
+    public class WareHouseBookController : ApiController
     {
-        public SocieRepositorie _repository = new SocieRepositorie();
-
+        readonly WareHouseBookRepository _repository;
+        public WareHouseBookController()
+        {
+            _repository = new WareHouseBookRepository();
+        }
         #region Get
         [HttpGet]
         public IHttpActionResult Get()
@@ -25,29 +28,21 @@ namespace BookStoreApi.Controllers.Library.Persons
         {
             return Ok(_repository.Get(id));
         }
-
-        [HttpGet]
-        public IHttpActionResult GetList(string ids)
-        {
-            return Ok(_repository.GetList(ids));
-        }
-
-        [HttpGet]
-        [Route("Pag")]
-        public IHttpActionResult Get(int element, int pag)
-        {
-            return Ok(_repository.Get(element, pag));
-        }
         #endregion
-
+        [HttpGet]
+        [Route("Stock")]
+        public IHttpActionResult GetStock(string idBook, string idStore)
+        {
+            return Ok(_repository.GetStock(idBook, idStore));
+        }
         [HttpPost]
-        public IHttpActionResult Post(List<Socie> list)
+        public IHttpActionResult Post(List<WareHouseBook> list)
         {
             return Ok(_repository.Insert(list));
         }
 
         [HttpPut]
-        public IHttpActionResult Put(List<Socie> list)
+        public IHttpActionResult Put(List<WareHouseBook> list)
         {
             return Ok(_repository.Update(list));
         }

@@ -21,7 +21,9 @@ namespace BookStoreApi.Repositories.Concrect.Editorials
 
         public List<Editorial> SearchByName(string text, int pag, int element)
         {
-            return dbSet.Where(w => w.EditorialName.Contains(text)).Skip((pag-1)*element).Take(element).ToList();
+            return dbSet.Where(w => w.EditorialName.Contains(text))
+                .OrderBy(W=> W.CreateDate)
+                .Skip((pag-1)*element).Take(element).ToList();
         }
     }
 }

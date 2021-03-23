@@ -84,11 +84,11 @@ namespace BookStoreApi.Controllers.Library.Coupons
         {
             return Ok(_repository.Insert(list));
         }
-        [HttpPost]
+        [HttpGet]
         [Route("List")]
-        public IHttpActionResult Get(List<string> ids)
+        public IHttpActionResult GetList(string ids)
         {
-            return Ok(_repository.Get(ids));
+            return Ok(_repository.GetList(ids));
         }
         [HttpPut]
         public IHttpActionResult Put(List<Coupon> list)

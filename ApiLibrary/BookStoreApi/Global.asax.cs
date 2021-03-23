@@ -17,11 +17,7 @@ namespace WebApplication1
     {
         protected void Application_Start()
         {
-            var mapperConfiguration = new MapperConfiguration(m =>
-            {
-                m.AddProfile(new MappingProfile());
-            });
-            IMapper mapper = mapperConfiguration.CreateMapper();
+            AutoMapperConfig.RegisterMappings();
 
 
             GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings

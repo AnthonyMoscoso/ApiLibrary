@@ -114,7 +114,7 @@
           <Property Name="StartOffert" Type="datetime" Nullable="false" />
           <Property Name="FinishOffert" Type="datetime" />
           <Property Name="TypeCoupon" Type="int" Nullable="false" />
-          <Property Name="CouponValue" Type="int" Nullable="false" />
+          <Property Name="CouponValue" Type="float" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateDate" Type="datetime" Nullable="false" />
           <Property Name="StatusCode" Type="int" Nullable="false" />
@@ -397,8 +397,6 @@
           </Key>
           <Property Name="IdPerson" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="NamePerson" Type="varchar" MaxLength="75" Nullable="false" />
-          <Property Name="LastName1" Type="varchar" MaxLength="75" Nullable="false" />
-          <Property Name="LastName2" Type="varchar" MaxLength="75" />
           <Property Name="Email" Type="varchar" MaxLength="85" Nullable="false" />
           <Property Name="Phone" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="Pass" Type="varchar" MaxLength="25" Nullable="false" />
@@ -2693,21 +2691,6 @@
           <NavigationProperty Name="BookType1" Relationship="Self.Fk_BookType_IdFather" FromRole="BookType" ToRole="BookType1" />
           <NavigationProperty Name="BookType2" Relationship="Self.Fk_BookType_IdFather" FromRole="BookType1" ToRole="BookType" />
         </EntityType>
-        <EntityType Name="Coupon">
-          <Key>
-            <PropertyRef Name="IdCoupon" />
-          </Key>
-          <Property Name="IdCoupon" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CouponCode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StartOffert" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="FinishOffert" Type="DateTime" Precision="3" />
-          <Property Name="TypeCoupon" Type="Int32" Nullable="false" />
-          <Property Name="CouponValue" Type="Int32" Nullable="false" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="StatusCode" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Sale" Relationship="Self.SaleCoupon" FromRole="Coupon" ToRole="Sale" />
-        </EntityType>
         <EntityType Name="Direction">
           <Key>
             <PropertyRef Name="IdDirection" />
@@ -2960,8 +2943,6 @@
           </Key>
           <Property Name="IdPerson" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="NamePerson" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="LastName1" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="LastName2" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="85" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Pass" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
@@ -3176,8 +3157,8 @@
           <NavigationProperty Name="ReturnSale" Relationship="Self.Fk_SaleReturn_IdSale" FromRole="Sale" ToRole="ReturnSale" />
           <NavigationProperty Name="SaleLine" Relationship="Self.Fk_SaleLine_IdSale" FromRole="Sale" ToRole="SaleLine" />
           <NavigationProperty Name="Reservation" Relationship="Self.ReservationSale" FromRole="Sale" ToRole="Reservation" />
-          <NavigationProperty Name="Coupon" Relationship="Self.SaleCoupon" FromRole="Sale" ToRole="Coupon" />
           <NavigationProperty Name="Store" Relationship="Self.StoreSale" FromRole="Sale" ToRole="Store" />
+          <NavigationProperty Name="Coupon" Relationship="BookStoreModel.SaleCoupon" FromRole="Sale" ToRole="Coupon" />
         </EntityType>
         <EntityType Name="SaleLine">
           <Key>
@@ -4102,10 +4083,6 @@
           <End Role="Permit" Type="Self.Permit" Multiplicity="*" />
           <End Role="Rol" Type="Self.Rol" Multiplicity="*" />
         </Association>
-        <Association Name="SaleCoupon">
-          <End Role="Coupon" Type="Self.Coupon" Multiplicity="0..1" />
-          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
-        </Association>
         <Association Name="StoreSale">
           <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
           <End Role="Store" Type="Self.Store" Multiplicity="0..1" />
@@ -4125,7 +4102,6 @@
           <EntitySet Name="BookEditorial" EntityType="Self.BookEditorial" />
           <EntitySet Name="BookStore" EntityType="Self.BookStore" />
           <EntitySet Name="BookType" EntityType="Self.BookType" />
-          <EntitySet Name="Coupon" EntityType="Self.Coupon" />
           <EntitySet Name="Direction" EntityType="Self.Direction" />
           <EntitySet Name="Discount" EntityType="Self.Discount" />
           <EntitySet Name="DocumentFile" EntityType="Self.DocumentFile" />
@@ -4461,10 +4437,6 @@
             <End Role="Permit" EntitySet="Permit" />
             <End Role="Rol" EntitySet="Rol" />
           </AssociationSet>
-          <AssociationSet Name="SaleCoupon" Association="Self.SaleCoupon">
-            <End Role="Coupon" EntitySet="Coupon" />
-            <End Role="Sale" EntitySet="Sale" />
-          </AssociationSet>
           <AssociationSet Name="StoreSale" Association="Self.StoreSale">
             <End Role="Sale" EntitySet="Sale" />
             <End Role="Store" EntitySet="Store" />
@@ -4485,6 +4457,11 @@
             <End Role="Book" EntitySet="Book" />
             <End Role="Reservation" EntitySet="Reservation" />
           </AssociationSet>
+          <EntitySet Name="Coupon" EntityType="BookStoreModel.Coupon" />
+          <AssociationSet Name="SaleCoupon" Association="BookStoreModel.SaleCoupon">
+            <End Role="Coupon" EntitySet="Coupon" />
+            <End Role="Sale" EntitySet="Sale" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="RegisterWareHouse">
           <End Type="BookStoreModel.Register" Role="Register" Multiplicity="*" />
@@ -4501,6 +4478,25 @@
               <PropertyRef Name="IdBook" />
             </Dependent>
           </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Coupon">
+          <Key>
+            <PropertyRef Name="IdCoupon" />
+          </Key>
+          <Property Name="IdCoupon" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="CouponCode" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="StartOffert" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FinishOffert" Type="DateTime" Precision="3" />
+          <Property Name="TypeCoupon" Type="Int32" Nullable="false" />
+          <Property Name="CouponValue" Type="Double" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StatusCode" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Sale" Relationship="BookStoreModel.SaleCoupon" FromRole="Coupon" ToRole="Sale" />
+        </EntityType>
+        <Association Name="SaleCoupon">
+          <End Type="BookStoreModel.Coupon" Role="Coupon" Multiplicity="0..1" />
+          <End Type="BookStoreModel.Sale" Role="Sale" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -4578,21 +4574,6 @@
                 <ScalarProperty Name="IdFather" ColumnName="IdFather" />
                 <ScalarProperty Name="TypeName" ColumnName="TypeName" />
                 <ScalarProperty Name="TypeDescription" ColumnName="TypeDescription" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
-                <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Coupon">
-            <EntityTypeMapping TypeName="BookStoreModel.Coupon">
-              <MappingFragment StoreEntitySet="Coupon">
-                <ScalarProperty Name="IdCoupon" ColumnName="IdCoupon" />
-                <ScalarProperty Name="CouponCode" ColumnName="CouponCode" />
-                <ScalarProperty Name="StartOffert" ColumnName="StartOffert" />
-                <ScalarProperty Name="FinishOffert" ColumnName="FinishOffert" />
-                <ScalarProperty Name="TypeCoupon" ColumnName="TypeCoupon" />
-                <ScalarProperty Name="CouponValue" ColumnName="CouponValue" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
                 <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
@@ -4815,8 +4796,6 @@
                 <ScalarProperty Name="Dni" ColumnName="Dni" />
                 <ScalarProperty Name="IdPerson" ColumnName="IdPerson" />
                 <ScalarProperty Name="NamePerson" ColumnName="NamePerson" />
-                <ScalarProperty Name="LastName1" ColumnName="LastName1" />
-                <ScalarProperty Name="LastName2" ColumnName="LastName2" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Pass" ColumnName="Pass" />
@@ -5348,14 +5327,6 @@
               <ScalarProperty Name="IdRol" ColumnName="IdRol" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="SaleCoupon" TypeName="BookStoreModel.SaleCoupon" StoreEntitySet="SaleCoupon">
-            <EndProperty Name="Coupon">
-              <ScalarProperty Name="IdCoupon" ColumnName="IdCoupon" />
-            </EndProperty>
-            <EndProperty Name="Sale">
-              <ScalarProperty Name="IdSale" ColumnName="IdSale" />
-            </EndProperty>
-          </AssociationSetMapping>
           <AssociationSetMapping Name="StoreSale" TypeName="BookStoreModel.StoreSale" StoreEntitySet="StoreSale">
             <EndProperty Name="Sale">
               <ScalarProperty Name="IdSale" ColumnName="IdSale" />
@@ -5388,6 +5359,30 @@
               <ScalarProperty Name="IdRegister" ColumnName="IdRegister" />
             </EndProperty>
             <Condition ColumnName="IdWareHouse" IsNull="false" />
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Coupon">
+            <EntityTypeMapping TypeName="BookStoreModel.Coupon">
+              <MappingFragment StoreEntitySet="Coupon">
+                <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
+                <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CouponValue" ColumnName="CouponValue" />
+                <ScalarProperty Name="TypeCoupon" ColumnName="TypeCoupon" />
+                <ScalarProperty Name="FinishOffert" ColumnName="FinishOffert" />
+                <ScalarProperty Name="StartOffert" ColumnName="StartOffert" />
+                <ScalarProperty Name="CouponCode" ColumnName="CouponCode" />
+                <ScalarProperty Name="IdCoupon" ColumnName="IdCoupon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="SaleCoupon" TypeName="BookStoreModel.SaleCoupon" StoreEntitySet="SaleCoupon">
+            <EndProperty Name="Sale">
+              <ScalarProperty Name="IdSale" ColumnName="IdSale" />
+            </EndProperty>
+            <EndProperty Name="Coupon">
+              <ScalarProperty Name="IdCoupon" ColumnName="IdCoupon" />
+            </EndProperty>
+            <Condition ColumnName="IdCoupon" IsNull="false" />
           </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>

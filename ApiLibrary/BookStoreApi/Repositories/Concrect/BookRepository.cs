@@ -1,4 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Models.Request;
 using BookStoreApi.Repositories.Abstract;
 using LibraryApiRest.Repositories.Concrect;
 using System;
@@ -8,9 +9,9 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Books
 {
-    public class BookRepositorie : Repositorie<Book>, IBookRepositorie
+    public class BookRepository : Repositorie<Book>, IBookRepositorie
     {
-        public BookRepositorie(string identificator="IdBook") : base(identificator)
+        public BookRepository(string identificator="IdBook") : base(identificator)
         {
         }
 
@@ -29,7 +30,7 @@ namespace BookStoreApi.Repositories.Concrect.Books
             return list;
         }
 
-        public List<Book> GetByCategorie(string idCategory)
+        public List<Book> GetByCategory(string idCategory)
         {
             List<Book>list = dbSet.Where(w => w.IdType.Equals(idCategory) 
             || w.BookType.BookType2.IdFather.Equals(idCategory))
@@ -37,7 +38,7 @@ namespace BookStoreApi.Repositories.Concrect.Books
             return list;
         }
 
-        public List<Book> GetByCategorie(string idCategory, int pag, int element)
+        public List<Book> GetByCategory(string idCategory, int pag, int element)
         {
             List<Book> list = dbSet.Where(w => w.IdType.Equals(idCategory)
             || w.BookType.BookType2.IdFather.Equals(idCategory))
@@ -118,6 +119,11 @@ namespace BookStoreApi.Repositories.Concrect.Books
                  .Skip((pag - 1) * element).Take(element).
                  ToList();
             return list;
+        }
+
+        public List<BookStoreRequest> Store(string idStore, int pag, int element)
+        {
+            throw new NotImplementedException();
         }
     }
 }

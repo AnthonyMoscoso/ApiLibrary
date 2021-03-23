@@ -7,7 +7,7 @@ namespace BookStoreApi.Controllers.Library.Books
     [RoutePrefix("Api/BookStore")]
     public class BookStoreController : ApiController
     {
-        public BookStoreRepositorie _repository = new BookStoreRepositorie();
+        public BookStoreRepository _repository = new BookStoreRepository();
 
         [HttpGet]
         public IHttpActionResult Get()
@@ -24,19 +24,6 @@ namespace BookStoreApi.Controllers.Library.Books
         public IHttpActionResult GetStock(string idBook,string idStore)
         {
             return Ok(_repository.GetStock(idBook,idStore));
-        }
-        [HttpPost]
-        [Route("List")]
-        public IHttpActionResult Get(List<string> ids)
-        {
-            return Ok(_repository.Get(ids));
-        }
-
-        [HttpGet]
-        [Route("Pag")]
-        public IHttpActionResult Get(int element, int page)
-        {
-            return Ok(_repository.Get(element, page));
         }
         [HttpPost]
         public IHttpActionResult Post(List<BookStore> list)

@@ -3,9 +3,11 @@ using BookStoreApi.Models;
 using BookStoreApi.Models.Library;
 using LibraryApiRest.Enums;
 using LibraryApiRest.Repositories.Abstract;
+using Mappers.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -21,14 +23,14 @@ namespace LibraryApiRest.Repositories.Concrect
         public string name;
         public string Identificator;
         public string query;
-        public readonly IMapper mapper;
+        public IMapper mapper;
         public Repositorie(string identificator)
         {
             Context = new BookStoreEntities();
             dbSet = Context.Set<TEntity>();
             name = typeof(TEntity).Name;
             Identificator = identificator;
-            
+            mapper = AutoMapperConfig.MapperConfiguration.CreateMapper();
         }
 
         public dynamic Delete(List<string> ids)
@@ -37,8 +39,7 @@ namespace LibraryApiRest.Repositories.Concrect
             foreach (string id  in ids)
             {
 
-                query = string.Format("Select * from {0} where {1}='{2}'",name,Identificator,id);
-                TEntity search = dbSet.SqlQuery(query).SingleOrDefault();
+                TEntity search = dbSet.Find(id);
                 if (search!=null)
                 {
                     dbSet.Remove(search);
@@ -57,14 +58,15 @@ namespace LibraryApiRest.Repositories.Concrect
             return dbSet.ToList();
         }
 
-        public dynamic Get(List<string> ids)
+        public dynamic GetList(string ids)
         {
+            List<string> list = ids.Split(',').ToList();
             string message = "";
             List<TEntity> entities = new List<TEntity>();
-            foreach (string id in ids)
+            foreach (string id in list)
             {
-                query = string.Format("Select * from {0} where {1}='{2}'", name, Identificator, id);
-                TEntity search = dbSet.SqlQuery(query).SingleOrDefault();
+
+                TEntity search = dbSet.Find(id);
                 if (search != null)
                 {
                     entities.Add(search);
@@ -88,9 +90,9 @@ namespace LibraryApiRest.Repositories.Concrect
 
         public dynamic Get(string id)
         {
-            query = string.Format("Select * from {0} where {1}='{2}'", name, Identificator, id);
-            TEntity search = dbSet.SqlQuery(query).SingleOrDefault();
-            return search;
+            var search = dbSet.Find(id);
+            return search != null ? (dynamic)search : (dynamic)"Not was found";
+
         }
 
         public dynamic Insert(List<TEntity> list)
@@ -125,6 +127,10 @@ namespace LibraryApiRest.Repositories.Concrect
             {
                 Context.SaveChanges();
                 return "Changes saves ";
+            }
+            catch (DbEntityValidationException e)
+            {
+                return e.Message;
             }
             catch (SqlException)
             {

@@ -1,6 +1,7 @@
 ﻿using BookStoreApi.Models.Library;
 using BookStoreApi.Repositories.Concrect.Books;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 
 namespace BookStoreApi.Controllers.Library.Books
@@ -21,11 +22,11 @@ namespace BookStoreApi.Controllers.Library.Books
         {
             return Ok(_repository.Get(id));
         }
-        [HttpPost]
+        [HttpGet]
         [Route("List")]
-        public IHttpActionResult Get(List<string> ids)
+        public IHttpActionResult GetList(string ids)
         {
-            return Ok(_repository.Get(ids));
+            return Ok(_repository.GetList(ids));
         }
 
         [HttpGet]

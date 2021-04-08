@@ -6,7 +6,7 @@ using System.Web;
 
 namespace BookStoreApi.Models.Request
 {
-    public class PersonRequest
+    public class PersonDto
     {
         public string IdPerson { get; set; }
         public string NamePerson { get; set; }
@@ -20,8 +20,8 @@ namespace BookStoreApi.Models.Request
         public string Dni { get; set; }
 
         #region Connections
-        public List<Sale> SalePurchases { get; set; }
-        public List<Reservation> ReservationsDo { get; set; }
+        public List<Sale> Reservation { get; set; }
+        public List<Reservation> Sale { get; set; }
 
         #endregion
     }

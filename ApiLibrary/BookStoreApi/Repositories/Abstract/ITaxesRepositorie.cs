@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Taxe
 {
-    interface ITaxesRepositorie : IRepositorie <Taxes>
+    interface ITaxesRepositorie : IRepository <Taxes>
     {
         List<Taxes> SearchByName(string text);
         List<Taxes> SearchByName(string text,int pag,int element);

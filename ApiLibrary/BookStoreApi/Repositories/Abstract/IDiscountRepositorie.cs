@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Discounts
 {
-    interface IDiscountRepositorie : IRepositorie<Discount>
+    interface IDiscountRepositorie : IRepository<Discount>
     {
         List<Discount> GetNotFinnalized();
         List<Discount> GetNotFinnalized(int pag,int element);

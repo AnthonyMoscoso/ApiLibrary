@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace BookStoreApi.Repositories.Concrect.Rols
 {
-    public class RolRepositorie : Repositorie<Rol>, IRolRepositorie
+    public class RolRepositorie : Repository<Rol>, IRolRepositorie
     {
         public RolRepositorie(string identificator="IdRol") : base(identificator)
         {
@@ -34,7 +34,7 @@ namespace BookStoreApi.Repositories.Concrect.Rols
             if (list.Count > 0)
             {
 
-                List<PermitDto> permitDtoDb = mapper.Map<List<Permit>,List<PermitDto>>(list);
+                List<PermitDto> permitDtoDb = mapper.Map<List<PermitDto>>(list);
                 List<PermitDto> rolPermitDto = mapper.Map<List<PermitDto>>(entity.Permit);
                 foreach (PermitDto permit in permitDtoDb)
                 {

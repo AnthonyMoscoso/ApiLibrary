@@ -8,7 +8,7 @@ using LibraryApiRest.Repositories.Concrect;
 
 namespace BookStoreApi.Repositories.Concrect.Discounts
 {
-    public class DiscountRepositorie : Repositorie<Discount>, IDiscountRepositorie
+    public class DiscountRepositorie : Repository<Discount>, IDiscountRepositorie
     {
         public DiscountRepositorie(string identificator="IdDiscount") : base(identificator)
         {

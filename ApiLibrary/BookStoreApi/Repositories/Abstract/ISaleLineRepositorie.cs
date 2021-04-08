@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Sales
 {
-    interface ISaleLineRepositorie :IRepositorie<SaleLine>
+    interface ISaleLineRepositorie :IRepository<SaleLine>
     {
         List<SaleLine> GetBySale(string idSale);
     }

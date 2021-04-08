@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using LibraryApiRest.Repositories.Abstract;
 using System;
 using System.Collections.Generic;
@@ -8,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.WareHouses
 {
-    interface IWareHouseRepositorie : IRepositorie<WareHouse>
+    interface IWareHouseRepositorie : IRepository<WareHouse>
     {
-        List<WareHouse> GetByPostalCode(string postalCode);
-        List<WareHouse> GetByPostalCode(string postalCode, int pag, int element);
-        List<WareHouse> GetByCountry(string country);
-        List<WareHouse> GetByCountry(string country, int pag, int element);
-        List<WareHouse> GetByPoblation(string poblation);
-        List<WareHouse> GetByPoblation(string poblation, int pag, int element);
-        WareHouse GetByEmployee(string idEmployee);
+        List<WareHouseDto> GetByPostalCode(string postalCode);
+        List<WareHouseDto> GetByPostalCode(string postalCode, int pag, int element);
+        List<WareHouseDto> GetByCountry(string country);
+        List<WareHouseDto> GetByCountry(string country, int pag, int element);
+        List<WareHouseDto> GetByPoblation(string poblation);
+        List<WareHouseDto> GetByPoblation(string poblation, int pag, int element);
+        WareHouseDto GetByEmployee(string idEmployee);
     }
 }

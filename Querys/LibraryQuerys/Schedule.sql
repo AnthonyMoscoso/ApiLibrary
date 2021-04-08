@@ -35,11 +35,10 @@ Constraint Fk_StoreSchedule_IdStore foreign key (IdStore) references Store (IdSt
 
 create table EmployeeSchedule (
 IdSchedule varchar (40) not null primary key,
-IdEmployee varchar (40) not null ,
-Constraint Fk_EmployeeSchedule_IdEmployee foreign key (IdSchedule) references Schedule (IdSchedule),
-Constraint Fk_EmployeeSchedule_IdStore foreign key (IdEmployee) references Employee (IdEmployee)
-
+IdEmployee varchar (40) not null 
 );
+alter table EmployeeSchedule add Constraint Fk_EmployeeSchedule_IdEmployee foreign key (IdSchedule) references Schedule (IdSchedule);
+alter table EmployeeSchedule add Constraint Fk_EmployeeSchedule_IdStore foreign key (IdEmployee) references Employee (IdPerson);
 
 create table WareHouseSchedule (
 IdSchedule varchar (40) not null primary key,

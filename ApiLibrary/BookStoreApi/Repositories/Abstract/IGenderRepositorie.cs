@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using LibraryApiRest.Repositories.Abstract;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Genders
 {
-    interface IGenderRepositorie : IRepositorie <Gender>
+    interface IGenderRepositorie : IRepository <Gender>
     {
-        List<Gender> SearchByName(string text);
-        List<Gender> SearchByName(string text,int pag,int element);
+        List<GenderDto> SearchByName(string text);
+        List<GenderDto> SearchByName(string text,int pag,int element);
     }
 }

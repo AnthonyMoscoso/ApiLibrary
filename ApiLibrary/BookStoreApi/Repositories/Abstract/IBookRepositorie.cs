@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using BookStoreApi.Models.Request;
 using LibraryApiRest.Repositories.Abstract;
 using System;
@@ -9,22 +10,22 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract
 {
-    interface IBookRepositorie : IRepositorie<Book>
+    interface IBookRepositorie : IRepository<Book>
     {
-        List<Book> GetByAutor(string idAutor);
-        List<Book> GetByAutor(string idAutor,int pag,int element);
-        List<Book> SearchByAutorName(string text);
-        List<Book> SearchByAutorName(string text,int pag,int element);
-        List<Book> GetByCategory(string idCategory);
-        List<Book> GetByCategory(string idCategory,int pag,int element);
-        List<Book> GetByGender(List<string>idGender);
-        List<Book> GetByGender(List<string> idGender,int pag,int element);
-        List<Book> GetByEditorial(string idEditorial);
-        List<Book> GetByEditorial(string idEditorial,int pag, int element);
-        List<Book> GetByEdition(string idEdition);
-        List<Book> GetByEdition(string idEdition,int pag,int element);
-        List<Book> SearchByName(string text);
+        List<BookDto> GetByAutor(string idAutor);
+        List<BookDto> GetByAutor(string idAutor,int pag,int element);
+        List<BookDto> SearchByAutorName(string text);
+        List<BookDto> SearchByAutorName(string text,int pag,int element);
+        List<BookDto> GetByCategory(string idCategory);
+        List<BookDto> GetByCategory(string idCategory,int pag,int element);
+        List<BookDto> GetByGender(List<string>idGender);
+        List<BookDto> GetByGender(List<string> idGender,int pag,int element);
+        List<BookDto> GetByEditorial(string idEditorial);
+        List<BookDto> GetByEditorial(string idEditorial,int pag, int element);
+        List<BookDto> GetByEdition(string idEdition);
+        List<BookDto> GetByEdition(string idEdition,int pag,int element);
+        List<BookDto> SearchByName(string text);
 
-        List<BookStoreRequest> Store(string idStore,int pag,int element);
+        List<BookStoreDto> Store(string idStore,int pag,int element);
     }
 }

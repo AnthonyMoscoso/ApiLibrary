@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using BookStoreApi.Repositories.Abstract.Stores;
 using LibraryApiRest.Repositories.Concrect;
 using System;
@@ -8,12 +9,16 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Stores
 {
-    public class StoreRepositorie : Repositorie<Store>, IStoreRepositorie
+    public class StoreRepositorie : Repository<Store>, IStoreRepositorie
     {
-        public StoreRepositorie(string identificator="IdStore") : base(identificator)
+        public StoreRepositorie(string identificator = "IdStore") : base(identificator)
         {
         }
 
+        public new List<StoreDto> Get(){
+            var list = dbSet.ToList();
+            return mapper.Map<List<StoreDto>>(list);
+        }
         public List<Store> GetByCountry(string country)
         {
             return dbSet.Where(w => w.Direction.IdDirection.Equals(country)).ToList();
@@ -28,7 +33,7 @@ namespace BookStoreApi.Repositories.Concrect.Stores
 
         public Store GetByEmployee(string idEmployee)
         {
-            return dbSet.Where(w => w.Employee.Any(e => e.IdEmployee.Equals(idEmployee))).SingleOrDefault();
+            return dbSet.Where(w => w.Employee.Any(e => e.IdPerson.Equals(idEmployee))).SingleOrDefault();
         }
 
         public List<Store> GetByPoblation(string poblation)

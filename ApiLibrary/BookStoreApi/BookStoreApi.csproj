@@ -104,15 +104,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Models\Library\Db.Context.tt">
+    <Content Include="Models\Library\LibraryDb.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Db.edmx</DependentUpon>
-      <LastGenOutput>Db.Context.cs</LastGenOutput>
+      <DependentUpon>LibraryDb.edmx</DependentUpon>
+      <LastGenOutput>LibraryDb.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Library\Db.tt">
+    <Content Include="Models\Library\LibraryDb.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Db.edmx</DependentUpon>
-      <LastGenOutput>Db.cs</LastGenOutput>
+      <DependentUpon>LibraryDb.edmx</DependentUpon>
+      <LastGenOutput>LibraryDb.cs</LastGenOutput>
     </Content>
     <Content Include="Models\Login\UserDb.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -161,6 +161,7 @@
     <Compile Include="Controllers\Library\ScheduleController.cs" />
     <Compile Include="Controllers\Library\ShippingController.cs" />
     <Compile Include="Controllers\Library\StoreController.cs" />
+    <Compile Include="Controllers\Library\StoreSaleController.cs" />
     <Compile Include="Controllers\Library\TaxesController.cs" />
     <Compile Include="Controllers\Library\WareHouseBookController.cs" />
     <Compile Include="Controllers\Library\WareHouseController.cs" />
@@ -168,6 +169,25 @@
     <Compile Include="Controllers\Login\Repositorie\LoginRepositorie.cs" />
     <Compile Include="Controllers\Login\Tokens\TokenGenerator.cs" />
     <Compile Include="Controllers\Login\Tokens\TokenValidationHandler.cs" />
+    <Compile Include="Dtos\AutorDto.cs" />
+    <Compile Include="Dtos\BookDto.cs" />
+    <Compile Include="Dtos\BookEditorialDto.cs" />
+    <Compile Include="Dtos\BookTypeDto.cs" />
+    <Compile Include="Dtos\CouponDto.cs" />
+    <Compile Include="Dtos\DirectionDto.cs" />
+    <Compile Include="Dtos\EmployeeWorkPlace.cs" />
+    <Compile Include="Dtos\GenderDto.cs" />
+    <Compile Include="Dtos\OccupationDto.cs" />
+    <Compile Include="Dtos\OrderDto.cs" />
+    <Compile Include="Dtos\OrderLineDto.cs" />
+    <Compile Include="Dtos\ReceptionDto.cs" />
+    <Compile Include="Dtos\SaleDto.cs" />
+    <Compile Include="Dtos\ShippingDto.cs" />
+    <Compile Include="Dtos\ShippingLineDto.cs" />
+    <Compile Include="Dtos\StoreDto.cs" />
+    <Compile Include="Dtos\StoreSaleDto.cs" />
+    <Compile Include="Dtos\WareHouseBookDto.cs" />
+    <Compile Include="Dtos\WareHouseDto.cs" />
     <Compile Include="Enums\ReservationStatus.cs" />
     <Compile Include="Enums\StatusCode.cs" />
     <Compile Include="Global.asax.cs">
@@ -175,157 +195,169 @@
     </Compile>
     <Compile Include="Mappers\AutoMapperConfig.cs" />
     <Compile Include="Models\Library\Autor.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\Barcode.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\Book.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\BookEditorial.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\BookStore.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\BookType.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Library\Box.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\Coupon.cs">
-      <DependentUpon>Db.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Library\Db.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Db.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Library\Db.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Db.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Library\Db.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Db.edmx</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\Direction.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\Discount.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\DocumentFile.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\Edition.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\Editorial.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\Employee.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\Gender.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\ImageFile.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Library\LibraryDb.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LibraryDb.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Library\LibraryDb.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Library\LibraryDb.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LibraryDb.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\Occupation.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Library\OnlineSale.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\OrderLine.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\Orders.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\PaymentBonus.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Library\PaymentBonusEmployee.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\PayRoll.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\Permit.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\Person.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\Providers.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\Purchase.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\PurchaseLine.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\Reception.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\ReceptionLine.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\Register.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\RegisterLine.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\Reservation.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\ReturnLine.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\ReturnSale.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\Rol.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\Sale.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\SaleLine.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\Schedule.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\ScheduleLine.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\Shipping.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\ShippingLine.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\SickLeave.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\Socie.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\Store.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Library\StoreSale.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\sysdiagrams.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\Taxes.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\WareHouse.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\WareHouseBook.cs">
-      <DependentUpon>Db.tt</DependentUpon>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Login\LoginRequest.cs" />
     <Compile Include="Models\Login\UserDb.Context.cs">
@@ -346,11 +378,11 @@
     <Compile Include="Models\Login\Users.cs">
       <DependentUpon>UserDb.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Request\BookStoreRequest.cs" />
-    <Compile Include="Models\Request\EmployeeRequest.cs" />
-    <Compile Include="Models\Request\PermitDto.cs" />
-    <Compile Include="Models\Request\PersonRequest.cs" />
-    <Compile Include="Models\Request\SocieRequest.cs" />
+    <Compile Include="Dtos\BookStoreDto.cs" />
+    <Compile Include="Dtos\EmployeeDto.cs" />
+    <Compile Include="Dtos\PermitDto.cs" />
+    <Compile Include="Dtos\PersonDto.cs" />
+    <Compile Include="Dtos\SocieDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Abstract\IBookEditorialRepositorie.cs" />
     <Compile Include="Repositories\Abstract\IBookStoreRepositorie.cs" />
@@ -393,6 +425,7 @@
     <Compile Include="Repositories\Abstract\IShippingLineRepositorie.cs" />
     <Compile Include="Repositories\Abstract\IShippingRepositorie.cs" />
     <Compile Include="Repositories\Abstract\IStoreRepositorie.cs" />
+    <Compile Include="Repositories\Abstract\IStoreSaleRepository.cs" />
     <Compile Include="Repositories\Abstract\ITaxesRepositorie.cs" />
     <Compile Include="Repositories\Abstract\IWareHouseBookRepositorie.cs" />
     <Compile Include="Repositories\Abstract\IWareHouseRepositorie.cs" />
@@ -436,12 +469,16 @@
     <Compile Include="Repositories\Concrect\ShippingLineRepositorie.cs" />
     <Compile Include="Repositories\Concrect\ShippingRepositorie.cs" />
     <Compile Include="Repositories\Concrect\StoreRepositorie.cs" />
+    <Compile Include="Repositories\Concrect\StoreSaleRepository.cs" />
     <Compile Include="Repositories\Concrect\TaxesRepositorie.cs" />
     <Compile Include="Repositories\Concrect\WareHouseBookRepository.cs" />
     <Compile Include="Repositories\Concrect\WareHouseRepositorie.cs" />
-    <Compile Include="Repositories\Generic\IRepositorie.cs" />
+    <Compile Include="Repositories\Generic\IRepository.cs" />
     <Compile Include="Repositories\Concrect\AutorRepositorie.cs" />
-    <Compile Include="Repositories\Generic\Repositorie.cs" />
+    <Compile Include="Repositories\Generic\Repository.cs" />
+    <Compile Include="Utilities\Enums\OrderStatus.cs" />
+    <Compile Include="Utilities\Enums\ShippingStatus.cs" />
+    <Compile Include="Utilities\IdGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Models\Login\UserDb.edmx">
@@ -451,12 +488,12 @@
     <Content Include="Models\Login\UserDb.edmx.diagram">
       <DependentUpon>UserDb.edmx</DependentUpon>
     </Content>
-    <EntityDeploy Include="Models\Library\Db.edmx">
+    <EntityDeploy Include="Models\Library\LibraryDb.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Db.Designer.cs</LastGenOutput>
+      <LastGenOutput>LibraryDb.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\Library\Db.edmx.diagram">
-      <DependentUpon>Db.edmx</DependentUpon>
+    <Content Include="Models\Library\LibraryDb.edmx.diagram">
+      <DependentUpon>LibraryDb.edmx</DependentUpon>
     </Content>
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
@@ -471,6 +508,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\" />
+    <Folder Include="Data\" />
+    <Folder Include="Views\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

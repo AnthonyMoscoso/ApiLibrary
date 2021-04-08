@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Books
 {
-    interface IBookEditorialRepositorie : IRepositorie<BookEditorial>
+    interface IBookEditorialRepositorie : IRepository<BookEditorial>
     {
         double GetPurchasePrice(string idBook, string idEditorial);
     }

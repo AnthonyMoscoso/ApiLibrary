@@ -2,14 +2,12 @@
 using BookStoreApi.Repositories.Concrect.Order;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
-namespace BookStoreApi.Controllers.Library.Order
+namespace BookWareHouseApi.Controllers.Library.Order
 {
     [RoutePrefix("Api/Order")]
+    [Authorize]
     public class OrderController : ApiController
     {
         public OrderRepositorie _repository = new OrderRepositorie();
@@ -48,6 +46,8 @@ namespace BookStoreApi.Controllers.Library.Order
         {
             return Ok(_repository.GetByDate(start,end, pag, element));
         }
+
+        #region Store
         [HttpGet]
         [Route("Store")]
         public IHttpActionResult GetByStore(string idStore)
@@ -58,31 +58,69 @@ namespace BookStoreApi.Controllers.Library.Order
         [Route("Store")]
         public IHttpActionResult GetByStore(string idStore, int pag, int element)
         {
-            return Ok(_repository.GetByStore(idStore,pag,element));
+            return Ok(_repository.GetByStore(idStore, pag, element));
         }
         [HttpGet]
         [Route("Store")]
-        public IHttpActionResult GetByStore(string idStore,DateTime date)
+        public IHttpActionResult GetByStore(string idStore, DateTime date)
         {
-            return Ok(_repository.GetByStore(idStore,date));
+            return Ok(_repository.GetByStore(idStore, date));
         }
         [HttpGet]
         [Route("Store")]
         public IHttpActionResult GetByStore(string idStore, DateTime date, int pag, int element)
         {
-            return Ok(_repository.GetByStore(idStore,date,pag,element));
+            return Ok(_repository.GetByStore(idStore, date, pag, element));
         }
         [HttpGet]
         [Route("Store")]
-        public IHttpActionResult GetByStore(string idStore, DateTime start,DateTime end)
+        public IHttpActionResult GetByStore(string idStore, DateTime start, DateTime end)
         {
-            return Ok(_repository.GetByStore(idStore,start,end));
+            return Ok(_repository.GetByStore(idStore, start, end));
         }
         [HttpGet]
         [Route("Store")]
         public IHttpActionResult GetByStore(string idStore, DateTime start, DateTime end, int pag, int element)
         {
-            return Ok(_repository.GetByStore(idStore, start,end, pag, element));
+            return Ok(_repository.GetByStore(idStore, start, end, pag, element));
+        }
+        #endregion
+
+        [HttpGet]
+        [Route("WareHouse")]
+        public IHttpActionResult GetByWareHouse(string idWareHouse)
+        {
+            return Ok(_repository.GetByWareHouse(idWareHouse));
+        }
+        [HttpGet]
+        [Route("WareHouse")]
+        public IHttpActionResult GetByWareHouse(string idWareHouse, int pag, int element)
+        {
+            return Ok(_repository.GetByWareHouse(idWareHouse, pag, element));
+        }
+        [HttpGet]
+        [Route("WareHouse")]
+        public IHttpActionResult GetByWareHouse(string idWareHouse, DateTime date)
+        {
+            return Ok(_repository.GetByWareHouse(idWareHouse, date));
+        }
+        [HttpGet]
+        [Route("WareHouse")]
+        public IHttpActionResult GetByWareHouse(string idWareHouse, DateTime date, int pag, int element)
+        {
+            return Ok(_repository.GetByWareHouse(idWareHouse, date, pag, element));
+        }
+        [HttpGet]
+        [Route("WareHouse")]
+        public IHttpActionResult GetByWareHouse(string idWareHouse, DateTime start, DateTime end)
+        {
+            return Ok(_repository.GetByWareHouse(idWareHouse, start, end));
+        }
+        [HttpGet]
+        [Route("WareHouse")]
+        public IHttpActionResult GetByWareHouse(string idWareHouse, DateTime start, DateTime end, int pag, int element)
+        {
+            return Ok(_repository.GetByWareHouse(idWareHouse, start, end, pag, element));
         }
         [HttpGet]
         [Route("List")]

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Editions
 {
-    interface IEditionRepositorie : IRepositorie<Edition>
+    interface IEditionRepositorie : IRepository<Edition>
     {
       List<Edition>  SearchByName(string text);
 

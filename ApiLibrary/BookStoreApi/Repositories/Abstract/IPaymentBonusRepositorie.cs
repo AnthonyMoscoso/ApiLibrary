@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Payments
 {
-    interface IPaymentBonusRepositorie : IRepositorie <PaymentBonus>
+    interface IPaymentBonusRepositorie : IRepository <PaymentBonus>
     {
         List<PaymentBonus> SearchByName(string text);
         List<PaymentBonus> SearchByName(string text,int pag,int element);

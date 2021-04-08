@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Editorials
 {
-    interface IEditorialRepositorie : IRepositorie<Editorial>
+    interface IEditorialRepositorie : IRepository<Editorial>
     {
         List<Editorial>SearchByName(string text);
         List<Editorial> SearchByName(string text,int pag,int element);

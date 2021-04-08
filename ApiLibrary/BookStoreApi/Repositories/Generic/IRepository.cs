@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LibraryApiRest.Repositories.Abstract
 {
-    interface IRepositorie<T>
+    interface IRepository<T>
     {
         dynamic Get();
         dynamic Get(string id);

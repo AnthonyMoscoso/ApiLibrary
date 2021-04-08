@@ -1,6 +1,7 @@
 use BookStore;
 
-/*
+alter table RegisterLine add  Constraint Fk_RegisterLine_IdEmployee foreign key (IdEmployee) references Employee(IdPerson);
+
 create table Register(
 IdRegister varchar (40) not null primary key,
 RegisterDate datetime not null ,
@@ -19,9 +20,9 @@ CreateDate datetime not null,  -- 12/05/2021 12:45:00
 LastUpdateDate datetime not null,  -- 12/05/2021 12:45:00
 StatusCode int not null ,-- 2
 Constraint Fk_RegisterLine_IdRegister foreign key (IdRegister) references Register(IdRegister),
-Constraint Fk_RegisterLine_IdEmployee foreign key (IdEmployee) references Employee(IdEmployee)
+Constraint Fk_RegisterLine_IdEmployee foreign key (IdEmployee) references Employee(IdPerson)
 );
-*/
+
 create table RegisterStore (
 IdStore varchar (40) not null ,
 IdRegister varchar (40) not null unique,

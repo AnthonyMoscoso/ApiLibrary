@@ -19,21 +19,20 @@ namespace BookStoreApi.Models.Library
         {
             this.Employee1 = new HashSet<Employee>();
             this.Orders = new HashSet<Orders>();
+            this.PayRoll = new HashSet<PayRoll>();
             this.Purchase = new HashSet<Purchase>();
             this.Reception = new HashSet<Reception>();
             this.RegisterLine = new HashSet<RegisterLine>();
             this.Reservation = new HashSet<Reservation>();
-            this.Sale = new HashSet<Sale>();
             this.SickLeave = new HashSet<SickLeave>();
             this.Rol = new HashSet<Rol>();
             this.Schedule = new HashSet<Schedule>();
-            this.PaymentBonus = new HashSet<PaymentBonus>();
+            this.StoreSale = new HashSet<StoreSale>();
         }
     
-        public string IdEmployee { get; set; }
+        public string IdPerson { get; set; }
         public string IdBoss { get; set; }
         public string IdOccupation { get; set; }
-        public string IdPerson { get; set; }
         public System.DateTime StartDate { get; set; }
         public System.DateTime HireDate { get; set; }
         public Nullable<System.DateTime> DischargeDate { get; set; }
@@ -51,6 +50,8 @@ namespace BookStoreApi.Models.Library
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Orders> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PayRoll> PayRoll { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Purchase> Purchase { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reception> Reception { get; set; }
@@ -58,8 +59,6 @@ namespace BookStoreApi.Models.Library
         public virtual ICollection<RegisterLine> RegisterLine { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reservation> Reservation { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Sale> Sale { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SickLeave> SickLeave { get; set; }
         public virtual ImageFile ImageFile { get; set; }
@@ -70,6 +69,6 @@ namespace BookStoreApi.Models.Library
         public virtual Store Store { get; set; }
         public virtual WareHouse WareHouse { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PaymentBonus> PaymentBonus { get; set; }
+        public virtual ICollection<StoreSale> StoreSale { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Models.Request;
 using BookStoreApi.Repositories.Concrect.Persons;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,11 @@ namespace BookStoreApi.Controllers.Library.Persons
         {
             return Ok(_repository.GetList(ids));
         }
+        [HttpGet]
+        public IHttpActionResult GetByDni(string dni)
+        {
+            return Ok(_repository.GetByDni(dni));
+        }
 
         [HttpGet]
         [Route("Pag")]
@@ -41,13 +47,14 @@ namespace BookStoreApi.Controllers.Library.Persons
         #endregion
 
         [HttpPost]
-        public IHttpActionResult Post(List<Socie> list)
+        public IHttpActionResult Post(List<SocieDto> list)
         {
+           
             return Ok(_repository.Insert(list));
         }
 
         [HttpPut]
-        public IHttpActionResult Put(List<Socie> list)
+        public IHttpActionResult Put(List<SocieDto> list)
         {
             return Ok(_repository.Update(list));
         }

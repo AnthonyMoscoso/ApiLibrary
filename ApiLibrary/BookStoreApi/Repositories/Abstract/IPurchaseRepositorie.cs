@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Purchases
 {
-    interface IPurchaseRepositorie : IRepositorie<Purchase>
+    interface IPurchaseRepositorie : IRepository<Purchase>
     {
     }
 }

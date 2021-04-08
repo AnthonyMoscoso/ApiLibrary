@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Registers
 {
-    interface IRegisterRepositorie : IRepositorie<Register>
+    interface IRegisterRepositorie : IRepository<Register>
     {
         List<Register> GetByDate(DateTime date);
         List<Register> GetByDate(DateTime date, int pag, int element);

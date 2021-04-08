@@ -1,4 +1,6 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
+using BookStoreApi.Models.Request;
 using BookStoreApi.Repositories.Concrect.Persons;
 using System;
 using System.Collections.Generic;
@@ -59,25 +61,25 @@ namespace BookStoreApi.Controllers.Library.Persons
         [Route("HireDate")]
         public IHttpActionResult GetByHireDateInStore(DateTime date,string idStore)
         {
-            return Ok(_repository.GetByHireDateInStore(idStore,date));
+            return Ok(_repository.GetByStore(idStore,date));
         }
         [HttpGet]
         [Route("HireDate")]
         public IHttpActionResult GetByHireDateInStore(DateTime date,string idStore, int pag, int element)
         {
-            return Ok(_repository.GetByHireDateInStore(idStore, date, pag, element));
+            return Ok(_repository.GetByStore(idStore, date, pag, element));
         }
         [HttpGet]
         [Route("HireDate")]
         public IHttpActionResult GetByHireDateInWareHouse(DateTime date, string idStore)
         {
-            return Ok(_repository.GetByHireDateInWareHouse(idStore, date));
+            return Ok(_repository.GetByWareHouse(idStore, date));
         }
         [HttpGet]
         [Route("HireDate")]
         public IHttpActionResult GetByHireDateInWareHouse(DateTime date, string idWareHouse, int pag, int element)
         {
-            return Ok(_repository.GetByHireDateInWareHouse(idWareHouse, date, pag, element));
+            return Ok(_repository.GetByWareHouse(idWareHouse, date, pag, element));
         }
         [HttpGet]
         [Route("Occupation")]
@@ -193,29 +195,41 @@ namespace BookStoreApi.Controllers.Library.Persons
         [Route("SearchByName")]
         public IHttpActionResult SearchByNameInStore(string idStore,string text)
         {
-            return Ok(_repository.SearchByNameInStore(idStore,text));
+            return Ok(_repository.SearchByStore(idStore,text));
         }
         [HttpGet]
         [Route("SearchByName")]
         public IHttpActionResult SearchByNameInStore(string idStore,string text, int pag, int element)
         {
-            return Ok(_repository.SearchByNameInStore(idStore, text, pag, element));
+            return Ok(_repository.SearchByStore(idStore, text, pag, element));
         }
         [HttpGet]
         [Route("SearchByName")]
         public IHttpActionResult SearchByNameInWareHouse(string idWareHouse, string text)
         {
-            return Ok(_repository.SearchByNameInWareHouse(idWareHouse, text));
+            return Ok(_repository.SearchByWareHouse(idWareHouse, text));
         }
         [HttpGet]
         [Route("SearchByName")]
         public IHttpActionResult SearchByNameInWareHouse(string idWareHouse, string text, int pag, int element)
         {
-            return Ok(_repository.SearchByNameInWareHouse(idWareHouse, text, pag, element));
+            return Ok(_repository.SearchByWareHouse(idWareHouse, text, pag, element));
+        }
+
+        [HttpPost]
+        [Route("Hire")]
+        public IHttpActionResult HireEmployee(EmployeeWorkPlace hire)
+        {
+            return Ok(_repository.Hire(hire)); ;
+        }
+        [HttpPost]
+        [Route("Fired")]
+        public IHttpActionResult FiredEmployee(EmployeeWorkPlace employeeWorkPlace)
+        {
+            return Ok(_repository.Fired(employeeWorkPlace)); ;
         }
 
         [HttpGet]
-        [Route("List")]
         public IHttpActionResult GetList(string ids)
         {
             return Ok(_repository.GetList(ids));
@@ -228,13 +242,13 @@ namespace BookStoreApi.Controllers.Library.Persons
             return Ok(_repository.Get(element, pag));
         }
         [HttpPost]
-        public IHttpActionResult Post(List<Employee> list)
+        public IHttpActionResult Post(List<EmployeeDto> list)
         {
             return Ok(_repository.Insert(list));
         }
 
         [HttpPut]
-        public IHttpActionResult Put(List<Employee> list)
+        public IHttpActionResult Put(List<EmployeeDto> list)
         {
             return Ok(_repository.Update(list));
         }

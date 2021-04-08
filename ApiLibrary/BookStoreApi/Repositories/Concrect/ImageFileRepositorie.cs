@@ -11,7 +11,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Files
 {
-    public class ImageFileRepositorie :Repositorie <ImageFile> ,IImageFileRepositorie
+    public class ImageFileRepositorie :Repository <ImageFile> ,IImageFileRepositorie
     {
         public ImageFileRepositorie(string identificator= "IdImageFile") : base(identificator)
         {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Reservations
 {
-    interface IReservationRepositorie : IRepositorie <Reservation>
+    interface IReservationRepositorie : IRepository <Reservation>
     {
         #region Count
         double GetCountBook(string idBook);

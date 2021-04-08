@@ -14,7 +14,7 @@ using System.Web;
 
 namespace LibraryApiRest.Repositories.Concrect
 {
-    public class Repositorie<TEntity> : IRepositorie<TEntity> 
+    public class Repository<TEntity> : IRepository<TEntity> 
         where TEntity : class,new()
     {
        public BookStoreEntities Context;
@@ -24,7 +24,7 @@ namespace LibraryApiRest.Repositories.Concrect
         public string Identificator;
         public string query;
         public IMapper mapper;
-        public Repositorie(string identificator)
+        public Repository(string identificator)
         {
             Context = new BookStoreEntities();
             dbSet = Context.Set<TEntity>();

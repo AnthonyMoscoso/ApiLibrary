@@ -1,21 +1,82 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Models.Request;
 using BookStoreApi.Repositories.Abstract.Persons;
 using LibraryApiRest.Repositories.Concrect;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Persons
 {
-    public class SocieRepositorie : Repositorie<Socie>, ISocieRepositorie
+    public class SocieRepositorie : Repository<Socie>, ISocieRepositorie
     {
-        readonly PersonRepositorie _PersonRepositorie;
+        readonly PersonRepositorie personRepositorie ;
         public SocieRepositorie(string identificator="IdSocie") : base(identificator)
         {
-            _PersonRepositorie = new PersonRepositorie();
+            personRepositorie  = new PersonRepositorie();
         }
 
+        public dynamic Insert(List<SocieDto> dtos)
+        {
+            try
+            {
+                List<Socie> list = mapper.Map<List<Socie>>(dtos);
+                dbSet.AddRange(list);
+            }
+            catch
+            {
+
+            }
+            return Save();
+        }
+        public  new dynamic Delete(List<string>ids)
+        {
+            string message = "";
+            foreach (string id in ids)
+            {
+                var search = dbSet.Find(id);
+                if (search != null)
+                {
+
+                    Person person = Context.Person.Find(id);
+                    Context.Person.Remove(person);
+                    dbSet.Remove(search);
+                    message += Save();
+                }
+                else
+                {
+                    message += string.Format("any employee was found with this id {0}", id); ;
+                }
+            }
+            return message;
+        }
+        public dynamic Update(List<SocieDto> list)
+        {
+            string message = "";
+            try
+            {
+                List<Person> people = mapper.Map<List<Person>>(list);
+                message += personRepositorie.Update(people);
+                foreach (SocieDto dto in list)
+                {
+                    Socie entity = mapper.Map<Socie>(dto);
+                    dbSet.Attach(entity);
+                    Context.Entry(entity).State = EntityState.Modified;
+                    message += Save();
+
+
+                }
+
+            }
+            catch (SqlException)
+            {
+
+            }
+            return message;
+        }
         public dynamic DeleteDesactivates()
         {
 
@@ -23,41 +84,46 @@ namespace BookStoreApi.Repositories.Concrect.Persons
             List<string> ids = new List<string>();
             foreach (Socie entity in list)
             {
-                ids.Add(entity.IdSocie);
+                ids.Add(entity.IdPerson);
             }
             Delete(ids);
-            _PersonRepositorie.Delete(ids);       
+            personRepositorie .Delete(ids);       
             return ids;
         }
 
         public void DesactivateAccount(string idSocie)
         {
-            dbSet.Where(w => w.IdSocie.Equals(idSocie)).SingleOrDefault().DesactivateDate = DateTime.Now;
+            dbSet.Where(w => w.IdPerson.Equals(idSocie)).SingleOrDefault().DesactivateDate = DateTime.Now;
+            Save();
         }
 
-        public List<Socie> GetByDate(DateTime date)
+        public List<SocieDto> GetByDate(DateTime date)
         {
-            return dbSet.Where(w => w.RegisterDate.Date.Equals(date.Date)).ToList();
+            var list = mapper.Map<List<SocieDto>>(dbSet.Where(w => w.RegisterDate.Date.Equals(date.Date)).ToList());
+            return list;
         }
 
-        public List<Socie> GetByDate(DateTime start, DateTime end)
+        public List<SocieDto> GetByDate(DateTime start, DateTime end)
         {
-            return dbSet.Where(w=> w.RegisterDate.Date>=start.Date && w.RegisterDate.Date<=end.Date).ToList();
+            var list = dbSet.Where(w => w.RegisterDate.Date >= start.Date && w.RegisterDate.Date <= end.Date).ToList();
+            return mapper.Map<List<SocieDto>>(list);
         }
 
-        public List<Socie> GetByDni(string dni)
+        public SocieDto GetByDni(string dni)
         {
-            return dbSet.Where(w=> w.Person.Dni.Equals(dni)).ToList();
+            var entity = dbSet.Where(w => w.Person.Dni.Equals(dni)).FirstOrDefault();
+            return mapper.Map<SocieDto>(entity);
         }
 
-        public List<Socie> GetDesactivates()
+        public List<SocieDto> GetDesactivates()
         {
-            return dbSet.Where(w => w.DesactivateDate.HasValue).ToList();
+            var list = dbSet.Where(w => w.DesactivateDate.HasValue).ToList();
+            return mapper.Map<List<SocieDto>>(list);
         }
 
         public void ReactivateAccount(string idSocie)
         {
-            Socie search = dbSet.Where(w => w.IdSocie.Equals(idSocie)).SingleOrDefault();
+            Socie search = dbSet.Where(w => w.IdPerson.Equals(idSocie)).SingleOrDefault();
             search.DesactivateDate= null;
             List<Socie> list = new List<Socie>()
             {
@@ -66,15 +132,35 @@ namespace BookStoreApi.Repositories.Concrect.Persons
             Update(list);
         }
 
-        public List<Socie> SearchByName(string text)
+        public List<SocieDto> SearchByName(string text)
         {
-            return dbSet.Where(e => (e.Person.NamePerson ).Contains(name)).ToList();
+            var list = dbSet.Where(e => (e.Person.NamePerson ).Contains(name)).ToList();
+            return mapper.Map<List<SocieDto>>(list);
         }
 
-        public List<Socie> SearchByName(string text, int pag, int element)
+        public List<SocieDto> SearchByName(string text, int pag, int element)
         {
-            return dbSet.Where(e => (e.Person.NamePerson ).Contains(name))
+            var list = dbSet.Where(e => (e.Person.NamePerson ).Contains(name))
+                .OrderBy(w=> w.CreateDate)
                 .Skip((pag - 1) * element).Take(element).ToList();
+            return mapper.Map<List<SocieDto>>(list);
+        }
+
+        public new List<SocieDto> Get()
+        {
+            var list = dbSet.ToList();
+            return mapper.Map<List<SocieDto>>(list);
+        }
+
+        public new List<SocieDto> Get(int pag,int element)
+        {
+            var list = dbSet.OrderBy(w=> w.CreateDate).Skip((pag-1)*element).Take(element).ToList();
+            return mapper.Map<List<SocieDto>>(list);
+        }
+
+        public new SocieDto Get(string id) {
+            var entity = dbSet.Find(id);
+            return mapper.Map<SocieDto>(entity);
         }
     }
 }

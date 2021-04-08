@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Order
 {
-    interface IOrderLineRepositorie : IRepositorie<OrderLine>
+    interface IOrderLineRepositorie : IRepository<OrderLine>
     {
         List<OrderLine> GetByOrder(string idOrder);
     }

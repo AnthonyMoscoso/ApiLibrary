@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Receptions
 {
-    interface IReceptionRepositorie : IRepositorie<Reception>
+    interface IReceptionRepositorie : IRepository<Reception>
     {
         List<Reception> GetByDate(DateTime date);
         List<Reception> GetByDate(DateTime date,int pag,int element);

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Shippings
 {
-    interface IShippingLineRepositorie : IRepositorie<ShippingLine>
+    interface IShippingLineRepositorie : IRepository<ShippingLine>
     {
     }
 }

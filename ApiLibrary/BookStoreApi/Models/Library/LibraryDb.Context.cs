@@ -31,6 +31,7 @@ namespace BookStoreApi.Models.Library
         public virtual DbSet<BookEditorial> BookEditorial { get; set; }
         public virtual DbSet<BookStore> BookStore { get; set; }
         public virtual DbSet<BookType> BookType { get; set; }
+        public virtual DbSet<Coupon> Coupon { get; set; }
         public virtual DbSet<Direction> Direction { get; set; }
         public virtual DbSet<Discount> Discount { get; set; }
         public virtual DbSet<DocumentFile> DocumentFile { get; set; }
@@ -43,6 +44,7 @@ namespace BookStoreApi.Models.Library
         public virtual DbSet<OrderLine> OrderLine { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<PaymentBonus> PaymentBonus { get; set; }
+        public virtual DbSet<PaymentBonusEmployee> PaymentBonusEmployee { get; set; }
         public virtual DbSet<PayRoll> PayRoll { get; set; }
         public virtual DbSet<Permit> Permit { get; set; }
         public virtual DbSet<Person> Person { get; set; }
@@ -57,7 +59,6 @@ namespace BookStoreApi.Models.Library
         public virtual DbSet<ReturnLine> ReturnLine { get; set; }
         public virtual DbSet<ReturnSale> ReturnSale { get; set; }
         public virtual DbSet<Rol> Rol { get; set; }
-        public virtual DbSet<Sale> Sale { get; set; }
         public virtual DbSet<SaleLine> SaleLine { get; set; }
         public virtual DbSet<Schedule> Schedule { get; set; }
         public virtual DbSet<ScheduleLine> ScheduleLine { get; set; }
@@ -70,6 +71,9 @@ namespace BookStoreApi.Models.Library
         public virtual DbSet<Taxes> Taxes { get; set; }
         public virtual DbSet<WareHouse> WareHouse { get; set; }
         public virtual DbSet<WareHouseBook> WareHouseBook { get; set; }
-        public virtual DbSet<Coupon> Coupon { get; set; }
+        public virtual DbSet<Sale> Sale { get; set; }
+        public virtual DbSet<StoreSale> StoreSale { get; set; }
+        public virtual DbSet<Box> Box { get; set; }
+        public virtual DbSet<OnlineSale> OnlineSale { get; set; }
     }
 }

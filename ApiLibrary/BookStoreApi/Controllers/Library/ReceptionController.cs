@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using BookStoreApi.Repositories.Concrect.Receptions;
 using System;
 using System.Collections.Generic;
@@ -86,7 +87,7 @@ namespace BookStoreApi.Controllers.Library.Receptions
             return Ok(_repository.Get(element, pag));
         }
         [HttpPost]
-        public IHttpActionResult Post(List<Reception> list)
+        public IHttpActionResult Post(List<ReceptionDto> list)
         {
             return Ok(_repository.Insert(list));
         }

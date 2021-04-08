@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using LibraryApiRest.Repositories.Abstract;
 using System;
 using System.Collections.Generic;
@@ -8,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Coupons
 {
-    interface ICouponRepositorie : IRepositorie<Coupon>
+    interface ICouponRepositorie : IRepository<Coupon>
     {
-        List<Coupon>GetBySale(string IdSale);
-        List<Coupon> GetBySale(string IdSale,int pag,int element);
-        List<Coupon> GetByDate(DateTime createTime);
-        List<Coupon> GetByDate(DateTime createTime,int pag,int element);
-        List<Coupon> GetNotFinalized();
-        List<Coupon> GetNotFinalized(int pag,int element);
-        List<Coupon> GetFinalized();
-        List<Coupon> GetFinalized(int pag,int element);
+        List<CouponDto>GetBySale(string IdSale);
+        List<CouponDto> GetBySale(string IdSale,int pag,int element);
+        List<CouponDto> GetByDate(DateTime createTime);
+        List<CouponDto> GetByDate(DateTime createTime,int pag,int element);
+        List<CouponDto> GetNotFinalized();
+        List<CouponDto> GetNotFinalized(int pag,int element);
+        List<CouponDto> GetFinalized();
+        List<CouponDto> GetFinalized(int pag,int element);
     }
 }

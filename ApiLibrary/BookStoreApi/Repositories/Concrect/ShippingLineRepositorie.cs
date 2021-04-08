@@ -8,7 +8,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Shippings
 {
-    public class ShippingLineRepositorie : Repositorie<ShippingLine>, IShippingLineRepositorie
+    public class ShippingLineRepositorie : Repository<ShippingLine>, IShippingLineRepositorie
     {
         public ShippingLineRepositorie(string identificator="IdShippingLine") : base(identificator)
         {

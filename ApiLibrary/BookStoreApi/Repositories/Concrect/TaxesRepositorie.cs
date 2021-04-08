@@ -8,7 +8,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Taxe
 {
-    public class TaxesRepositorie : Repositorie<Taxes>, ITaxesRepositorie
+    public class TaxesRepositorie : Repository<Taxes>, ITaxesRepositorie
     {
         public TaxesRepositorie(string identificator="IdTaxes") : base(identificator)
         {

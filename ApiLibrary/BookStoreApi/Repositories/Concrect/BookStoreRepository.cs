@@ -1,4 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Models.Request;
 using BookStoreApi.Repositories.Abstract.Books;
 using LibraryApiRest.Repositories.Abstract;
 using LibraryApiRest.Repositories.Concrect;
@@ -9,9 +10,9 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Books
 {
-    public class BookStoreRepository : Repositorie<BookStore>,IBookStoreRepositorie
+    public class BookStoreRepository : Repository<BookStore>, IBookStoreRepositorie
     {
-        public BookStoreRepository(string identificator="IdBookStore") : base(identificator)
+        public BookStoreRepository(string identificator = "IdBookStore") : base(identificator)
         {
         }
 
@@ -23,9 +24,14 @@ namespace BookStoreApi.Repositories.Concrect.Books
         /// <returns></returns>
         public int GetStock(string idBook, string idStore)
         {
-            
-            int stock = dbSet.Where(w => w.IdBook == idBook && w.IdStore ==idStore).SingleOrDefault().Stock;
+
+            int stock = dbSet.Where(w => w.IdBook == idBook && w.IdStore == idStore).SingleOrDefault().Stock;
             return stock;
+        }
+
+        public new List<BookStoreDto> Get(){
+            var list = dbSet.ToList();
+            return mapper.Map<List<BookStoreDto>>(list);
         }
 
         

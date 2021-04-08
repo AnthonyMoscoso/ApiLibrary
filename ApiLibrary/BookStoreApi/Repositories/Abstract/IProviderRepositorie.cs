@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Sales
 {
-    interface IProviderRepositorie : IRepositorie<Providers>
+    interface IProviderRepositorie : IRepository<Providers>
     {
         List<Providers> SearchByName(string text);
         List<Providers> SearchByName( string text,int pag,int element);

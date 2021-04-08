@@ -1,15 +1,16 @@
 use BookStore;
+
 create table Reception(
 IdReception varchar (40) not null primary key,
 IdEmployee varchar (40) not null,
 IdStore varchar (40) not null,
 CreateDate datetime not null, -- 12/05/2021 12:45:00
 LastUpdateDate datetime not null, -- 12/05/2021 12:45:00
-StatusCode int not null ,-- 1 
-Constraint Fk_Reception_IdEmployee foreign key (IdEmployee) references Employee (IdEmployee),
-Constraint Fk_Reception_IdStore foreign key (IdStore) references Store (IdStore)
+StatusCode int not null -- 1 
 );
 
+alter table Reception add Constraint Fk_Reception_IdEmployee foreign key (IdEmployee) references Employee (IdPerson);
+alter table Reception add Constraint Fk_Reception_IdStore foreign key (IdStore) references Store (IdStore);
 
 create table ReceptionLine (
 IdReceptionLine varchar (40) not null primary key,

@@ -8,7 +8,7 @@ using LibraryApiRest.Repositories.Abstract;
 
 namespace BookStoreApi.Repositories.Abstract.WareHouses
 {
-    interface IWareHouseBookRepositorie : IRepositorie<WareHouseBook>
+    interface IWareHouseBookRepositorie : IRepository<WareHouseBook>
     {
         int GetStock(string idBook, string idStore);
     }

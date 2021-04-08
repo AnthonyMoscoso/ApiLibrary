@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using BookStoreApi.Repositories.Abstract.Coupons;
 using LibraryApiRest.Repositories.Concrect;
 using System;
@@ -9,69 +10,76 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Coupons
 {
-    public class CouponRepositorie : Repositorie<Coupon>, ICouponRepositorie
+    public class CouponRepositorie : Repository<Coupon>, ICouponRepositorie
     {
         public CouponRepositorie(string identificator="IdCoupon") : base(identificator)
         {
         }
 
-        public List<Coupon> GetByDate(DateTime createTime)
+        public List<CouponDto> GetByDate(DateTime createTime)
         {
             DateTime tomorrow = createTime.AddDays(1);
             var list = dbSet.Where(w => w.CreateDate > createTime.Date && w.CreateDate < tomorrow.Date).ToList();
-            return list;
+            return mapper.Map<List<CouponDto>>(list);
         }
 
-        public List<Coupon> GetByDate(DateTime createTime, int pag, int element)
+        public List<CouponDto> GetByDate(DateTime createTime, int pag, int element)
         {
             DateTime tomorrow = createTime.AddDays(1);
-            return dbSet.Where(w => w.CreateDate > createTime.Date && w.CreateDate < tomorrow.Date)
+            var list = dbSet.Where(w => w.CreateDate > createTime.Date && w.CreateDate < tomorrow.Date)
                 .OrderByDescending(w => w.CreateDate)
                 .Skip((pag-1)*element).Take(element)
                 .ToList();
+
+            return mapper.Map<List<CouponDto>>(list);
         }
 
-        public List<Coupon> GetBySale(string IdSale)
+        public List<CouponDto> GetBySale(string IdSale)
         {
             var list = dbSet.Where(w => w.Sale.Any(s => s.IdSale.Equals(IdSale))).ToList();
-            return list;
+            return mapper.Map<List<CouponDto>>(list);
         }
 
-        public List<Coupon> GetBySale(string IdSale, int pag, int element)
+        public List<CouponDto> GetBySale(string IdSale, int pag, int element)
         {
-            return dbSet.Where(w => w.Sale.Any(s => s.IdSale.Equals(IdSale)))
+            var list = dbSet.Where(w => w.Sale.Any(s => s.IdSale.Equals(IdSale)))
                 .OrderByDescending(w=>w.CreateDate)
                 .Skip((pag - 1) * element).Take(element)
                 .ToList();
+            return mapper.Map<List<CouponDto>>(list);
         }
 
-        public List<Coupon> GetFinalized()
+        public List<CouponDto> GetFinalized()
         {
-            return dbSet.
+            var list = dbSet.
                 Where(x =>x.FinishOffert.Value <= DateTime.Now)
                 .ToList();
+
+            return mapper.Map<List<CouponDto>>(list);
         }
 
-        public List<Coupon> GetFinalized(int pag, int element)
+        public List<CouponDto> GetFinalized(int pag, int element)
         {
-            return dbSet.Where(w => w.FinishOffert<= DateTime.Now)
+            var list = dbSet.Where(w => w.FinishOffert<= DateTime.Now)
                 .OrderByDescending(w => w.CreateDate)
                 .Skip((pag - 1) * element).Take(element)
                 .ToList();
+            return mapper.Map<List<CouponDto>>(list);
         }
 
-        public List<Coupon> GetNotFinalized()
+        public List<CouponDto> GetNotFinalized()
         {
             var list = dbSet.Where(w => w.FinishOffert.Value > DateTime.Now || !w.FinishOffert.HasValue).ToList();
-            return list;
+            return mapper.Map<List<CouponDto>>(list);
         }
 
-        public List<Coupon> GetNotFinalized(int pag, int element)
+        public List<CouponDto> GetNotFinalized(int pag, int element)
         {
-            return dbSet.Where(w => w.FinishOffert.Value > DateTime.Now || !w.FinishOffert.HasValue)
+            var list= dbSet.Where(w => w.FinishOffert.Value > DateTime.Now || !w.FinishOffert.HasValue)
                 .OrderByDescending(w=> w.CreateDate)
                 .Skip((pag - 1) * element).Take(element)
                 .ToList();
+            return mapper.Map<List<CouponDto>>(list);
         }
     }
 }

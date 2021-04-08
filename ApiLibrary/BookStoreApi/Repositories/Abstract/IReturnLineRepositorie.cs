@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Returns
 {
-    interface IReturnLineRepositorie : IRepositorie <ReturnLine>
+    interface IReturnLineRepositorie : IRepository <ReturnLine>
     {
        List<ReturnLine> GetByReturn(string idReturn);
     }

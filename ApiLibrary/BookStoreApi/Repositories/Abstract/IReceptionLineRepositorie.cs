@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Receptions
 {
-    interface IReceptionLineRepositorie: IRepositorie<ReceptionLine>
+    interface IReceptionLineRepositorie: IRepository<ReceptionLine>
     {
         List<ReceptionLine> GetByReception(string idReception);
     }

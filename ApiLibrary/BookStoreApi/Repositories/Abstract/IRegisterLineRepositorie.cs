@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Registers
 {
-    interface IRegisterLineRepositorie : IRepositorie<RegisterLine>
+    interface IRegisterLineRepositorie : IRepository<RegisterLine>
     {
         List<RegisterLine> GetByRegister(string idRegister);
     }

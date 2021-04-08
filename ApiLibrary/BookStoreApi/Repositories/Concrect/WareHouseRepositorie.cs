@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using BookStoreApi.Repositories.Abstract.WareHouses;
 using LibraryApiRest.Repositories.Concrect;
 using System;
@@ -8,7 +9,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.WareHouses
 {
-    public class WareHouseRepositorie : Repositorie<WareHouse>, IWareHouseRepositorie
+    public class WareHouseRepositorie : Repository<WareHouse>, IWareHouseRepositorie
     {
  
         public WareHouseRepositorie(string identificator="IdWareHouse") : base(identificator)
@@ -16,40 +17,86 @@ namespace BookStoreApi.Repositories.Concrect.WareHouses
            
         }
 
-        public List<WareHouse> GetByCountry(string country)
+        public  new List<WareHouseDto> Get()
         {
-            return dbSet.Where(w => w.Direction.IdDirection.Equals(country)).ToList();
+            var list = dbSet.ToList();
+            return mapper.Map<List<WareHouseDto>>(list);
         }
 
-        public List<WareHouse> GetByCountry(string country, int pag, int element)
+        public List<WareHouseDto> GetByCountry(string country)
         {
-            return dbSet.Where(w => w.Direction.IdDirection.Equals(country)).Skip((pag - 1) * element).Take(element).ToList();
+            var list = dbSet.Where(w => w.Direction.Country.Equals(country)).ToList();
+            return mapper.Map<List<WareHouseDto>>(list);
         }
 
-        public WareHouse GetByEmployee(string idEmployee)
+        public List<WareHouseDto> GetByCountry(string country, int pag, int element)
         {
-            return dbSet.Where(w => w.Employee.Any(e => e.IdEmployee.Equals(idEmployee))).SingleOrDefault();
+            var list = dbSet.Where(w => w.Direction.Country.Equals(country))
+                .OrderBy(w => w.CreateDate)
+                .Skip((pag - 1) * element)
+                .Take(element)
+                .ToList();
+            return mapper.Map<List<WareHouseDto>>(list);
         }
 
-        public List<WareHouse> GetByPoblation(string poblation)
+        public WareHouseDto GetByEmployee(string idEmployee)
         {
-            return dbSet.Where(w => w.Direction.Poblation.Equals(poblation)).ToList();
+            var list = dbSet.Where(w => w.Employee.Any(e => e.IdPerson.Equals(idEmployee))).SingleOrDefault();
+            return mapper.Map<WareHouseDto>(list);
         }
 
-        public List<WareHouse> GetByPoblation(string poblation, int pag, int element)
+        public List<WareHouseDto> GetByPoblation(string poblation)
         {
-            return dbSet.Where(w => w.Direction.Poblation.Equals(poblation)).Skip((pag - 1) * element).Take(element).ToList();
+            var list = dbSet.Where(w => w.Direction.Poblation.Equals(poblation)).ToList();
+            return mapper.Map<List<WareHouseDto>>(list);
         }
 
-        public List<WareHouse> GetByPostalCode(string postalCode)
+        public List<WareHouseDto> GetByPoblation(string poblation, int pag, int element)
         {
-            return dbSet.Where(w => w.Direction.PostalCode.Equals(postalCode)).ToList();
+            var list = dbSet.Where(w => w.Direction.Poblation.Equals(poblation))
+                .OrderBy(w => w.CreateDate)
+                .Skip((pag - 1) * element)
+                .Take(element)
+                .ToList();
+            return mapper.Map<List<WareHouseDto>>(list);
         }
 
-        public List<WareHouse> GetByPostalCode(string postalCode, int pag, int element)
+        public List<WareHouseDto> GetByPostalCode(string postalCode)
         {
-            return dbSet.Where(w => w.Direction.PostalCode.Equals(postalCode)).Skip((pag - 1) * element).Take(element).ToList();
+            var list = dbSet.Where(w => w.Direction.PostalCode.Equals(postalCode)).ToList();
+            return mapper.Map<List<WareHouseDto>>(list);
         }
-       
+
+        public List<WareHouseDto> GetByPostalCode(string postalCode, int pag, int element)
+        {
+            var list = dbSet.Where(w => w.Direction.PostalCode.Equals(postalCode))
+                .OrderBy(w=> w.CreateDate)
+                .Skip((pag - 1) * element)
+                .Take(element)
+                .ToList();
+            return mapper.Map<List<WareHouseDto>>(list);
+        }
+        public new dynamic Delete(List<string> ids)
+        {
+            string message = "";
+            foreach (string id in ids)
+            {
+                var search = dbSet.Find(id);
+                if (search != null)
+                {
+                    if (search.Direction != null)
+                    {
+                        Context.Direction.Remove(search.Direction);
+                    }
+                    dbSet.Remove(search);
+                }
+                else
+                {
+                    message += "any store wasn't found with this id = " + id;
+                }
+
+            }
+            return Save();
+        }
     }
 }

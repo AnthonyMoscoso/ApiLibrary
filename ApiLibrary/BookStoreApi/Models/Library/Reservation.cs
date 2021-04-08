@@ -28,10 +28,10 @@ namespace BookStoreApi.Models.Library
         public int Quantity { get; set; }
         public double BookReservationPrice { get; set; }
     
+        public virtual Book Book { get; set; }
         public virtual Employee Employee { get; set; }
         public virtual Person Person { get; set; }
         public virtual Store Store { get; set; }
         public virtual Sale Sale { get; set; }
-        public virtual Book Book { get; set; }
     }
 }

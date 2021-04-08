@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using BookStoreApi.Repositories.Concrect.Books;
 using BookStoreApi.Repositories.Concrect.WareHouses;
 using System;
@@ -34,24 +35,30 @@ namespace BookStoreApi.Controllers.Library.Books
 
         [HttpGet]
         [Route("Pag")]
-        public IHttpActionResult Get(int element, int page)
+        public IHttpActionResult Get(int element, int pag)
         {
-            return Ok(_repository.Get(element, page));
+            return Ok(_repository.Get(element, pag));
         }
         [HttpGet]
-        [Route("SearchByName")]
+        [Route("Name")]
         public IHttpActionResult SearchByName(string text)
         {
             return Ok(_repository.SearchByName(text));
         }
         [HttpGet]
-        [Route("SearchByAutorName")]
+        [Route("Name")]
+        public IHttpActionResult SearchByName(string text,int pag,int element)
+        {
+            return Ok(_repository.SearchByName(text,pag,element));
+        }
+        [HttpGet]
+        [Route("Autor")]
         public IHttpActionResult SearchByAutorName(string text)
         {
             return Ok(_repository.SearchByAutorName(text));
         }
         [HttpGet]
-        [Route("SearchByAutorName")]
+        [Route("Autor")]
         public IHttpActionResult SearchByAutorName(string text, int pag, int element)
         {
             return Ok(_repository.SearchByAutorName(text, pag,  element));
@@ -119,7 +126,7 @@ namespace BookStoreApi.Controllers.Library.Books
             return Ok(_repository.GetByGender(ids, pag, element));
         }
         [HttpPost]
-        public IHttpActionResult Post(List<Book> list)
+        public IHttpActionResult Post(List<BookDto> list)
         {
             return Ok(_repository.Insert(list));
         }

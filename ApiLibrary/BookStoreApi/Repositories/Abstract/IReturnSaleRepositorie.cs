@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Returns
 {
-    interface IReturnSaleRepositorie : IRepositorie<ReturnSale>
+    interface IReturnSaleRepositorie : IRepository<ReturnSale>
     {
         #region GetByMethod
         List<ReturnSale> GetByMethod(int RepaymentMethod);

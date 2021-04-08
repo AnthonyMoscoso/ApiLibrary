@@ -1,5 +1,6 @@
 use BookStore;
-
+ alter table Sale add Constraint Fk_Sale_IdBuyer foreign key (IdBuyer) references Person (IdPerson);
+ alter table Sale add Constraint Fk_Sale_IdSeller foreign key (IdSeller) references Employee (IdPerson)
 
 create table Sale (
 IdSale varchar(40) primary key not null, -- GH56HG67GHGG56756
@@ -17,7 +18,7 @@ CreateDate datetime not null, -- 12/05/2021 12:45:00
 LastUpdateDate datetime not null, -- 12/05/2021 12:45:00
 StatusCode int not null, -- 1 
 Constraint Fk_Sale_IdBuyer foreign key (IdBuyer) references Person (IdPerson),
-Constraint Fk_Sale_IdSeller foreign key (IdSeller) references Employee (IdEmployee)
+Constraint Fk_Sale_IdSeller foreign key (IdSeller) references Employee (IdPerson)
 );
 
 /*

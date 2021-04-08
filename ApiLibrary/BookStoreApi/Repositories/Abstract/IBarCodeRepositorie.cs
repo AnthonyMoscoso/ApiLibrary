@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract
 {
-    interface IBarCodeRepositorie: IRepositorie<Barcode>
+    interface IBarCodeRepositorie: IRepository<Barcode>
     {
     }
 }

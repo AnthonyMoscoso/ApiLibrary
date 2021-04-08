@@ -17,7 +17,7 @@ namespace BookStoreApi.Models.Library
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PaymentBonus()
         {
-            this.Employee = new HashSet<Employee>();
+            this.PaymentBonusEmployee = new HashSet<PaymentBonusEmployee>();
             this.Occupation = new HashSet<Occupation>();
             this.PayRoll = new HashSet<PayRoll>();
         }
@@ -32,7 +32,7 @@ namespace BookStoreApi.Models.Library
         public int StatusCode { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employee> Employee { get; set; }
+        public virtual ICollection<PaymentBonusEmployee> PaymentBonusEmployee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Occupation> Occupation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

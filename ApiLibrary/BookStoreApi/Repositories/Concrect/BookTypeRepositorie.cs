@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using BookStoreApi.Repositories.Abstract.Books;
 using LibraryApiRest.Repositories.Concrect;
 using System;
@@ -8,30 +9,39 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Books
 {
-    public class BookTypeRepositorie : Repositorie<BookType>, IBookTypeRepositorie
+    public class BookTypeRepositorie : Repository<BookType>, IBookTypeRepositorie
     {
         public BookTypeRepositorie(string identificator= "IdType") : base(identificator)
         {
 
         }
 
-        public BookType GetByName(string name)
+        public new List<BookTypeDto> Get()
         {
-            return dbSet.Where(w => w.TypeName.Equals(name)).FirstOrDefault();
+            var list = dbSet.ToList();
+            return mapper.Map<List<BookTypeDto>>(list);
         }
 
-        public List<BookType> SearchByName(string text)
+        public BookTypeDto GetByName(string name)
         {
-            return dbSet.Where(w => w.TypeName.Contains(text)).ToList();
+            var list = dbSet.Where(w => w.TypeName.Equals(name)).FirstOrDefault();
+            return mapper.Map<BookTypeDto>(list);
         }
 
-        public List<BookType> SearchByName(string text, int pag, int element)
+        public List<BookTypeDto> SearchByName(string text)
         {
-            return dbSet.Where(w => w.TypeName.Contains(text))
+            var list = dbSet.Where(w => w.TypeName.Contains(text)).ToList();
+            return mapper.Map<List<BookTypeDto>>(list);
+        }
+
+        public List<BookTypeDto> SearchByName(string text, int pag, int element)
+        {
+            var list = dbSet.Where(w => w.TypeName.Contains(text))
                 .OrderBy(w => w.CreateDate)
                 .Skip((pag - 1) * element)
                 .Take(element)
                 .ToList();
+            return mapper.Map<List<BookTypeDto>>(list);
         }
     }
 }

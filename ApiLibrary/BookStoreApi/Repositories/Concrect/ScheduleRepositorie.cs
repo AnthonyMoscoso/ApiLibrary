@@ -8,7 +8,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Schedules
 {
-    public class ScheduleRepositorie : Repositorie<Schedule>, IScheduleRepositorie
+    public class ScheduleRepositorie : Repository<Schedule>, IScheduleRepositorie
     {
         public ScheduleRepositorie(string identificator="IdSchedule") : base(identificator)
         {
@@ -16,12 +16,12 @@ namespace BookStoreApi.Repositories.Concrect.Schedules
 
         public List<Schedule> GetByEmployee(string idEmployee)
         {
-            return dbSet.Where(w => w.Employee.IdEmployee.Equals(idEmployee)).ToList();
+            return dbSet.Where(w => w.Employee.IdPerson.Equals(idEmployee)).ToList();
         }
 
         public List<Schedule> GetByEmployee(string idEmployee, int year)
         {
-            return dbSet.Where(w => w.Employee.IdEmployee.Equals(idEmployee) && w.YearValue==year).ToList();
+            return dbSet.Where(w => w.Employee.IdPerson.Equals(idEmployee) && w.YearValue==year).ToList();
         }
 
         public List<Schedule> GetByStore(string idStore)

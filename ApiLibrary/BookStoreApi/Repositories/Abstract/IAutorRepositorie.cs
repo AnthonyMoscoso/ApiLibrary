@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LibraryApiRest.Repositories.Abstract
 {
-    interface IAutorRepositorie : IRepositorie<Autor>
+    interface IAutorRepositorie : IRepository<Autor>
     {
         List<Autor> SearchByName(string text);
         List<Autor> SearchByName(string text,int pag,int element);

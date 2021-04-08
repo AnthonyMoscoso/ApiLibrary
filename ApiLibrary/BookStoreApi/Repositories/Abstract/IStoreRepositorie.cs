@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Stores
 {
-    interface IStoreRepositorie : IRepositorie<Store>
+    interface IStoreRepositorie : IRepository<Store>
     {
         List<Store> GetByPostalCode(string postalCode);
         List<Store> GetByPostalCode(string postalCode,int pag,int element);

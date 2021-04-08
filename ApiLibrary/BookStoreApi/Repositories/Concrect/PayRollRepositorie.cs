@@ -8,7 +8,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.PayRolls
 {
-    public class PayRollRepositorie : Repositorie<PayRoll>, IPayRollRepositorie
+    public class PayRollRepositorie : Repository<PayRoll>, IPayRollRepositorie
     {
         public PayRollRepositorie(string identificator="IdPayRoll") : base(identificator)
         {

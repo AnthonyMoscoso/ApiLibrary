@@ -19,12 +19,12 @@ namespace BookStoreApi.Models.Library
         {
             this.ReceptionLine = new HashSet<ReceptionLine>();
             this.ShippingLine = new HashSet<ShippingLine>();
+            this.OnlineSale = new HashSet<OnlineSale>();
         }
     
         public string IdShipping { get; set; }
         public string IdDirectionFrom { get; set; }
         public string IdDirectionTo { get; set; }
-        public Nullable<double> ShippingPrice { get; set; }
         public System.DateTime DepartureDate { get; set; }
         public Nullable<System.DateTime> ExpectArrivalDate { get; set; }
         public Nullable<System.DateTime> ArrivalDate { get; set; }
@@ -33,6 +33,7 @@ namespace BookStoreApi.Models.Library
         public System.DateTime CreateDate { get; set; }
         public System.DateTime LastUpdateDate { get; set; }
         public int StatusCode { get; set; }
+        public string IdWareHouse { get; set; }
     
         public virtual Direction Direction { get; set; }
         public virtual Direction Direction1 { get; set; }
@@ -40,5 +41,8 @@ namespace BookStoreApi.Models.Library
         public virtual ICollection<ReceptionLine> ReceptionLine { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShippingLine> ShippingLine { get; set; }
+        public virtual WareHouse WareHouse { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OnlineSale> OnlineSale { get; set; }
     }
 }

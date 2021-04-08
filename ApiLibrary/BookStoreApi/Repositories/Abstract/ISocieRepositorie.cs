@@ -1,4 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Models.Request;
 using LibraryApiRest.Repositories.Abstract;
 using System;
 using System.Collections.Generic;
@@ -8,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Persons
 {
-    interface ISocieRepositorie : IRepositorie<Socie>
+    interface ISocieRepositorie : IRepository<Socie>
     {
-        List<Socie> GetByDni(string dni);
-        List<Socie> GetByDate(DateTime date);
-        List<Socie> GetByDate(DateTime start, DateTime end);
-        List<Socie> GetDesactivates();
+        SocieDto GetByDni(string dni);
+        List<SocieDto> GetByDate(DateTime date);
+        List<SocieDto> GetByDate(DateTime start, DateTime end);
+        List<SocieDto> GetDesactivates();
         dynamic DeleteDesactivates();
         void DesactivateAccount(string idSocie);
         void ReactivateAccount(string idSocie);
-        List<Socie>SearchByName(string text);
-        List<Socie> SearchByName(string text,int pag,int element);
+        List<SocieDto> SearchByName(string text);
+        List<SocieDto> SearchByName(string text,int pag,int element);
     }
 }

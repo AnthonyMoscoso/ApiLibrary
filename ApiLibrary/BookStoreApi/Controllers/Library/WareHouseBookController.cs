@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace BookStoreApi.Controllers.Library
 {
-    [RoutePrefix("Api/WareHouseBookC")]
+    [RoutePrefix("Api/WareHouseBook")]
     public class WareHouseBookController : ApiController
     {
         readonly WareHouseBookRepository _repository;
@@ -31,9 +31,9 @@ namespace BookStoreApi.Controllers.Library
         #endregion
         [HttpGet]
         [Route("Stock")]
-        public IHttpActionResult GetStock(string idBook, string idStore)
+        public IHttpActionResult GetStock(string idBook, string idWareHouse)
         {
-            return Ok(_repository.GetStock(idBook, idStore));
+            return Ok(_repository.GetStock(idBook, idWareHouse));
         }
         [HttpPost]
         public IHttpActionResult Post(List<WareHouseBook> list)

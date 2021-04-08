@@ -9,7 +9,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Reservations
 {
-    public class ReservationRepositorie : Repositorie<Reservation>, IReservationRepositorie
+    public class ReservationRepositorie : Repository<Reservation>, IReservationRepositorie
     {
         public ReservationRepositorie(string identificator="IdReservation") : base(identificator)
         {

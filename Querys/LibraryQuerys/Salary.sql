@@ -1,4 +1,5 @@
 use BookStore;
+
 create table Taxes (
 IdTaxes varchar (40) primary key not null,
 TaxTittle varchar (75) not null unique,
@@ -29,7 +30,7 @@ LastUpdateDate datetime not null,-- 12/05/2021 12:45:00
 StatusCode int not null -- 1
 );
 
-
+alter table PayRoll add constraint Fk_PayRoll_Employee foreign key (IdEmployee)  references Employee(IdPerson);
 
 create table PayRollTaxes (
 IdPayRoll varchar (40) not null,

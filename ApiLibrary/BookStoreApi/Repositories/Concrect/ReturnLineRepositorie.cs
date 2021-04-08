@@ -8,7 +8,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Returns
 {
-    public class ReturnLineRepositorie : Repositorie<ReturnLine>, IReturnLineRepositorie
+    public class ReturnLineRepositorie : Repository<ReturnLine>, IReturnLineRepositorie
     {
         public ReturnLineRepositorie(string identificator="IdReturnLine") : base(identificator)
         {

@@ -1,92 +1,234 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using BookStoreApi.Repositories.Abstract;
 using LibraryApiRest.Repositories.Concrect;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Order
 {
-    public class OrderRepositorie : Repositorie<Orders>, IOrderRepositorie
+    public class OrderRepositorie : Repository<Orders>, IOrderRepositorie
     {
         public OrderRepositorie(string identificator="IdOrder") : base(identificator)
         {
         }
 
-        public List<Orders> GetByDate(DateTime date)
+        public new dynamic Update(List<Orders> list)
         {
-            var list = dbSet.Where(w=>w.CreateDate.Date==date.Date).ToList();
-            return list;
+            string message = "";
+            foreach (Orders o in list)
+            {
+                if (o.OrderLine.Count > 0)
+                {
+                    foreach (OrderLine line in o.OrderLine)
+                    {
+                        var searchLine = Context.OrderLine.Find(line.IdOrderLine);
+                        if (searchLine != null)
+                        {
+                            if (!searchLine.LastUpdateDate.Equals(line.LastUpdateDate))
+                            {
+                                Context.OrderLine.Attach(line);
+                                Context.Entry(line).State = EntityState.Modified;
+                            }
+                        }
+                    }
+                 
+                }
+
+                dbSet.Attach(o);
+                Context.Entry(o).State = EntityState.Modified;
+                message += Save();
+            }
+            return Save();
         }
 
-        public List<Orders> GetByDate(DateTime date, int pag, int element)
+        public new dynamic Delete(List<string>ids)
         {
-            return dbSet.Where(w => w.CreateDate.Date == date.Date)
+            string message = "";
+            foreach (string id in ids)
+            {
+                var search = dbSet.Find(id);
+                if (search!=null)
+                {
+                    List<OrderLine> lines = search.OrderLine.ToList(); ;
+                    foreach (OrderLine line in lines)
+                    {
+                        Context.OrderLine.Remove(line);
+                    }
+                    dbSet.Remove(search);
+                    message += Save();
+                }
+                else
+                {
+                    message += "\nNo was found any Order with this id "+id;
+                }
+                
+              
+            }
+          
+            return message;
+        }
+
+        public new List<OrderDto> Get()
+        {
+            var list = dbSet.ToList();
+            return mapper.Map<List<OrderDto>>(list);
+        }
+
+        public new List<OrderDto> Get(int element,int pag)
+        {
+            var list = dbSet
+                .OrderBy(w=> w.CreateDate)
+                .Skip((pag-1)*element)
+                .Take(element)
+                .ToList();
+            return mapper.Map<List<OrderDto>>(list);
+        }
+        public List<OrderDto> GetByDate(DateTime date)
+        {
+            var list = dbSet.Where(w=> DbFunctions.TruncateTime(w.CreateDate) == DbFunctions.TruncateTime(date)).ToList();
+            return mapper.Map<List<OrderDto>>(list);
+        }
+
+        public List<OrderDto> GetByDate(DateTime date, int pag, int element)
+        {
+            var list = dbSet.Where(w => DbFunctions.TruncateTime(w.CreateDate) == DbFunctions.TruncateTime(date))
                 .OrderBy(w=>w.CreateDate)
                 .Skip((pag - 1) * element)
                 .Take(element)
                 .ToList();
+            return mapper.Map<List<OrderDto>>(list);
+        }
+
+        public List<OrderDto> GetByDate(DateTime dateStart, DateTime dateEnd)
+        {
+            var list = dbSet.Where(w => DbFunctions.TruncateTime(w.CreateDate) >= DbFunctions.TruncateTime(dateStart) 
+            && DbFunctions.TruncateTime(w.CreateDate) <= DbFunctions.TruncateTime(dateEnd)).ToList();
+            return mapper.Map<List<OrderDto>>(list);
+        }
+
+        public List<OrderDto> GetByDate(DateTime dateStart, DateTime dateEnd, int pag, int element)
+        {
+            var list = dbSet.Where(w => w.CreateDate >= dateStart && w.CreateDate <= dateEnd)
+                 .OrderBy(w => w.CreateDate)
+                .Skip((pag - 1) * element)
+                .Take(element)
+                .ToList();
+            return mapper.Map<List<OrderDto>>(list);
         }
 
 
-
-        public List<Orders> GetByStore(string idStore)
+        public List<OrderDto> GetByStore(string idStore)
         {
             var list = dbSet.Where(w=>w.IdStore.Equals(idStore)).ToList();
-            return list;
+            return mapper.Map<List<OrderDto>>(list);
         }
 
-        public List<Orders> GetByStore(string idStore, int pag, int element)
+        public List<OrderDto> GetByStore(string idStore, int pag, int element)
         {
-            return dbSet.Where(w => w.IdStore.Equals(idStore))
+            var list = dbSet.Where(w => w.IdStore.Equals(idStore))
                  .OrderBy(w => w.CreateDate)
                 .Skip((pag - 1) * element)
                 .Take(element)
                 .ToList();
+            return mapper.Map<List<OrderDto>>(list);
         }
-        public List<Orders> GetByStore(string idStore, DateTime date)
+        public List<OrderDto> GetByStore(string idStore, DateTime date)
         {
-            var list = dbSet.Where(w => w.CreateDate.Date == date.Date && w.IdStore.Equals(idStore)).ToList();
-            return list;
+            var list = dbSet.Where(w => DbFunctions.TruncateTime(w.CreateDate) == DbFunctions.TruncateTime(date) && w.IdStore.Equals(idStore)).ToList();
+            return mapper.Map<List<OrderDto>>(list);
         }
 
-        public List<Orders> GetByStore(string idStore, DateTime date, int pag, int element)
+        public List<OrderDto> GetByStore(string idStore, DateTime date, int pag, int element)
         {
-            return dbSet.Where(w => w.CreateDate.Date == date.Date && w.IdStore.Equals(idStore))
+           var list= dbSet.Where(w => DbFunctions.TruncateTime(w.CreateDate) == DbFunctions.TruncateTime(date) && w.IdStore.Equals(idStore))
                  .OrderBy(w => w.CreateDate)
                 .Skip((pag - 1) * element)
                 .Take(element)
                 .ToList();
-        }
-        public List<Orders> GetByDate(DateTime dateStart, DateTime dateEnd)
-        {
-            var list = dbSet.Where(w => w.CreateDate >= dateStart && w.CreateDate <= dateEnd).ToList(); 
-            return list;
+            return mapper.Map<List<OrderDto>>(list);
         }
 
-        public List<Orders> GetByDate(DateTime dateStart, DateTime dateEnd, int pag, int element)
+        public List<OrderDto> GetByStore(string idStore, DateTime dateStart, DateTime dateEnd)
         {
-            return dbSet.Where(w => w.CreateDate >= dateStart && w.CreateDate <= dateEnd)
+            var list = dbSet.Where(w => DbFunctions.TruncateTime( w.CreateDate) >= DbFunctions.TruncateTime( dateStart) 
+            && DbFunctions.TruncateTime( w.CreateDate) <= DbFunctions.TruncateTime(dateEnd)
+            && w.IdStore.Equals(idStore)).ToList();
+            return mapper.Map<List<OrderDto>>(list);
+        }
+
+        public List<OrderDto> GetByStore(string idStore, DateTime dateStart, DateTime dateEnd, int pag, int element)
+        {
+            var list = dbSet.Where(w => DbFunctions.TruncateTime( w.CreateDate) >= DbFunctions.TruncateTime( dateStart) 
+            && DbFunctions.TruncateTime( w.CreateDate) <= DbFunctions.TruncateTime( dateEnd) 
+            && w.IdStore.Equals(idStore))
                  .OrderBy(w => w.CreateDate)
                 .Skip((pag - 1) * element)
                 .Take(element)
                 .ToList();
+            return mapper.Map<List<OrderDto>>(list);
         }
 
-        public List<Orders> GetByStore(string idStore, DateTime dateStart, DateTime dateEnd)
+
+        public List<OrderDto> GetByWareHouse(string idWareHouse, DateTime date)
         {
-            var list = dbSet.Where(w => w.CreateDate >= dateStart && w.CreateDate <= dateEnd && w.IdStore.Equals(idStore)).ToList(); 
-            return list;
+            var list = dbSet.Where(w => w.WareHouse.IdWareHouse.Equals(idWareHouse) 
+            && DbFunctions.TruncateTime(w.CreateDate) == DbFunctions.TruncateTime(date))
+                .ToList();
+            return mapper.Map<List<OrderDto>>(list);
         }
 
-        public List<Orders> GetByStore(string idStore, DateTime dateStart, DateTime dateEnd, int pag, int element)
+        public List<OrderDto> GetByWareHouse(string idWareHouse, DateTime date, int pag, int element)
         {
-            return dbSet.Where(w => w.CreateDate >= dateStart && w.CreateDate <= dateEnd && w.IdStore.Equals(idStore))
-                 .OrderBy(w => w.CreateDate)
+            var list = dbSet.Where(w => w.WareHouse.IdWareHouse.Equals(idWareHouse) 
+            && DbFunctions.TruncateTime(w.CreateDate) == DbFunctions.TruncateTime(date))
+                .OrderBy(w=> w.CreateDate)
+                .Skip((pag-1)*element)
+                .Take(element)
+                .ToList();
+            return mapper.Map<List<OrderDto>>(list);
+        }
+
+        public List<OrderDto> GetByWareHouse(string idWareHouse)
+        {
+            var list = dbSet.Where(w => w.IdWareHouse.Equals(idWareHouse)).ToList();
+            return mapper.Map<List<OrderDto>>(list);
+        }
+
+        public List<OrderDto> GetByWareHouse(string idWareHouse, int pag, int element)
+        {
+            var list = dbSet.Where(w => w.IdWareHouse.Equals(idWareHouse))
+                .OrderBy(w => w.CreateDate)
                 .Skip((pag - 1) * element)
                 .Take(element)
                 .ToList();
+            return mapper.Map<List<OrderDto>>(list);
+        }
+
+        public List<OrderDto> GetByWareHouse(string idWareHouse, DateTime dateStart, DateTime dateEnd)
+        {
+            var list = dbSet.Where(w => w.IdWareHouse.Equals(idWareHouse)
+            && DbFunctions.TruncateTime( w.CreateDate) >= DbFunctions.TruncateTime( dateStart)
+            && DbFunctions.TruncateTime( w.CreateDate) <= DbFunctions.TruncateTime( dateEnd)).ToList();
+            return mapper.Map<List<OrderDto>>(list);
+        }
+
+        public List<OrderDto> GetByWareHouse(string idWareHouse, DateTime dateStart, DateTime dateEnd, int pag, int element)
+        {
+            var list = dbSet.Where(w => w.IdWareHouse.Equals(idWareHouse) 
+            && DbFunctions.TruncateTime( w.CreateDate) 
+            >= DbFunctions.TruncateTime( dateStart) 
+            && DbFunctions.TruncateTime( w.CreateDate) 
+            <=  DbFunctions.TruncateTime( dateEnd))
+                .OrderBy(w => w.CreateDate)
+                .Skip((pag - 1) * element)
+                .Take(element)
+                .ToList();
+            return mapper.Map<List<OrderDto>>(list);
         }
     }
 }

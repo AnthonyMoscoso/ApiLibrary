@@ -24,7 +24,6 @@ namespace BookStoreApi.Models.Library
     
         public string IdSale { get; set; }
         public string IdBuyer { get; set; }
-        public string IdSeller { get; set; }
         public double Total { get; set; }
         public double Discount { get; set; }
         public int SaleStatus { get; set; }
@@ -37,15 +36,15 @@ namespace BookStoreApi.Models.Library
         public System.DateTime LastUpdateDate { get; set; }
         public int StatusCode { get; set; }
     
-        public virtual Employee Employee { get; set; }
         public virtual Person Person { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReturnSale> ReturnSale { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SaleLine> SaleLine { get; set; }
+        public virtual StoreSale StoreSale { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reservation> Reservation { get; set; }
-        public virtual Store Store { get; set; }
         public virtual Coupon Coupon { get; set; }
+        public virtual OnlineSale OnlineSale { get; set; }
     }
 }

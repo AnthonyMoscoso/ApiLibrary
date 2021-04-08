@@ -10,6 +10,7 @@ using System.Web.Http;
 namespace BookStoreApi.Controllers.Library.WareHouses
 {
     [RoutePrefix("Api/WareHouse")]
+    [Authorize]
     public class WareHouseController : ApiController
     {
         readonly WareHouseRepositorie _repository ;

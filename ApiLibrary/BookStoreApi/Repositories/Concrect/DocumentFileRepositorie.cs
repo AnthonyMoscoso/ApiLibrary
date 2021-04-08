@@ -8,7 +8,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Files
 {
-    public class DocumentFileRepositorie : Repositorie<DocumentFile>, IDocumentFileRepositorie
+    public class DocumentFileRepositorie : Repository<DocumentFile>, IDocumentFileRepositorie
     {
         public DocumentFileRepositorie(string identificator="IdDocument") : base(identificator)
         {

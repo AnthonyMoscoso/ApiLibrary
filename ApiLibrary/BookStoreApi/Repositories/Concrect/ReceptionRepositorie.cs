@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using BookStoreApi.Repositories.Abstract.Receptions;
 using LibraryApiRest.Repositories.Concrect;
 using System;
@@ -8,7 +9,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Receptions
 {
-    public class ReceptionRepositorie : Repositorie<Reception>, IReceptionRepositorie
+    public class ReceptionRepositorie : Repository<Reception>, IReceptionRepositorie
     {
         public ReceptionRepositorie(string identificator="IdReception") : base(identificator)
         {
@@ -55,6 +56,19 @@ namespace BookStoreApi.Repositories.Concrect.Receptions
             return dbSet.Where(w => w.IdStore.Equals(idStore) && w.CreateDate.Date.Equals(date.Date))
                 .OrderBy(w => w.CreateDate)
                 .Skip((pag - 1) * element).Take(element).ToList();
+        }
+
+        public dynamic Insert(List<ReceptionDto>list)
+        {
+            foreach (ReceptionDto dto in list)
+            {
+                foreach (ReceptionLine line in dto.ReceptionLine)
+                {
+                    Context.BookStore.Where(w => w.IdBook.Equals(line.IdBook) && w.IdStore.Equals(dto.IdStore)).SingleOrDefault().Stock += line.Quantity;
+                }
+            }
+            dbSet.AddRange(mapper.Map<List<Reception>>(list));
+            return Save();
         }
 
     }

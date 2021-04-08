@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.PayRolls
 {
-    interface IPayRollRepositorie : IRepositorie <PayRoll>
+    interface IPayRollRepositorie : IRepository <PayRoll>
     {
         List<PayRoll> GetByEmployee(string idEmployee);
         List<PayRoll> GetByEmployee(string idEmployee,int pag,int element);

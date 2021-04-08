@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using LibraryApiRest.Repositories.Abstract;
 using System;
 using System.Collections.Generic;
@@ -8,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Books
 {
-    interface IBookTypeRepositorie : IRepositorie<BookType>
+    interface IBookTypeRepositorie : IRepository<BookType>
     {
-        List<BookType> SearchByName(string text);
-        List<BookType> SearchByName(string text, int pag, int element);
-        BookType GetByName(string name);
+        List<BookTypeDto> SearchByName(string text);
+        List<BookTypeDto> SearchByName(string text, int pag, int element);
+        BookTypeDto GetByName(string name);
     }
 }

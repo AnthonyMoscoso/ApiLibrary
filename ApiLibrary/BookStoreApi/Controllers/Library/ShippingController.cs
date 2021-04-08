@@ -27,7 +27,6 @@ namespace BookStoreApi.Controllers.Library.Shippings
         }
 
         [HttpGet]
-        [Route("List")]
         public IHttpActionResult GetList(string ids)
         {
             return Ok(_repository.GetList(ids));

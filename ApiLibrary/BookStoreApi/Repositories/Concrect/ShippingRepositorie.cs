@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using BookStoreApi.Repositories.Abstract.Shippings;
 using LibraryApiRest.Repositories.Concrect;
 using System;
@@ -8,7 +9,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Shippings
 {
-    public class ShippingRepositorie : Repositorie<Shipping>, IShippingRepositorie
+    public class ShippingRepositorie : Repository<Shipping>, IShippingRepositorie
     {
         public ShippingRepositorie(string identificator="IdShipping") : base(identificator)
         {
@@ -130,8 +131,39 @@ namespace BookStoreApi.Repositories.Concrect.Shippings
 
         #endregion
 
-       
+       public dynamic Insert(List<ShippingDto> list)
+       {
+            foreach (ShippingDto dto in list)
+            {
+                ModifyStock(dto.ShippingLine,dto.IdWareHouse);
+            }
+            var shippings = mapper.Map<List<Shipping>>(list);
+            dbSet.AddRange(shippings);
+            return Save();
 
+       }
+
+        private void ModifyStock(List<ShippingLineDto>dtos,string idWareHouse)
+        {
+            foreach (ShippingLineDto lineDto in dtos)
+            {
+                Context.WareHouseBook.Where(w => w.IdBook.Equals(lineDto.IdBook) && w.IdWareHouse.Equals(idWareHouse)).SingleOrDefault().Stock -= lineDto.Quantity;   
+            }
+        }
+
+        public new List<ShippingDto> Get()
+        {
+            var list = dbSet.ToList();
+            return mapper.Map<List<ShippingDto>>(list);
+        }
+
+        public new ShippingDto Get(string id)
+        {
+            Shipping shipping= base.Get(id);
+            return mapper.Map<ShippingDto>(shipping);
+        }
+
+        public new ShippingDto 
      
     }
 }

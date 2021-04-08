@@ -10,10 +10,11 @@ ExpectArrivalDate datetime , -- 12/05/2021 12:45:00
 ArrivalDate datetime , -- 12/05/2021 12:45:00
 CreateDate datetime not null, -- 12/05/2021 12:45:00
 LastUpdateDate datetime not null, -- 12/05/2021 12:45:00
-StatusCode int not null, -- 1 
-Constraint Fk_Purchase_IdEmployee foreign key (IdEmployee) references Employee (IdEmployee),
-Constraint Fk_Purchase_IdEditorial foreign key (IdEditorial) references Editorial (IdEditorial)
+StatusCode int not null -- 1 
 );
+
+alter table Purchase add Constraint Fk_Purchase_IdEmployee foreign key (IdEmployee) references Employee (IdPerson);
+alter table Purchase add Constraint Fk_Purchase_IdEditorial foreign key (IdEditorial) references Editorial (IdEditorial) ;
 
 
 create table PurchaseLine (

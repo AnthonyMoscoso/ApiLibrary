@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Directions
 {
-    interface IDirectionRepositorie : IRepositorie<Direction>
+    interface IDirectionRepositorie : IRepository<Direction>
     {
     }
 }

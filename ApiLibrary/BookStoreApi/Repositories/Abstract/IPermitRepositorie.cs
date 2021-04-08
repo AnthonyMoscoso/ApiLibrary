@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Permits
 {
-    interface IPermitRepositorie : IRepositorie<Permit>
+    interface IPermitRepositorie : IRepository<Permit>
     {
         List<Permit> SearchByName(string text);
         List<Permit> SearchByName(string text,int pag,int element);

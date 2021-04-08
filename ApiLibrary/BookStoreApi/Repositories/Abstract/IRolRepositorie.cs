@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Rols
 {
-    interface IRolRepositorie : IRepositorie<Rol>
+    interface IRolRepositorie : IRepository<Rol>
     {
         List<Rol> SearchByName(string text);
         List<Rol> SearchByName(string text,int pag,int element);

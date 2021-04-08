@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Schedules
 {
-    interface IScheduleLineRepositorie : IRepositorie<ScheduleLine>
+    interface IScheduleLineRepositorie : IRepository<ScheduleLine>
     {
         List<ScheduleLine> GetBySchedule(string idSchedule);
         List<ScheduleLine> GetBySchedule(string idSchedule,int month);

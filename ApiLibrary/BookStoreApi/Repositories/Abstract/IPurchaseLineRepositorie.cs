@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Purchases
 {
-    interface IPurchaseLineRepositorie : IRepositorie<PurchaseLine>
+    interface IPurchaseLineRepositorie : IRepository<PurchaseLine>
     {
        List<PurchaseLine> GetByPurchase(string idPruchase);
     }

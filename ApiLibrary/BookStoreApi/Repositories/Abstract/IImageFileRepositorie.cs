@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Files
 {
-    interface IImageFileRepositorie : IRepositorie<ImageFile>
+    interface IImageFileRepositorie : IRepository<ImageFile>
     {
     }
 }

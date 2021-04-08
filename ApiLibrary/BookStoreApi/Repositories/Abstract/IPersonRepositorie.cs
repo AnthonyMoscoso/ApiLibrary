@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Persons
 {
-    interface IPersonRepositorie : IRepositorie <Person>
+    interface IPersonRepositorie : IRepository <Person>
     {
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Books
 {
-    interface IBookStoreRepositorie : IRepositorie<BookStore>
+    interface IBookStoreRepositorie : IRepository<BookStore>
     {
         int GetStock(string idBook, string idStore);
     }

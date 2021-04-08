@@ -21,9 +21,10 @@ namespace BookStoreApi.Models.Library
             this.WareHouseBook = new HashSet<WareHouseBook>();
             this.Employee = new HashSet<Employee>();
             this.Purchase = new HashSet<Purchase>();
+            this.Register = new HashSet<Register>();
             this.ReturnSale = new HashSet<ReturnSale>();
             this.Schedule = new HashSet<Schedule>();
-            this.Register = new HashSet<Register>();
+            this.Shipping = new HashSet<Shipping>();
         }
     
         public string IdWareHouse { get; set; }
@@ -48,10 +49,12 @@ namespace BookStoreApi.Models.Library
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Purchase> Purchase { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Register> Register { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReturnSale> ReturnSale { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Schedule> Schedule { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Register> Register { get; set; }
+        public virtual ICollection<Shipping> Shipping { get; set; }
     }
 }

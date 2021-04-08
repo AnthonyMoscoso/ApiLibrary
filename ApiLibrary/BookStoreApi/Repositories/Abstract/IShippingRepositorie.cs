@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Shippings
 {
-    interface IShippingRepositorie : IRepositorie<Shipping>
+    interface IShippingRepositorie : IRepository<Shipping>
     {
         #region GetByStatus
         List<Shipping> GetByStatus(int status);

@@ -14,7 +14,6 @@ namespace BookStoreApi.Models.Library
     
     public partial class Socie
     {
-        public string IdSocie { get; set; }
         public string IdPerson { get; set; }
         public double Discount { get; set; }
         public System.DateTime RegisterDate { get; set; }

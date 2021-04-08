@@ -17,10 +17,8 @@ namespace BookStoreApi.Models.Library
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Person()
         {
-            this.Employee = new HashSet<Employee>();
             this.Reservation = new HashSet<Reservation>();
             this.Sale = new HashSet<Sale>();
-            this.Socie = new HashSet<Socie>();
         }
     
         public string IdPerson { get; set; }
@@ -28,19 +26,17 @@ namespace BookStoreApi.Models.Library
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Pass { get; set; }
+        public string Dni { get; set; }
         public int TypePerson { get; set; }
         public System.DateTime CreateDate { get; set; }
         public System.DateTime LastUpdateDate { get; set; }
         public int StatusCode { get; set; }
-        public string Dni { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employee> Employee { get; set; }
+        public virtual Employee Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reservation> Reservation { get; set; }
+        public virtual Socie Socie { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sale> Sale { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Socie> Socie { get; set; }
     }
 }

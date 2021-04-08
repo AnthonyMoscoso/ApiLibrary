@@ -1,127 +1,378 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using BookStoreApi.Models.Request;
 using BookStoreApi.Repositories.Abstract;
+using BookStoreApi.Utilities;
 using LibraryApiRest.Repositories.Concrect;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Books
 {
-    public class BookRepository : Repositorie<Book>, IBookRepositorie
+    public class BookRepository : Repository<Book>, IBookRepositorie
     {
         public BookRepository(string identificator="IdBook") : base(identificator)
         {
         }
 
-        public List<Book> GetByAutor(string idAutor)
+
+        public new List<BookDto> Get()
         {
-            var list = dbSet.Where(w => w.Autor.Any(a => a.IdAutor.Equals(idAutor))).ToList();
-            return list;
+            var list = dbSet.ToList();
+            return mapper.Map<List<BookDto>>(list);
         }
 
-        public List<Book> GetByAutor(string idAutor, int pag, int element)
+        public new List<BookDto> Get(int element,int pag)
+        {
+            var list = dbSet
+                .OrderBy(w=> w.BookTittle)
+                .Skip((pag-1)*element)
+                .Take(element)
+                .ToList();
+            return mapper.Map<List<BookDto>>(list);
+        }
+        public List<BookDto> GetByAutor(string idAutor)
+        {
+            var list = dbSet.Where(w => w.Autor.Any(a => a.IdAutor.Equals(idAutor))).ToList();
+            return mapper.Map<List<BookDto>>(list);
+        }
+
+        public List<BookDto> GetByAutor(string idAutor, int pag, int element)
         {
             var list = dbSet.Where(w => w.Autor.Any(a => a.IdAutor.Equals(idAutor)))
                 .OrderBy(w => w.BookTittle)
                 .Skip((pag - 1) * element)
                 .Take(element).ToList();
-            return list;
+            return mapper.Map<List<BookDto>>(list);
         }
 
-        public List<Book> GetByCategory(string idCategory)
+        public List<BookDto> GetByCategory(string idCategory)
         {
             List<Book>list = dbSet.Where(w => w.IdType.Equals(idCategory) 
             || w.BookType.BookType2.IdFather.Equals(idCategory))
                 .ToList();
-            return list;
+            return mapper.Map<List<BookDto>>(list);
         }
 
-        public List<Book> GetByCategory(string idCategory, int pag, int element)
+        public List<BookDto> GetByCategory(string idCategory, int pag, int element)
         {
-            List<Book> list = dbSet.Where(w => w.IdType.Equals(idCategory)
-            || w.BookType.BookType2.IdFather.Equals(idCategory))
+            List<Book> list = dbSet.Where(w => w.IdType.Equals(idCategory) || w.BookType.BookType2.IdFather.Equals(idCategory))
                .OrderBy(w=>w.BookTittle)
                .Skip((pag-1)*element)
                .Take(element).ToList();
-            return list;
+            return mapper.Map<List<BookDto>>(list);
         }
 
-        public List<Book> GetByEdition(string idEdition)
+        public List<BookDto> GetByEdition(string idEdition)
         {
             var list = dbSet.Where(w => w.IdEdition.Equals(idEdition)).ToList();
-            return list;
+            return mapper.Map<List<BookDto>>(list);
         }
 
-        public List<Book> GetByEdition(string idEdition, int pag, int element)
+        public List<BookDto> GetByEdition(string idEdition, int pag, int element)
         {
             var list = dbSet.Where(w => w.IdEdition.Equals(idEdition))
                  .OrderBy(w => w.BookTittle)
                  .Skip((pag - 1) * element).Take(element)
                  .ToList();
-            return list;
+            return mapper.Map<List<BookDto>>(list);
         }
 
-        public List<Book> GetByEditorial(string idEditorial)
+        public List<BookDto> GetByEditorial(string idEditorial)
         {
-            var list = (from a in Context.Book
-                        join s in Context.BookEditorial on a.IdBook equals s.IdBook
-                        where s.IdEditorial.Equals(idEditorial)
-                        select a).ToList();
-            return list;
+            var list = dbSet.Where(w => w.BookEditorial.Any(e => e.IdEditorial.Equals(idEditorial))).ToList();
+            return mapper.Map<List<BookDto>>(list);
         }
 
-        public List<Book> GetByEditorial(string idEditorial, int pag, int element)
+        public List<BookDto> GetByEditorial(string idEditorial, int pag, int element)
         {
-            var list = (from a in Context.Book
-                        join s in Context.BookEditorial on a.IdBook equals s.IdBook
-                        where s.IdEditorial.Equals(idEditorial)
-                        select a)
-                         .OrderBy(w => w.BookTittle)
-                         .Skip((pag - 1) * element).Take(element)
-                         .ToList();
-            return list;
+            var list = dbSet.Where(w => w.BookEditorial.Any(e => e.IdEditorial.Equals(idEditorial)))
+                .OrderBy(w => w.CreateDate)
+                .Skip((pag - 1) * element)
+                .Take(element)
+                .ToList();
+            return mapper.Map<List<BookDto>>(list);
         }
 
-        public List<Book> GetByGender(List<string> idGender)
+        public List<BookDto> GetByGender(List<string> idGeners)
         {
-            var list = dbSet.Where(w=>w.Gender.Any(g=>g.IdGender.Any(s=>idGender.Contains(s.ToString())))).ToList();
-            return list;
+            var list = dbSet.Where(w => w.Gender.Any(g => idGeners.Any(y=> y.Equals(g.IdGender)))).ToList();
+            return mapper.Map<List<BookDto>>(list);
         }
 
-        public List<Book> GetByGender(List<string> idGender, int pag, int element)
+        public List<BookDto> GetByGender(List<string> idGenders, int pag, int element)
         {
-            var list = dbSet.Where(w => w.Gender.Any(g => g.IdGender.Any(s => idGender.Contains(s.ToString()))))
+            var list = dbSet.Where(w => w.Gender.Any(g => idGenders.Any(y => y.Equals(g.IdGender))))
                  .OrderBy(w => w.BookTittle)
                  .Skip((pag - 1) * element).Take(element)
                  .ToList();
-            return list;
+            return mapper.Map<List<BookDto>>(list);
         }
 
 
 
-        public List<Book> SearchByName(string text)
+        public List<BookDto> SearchByName(string text)
         {
-            return dbSet.Where(w => w.BookTittle.Contains(text)).ToList();
+            var list = dbSet.Where(w => w.BookTittle.Contains(text)).ToList();
+            return mapper.Map<List<BookDto>>(list);
+        }
+        public List<BookDto> SearchByName(string text,int pag,int element)
+        {
+            var list = dbSet.Where(w => w.BookTittle.Contains(text))
+                .OrderBy(w => w.BookTittle)
+                .Skip((pag - 1) * element)
+                .Take(element)
+                .ToList();
+            return mapper.Map<List<BookDto>>(list);
         }
 
-        public List<Book> SearchByAutorName(string text)
+        public List<BookDto> SearchByAutorName(string text)
         {
             var list = dbSet.Where(w => w.Autor.Any(a => a.AutorName.Contains(text))).ToList();
-            return list;
+            return mapper.Map<List<BookDto>>(list);
         }
 
-        public List<Book> SearchByAutorName(string text, int pag, int element)
+        public List<BookDto> SearchByAutorName(string text, int pag, int element)
         {
             var list = dbSet.Where(w => w.Autor.Any(a => a.AutorName.Contains(text)))
                  .OrderBy(w => w.BookTittle)
                  .Skip((pag - 1) * element).Take(element).
                  ToList();
-            return list;
+            return mapper.Map<List<BookDto>>(list);
+        }
+        public dynamic Insert(List<BookDto>dtos)
+        {
+            List<Book> list = mapper.Map<List<Book>>(dtos);
+            dbSet.AddRange(list);
+            var stores = Context.Store.ToList();
+            foreach (Store store in stores)
+            {
+                foreach (Book b in list)
+                {
+                    BookStore bookStore = new BookStore()
+                    {
+                        IdBookStore= IdGenerator.GetNewId(),
+                        IdBook = b.IdBook,
+                        BookPrice = b.Price,
+                        Stock = 0,
+                        IdStore = store.IdStore
+                    };
+
+                    Context.BookStore.Add(bookStore);
+                }
+            }
+      
+            return Save();
         }
 
-        public List<BookStoreRequest> Store(string idStore, int pag, int element)
+        public new dynamic Update(List<Book> list)
+        {
+            foreach (Book entity in list)
+            {
+                dbSet.Attach(entity);
+                Context.Entry(entity).State = EntityState.Modified;
+                Save();
+                UpdateBookAutors(entity);
+                UpdateBookGenders(entity);
+                UpdatePrice(entity);
+            }
+            return Save();
+           
+
+        }
+
+        private void UpdatePrice(Book entity)
+        {
+            Context.BookStore.Where(w => w.IdBook.Equals(entity.IdBook)).ToList().ForEach(e=> e.BookPrice=entity.Price);
+            Save();
+        }
+
+        public new dynamic Delete(List<string> ids)
+        {
+            string message = "";
+            foreach (string id in ids)
+            {
+                var search = dbSet.Find(id);
+                if (search!=null)
+                {
+                    if (!HasConnections(search.IdBook))
+                    {
+                        var query = string.Format("Delete from BookAutor where IdBook='{0}';", search.IdBook);
+                        Context.Database.ExecuteSqlCommand(query);
+                        message += Save();
+                        Context.BookStore.RemoveRange(Context.BookStore.Where(w => w.IdBook.Equals(id)).ToList());
+                        Context.WareHouseBook.RemoveRange(Context.WareHouseBook.Where(w => w.IdBook.Equals(id)).ToList());
+                        DeleteBookAutors(search.Autor.ToList(), search);
+                        DeleteBookGenders(search.Gender.ToList(), search);
+                        dbSet.Remove(search);
+                        message += Save();
+                    }
+                    else
+                    {
+                        message +="Can't delete a book that was sale, puchase..... with id "+ id;
+                    }
+    
+                }
+                else
+                {
+                    message += string.Format(" any book was found with this id :{0}",id);
+                }
+            }
+            return message;
+        }
+
+
+        private bool HasConnections(string id)
+        {
+            int n = 0;
+            n += HasSales(id) ? 1 : 0;
+            n += HasReservations(id) ? 1 : 0;
+            n += HasOrders(id) ? 1 : 0;
+            n += HasPurchase(id) ? 1 : 0;
+            return n > 0;
+        }
+
+        private bool HasSales(string id)
+        {
+            return Context.SaleLine.Where(w => w.IdBook.Equals(id)) != null;
+        }
+
+        private bool HasReservations(string id)
+        {
+           return Context.Reservation.Where(w => w.IdBook.Equals(id)) != null;
+        }
+
+        private bool HasOrders(string id)
+        {
+            return Context.OrderLine.Where(w => w.IdBook.Equals(id)) != null;
+        }
+
+        private bool HasPurchase(string id)
+        {
+            return Context.PurchaseLine.Where(W => W.IdBook.Equals(id)) != null;
+        }
+
+        private bool HasShippings(string id)
+        {
+            return Context.SaleLine.Where(w => w.IdBook.Equals(id)) != null;
+        }
+        private void UpdateBookAutors(Book entity)
+        {
+            var autorsDb = Context.Autor.Where(w => w.Book.Any(b => b.IdBook.Equals(entity.IdBook))).ToList();
+            var DataBaseDto = mapper.Map<List<AutorDto>>(autorsDb);
+            DeleteBookAutors(autorsDb, entity);
+            InsertBookAutors(entity, DataBaseDto);
+        }
+
+
+        private void UpdateBookGenders(Book entity)
+        {
+            var genersDb = Context.Gender.Where(w => w.Book.Any(b => b.IdBook.Equals(entity.IdBook))).ToList();
+            DeleteBookGenders(genersDb,entity);
+            CreateBookGenders(genersDb,entity);
+        }
+
+        private void DeleteBookGenders(List<Gender> list,Book entity)
+        {
+            if (list.Count>0)
+            {
+                List<GenderDto> genderFromDB = mapper.Map<List<GenderDto>>(list);
+                List<GenderDto> genderDtos = mapper.Map<List<GenderDto>>(entity.Gender);
+                foreach (GenderDto gender in genderFromDB)
+                {
+                    if (!genderDtos.Contains(gender))
+                    {
+                        list.Remove(mapper.Map<Gender>(gender));
+                        var query = string.Format("Delete from BookGender where IdBook='{0}' AND IdGender='{1}' ;", entity.IdBook,gender.IdGender );
+                        Context.Database.ExecuteSqlCommand(query);
+                    }
+                }
+                Save();
+            }
+        }
+
+        private void CreateBookGenders(List<Gender> list,Book entity)
+        {
+            if (list.Count>0)
+            {
+                List<GenderDto> genderFromDB = mapper.Map<List<GenderDto>>(list);
+                List<GenderDto> genderDtos = mapper.Map<List<GenderDto>>(entity.Gender);
+                foreach (GenderDto dto in genderDtos)
+                {
+                    if (!genderFromDB.Contains(dto))
+                    {
+                        var query = string.Format("Insert into BookGender values('{0}','{1}')", entity.IdBook,dto.IdGender);
+                        Context.Database.ExecuteSqlCommand(query);
+                    }
+                }
+            }
+            else if (entity.Gender.Count>0)
+            {
+                foreach (Gender gender in entity.Gender)
+                {
+                    var query = string.Format("Insert into BookGender values('{0}','{1}')", entity.IdBook,gender.IdGender );
+                    Context.Database.ExecuteSqlCommand(query);
+                }
+
+            }
+            Save();
+        }
+
+        private void DeleteBookAutors(List<Autor>list,Book entity)
+        {
+
+            if (list.Count > 0)
+            {
+
+                List<AutorDto> AutorDtoDb = mapper.Map<List<AutorDto>>(list);
+                List<AutorDto> AutorDtos = mapper.Map<List<AutorDto>>(entity.Autor);
+                foreach (AutorDto e in AutorDtoDb)
+                {
+                    if (!AutorDtos.Contains(e))
+                    {
+                        list.Remove(mapper.Map<Autor>(e));
+                        var query = string.Format("Delete from BookAutor where IdBook='{0}' AND IdAutor='{1}' ;", entity.IdBook, e.IdAutor);
+                        Context.Database.ExecuteSqlCommand(query);
+                    }
+                }
+                Save();
+            }
+        }
+
+        private void InsertBookAutors(Book entity, List<AutorDto> DataBaseDto)
+        {
+
+            if (entity.Autor.Count>0)
+            {
+                var dto = mapper.Map<BookDto>(entity);
+                if (DataBaseDto.Count>0)
+                {
+                    foreach (AutorDto autorDto in dto.Autor)
+                    {
+                        if (!DataBaseDto.Contains(autorDto))
+                        {
+                            var query = string.Format("Insert into BookAutor values('{0}','{1}')", entity.IdBook, autorDto.IdAutor);
+                            Context.Database.ExecuteSqlCommand(query);
+                        }
+                    }
+                    Save();
+                }
+                else
+                {
+                    foreach (Autor e in entity.Autor)
+                    {
+                        var query = string.Format("Insert into BookAutor values ('{0}','{1}'); ", entity.IdBook, e.IdAutor);
+                        Context.Database.ExecuteSqlCommand(query);
+                    }
+                    Save();
+                }
+     
+            }
+        }
+        public List<BookStoreDto> Store(string idStore, int pag, int element)
         {
             throw new NotImplementedException();
         }

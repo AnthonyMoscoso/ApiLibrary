@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models;
 using BookStoreApi.Models.Library;
 using LibraryApiRest.Repositories.Abstract;
 using System;
@@ -8,13 +9,17 @@ using System.Web;
 
 namespace LibraryApiRest.Repositories.Concrect
 {
-    public class AutorRepositorie : Repositorie<Autor>, IAutorRepositorie
+    public class AutorRepositorie : Repository<Autor>, IAutorRepositorie
     {
         public AutorRepositorie(string identificator="IdAutor") : base(identificator)
         {
         }
 
-
+        public new List<AutorDto> Get()
+        {
+            var list = dbSet.ToList();
+            return mapper.Map<List<AutorDto>>(list);
+        }
 
         public bool ExistName(string name)
         {

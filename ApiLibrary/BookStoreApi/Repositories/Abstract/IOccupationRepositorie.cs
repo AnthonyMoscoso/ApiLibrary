@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStoreApi.Repositories.Abstract.Occupations
 {
-    interface IOccupationRepositorie : IRepositorie<Occupation>
+    interface IOccupationRepositorie : IRepository<Occupation>
     {
         List<Occupation> SearchByName(string text);
         List<Occupation> SearchByName(string text,int pag,int element);

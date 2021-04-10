@@ -9,7 +9,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.WareHouses
 {
-    public class WareHouseRepositorie : Repository<WareHouse>, IWareHouseRepositorie
+    public class WareHouseRepositorie : Repository<WareHouse,WareHouseDto>, IWareHouseRepositorie
     {
  
         public WareHouseRepositorie(string identificator="IdWareHouse") : base(identificator)
@@ -17,11 +17,6 @@ namespace BookStoreApi.Repositories.Concrect.WareHouses
            
         }
 
-        public  new List<WareHouseDto> Get()
-        {
-            var list = dbSet.ToList();
-            return mapper.Map<List<WareHouseDto>>(list);
-        }
 
         public List<WareHouseDto> GetByCountry(string country)
         {

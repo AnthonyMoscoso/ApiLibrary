@@ -10,7 +10,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Sales
 {
-    public class SaleRepositorie : Repository<Sale>, ISaleRepositorie
+    public class SaleRepositorie : Repository<Sale,SaleDto>, ISaleRepositorie
     {
         public SaleRepositorie(string identificator="IdSale") : base(identificator)
         {
@@ -196,14 +196,11 @@ namespace BookStoreApi.Repositories.Concrect.Sales
             return Save();
         }
 
-        private void ModifyStock(List<SaleLine>list,string idStore)
+        private void ModifyStock(List<SaleLineDto>list,string idStore)
         {
-            foreach (SaleLine entity in list)
+            foreach (SaleLineDto entity in list)
             {
-                var search = Context.BookStore.Where(w=> w.IdBook.Equals(entity.IdBook) && w.IdStore.Equals(idStore)).SingleOrDefault();
-                search.Stock -= entity.Quantity;
-                Context.BookStore.Attach(search);
-                Context.Entry(entity).State = EntityState.Modified;
+                var search = Context.BookStore.Where(w=> w.IdBook.Equals(entity.IdBook) && w.IdStore.Equals(idStore)).SingleOrDefault().Stock-=entity.Quantity;
             }
         }
         #endregion

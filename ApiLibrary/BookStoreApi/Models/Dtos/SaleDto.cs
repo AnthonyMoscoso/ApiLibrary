@@ -22,10 +22,10 @@ namespace BookStoreApi.Dtos
         public System.DateTime CreateDate { get; set; }
         public System.DateTime LastUpdateDate { get; set; }
         public int StatusCode { get; set; }
-        public List<ReturnSale> ReturnSale { get; set; }
-        public List<SaleLine> SaleLine { get; set; }
-        public List<Reservation> Reservation { get; set; }
-        public Coupon Coupon { get; set; }
+        public List<ReturnSaleDto> ReturnSale { get; set; }
+        public List<SaleLineDto> SaleLine { get; set; }
+        public List<ReservationDto> Reservation { get; set; }
+        public CouponDto Coupon { get; set; }
         public PersonDto Person { get; set; }
     }
 }

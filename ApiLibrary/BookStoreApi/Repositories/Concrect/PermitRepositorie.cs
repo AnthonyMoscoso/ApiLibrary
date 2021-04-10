@@ -1,4 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Models.Request;
 using BookStoreApi.Repositories.Abstract.Permits;
 using LibraryApiRest.Repositories.Concrect;
 using System;
@@ -8,7 +9,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Permits
 {
-    public class PermitRepositorie : Repository<Permit>, IPermitRepositorie
+    public class PermitRepositorie : Repository<Permit,PermitDto>, IPermitRepositorie
     {
         public PermitRepositorie(string identificator="IdPermit") : base(identificator)
         {

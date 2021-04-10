@@ -11,7 +11,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Order
 {
-    public class OrderRepositorie : Repository<Orders>, IOrderRepositorie
+    public class OrderRepositorie : Repository<Orders, OrderDto>, IOrderRepositorie
     {
         public OrderRepositorie(string identificator="IdOrder") : base(identificator)
         {
@@ -73,7 +73,7 @@ namespace BookStoreApi.Repositories.Concrect.Order
             return message;
         }
 
-        public new List<OrderDto> Get()
+     /*   public new List<OrderDto> Get()
         {
             var list = dbSet.ToList();
             return mapper.Map<List<OrderDto>>(list);
@@ -87,7 +87,7 @@ namespace BookStoreApi.Repositories.Concrect.Order
                 .Take(element)
                 .ToList();
             return mapper.Map<List<OrderDto>>(list);
-        }
+        }*/
         public List<OrderDto> GetByDate(DateTime date)
         {
             var list = dbSet.Where(w=> DbFunctions.TruncateTime(w.CreateDate) == DbFunctions.TruncateTime(date)).ToList();

@@ -73,12 +73,7 @@ namespace BookStoreApi.Controllers.Library.Receptions
         {
             return Ok(_repository.GetByStore(idStore,date, pag, element));
         }
-        [HttpGet]
-        [Route("List")]
-        public IHttpActionResult GetList(string ids)
-        {
-            return Ok(_repository.GetList(ids));
-        }
+
 
         [HttpGet]
         [Route("Pag")]
@@ -87,7 +82,7 @@ namespace BookStoreApi.Controllers.Library.Receptions
             return Ok(_repository.Get(element, pag));
         }
         [HttpPost]
-        public IHttpActionResult Post(List<ReceptionDto> list)
+        public IHttpActionResult Post(List<Reception> list)
         {
             return Ok(_repository.Insert(list));
         }

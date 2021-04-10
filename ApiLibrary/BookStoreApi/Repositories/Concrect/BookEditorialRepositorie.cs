@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace BookStoreApi.Repositories.Concrect.Books
 {
-    public class BookEditorialRepositorie : Repository<BookEditorial>, IBookEditorialRepositorie
+    public class BookEditorialRepositorie : Repository<BookEditorial,BookEditorialDto>, IBookEditorialRepositorie
     {
         public BookEditorialRepositorie(string identificator="IdBookEditorial") : base(identificator)
         {
@@ -21,11 +21,6 @@ namespace BookStoreApi.Repositories.Concrect.Books
             return PurchasePrice;
         }
 
-        public new List<BookEditorialDto> Get()
-        {
-            var list = dbSet.ToList();
-            return mapper.Map<List<BookEditorialDto>>(list);
-        }
        
     }
 }

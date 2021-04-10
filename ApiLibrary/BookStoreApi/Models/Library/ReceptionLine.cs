@@ -16,7 +16,6 @@ namespace BookStoreApi.Models.Library
     {
         public string IdReceptionLine { get; set; }
         public string IdReception { get; set; }
-        public string IdShipping { get; set; }
         public string IdBook { get; set; }
         public int Quantity { get; set; }
         public System.DateTime CreateDate { get; set; }
@@ -25,6 +24,5 @@ namespace BookStoreApi.Models.Library
     
         public virtual Book Book { get; set; }
         public virtual Reception Reception { get; set; }
-        public virtual Shipping Shipping { get; set; }
     }
 }

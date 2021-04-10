@@ -12,28 +12,12 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Books
 {
-    public class BookRepository : Repository<Book>, IBookRepositorie
+    public class BookRepository : Repository<Book,BookDto>, IBookRepositorie
     {
         public BookRepository(string identificator="IdBook") : base(identificator)
         {
         }
 
-
-        public new List<BookDto> Get()
-        {
-            var list = dbSet.ToList();
-            return mapper.Map<List<BookDto>>(list);
-        }
-
-        public new List<BookDto> Get(int element,int pag)
-        {
-            var list = dbSet
-                .OrderBy(w=> w.BookTittle)
-                .Skip((pag-1)*element)
-                .Take(element)
-                .ToList();
-            return mapper.Map<List<BookDto>>(list);
-        }
         public List<BookDto> GetByAutor(string idAutor)
         {
             var list = dbSet.Where(w => w.Autor.Any(a => a.IdAutor.Equals(idAutor))).ToList();
@@ -232,6 +216,7 @@ namespace BookStoreApi.Repositories.Concrect.Books
             n += HasReservations(id) ? 1 : 0;
             n += HasOrders(id) ? 1 : 0;
             n += HasPurchase(id) ? 1 : 0;
+            n += HasShippings(id) ? 1 : 0;
             return n > 0;
         }
 

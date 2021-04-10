@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using BookStoreApi.Repositories.Abstract.Purchases;
 using LibraryApiRest.Repositories.Concrect;
 using System;
@@ -8,7 +9,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Purchases
 {
-    public class PurchaseLineRepositorie : Repository<PurchaseLine>, IPurchaseLineRepositorie
+    public class PurchaseLineRepositorie : Repository<PurchaseLine,PurchaseLineDto>, IPurchaseLineRepositorie
     {
         public PurchaseLineRepositorie(string identificator="IdPurchaseLine") : base(identificator)
         {

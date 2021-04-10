@@ -25,9 +25,9 @@ namespace BookStoreApi.Models.Library
             this.RegisterLine = new HashSet<RegisterLine>();
             this.Reservation = new HashSet<Reservation>();
             this.SickLeave = new HashSet<SickLeave>();
+            this.StoreSale = new HashSet<StoreSale>();
             this.Rol = new HashSet<Rol>();
             this.Schedule = new HashSet<Schedule>();
-            this.StoreSale = new HashSet<StoreSale>();
         }
     
         public string IdPerson { get; set; }
@@ -61,6 +61,8 @@ namespace BookStoreApi.Models.Library
         public virtual ICollection<Reservation> Reservation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SickLeave> SickLeave { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StoreSale> StoreSale { get; set; }
         public virtual ImageFile ImageFile { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Rol> Rol { get; set; }
@@ -68,7 +70,5 @@ namespace BookStoreApi.Models.Library
         public virtual ICollection<Schedule> Schedule { get; set; }
         public virtual Store Store { get; set; }
         public virtual WareHouse WareHouse { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StoreSale> StoreSale { get; set; }
     }
 }

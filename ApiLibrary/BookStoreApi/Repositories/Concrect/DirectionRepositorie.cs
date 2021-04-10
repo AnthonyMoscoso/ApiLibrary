@@ -9,16 +9,11 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Directions
 {
-    public class DirectionRepositorie : Repository<Direction>, IDirectionRepositorie
+    public class DirectionRepositorie : Repository<Direction,DirectionDto>, IDirectionRepositorie
     {
         public DirectionRepositorie(string identificator="IdDirection") : base(identificator)
         {
         }
 
-        public new List<DirectionDto> Get()
-        {
-            var list = dbSet.ToList();
-            return mapper.Map<List<DirectionDto>>(list);
-        }
     }
 }

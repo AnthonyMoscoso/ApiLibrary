@@ -17,7 +17,6 @@ namespace BookStoreApi.Models.Library
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Shipping()
         {
-            this.ReceptionLine = new HashSet<ReceptionLine>();
             this.ShippingLine = new HashSet<ShippingLine>();
             this.OnlineSale = new HashSet<OnlineSale>();
         }
@@ -37,11 +36,9 @@ namespace BookStoreApi.Models.Library
     
         public virtual Direction Direction { get; set; }
         public virtual Direction Direction1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ReceptionLine> ReceptionLine { get; set; }
+        public virtual WareHouse WareHouse { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShippingLine> ShippingLine { get; set; }
-        public virtual WareHouse WareHouse { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OnlineSale> OnlineSale { get; set; }
     }

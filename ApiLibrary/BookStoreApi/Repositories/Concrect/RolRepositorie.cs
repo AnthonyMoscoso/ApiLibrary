@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using BookStoreApi.Models.Request;
 using BookStoreApi.Repositories.Abstract.Rols;
 using LibraryApiRest.Repositories.Concrect;
@@ -8,7 +9,7 @@ using System.Linq;
 
 namespace BookStoreApi.Repositories.Concrect.Rols
 {
-    public class RolRepositorie : Repository<Rol>, IRolRepositorie
+    public class RolRepositorie : Repository<Rol,RolDto>, IRolRepositorie
     {
         public RolRepositorie(string identificator="IdRol") : base(identificator)
         {

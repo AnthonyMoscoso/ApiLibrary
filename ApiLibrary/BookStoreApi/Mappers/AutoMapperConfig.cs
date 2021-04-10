@@ -14,40 +14,106 @@ namespace Mappers.Models
             MapperConfiguration = new MapperConfiguration(cfg =>
            {
                cfg.CreateMap<Autor, AutorDto>().ReverseMap();
+
+               cfg.CreateMap<Barcode, BarCodeDto>().ReverseMap();
+
                cfg.CreateMap<Book, BookDto>().ReverseMap();
+               cfg.CreateMap<BookEditorial, BookEditorialDto>().ReverseMap();
                cfg.CreateMap<BookType, BookTypeDto>().ReverseMap();
                cfg.CreateMap<BookStore, BookStoreDto>().ReverseMap();
-               cfg.CreateMap<Person, PersonDto>().ReverseMap();
-               cfg.CreateMap<Occupation, OccupationDto>().ReverseMap();
+
                cfg.CreateMap<Coupon, CouponDto>().ReverseMap();
+
                cfg.CreateMap<Direction, DirectionDto>().ReverseMap();
-               cfg.CreateMap<PersonDto, Person>().ReverseMap();
-               cfg.CreateMap<Store, StoreDto>().ReverseMap();
-               cfg.CreateMap<Sale, SaleDto>().ReverseMap();
-               cfg.CreateMap<Sale, StoreSaleDto>().ReverseMap();
-               
-               cfg.CreateMap<BookEditorial, BookEditorialDto>().ReverseMap();
-               cfg.CreateMap<StoreSale, StoreSaleDto>()
-               .IncludeMembers(s=> s.Sale).ReverseMap();
-               cfg.CreateMap<Socie, SocieDto>()
-               .IncludeMembers(s=> s.Person).ReverseMap();
+
+               cfg.CreateMap<Discount, DiscountDto>().ReverseMap();
+
+               cfg.CreateMap<DocumentFile, DocumentFileDto>().ReverseMap();
+
+               cfg.CreateMap<Edition, EditionDto>().ReverseMap();
+
+               cfg.CreateMap<Editorial, EditorialDto>().ReverseMap();
+
                cfg.CreateMap<Employee, EmployeeDto>()
-               .IncludeMembers(m=> m.Person).ReverseMap();                    
-               cfg.CreateMap<Person,EmployeeDto>().ReverseMap();
-               cfg.CreateMap<SocieDto, Person>().ReverseMap();
-               cfg.CreateMap<Permit, PermitDto>().ReverseMap();
-               cfg.CreateMap<Reception, ReceptionDto>().ReverseMap();
-               cfg.CreateMap<WareHouseBook, WareHouseBookDto>().ReverseMap();
-               cfg.CreateMap<WareHouse, WareHouseDto>().ReverseMap();
-               cfg.CreateMap<Shipping, ShippingDto>().ReverseMap();
-               cfg.CreateMap<ShippingLine, ShippingLineDto>().ReverseMap();
-             
+                .IncludeMembers(m => m.Person).ReverseMap();
+
+               
+
                cfg.CreateMap<Gender, GenderDto>().ReverseMap();
-               cfg.CreateMap<BookEditorial, BookEditorialDto>().ReverseMap();
+
+               cfg.CreateMap<ImageFile, ImageFileDto>().ReverseMap();
+
+               cfg.CreateMap<Occupation, OccupationDto>().ReverseMap();
+
 
                cfg.CreateMap<Orders, OrderDto>().ReverseMap();
 
+
                cfg.CreateMap<OrderLine, OrderLineDto>().ReverseMap();
+
+               cfg.CreateMap<PaymentBonus, PaymentBonusDto>().ReverseMap();
+
+               cfg.CreateMap<PayRoll, PayRollDto>().ReverseMap();
+
+               cfg.CreateMap<Permit, PermitDto>().ReverseMap();
+
+               cfg.CreateMap<Person, PersonDto>().ReverseMap();
+
+               cfg.CreateMap<Person, EmployeeDto>().ReverseMap();
+               cfg.CreateMap<Person, SocieDto>().ReverseMap();
+
+               cfg.CreateMap<Sale, StoreSaleDto>().ReverseMap();
+
+               cfg.CreateMap<Providers, ProviderDto>().ReverseMap();
+
+               cfg.CreateMap<Purchase, PurchaseDto>().ReverseMap();
+
+               cfg.CreateMap<PurchaseLine, PurchaseLineDto>().ReverseMap();
+
+               cfg.CreateMap<Reception, ReceptionDto>().ReverseMap();
+
+               cfg.CreateMap<ReceptionLine, ReceptionLineDto>().ReverseMap();
+
+               cfg.CreateMap<Register, RegisterDto>().ReverseMap();
+
+               cfg.CreateMap<RegisterLine, RegisterLineDto>().ReverseMap();
+
+               cfg.CreateMap<Reservation, ReservationDto>().ReverseMap();
+
+               cfg.CreateMap<ReturnLine, ReturnLineDto>().ReverseMap();
+
+               cfg.CreateMap<ReturnSale, ReturnSaleDto>().ReverseMap();
+
+               cfg.CreateMap<Rol, RolDto>().ReverseMap();
+
+               cfg.CreateMap<Sale, SaleDto>().ReverseMap();
+
+               cfg.CreateMap<SaleLine, SaleLineDto>().ReverseMap();
+
+               cfg.CreateMap<Schedule, ScheduleDto>().ReverseMap();
+
+               cfg.CreateMap<ScheduleLine, ScheduleLineDto>().ReverseMap();
+
+               cfg.CreateMap<Shipping, ShippingDto>().ReverseMap();
+
+               cfg.CreateMap<ShippingLine, ShippingLineDto>().ReverseMap();
+
+               cfg.CreateMap<Socie, SocieDto>().IncludeMembers(s => s.Person).ReverseMap();
+
+               cfg.CreateMap<Store, StoreDto>().ReverseMap();
+
+               cfg.CreateMap<StoreSale, StoreSaleDto>().IncludeMembers(s => s.Sale);
+
+               cfg.CreateMap<Taxes, TaxesDto>().ReverseMap();
+             
+               cfg.CreateMap<WareHouseBook, WareHouseBookDto>().ReverseMap();
+               cfg.CreateMap<WareHouse, WareHouseDto>().ReverseMap();
+           
+             
+
+       
+
+
            });
             
         }

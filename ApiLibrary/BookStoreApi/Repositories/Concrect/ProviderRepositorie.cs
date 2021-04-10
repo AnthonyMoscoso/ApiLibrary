@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using BookStoreApi.Repositories.Abstract.Sales;
 using LibraryApiRest.Repositories.Concrect;
 using System;
@@ -8,7 +9,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Provide
 {
-    public class ProviderRepositorie : Repository<Providers>, IProviderRepositorie
+    public class ProviderRepositorie : Repository<Providers,ProviderDto>, IProviderRepositorie
     {
         public ProviderRepositorie(string identificator="IdProvider") : base(identificator)
         {

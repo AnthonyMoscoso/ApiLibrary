@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using BookStoreApi.Repositories.Abstract.Returns;
 using LibraryApiRest.Repositories.Concrect;
 using System;
@@ -8,7 +9,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Returns
 {
-    public class ReturnLineRepositorie : Repository<ReturnLine>, IReturnLineRepositorie
+    public class ReturnLineRepositorie : Repository<ReturnLine,ReturnLineDto>, IReturnLineRepositorie
     {
         public ReturnLineRepositorie(string identificator="IdReturnLine") : base(identificator)
         {

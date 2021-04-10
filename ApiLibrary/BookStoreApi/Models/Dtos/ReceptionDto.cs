@@ -11,10 +11,10 @@ namespace BookStoreApi.Dtos
         public string IdReception { get; set; }
         public string IdEmployee { get; set; }
         public string IdStore { get; set; }
-        public DateTime CreateDate { get; set; }
-        public DateTime LastUpdateDate { get; set; }
+        public System.DateTime CreateDate { get; set; }
+        public System.DateTime LastUpdateDate { get; set; }
         public int StatusCode { get; set; }
 
-        public virtual List<ReceptionLine> ReceptionLine { get; set; }
+        public virtual List<ReceptionLineDto> ReceptionLine { get; set; }
     }
 }

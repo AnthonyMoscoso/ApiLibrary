@@ -14,7 +14,8 @@ using System.Web;
 
 namespace LibraryApiRest.Repositories.Concrect
 {
-    public class Repository<TEntity> : IRepository<TEntity> 
+    public class Repository<TEntity,DtoEntity> : IRepository<TEntity> 
+        where DtoEntity  : class , new()
         where TEntity : class,new()
     {
        public BookStoreEntities Context;
@@ -55,13 +56,14 @@ namespace LibraryApiRest.Repositories.Concrect
         }
         public dynamic Get()
         {
-            return dbSet.ToList();
+
+            var list = dbSet.ToList();
+            return mapper.Map<List<DtoEntity>>(list);
         }
 
         public dynamic GetList(string ids)
         {
             List<string> list = ids.Split(',').ToList();
-            string message = "";
             List<TEntity> entities = new List<TEntity>();
             foreach (string id in list)
             {
@@ -71,13 +73,9 @@ namespace LibraryApiRest.Repositories.Concrect
                 {
                     entities.Add(search);
                 }
-                else
-                {
-                    message += "Entity whith Id =" + id + " not was found";
-                }
             }
 
-            return entities;
+            return mapper.Map<List<DtoEntity>>(entities);
         }
 
         public dynamic Get(int elements, int pag)
@@ -85,13 +83,14 @@ namespace LibraryApiRest.Repositories.Concrect
    
       
             List<TEntity> list = dbSet.OrderBy(x =>Identificator).Skip((pag-1)*elements).Take(elements).ToList();
-            return list;
+            
+            return mapper.Map<List<DtoEntity>>(list);
         }
 
         public dynamic Get(string id)
         {
             var search = dbSet.Find(id);
-            return search != null ? (dynamic)search : (dynamic)"Not was found";
+            return search != null ? (dynamic) mapper.Map<DtoEntity>(search) : (dynamic)"Not was found";
 
         }
 
@@ -102,9 +101,9 @@ namespace LibraryApiRest.Repositories.Concrect
                 dbSet.AddRange(list);
                 return Save();
             }
-            catch (SqlException)
+            catch (SqlException e)
             {
-                return null;
+                return e.Message;
             }
         }
 
@@ -115,9 +114,9 @@ namespace LibraryApiRest.Repositories.Concrect
                 dbSet.Add(entity);
                 return Save();
             }
-            catch (SqlException)
+            catch (SqlException e)
             {
-                return null;
+                return e.Message;
             }
         }
 
@@ -132,21 +131,31 @@ namespace LibraryApiRest.Repositories.Concrect
             {
                 return e.Message;
             }
-            catch (SqlException)
+            catch (SqlException e)
             {
-                return "Error";
+                return e.Message;
             }
         }
 
         public dynamic Update(List<TEntity> list)
         {
+            string message = "";
             foreach (TEntity entity in list)
             {
-                dbSet.Attach(entity);
-                Context.Entry(entity).State = EntityState.Modified;
+                try
+                {
+                    dbSet.Attach(entity);
+                    Context.Entry(entity).State = EntityState.Modified;
+                    message +="\n"+ Save();
+                }
+                catch (Exception e)
+                {
+                    message += "\n" + e.Message;
+                }
+        
             }
- 
-            return Save(); ;
+            
+            return  message;
         }
     }
 }

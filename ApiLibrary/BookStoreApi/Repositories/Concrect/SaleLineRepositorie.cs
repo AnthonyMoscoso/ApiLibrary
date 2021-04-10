@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using BookStoreApi.Repositories.Abstract.Sales;
 using LibraryApiRest.Repositories.Concrect;
 using System;
@@ -8,7 +9,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Sales
 {
-    public class SaleLineRepositorie : Repository<SaleLine>, ISaleLineRepositorie
+    public class SaleLineRepositorie : Repository<SaleLine,SaleLineDto>, ISaleLineRepositorie
     {
         public SaleLineRepositorie(string identificator="IdSaleLine") : base(identificator)
         {

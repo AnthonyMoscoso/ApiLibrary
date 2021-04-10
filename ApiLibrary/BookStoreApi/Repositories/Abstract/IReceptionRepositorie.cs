@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using LibraryApiRest.Repositories.Abstract;
 using System;
 using System.Collections.Generic;
@@ -10,14 +11,14 @@ namespace BookStoreApi.Repositories.Abstract.Receptions
 {
     interface IReceptionRepositorie : IRepository<Reception>
     {
-        List<Reception> GetByDate(DateTime date);
-        List<Reception> GetByDate(DateTime date,int pag,int element);
-        List<Reception> GetByDate(DateTime dateStart,DateTime dateEnd);
-        List<Reception> GetByDate(DateTime dateStart, DateTime dateEnd,int pag, int element);
-        List<Reception> GetByStore(string idStore);
-        List<Reception> GetByStore(string idStore,int pag,int element);
-        List<Reception> GetByStore(string idStore, DateTime date);
-        List<Reception> GetByStore(string idStore,DateTime date,int pag,int element);
+        List<ReceptionDto> GetByDate(DateTime date);
+        List<ReceptionDto> GetByDate(DateTime date,int pag,int element);
+        List<ReceptionDto> GetByDate(DateTime dateStart,DateTime dateEnd);
+        List<ReceptionDto> GetByDate(DateTime dateStart, DateTime dateEnd,int pag, int element);
+        List<ReceptionDto> GetByStore(string idStore);
+        List<ReceptionDto> GetByStore(string idStore,int pag,int element);
+        List<ReceptionDto> GetByStore(string idStore, DateTime date);
+        List<ReceptionDto> GetByStore(string idStore,DateTime date,int pag,int element);
 
 
     }

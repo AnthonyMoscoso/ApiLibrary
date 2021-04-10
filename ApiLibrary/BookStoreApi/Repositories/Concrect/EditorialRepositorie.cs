@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using BookStoreApi.Repositories.Abstract.Editorials;
 using LibraryApiRest.Repositories.Concrect;
 using System;
@@ -8,7 +9,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Editorials
 {
-    public class EditorialRepositorie : Repository<Editorial>, IEditorialRepositorie
+    public class EditorialRepositorie : Repository<Editorial,EditorialDto>, IEditorialRepositorie
     {
         public EditorialRepositorie(string identificator="IdEditorial") : base(identificator)
         {

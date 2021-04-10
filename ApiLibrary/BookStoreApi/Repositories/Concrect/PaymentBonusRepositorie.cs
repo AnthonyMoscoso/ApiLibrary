@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using BookStoreApi.Repositories.Abstract.Payments;
 using LibraryApiRest.Repositories.Concrect;
 using System;
@@ -8,7 +9,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Payments
 {
-    public class PaymentBonusRepositorie : Repository<PaymentBonus>, IPaymentBonusRepositorie
+    public class PaymentBonusRepositorie : Repository<PaymentBonus,PaymentBonusDto>, IPaymentBonusRepositorie
     {
         public PaymentBonusRepositorie(string identificator="IdPaymentBonus") : base(identificator)
         {

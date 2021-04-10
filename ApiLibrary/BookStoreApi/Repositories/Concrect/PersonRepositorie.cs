@@ -1,4 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Models.Request;
 using BookStoreApi.Repositories.Abstract.Persons;
 using LibraryApiRest.Repositories.Concrect;
 using System;
@@ -8,7 +9,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Persons
 {
-    public class PersonRepositorie : Repository<Person>, IPersonRepositorie
+    public class PersonRepositorie : Repository<Person,PersonDto>, IPersonRepositorie
     {
         public PersonRepositorie(string identificator="IdPerson") : base(identificator)
         {

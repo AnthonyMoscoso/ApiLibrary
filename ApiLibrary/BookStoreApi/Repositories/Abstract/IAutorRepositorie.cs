@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models;
 using BookStoreApi.Models.Library;
 
 using System;
@@ -11,9 +12,9 @@ namespace LibraryApiRest.Repositories.Abstract
 {
     interface IAutorRepositorie : IRepository<Autor>
     {
-        List<Autor> SearchByName(string text);
-        List<Autor> SearchByName(string text,int pag,int element);
-        Autor GetByName(string name);
+        List<AutorDto> SearchByName(string text);
+        List<AutorDto> SearchByName(string text,int pag,int element);
+        AutorDto GetByName(string name);
         bool ExistName(string name);
     }
 }

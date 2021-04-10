@@ -9,18 +9,13 @@ using System.Web;
 
 namespace LibraryApiRest.Repositories.Concrect
 {
-    public class AutorRepositorie : Repository<Autor>, IAutorRepositorie
+    public class AutorRepositorie : Repository<Autor,AutorDto>, IAutorRepositorie
     {
         public AutorRepositorie(string identificator="IdAutor") : base(identificator)
         {
         }
 
-        public new List<AutorDto> Get()
-        {
-            var list = dbSet.ToList();
-            return mapper.Map<List<AutorDto>>(list);
-        }
-
+    
         public bool ExistName(string name)
         {
             var result =dbSet.Where(W => W.AutorName.Equals(name)).SingleOrDefault();
@@ -31,20 +26,22 @@ namespace LibraryApiRest.Repositories.Concrect
             return false;
         }
 
-        public Autor GetByName(string name)
+        public AutorDto GetByName(string name)
         {
             var result = dbSet.Where(w=>w.AutorName.Equals(name)).SingleOrDefault();
-            return result;
+            return mapper.Map<AutorDto>(result);
         }
 
-        public List<Autor> SearchByName(string text)
+        public List<AutorDto> SearchByName(string text)
         {
-            return dbSet.Where(w=>w.AutorName.Contains(text)).ToList();
+            var result= dbSet.Where(w=>w.AutorName.Contains(text)).ToList();
+            return mapper.Map<List<AutorDto>>(result);
         }
 
-        public List<Autor> SearchByName(string text, int pag, int element)
+        public List<AutorDto> SearchByName(string text, int pag, int element)
         {
-            return dbSet.Where(w => w.AutorName.Contains(text)).OrderBy(w=> w.AutorName).Skip((pag-1)*element).Take(element).ToList();
+            var result= dbSet.Where(w => w.AutorName.Contains(text)).OrderBy(w=> w.AutorName).Skip((pag-1)*element).Take(element).ToList();
+            return mapper.Map<List<AutorDto>>(result);
         }
     }
 }

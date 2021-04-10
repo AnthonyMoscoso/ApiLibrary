@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Enums;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Enums;
 using BookStoreApi.Models.Library;
 using BookStoreApi.Repositories.Abstract.Reservations;
 using LibraryApiRest.Repositories.Concrect;
@@ -9,7 +10,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Reservations
 {
-    public class ReservationRepositorie : Repository<Reservation>, IReservationRepositorie
+    public class ReservationRepositorie : Repository<Reservation,ReservationDto>, IReservationRepositorie
     {
         public ReservationRepositorie(string identificator="IdReservation") : base(identificator)
         {
@@ -29,9 +30,10 @@ namespace BookStoreApi.Repositories.Concrect.Reservations
         #endregion
 
         #region Get By Book
-        public List<Reservation> GetByBook(string idBook)
+        public List<ReservationDto> GetByBook(string idBook)
         {
-            return dbSet.Where(w => w.IdBook.Equals(idBook)).ToList();
+            var result = dbSet.Where(w => w.IdBook.Equals(idBook)).ToList();
+            return mapper.Map<List<ReservationDto>>(result);
         }
 
         public List<Reservation> GetByBook(string idBook, int pag, int element)

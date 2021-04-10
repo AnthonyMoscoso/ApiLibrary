@@ -21,13 +21,13 @@ namespace BookStoreApi.Models.Library
             this.Orders = new HashSet<Orders>();
             this.Reception = new HashSet<Reception>();
             this.Reservation = new HashSet<Reservation>();
+            this.StoreSale = new HashSet<StoreSale>();
             this.Employee = new HashSet<Employee>();
             this.PayRoll = new HashSet<PayRoll>();
             this.Purchase = new HashSet<Purchase>();
             this.Register = new HashSet<Register>();
             this.ReturnSale = new HashSet<ReturnSale>();
             this.Schedule = new HashSet<Schedule>();
-            this.StoreSale = new HashSet<StoreSale>();
         }
     
         public string IdStore { get; set; }
@@ -52,6 +52,8 @@ namespace BookStoreApi.Models.Library
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reservation> Reservation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StoreSale> StoreSale { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee> Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PayRoll> PayRoll { get; set; }
@@ -63,7 +65,5 @@ namespace BookStoreApi.Models.Library
         public virtual ICollection<ReturnSale> ReturnSale { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Schedule> Schedule { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StoreSale> StoreSale { get; set; }
     }
 }

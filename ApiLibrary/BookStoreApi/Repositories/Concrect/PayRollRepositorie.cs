@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using BookStoreApi.Repositories.Abstract.PayRolls;
 using LibraryApiRest.Repositories.Concrect;
 using System;
@@ -8,7 +9,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.PayRolls
 {
-    public class PayRollRepositorie : Repository<PayRoll>, IPayRollRepositorie
+    public class PayRollRepositorie : Repository<PayRoll,PayRollDto>, IPayRollRepositorie
     {
         public PayRollRepositorie(string identificator="IdPayRoll") : base(identificator)
         {

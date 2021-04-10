@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using BookStoreApi.Repositories.Abstract.Editions;
 using LibraryApiRest.Repositories.Concrect;
 using System;
@@ -8,7 +9,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Editions
 {
-    public class EditionRepositorie : Repository<Edition>, IEditionRepositorie
+    public class EditionRepositorie : Repository<Edition,EditionDto>, IEditionRepositorie
     {
         public EditionRepositorie(string identificator="IdEdition") : base(identificator)
         {

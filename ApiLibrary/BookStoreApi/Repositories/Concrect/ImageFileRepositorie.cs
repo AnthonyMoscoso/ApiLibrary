@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using BookStoreApi.Repositories.Abstract.Files;
 using LibraryApiRest.Repositories.Concrect;
 using System;
@@ -11,7 +12,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Files
 {
-    public class ImageFileRepositorie :Repository <ImageFile> ,IImageFileRepositorie
+    public class ImageFileRepositorie :Repository <ImageFile,ImageFileDto> ,IImageFileRepositorie
     {
         public ImageFileRepositorie(string identificator= "IdImageFile") : base(identificator)
         {

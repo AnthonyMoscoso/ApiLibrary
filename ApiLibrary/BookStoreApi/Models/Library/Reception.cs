@@ -18,6 +18,8 @@ namespace BookStoreApi.Models.Library
         public Reception()
         {
             this.ReceptionLine = new HashSet<ReceptionLine>();
+            this.Orders = new HashSet<Orders>();
+            this.Purchase = new HashSet<Purchase>();
         }
     
         public string IdReception { get; set; }
@@ -31,5 +33,9 @@ namespace BookStoreApi.Models.Library
         public virtual Store Store { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReceptionLine> ReceptionLine { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Orders> Orders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Purchase> Purchase { get; set; }
     }
 }

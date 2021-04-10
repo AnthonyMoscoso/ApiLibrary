@@ -11,7 +11,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Persons
 {
-    public class SocieRepositorie : Repository<Socie>, ISocieRepositorie
+    public class SocieRepositorie : Repository<Socie,SocieDto>, ISocieRepositorie
     {
         readonly PersonRepositorie personRepositorie ;
         public SocieRepositorie(string identificator="IdSocie") : base(identificator)
@@ -21,16 +21,18 @@ namespace BookStoreApi.Repositories.Concrect.Persons
 
         public dynamic Insert(List<SocieDto> dtos)
         {
+            string message = "";
             try
             {
                 List<Socie> list = mapper.Map<List<Socie>>(dtos);
                 dbSet.AddRange(list);
+                message += Save();
             }
-            catch
+            catch(Exception e)
             {
-
+                message += e.Message;
             }
-            return Save();
+            return message;
         }
         public  new dynamic Delete(List<string>ids)
         {
@@ -71,9 +73,9 @@ namespace BookStoreApi.Repositories.Concrect.Persons
                 }
 
             }
-            catch (SqlException)
+            catch (SqlException e)
             {
-
+                message += e.Message;
             }
             return message;
         }

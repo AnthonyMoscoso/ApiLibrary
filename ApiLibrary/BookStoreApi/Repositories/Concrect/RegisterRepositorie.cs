@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using BookStoreApi.Repositories.Abstract.Registers;
 using LibraryApiRest.Repositories.Concrect;
 using System;
@@ -8,7 +9,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Registers
 {
-    public class RegisterRepositorie : Repository<Register>, IRegisterRepositorie
+    public class RegisterRepositorie : Repository<Register,RegisterDto>, IRegisterRepositorie
     {
         public RegisterRepositorie(string identificator="IdRegister") : base(identificator)
         {

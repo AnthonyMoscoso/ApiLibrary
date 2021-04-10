@@ -36,6 +36,7 @@ namespace BookStoreApi.Models.Library
         public System.DateTime LastUpdateDate { get; set; }
         public int StatusCode { get; set; }
     
+        public virtual OnlineSale OnlineSale { get; set; }
         public virtual Person Person { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReturnSale> ReturnSale { get; set; }
@@ -45,6 +46,5 @@ namespace BookStoreApi.Models.Library
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reservation> Reservation { get; set; }
         public virtual Coupon Coupon { get; set; }
-        public virtual OnlineSale OnlineSale { get; set; }
     }
 }

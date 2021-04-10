@@ -7,17 +7,12 @@ using System.Linq;
 
 namespace BookStoreApi.Repositories.Concrect.WareHouses
 {
-    public class WareHouseBookRepository : Repository<WareHouseBook>, IWareHouseBookRepositorie
+    public class WareHouseBookRepository : Repository<WareHouseBook,WareHouseBookDto>, IWareHouseBookRepositorie
     {
         public WareHouseBookRepository(string identificator="IdWareHouseBook") : base(identificator)
         {
         }
 
-        public new List<WareHouseBookDto> Get()
-        {
-            var list = dbSet.ToList();
-            return mapper.Map<List<WareHouseBookDto>>(list);
-        }
         public int GetStock(string idBook, string idWareHouse)
         {
 

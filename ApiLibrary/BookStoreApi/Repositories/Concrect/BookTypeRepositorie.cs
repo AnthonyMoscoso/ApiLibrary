@@ -9,7 +9,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Books
 {
-    public class BookTypeRepositorie : Repository<BookType>, IBookTypeRepositorie
+    public class BookTypeRepositorie : Repository<BookType,BookTypeDto>, IBookTypeRepositorie
     {
         public BookTypeRepositorie(string identificator= "IdType") : base(identificator)
         {

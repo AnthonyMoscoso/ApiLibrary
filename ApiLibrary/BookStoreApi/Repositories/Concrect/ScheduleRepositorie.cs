@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using BookStoreApi.Repositories.Abstract.Schedules;
 using LibraryApiRest.Repositories.Concrect;
 using System;
@@ -8,7 +9,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Schedules
 {
-    public class ScheduleRepositorie : Repository<Schedule>, IScheduleRepositorie
+    public class ScheduleRepositorie : Repository<Schedule,ScheduleDto>, IScheduleRepositorie
     {
         public ScheduleRepositorie(string identificator="IdSchedule") : base(identificator)
         {

@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using BookStoreApi.Repositories.Abstract.Occupations;
 using LibraryApiRest.Repositories.Concrect;
 using System;
@@ -8,7 +9,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Occupations
 {
-    public class OccupationRepositorie : Repository<Occupation>, IOccupationRepositorie
+    public class OccupationRepositorie : Repository<Occupation,OccupationDto>, IOccupationRepositorie
     {
         public OccupationRepositorie(string identificator="IdOccupation") : base(identificator)
         {

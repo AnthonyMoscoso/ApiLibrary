@@ -4,67 +4,88 @@ using BookStoreApi.Repositories.Abstract.Receptions;
 using LibraryApiRest.Repositories.Concrect;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Receptions
 {
-    public class ReceptionRepositorie : Repository<Reception>, IReceptionRepositorie
+    public class ReceptionRepositorie : Repository<Reception,ReceptionDto>, IReceptionRepositorie
     {
         public ReceptionRepositorie(string identificator="IdReception") : base(identificator)
         {
         }
 
-        public List<Reception> GetByDate(DateTime date)
+        public List<ReceptionDto> GetByDate(DateTime date)
         {
-            return dbSet.Where(w=>w.CreateDate.Date.Equals(date.Date)).ToList();
+            var result = dbSet.Where(w => (DbFunctions.TruncateTime(w.CreateDate) == DbFunctions.TruncateTime(date)))
+                .ToList();
+
+            return mapper.Map<List<ReceptionDto>>(result);
         }
 
-        public List<Reception> GetByDate(DateTime date, int pag, int element)
+        public List<ReceptionDto> GetByDate(DateTime date, int pag, int element)
         {
-            return dbSet.Where(w => w.CreateDate.Date.Equals(date.Date)).Skip((pag - 1) * element).Take(element).ToList();
-        }
-   
-        public List<Reception> GetByDate(DateTime dateStart, DateTime dateEnd)
-        {
-            return dbSet.Where(w => w.CreateDate >= dateStart.Date && w.CreateDate.Date <= dateEnd.Date).ToList(); 
-        }
-
-        public List<Reception> GetByDate(DateTime dateStart, DateTime dateEnd, int pag, int element)
-        {
-            return dbSet.Where(w => w.CreateDate >= dateStart.Date && w.CreateDate.Date <= dateEnd.Date).Skip((pag - 1) * element).Take(element).ToList();
-        }
-
-        public List<Reception> GetByStore(string idStore)
-        {
-            return dbSet.Where(w => w.IdStore.Equals(idStore)).ToList();
-        }
-
-        public List<Reception> GetByStore(string idStore, int pag, int element)
-        {
-            return dbSet.Where(w => w.IdStore.Equals(idStore))
+            var result = dbSet.Where(w => (DbFunctions.TruncateTime(w.CreateDate) == DbFunctions.TruncateTime(date)))
                 .OrderBy(w=> w.CreateDate)
                 .Skip((pag - 1) * element).Take(element).ToList();
+            return mapper.Map<List<ReceptionDto>>(result);
         }
-        public List<Reception> GetByStore(string idStore, DateTime date)
+   
+        public List<ReceptionDto> GetByDate(DateTime dateStart, DateTime dateEnd)
         {
-            return dbSet.Where(w => w.IdStore.Equals(idStore) && w.CreateDate.Date.Equals(date.Date)).ToList();
+            var result = dbSet.Where(w => DbFunctions.TruncateTime(w.CreateDate) >= DbFunctions.TruncateTime( dateStart) 
+            && DbFunctions.TruncateTime( w.CreateDate ) <= DbFunctions.TruncateTime(dateEnd))
+                .ToList();
+            return mapper.Map<List<ReceptionDto>>(result);
         }
 
-        public List<Reception> GetByStore(string idStore, DateTime date, int pag, int element)
+        public List<ReceptionDto> GetByDate(DateTime dateStart, DateTime dateEnd, int pag, int element)
         {
-            return dbSet.Where(w => w.IdStore.Equals(idStore) && w.CreateDate.Date.Equals(date.Date))
+            var result = dbSet.Where(w => DbFunctions.TruncateTime( w.CreateDate) >= DbFunctions.TruncateTime( dateStart) 
+            && DbFunctions.TruncateTime( w.CreateDate) <= DbFunctions.TruncateTime( dateEnd.Date))
                 .OrderBy(w => w.CreateDate)
                 .Skip((pag - 1) * element).Take(element).ToList();
+            return mapper.Map<List<ReceptionDto>>(result);
         }
 
-        public dynamic Insert(List<ReceptionDto>list)
+        public List<ReceptionDto> GetByStore(string idStore)
         {
-            foreach (ReceptionDto dto in list)
+            var result = dbSet.Where(w => w.IdStore.Equals(idStore)).ToList();
+            return mapper.Map<List<ReceptionDto>>(result);
+        }
+
+        public List<ReceptionDto> GetByStore(string idStore, int pag, int element)
+        {
+            var result = dbSet.Where(w => w.IdStore.Equals(idStore))
+                .OrderBy(w=> w.CreateDate)
+                .Skip((pag - 1) * element).Take(element).ToList();
+            return mapper.Map<List<ReceptionDto>>(result);
+        }
+        public List<ReceptionDto> GetByStore(string idStore, DateTime date)
+        {
+            var result = dbSet.Where(w => w.IdStore.Equals(idStore) 
+            && (DbFunctions.TruncateTime(w.CreateDate) == DbFunctions.TruncateTime(date)))
+                .ToList();
+            return mapper.Map<List<ReceptionDto>>(result);
+        }
+
+        public List<ReceptionDto> GetByStore(string idStore, DateTime date, int pag, int element)
+        {
+            var result = dbSet.Where(w => w.IdStore.Equals(idStore)
+            && (DbFunctions.TruncateTime(w.CreateDate) == DbFunctions.TruncateTime(date)))
+                .OrderBy(w => w.CreateDate)
+                .Skip((pag - 1) * element).Take(element).ToList();
+            return mapper.Map<List<ReceptionDto>>(result);
+        }
+
+        public new dynamic Insert(List<Reception>list)
+        {
+            foreach (Reception entity in list)
             {
-                foreach (ReceptionLine line in dto.ReceptionLine)
+                foreach (ReceptionLine line in entity.ReceptionLine)
                 {
-                    Context.BookStore.Where(w => w.IdBook.Equals(line.IdBook) && w.IdStore.Equals(dto.IdStore)).SingleOrDefault().Stock += line.Quantity;
+                    Context.BookStore.Where(w => w.IdBook.Equals(line.IdBook) && w.IdStore.Equals(entity.IdStore)).SingleOrDefault().Stock += line.Quantity;
                 }
             }
             dbSet.AddRange(mapper.Map<List<Reception>>(list));

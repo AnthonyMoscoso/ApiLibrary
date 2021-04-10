@@ -10,7 +10,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect
 {
-    public class StoreSaleRepository : Repository<StoreSale>, IStoreSaleRepository
+    public class StoreSaleRepository : Repository<StoreSale,StoreSaleDto>, IStoreSaleRepository
     {
         public StoreSaleRepository(string identificator="idStoreSale") : base(identificator)
         {
@@ -252,19 +252,39 @@ namespace BookStoreApi.Repositories.Concrect
 
         public dynamic Update(List<StoreSaleDto>list)
         {
+            string message = "";
             foreach (StoreSaleDto entity in list)
             {
-                foreach (SaleLine line in entity.SaleLine)
+                var searchEntity = dbSet.Find(entity);
+                if (searchEntity != null)
                 {
-                    Context.SaleLine.Attach(line);
-                    Context.Entry(entity).State = EntityState.Modified;
-                }
+                    foreach (SaleLineDto line in entity.SaleLine)
+                    {
+                        var search = Context.SaleLine.Find(line.IdSaleLine);
+                        if (search != null)
+                        {
+                            Context.SaleLine.Attach(search);
+                            Context.Entry(entity).State = EntityState.Modified;
+                        }
+                        else
+                        {
+                            message += string.Format("Sale line with id {0} was not found", line.IdSaleLine);
+                        }
 
-                StoreSale e = mapper.Map<StoreSale>(entity);
-                dbSet.Attach(e);
-                Context.Entry(e).State = EntityState.Modified;
+                    }
+
+                    StoreSale e = mapper.Map<StoreSale>(entity);
+                    dbSet.Attach(e);
+                    Context.Entry(e).State = EntityState.Modified;
+                    message += Save();
+                }
+                else
+                {
+                    message += "StoreSale with id " + entity.IdSale + " was not found";
+                }
+              
             }
-            return Save();
+            return message;
         }
 
         private dynamic ModifyStock(List<StoreSaleDto> list)
@@ -286,20 +306,17 @@ namespace BookStoreApi.Repositories.Concrect
        
         }
 
-        private void ModifyStockInStore(List<SaleLine> list, string idStore)
+        private void ModifyStockInStore(List<SaleLineDto> list, string idStore)
         {
 
-                foreach (SaleLine entity in list)
+                foreach (SaleLineDto entity in list)
                 {
                    Context.BookStore.Where(w => w.IdBook.Equals(entity.IdBook) && w.IdStore.Equals(idStore)).SingleOrDefault().Stock-=entity.Quantity;
                    Context.SaveChanges();
             } 
         }
 
-        public new List<StoreSaleDto> Get()
-        {
-            return mapper.Map<List<StoreSaleDto>>(dbSet.ToList());
-        }
+
 
     }
 }

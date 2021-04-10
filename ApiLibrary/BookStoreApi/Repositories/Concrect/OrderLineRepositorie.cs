@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using BookStoreApi.Repositories.Abstract.Order;
 using LibraryApiRest.Repositories.Concrect;
 using System;
@@ -8,7 +9,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Order
 {
-    public class OrderLineRepositorie : Repository<OrderLine>, IOrderLineRepositorie
+    public class OrderLineRepositorie : Repository<OrderLine,OrderLineDto>, IOrderLineRepositorie
     {
         public OrderLineRepositorie(string identificator="IdOrderLine") : base(identificator)
         {

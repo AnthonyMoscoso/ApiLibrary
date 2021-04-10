@@ -9,7 +9,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Genders
 {
-    public class GenderRepositorie : Repository<Gender>, IGenderRepositorie
+    public class GenderRepositorie : Repository<Gender,GenderDto>, IGenderRepositorie
     {
         public GenderRepositorie(string identificator="IdGender") : base(identificator)
         {

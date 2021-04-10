@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using BookStoreApi.Repositories.Abstract.Receptions;
 using LibraryApiRest.Repositories.Concrect;
 using System;
@@ -8,7 +9,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Receptions
 {
-    public class ReceptionLineRepositorie : Repository<ReceptionLine>, IReceptionLineRepositorie
+    public class ReceptionLineRepositorie : Repository<ReceptionLine,ReceptionLineDto>, IReceptionLineRepositorie
     {
         public ReceptionLineRepositorie(string identificator="IdReceptionLine") : base(identificator)
         {

@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using LibraryApiRest.Repositories.Abstract;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace BookStoreApi.Repositories.Abstract.Reservations
         #endregion
 
         #region Book
-        List<Reservation> GetByBook(string idBook);
+        List<ReservationDto> GetByBook(string idBook);
         List<Reservation> GetByBook(string idBook,string idStore);
         List<Reservation> GetByBook(string idBook,int pag,int element);
         List<Reservation> GetByBook(string idBook, string idStore, int pag, int element);

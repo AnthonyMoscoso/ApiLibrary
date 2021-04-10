@@ -169,31 +169,17 @@
     <Compile Include="Controllers\Login\Repositorie\LoginRepositorie.cs" />
     <Compile Include="Controllers\Login\Tokens\TokenGenerator.cs" />
     <Compile Include="Controllers\Login\Tokens\TokenValidationHandler.cs" />
-    <Compile Include="Dtos\AutorDto.cs" />
-    <Compile Include="Dtos\BookDto.cs" />
-    <Compile Include="Dtos\BookEditorialDto.cs" />
-    <Compile Include="Dtos\BookTypeDto.cs" />
-    <Compile Include="Dtos\CouponDto.cs" />
-    <Compile Include="Dtos\DirectionDto.cs" />
-    <Compile Include="Dtos\EmployeeWorkPlace.cs" />
-    <Compile Include="Dtos\GenderDto.cs" />
-    <Compile Include="Dtos\OccupationDto.cs" />
-    <Compile Include="Dtos\OrderDto.cs" />
-    <Compile Include="Dtos\OrderLineDto.cs" />
-    <Compile Include="Dtos\ReceptionDto.cs" />
-    <Compile Include="Dtos\SaleDto.cs" />
-    <Compile Include="Dtos\ShippingDto.cs" />
-    <Compile Include="Dtos\ShippingLineDto.cs" />
-    <Compile Include="Dtos\StoreDto.cs" />
-    <Compile Include="Dtos\StoreSaleDto.cs" />
-    <Compile Include="Dtos\WareHouseBookDto.cs" />
-    <Compile Include="Dtos\WareHouseDto.cs" />
-    <Compile Include="Enums\ReservationStatus.cs" />
-    <Compile Include="Enums\StatusCode.cs" />
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Mappers\AutoMapperConfig.cs" />
+    <Compile Include="Models\Dtos\AutorDto.cs" />
+    <Compile Include="Models\Dtos\BarCodeDto.cs" />
+    <Compile Include="Models\Dtos\BookDto.cs" />
+    <Compile Include="Models\Dtos\BookEditorialDto.cs" />
+    <Compile Include="Models\Dtos\BookTypeDto.cs" />
+    <Compile Include="Models\Dtos\CouponDto.cs" />
+    <Compile Include="Models\Dtos\DirectionDto.cs" />
+    <Compile Include="Models\Dtos\DiscountDto.cs" />
+    <Compile Include="Models\Dtos\DocumentFileDto.cs" />
+    <Compile Include="Models\Dtos\EditionDto.cs" />
+    <Compile Include="Models\Dtos\EditorialDto.cs" />
     <Compile Include="Models\Library\Autor.cs">
       <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
@@ -359,6 +345,42 @@
     <Compile Include="Models\Library\WareHouseBook.cs">
       <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Utilities\EmployeeWorkPlace.cs" />
+    <Compile Include="Models\Dtos\GenderDto.cs" />
+    <Compile Include="Models\Dtos\ImageFileDto.cs" />
+    <Compile Include="Models\Dtos\OccupationDto.cs" />
+    <Compile Include="Models\Dtos\OrderDto.cs" />
+    <Compile Include="Models\Dtos\OrderLineDto.cs" />
+    <Compile Include="Models\Dtos\PaymentBonusDto.cs" />
+    <Compile Include="Models\Dtos\PayRollDto.cs" />
+    <Compile Include="Models\Dtos\ProviderDto.cs" />
+    <Compile Include="Models\Dtos\PurchaseDto.cs" />
+    <Compile Include="Models\Dtos\PurchaseLineDto.cs" />
+    <Compile Include="Models\Dtos\ReceptionDto.cs" />
+    <Compile Include="Models\Dtos\ReceptionLineDto.cs" />
+    <Compile Include="Models\Dtos\RegisterDto.cs" />
+    <Compile Include="Models\Dtos\RegisterLineDto.cs" />
+    <Compile Include="Models\Dtos\ReservationDto.cs" />
+    <Compile Include="Models\Dtos\ReturnLineDto.cs" />
+    <Compile Include="Models\Dtos\ReturnSaleDto.cs" />
+    <Compile Include="Models\Dtos\RolDto.cs" />
+    <Compile Include="Models\Dtos\SaleDto.cs" />
+    <Compile Include="Models\Dtos\SaleLineDto.cs" />
+    <Compile Include="Models\Dtos\ScheduleDto.cs" />
+    <Compile Include="Models\Dtos\ScheduleLineDto.cs" />
+    <Compile Include="Models\Dtos\ShippingDto.cs" />
+    <Compile Include="Models\Dtos\ShippingLineDto.cs" />
+    <Compile Include="Models\Dtos\StoreDto.cs" />
+    <Compile Include="Models\Dtos\StoreSaleDto.cs" />
+    <Compile Include="Models\Dtos\TaxesDto.cs" />
+    <Compile Include="Models\Dtos\WareHouseBookDto.cs" />
+    <Compile Include="Models\Dtos\WareHouseDto.cs" />
+    <Compile Include="Enums\ReservationStatus.cs" />
+    <Compile Include="Enums\StatusCode.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Mappers\AutoMapperConfig.cs" />
     <Compile Include="Models\Login\LoginRequest.cs" />
     <Compile Include="Models\Login\UserDb.Context.cs">
       <AutoGen>True</AutoGen>
@@ -378,11 +400,11 @@
     <Compile Include="Models\Login\Users.cs">
       <DependentUpon>UserDb.tt</DependentUpon>
     </Compile>
-    <Compile Include="Dtos\BookStoreDto.cs" />
-    <Compile Include="Dtos\EmployeeDto.cs" />
-    <Compile Include="Dtos\PermitDto.cs" />
-    <Compile Include="Dtos\PersonDto.cs" />
-    <Compile Include="Dtos\SocieDto.cs" />
+    <Compile Include="Models\Dtos\BookStoreDto.cs" />
+    <Compile Include="Models\Dtos\EmployeeDto.cs" />
+    <Compile Include="Models\Dtos\PermitDto.cs" />
+    <Compile Include="Models\Dtos\PersonDto.cs" />
+    <Compile Include="Models\Dtos\SocieDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Abstract\IBookEditorialRepositorie.cs" />
     <Compile Include="Repositories\Abstract\IBookStoreRepositorie.cs" />

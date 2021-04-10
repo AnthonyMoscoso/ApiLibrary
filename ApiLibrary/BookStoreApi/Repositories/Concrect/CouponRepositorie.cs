@@ -10,7 +10,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Coupons
 {
-    public class CouponRepositorie : Repository<Coupon>, ICouponRepositorie
+    public class CouponRepositorie : Repository<Coupon,CouponDto>, ICouponRepositorie
     {
         public CouponRepositorie(string identificator="IdCoupon") : base(identificator)
         {

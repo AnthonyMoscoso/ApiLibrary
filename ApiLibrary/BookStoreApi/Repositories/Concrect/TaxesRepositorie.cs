@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using BookStoreApi.Repositories.Abstract.Taxe;
 using LibraryApiRest.Repositories.Concrect;
 using System;
@@ -8,7 +9,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Taxe
 {
-    public class TaxesRepositorie : Repository<Taxes>, ITaxesRepositorie
+    public class TaxesRepositorie : Repository<Taxes,TaxesDto>, ITaxesRepositorie
     {
         public TaxesRepositorie(string identificator="IdTaxes") : base(identificator)
         {

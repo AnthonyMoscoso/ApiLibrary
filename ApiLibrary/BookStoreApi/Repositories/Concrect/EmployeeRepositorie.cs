@@ -13,7 +13,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Persons
 {
-    public class EmployeeRepositorie : Repository<Employee>, IEmployeeRepositorie
+    public class EmployeeRepositorie : Repository<Employee,EmployeeDto>, IEmployeeRepositorie
     {
         readonly PersonRepositorie personRepositorie;
         public EmployeeRepositorie(string identificator = "IdEmployee") : base(identificator)
@@ -22,13 +22,6 @@ namespace BookStoreApi.Repositories.Concrect.Persons
         }
         #region Get
 
-        public new List<EmployeeDto> Get()
-        {
-          
-            List <EmployeeDto> list = mapper.Map(dbSet.ToList(), mapper.Map<List<EmployeeDto>>(Context.Person.ToList()));
-           
-            return list;
-        }
         public List<EmployeeDto> GetByBoss(string idBoss)
         {
             List<Employee> list = dbSet.Where(w => w.IdBoss.Equals(idBoss)).ToList();

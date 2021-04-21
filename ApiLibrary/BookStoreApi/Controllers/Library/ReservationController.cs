@@ -1,4 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Repositories.Abstract.Reservations;
 using BookStoreApi.Repositories.Concrect.Reservations;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace BookStoreApi.Controllers.Library.Reservations
     [RoutePrefix("Api/Reservation")]
     public class ReservationController : ApiController
     {
-        public ReservationRepositorie _repository = new ReservationRepositorie();
+        readonly IReservationRepository _repository = new ReservationRepository();
 
         [HttpGet]
         public IHttpActionResult Get()

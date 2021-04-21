@@ -1,4 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Repositories.Abstract.Taxe;
 using BookStoreApi.Repositories.Concrect.Taxe;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace BookStoreApi.Controllers.Library.Taxe
     [RoutePrefix("Api/Taxes")]
     public class TaxesController : ApiController
     {
-        public TaxesRepositorie _repository = new TaxesRepositorie();
+        readonly ITaxesRepository _repository = new TaxesRepository();
 
         [HttpGet]
         public IHttpActionResult Get()

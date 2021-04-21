@@ -20,7 +20,7 @@ foreign key (IdEmployee) references Employee (IdPerson);
 
 
 alter table Reception add constraint Fk_Reception_IdStore 
-foreign key (IdEmployee) references Store (IdStore);
+foreign key (IdStore) references Store (IdStore);
 
 create table ReceptionLine (
 IdReceptionLine varchar (40) not null primary key,
@@ -39,13 +39,11 @@ alter table ReceptionLine add constraint Fk_ReceptionLine_IdBook
 foreign key (IdBook) references Book (IdBook);
 
 create table ReceptionOrder (
-IdOrder varchar (40) not null ,
-IdReception varchar (40) not null unique
+IdReception varchar (40) not null primary key,
+IdOrder varchar (40) not null 
 );
 
 alter table ReceptionOrder 
-add constraint Pk_OrderReception 
-primary key (IdOrder,IdReception);
 
 alter table ReceptionOrder 
 add constraint Fk_OrderReception_IdOrder
@@ -56,13 +54,10 @@ add constraint Fk_OrderReception_IdReception
 foreign key (IdReception) references Reception (IdReception);
 
 create table ReceptionPurchase (
-IdPurchase varchar (40) not null ,
-IdReception varchar (40) not null unique
+IdReception varchar (40) not null primary key,
+IdPurchase varchar (40) not null 
 );
 
-alter table ReceptionPurchase
-add constraint Pk_ReceptionPurchase 
-primary key (IdPurchase,IdReception);
 
 alter table ReceptionPurchase 
 add constraint Fk_ReceptionPurchase_IdPurchase

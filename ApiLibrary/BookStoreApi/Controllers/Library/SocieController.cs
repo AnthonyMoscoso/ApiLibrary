@@ -1,5 +1,6 @@
 ﻿using BookStoreApi.Models.Library;
 using BookStoreApi.Models.Request;
+using BookStoreApi.Repositories.Abstract.Persons;
 using BookStoreApi.Repositories.Concrect.Persons;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace BookStoreApi.Controllers.Library.Persons
     [RoutePrefix("Api/Socie")]
     public class SocieController : ApiController
     {
-        public SocieRepositorie _repository = new SocieRepositorie();
+        readonly ISocieRepository _repository = new SocieRepository();
 
         #region Get
         [HttpGet]

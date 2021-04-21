@@ -1,43 +1,44 @@
 ﻿using BookStoreApi.Models.Library;
+using LibraryApiRest.Repositories.Abstract;
 using LibraryApiRest.Repositories.Concrect;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace BookStoreApi.Controllers
 {
-    
+
     [RoutePrefix("Api/Autor")]
     [Authorize]
     public class AutorController : ApiController 
     {
 
-       public AutorRepositorie _repository = new AutorRepositorie();
+        readonly IAutorRepository _repository = new AutorRepository();
 
         [HttpGet]
         public IHttpActionResult Get ()
         {
             return Ok(_repository.Get());
         }
+
         [HttpGet]
         public IHttpActionResult Get(string id)
         {
             return Ok(_repository.Get(id));
         }
+
         [HttpGet]
         public IHttpActionResult GetList(string ids)
         {
             return Ok(_repository.GetList(ids));
         }
+
         [HttpGet]
         [Route("Name")]
         public IHttpActionResult GetByName(string name)
         {
             return Ok(_repository.GetByName(name));
         }
+
         [HttpGet]
         [Route("Pag")]
         public IHttpActionResult Get(int element, int pag)

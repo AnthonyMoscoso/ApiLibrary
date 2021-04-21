@@ -1,4 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Repositories.Abstract.Returns;
 using BookStoreApi.Repositories.Concrect.Returns;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace BookStoreApi.Controllers.Library.Returns
     [RoutePrefix("Api/Return")]
     public class ReturnController : ApiController 
     {
-        public ReturnSaleRepositorie _repository = new ReturnSaleRepositorie();
+        readonly IReturnSaleRepository _repository = new ReturnSaleRepository();
 
         [HttpGet]
         public IHttpActionResult Get()

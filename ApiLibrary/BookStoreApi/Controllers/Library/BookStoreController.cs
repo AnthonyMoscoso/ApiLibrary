@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using BookStoreApi.Models.Library;
+using BookStoreApi.Repositories.Abstract.Books;
 using BookStoreApi.Repositories.Concrect.Books;
 namespace BookStoreApi.Controllers.Library.Books
 {
     [RoutePrefix("Api/BookStore")]
     public class BookStoreController : ApiController
     {
-        public BookStoreRepository _repository = new BookStoreRepository();
+       readonly IBookStoreRepository _repository = new BookStoreRepository();
+
 
         [HttpGet]
         public IHttpActionResult Get()

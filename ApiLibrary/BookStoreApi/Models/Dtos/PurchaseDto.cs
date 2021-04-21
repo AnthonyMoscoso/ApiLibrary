@@ -17,5 +17,7 @@ namespace BookStoreApi.Dtos
         public System.DateTime CreateDate { get; set; }
         public System.DateTime LastUpdateDate { get; set; }
         public int StatusCode { get; set; }
+
+        public List<PurchaseLineDto> PurchaseLine { get; set; }
     }
 }

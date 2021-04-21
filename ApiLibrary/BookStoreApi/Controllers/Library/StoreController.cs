@@ -1,4 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Repositories.Abstract.Stores;
 using BookStoreApi.Repositories.Concrect.Stores;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace BookStoreApi.Controllers.Library.Stores
     [RoutePrefix("Api/Store")]
     public class StoreController : ApiController
     {
-        public StoreRepositorie _repository = new StoreRepositorie();
+        readonly IStoreRepository _repository = new StoreRepository();
 
         #region Get
         [HttpGet]

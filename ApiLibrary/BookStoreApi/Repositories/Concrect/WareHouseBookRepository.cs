@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace BookStoreApi.Repositories.Concrect.WareHouses
 {
-    public class WareHouseBookRepository : Repository<WareHouseBook,WareHouseBookDto>, IWareHouseBookRepositorie
+    public class WareHouseBookRepository : Repository<WareHouseBook,WareHouseBookDto>, IWareHouseBookRepository
     {
         public WareHouseBookRepository(string identificator="IdWareHouseBook") : base(identificator)
         {

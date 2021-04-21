@@ -1,12 +1,9 @@
 ﻿using BookStoreApi.Dtos;
-using BookStoreApi.Models.Library;
 using BookStoreApi.Models.Request;
+using BookStoreApi.Repositories.Abstract.Persons;
 using BookStoreApi.Repositories.Concrect.Persons;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace BookStoreApi.Controllers.Library.Persons
@@ -15,7 +12,7 @@ namespace BookStoreApi.Controllers.Library.Persons
     [RoutePrefix("Api/Employee")]
     public class EmployeeController : ApiController
     {
-        public EmployeeRepositorie _repository = new EmployeeRepositorie();
+        readonly IEmployeeRepositorie _repository = new EmployeeRepositorie();
 
         [HttpGet]
         public IHttpActionResult Get()

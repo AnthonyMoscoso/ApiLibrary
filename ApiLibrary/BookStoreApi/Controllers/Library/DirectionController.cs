@@ -1,10 +1,7 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Repositories.Abstract.Directions;
 using BookStoreApi.Repositories.Concrect.Directions;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace BookStoreApi.Controllers.Library.Directions
@@ -12,7 +9,7 @@ namespace BookStoreApi.Controllers.Library.Directions
     [RoutePrefix("Api/Direction")]
     public class DirectionController : ApiController
     {
-        public DirectionRepositorie _repository = new DirectionRepositorie();
+        readonly IDirectionRepository _repository = new DirectionRepository();
 
         [HttpGet]
         public IHttpActionResult Get()

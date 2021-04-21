@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BookStoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BookStoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Autor">
           <Key>
             <PropertyRef Name="IdAutor" />
@@ -519,19 +519,17 @@
         </EntityType>
         <EntityType Name="ReceptionOrder">
           <Key>
-            <PropertyRef Name="IdOrder" />
             <PropertyRef Name="IdReception" />
           </Key>
-          <Property Name="IdOrder" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="IdReception" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="IdOrder" Type="varchar" MaxLength="40" Nullable="false" />
         </EntityType>
         <EntityType Name="ReceptionPurchase">
           <Key>
-            <PropertyRef Name="IdPurchase" />
             <PropertyRef Name="IdReception" />
           </Key>
-          <Property Name="IdPurchase" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="IdReception" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="IdPurchase" Type="varchar" MaxLength="40" Nullable="false" />
         </EntityType>
         <EntityType Name="Register">
           <Key>
@@ -551,10 +549,10 @@
           <Property Name="IdRegister" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="IdEmployee" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="EnterHour" Type="time" Precision="7" />
-          <Property Name="ExistHoure" Type="time" Precision="7" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateDate" Type="datetime" Nullable="false" />
           <Property Name="StatusCode" Type="int" Nullable="false" />
+          <Property Name="ExitHour" Type="time" Precision="7" />
         </EntityType>
         <EntityType Name="RegisterStore">
           <Key>
@@ -1359,7 +1357,7 @@
         </Association>
         <Association Name="Fk_OrderReception_IdReception">
           <End Role="Reception" Type="Self.Reception" Multiplicity="1" />
-          <End Role="ReceptionOrder" Type="Self.ReceptionOrder" Multiplicity="*" />
+          <End Role="ReceptionOrder" Type="Self.ReceptionOrder" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Reception">
               <PropertyRef Name="IdReception" />
@@ -1617,7 +1615,7 @@
               <PropertyRef Name="IdStore" />
             </Principal>
             <Dependent Role="Reception">
-              <PropertyRef Name="IdEmployee" />
+              <PropertyRef Name="IdStore" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1659,7 +1657,7 @@
         </Association>
         <Association Name="Fk_ReceptionPurchase_IdReception">
           <End Role="Reception" Type="Self.Reception" Multiplicity="1" />
-          <End Role="ReceptionPurchase" Type="Self.ReceptionPurchase" Multiplicity="*" />
+          <End Role="ReceptionPurchase" Type="Self.ReceptionPurchase" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Reception">
               <PropertyRef Name="IdReception" />
@@ -2752,8 +2750,7 @@
             <End Role="WareHouseSchedule" EntitySet="WareHouseSchedule" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BookStoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -3273,12 +3270,12 @@
           <Property Name="IdRegister" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IdEmployee" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="EnterHour" Type="Time" Precision="7" />
-          <Property Name="ExistHoure" Type="Time" Precision="7" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="StatusCode" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Employee" Relationship="Self.Fk_RegisterLine_IdEmployee" FromRole="RegisterLine" ToRole="Employee" />
           <NavigationProperty Name="Register" Relationship="Self.Fk_RegisterLine_IdRegister" FromRole="RegisterLine" ToRole="Register" />
+          <Property Name="ExitHour" Type="Time" Precision="7" />
         </EntityType>
         <EntityType Name="Reservation">
           <Key>
@@ -4149,7 +4146,7 @@
               <PropertyRef Name="IdStore" />
             </Principal>
             <Dependent Role="Reception">
-              <PropertyRef Name="IdEmployee" />
+              <PropertyRef Name="IdStore" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4362,11 +4359,11 @@
           <End Role="WareHouse" Type="Self.WareHouse" Multiplicity="0..1" />
         </Association>
         <Association Name="ReceptionOrder">
-          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
           <End Role="Reception" Type="Self.Reception" Multiplicity="*" />
         </Association>
         <Association Name="ReceptionPurchase">
-          <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+          <End Role="Purchase" Type="Self.Purchase" Multiplicity="0..1" />
           <End Role="Reception" Type="Self.Reception" Multiplicity="*" />
         </Association>
         <Association Name="RegisterStore">
@@ -5242,11 +5239,11 @@
           <EntitySetMapping Name="RegisterLine">
             <EntityTypeMapping TypeName="BookStoreModel.RegisterLine">
               <MappingFragment StoreEntitySet="RegisterLine">
+                <ScalarProperty Name="ExitHour" ColumnName="ExitHour" />
                 <ScalarProperty Name="IdRegisterLine" ColumnName="IdRegisterLine" />
                 <ScalarProperty Name="IdRegister" ColumnName="IdRegister" />
                 <ScalarProperty Name="IdEmployee" ColumnName="IdEmployee" />
                 <ScalarProperty Name="EnterHour" ColumnName="EnterHour" />
-                <ScalarProperty Name="ExistHoure" ColumnName="ExistHoure" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
                 <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />

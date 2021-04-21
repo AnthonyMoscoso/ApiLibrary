@@ -1,4 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Repositories.Abstract.Discounts;
 using BookStoreApi.Repositories.Concrect.Discounts;
 using System;
 using System.Collections.Generic;
@@ -12,11 +13,7 @@ namespace BookStoreApi.Controllers.Library.Discounts
     [RoutePrefix("Api/Discount")]
     public class DiscountController : ApiController
     {
-        readonly DiscountRepositorie _repository ;
-        public DiscountController()
-        {
-            _repository = new DiscountRepositorie();
-        }
+        readonly IDiscountRepository _repository = new DiscountRepository();
 
         [HttpGet]
         public IHttpActionResult Get()

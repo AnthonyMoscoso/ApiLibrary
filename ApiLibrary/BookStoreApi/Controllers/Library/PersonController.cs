@@ -1,4 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Repositories.Abstract.Persons;
 using BookStoreApi.Repositories.Concrect.Persons;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace BookStoreApi.Controllers.Library.Persons
     [RoutePrefix("Api/Person")]
     public class PersonController : ApiController
     {
-        public PersonRepositorie _repository = new PersonRepositorie();
+        readonly IPersonRepository _repository = new PersonRepository();
 
         [HttpGet]
         public IHttpActionResult Get()
@@ -20,7 +21,6 @@ namespace BookStoreApi.Controllers.Library.Persons
             return Ok(_repository.Get());
         }
         [HttpGet]
-        [Route("List")]
         public IHttpActionResult GetList(string ids)
         {
             return Ok(_repository.GetList(ids));

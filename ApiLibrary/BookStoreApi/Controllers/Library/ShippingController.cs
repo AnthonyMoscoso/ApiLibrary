@@ -1,4 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Repositories.Abstract.Shippings;
 using BookStoreApi.Repositories.Concrect.Shippings;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace BookStoreApi.Controllers.Library.Shippings
     [RoutePrefix("Api/Shipping")]
     public class ShippingController : ApiController
     {
-        public ShippingRepositorie _repository = new ShippingRepositorie();
+        readonly IShippingRepository _repository = new ShippingRepository();
 
         #region Get
         [HttpGet]

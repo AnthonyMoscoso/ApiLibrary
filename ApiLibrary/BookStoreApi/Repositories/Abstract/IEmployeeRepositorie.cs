@@ -45,5 +45,7 @@ namespace BookStoreApi.Repositories.Abstract.Persons
         List<EmployeeDto> GetByOccupationInWareHouse(string idOccupation, string idWareHouse,int pag,int element);
         dynamic Hire(EmployeeWorkPlace employeeWorkPlace);
         dynamic Fired(EmployeeWorkPlace employeeWorkPlace);
+        dynamic Insert(List<EmployeeDto> list);
+        dynamic Update(List<EmployeeDto> list);
     }
 }

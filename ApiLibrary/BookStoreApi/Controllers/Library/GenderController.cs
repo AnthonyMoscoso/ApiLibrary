@@ -1,4 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Repositories.Abstract.Genders;
 using BookStoreApi.Repositories.Concrect.Genders;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace BookStoreApi.Controllers.Library.Genders
     [RoutePrefix("Api/Gender")]
     public class GenderController : ApiController
     {
-        public GenderRepositorie _repository = new GenderRepositorie();
+        readonly IGenderRepositorie _repository = new GenderRepositorie();
 
         [HttpGet]
         public IHttpActionResult Get()

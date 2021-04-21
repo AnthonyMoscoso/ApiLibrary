@@ -9,7 +9,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Provide
 {
-    public class ProviderRepositorie : Repository<Providers,ProviderDto>, IProviderRepositorie
+    public class ProviderRepositorie : Repository<Providers,ProviderDto>, IProviderRepository
     {
         public ProviderRepositorie(string identificator="IdProvider") : base(identificator)
         {

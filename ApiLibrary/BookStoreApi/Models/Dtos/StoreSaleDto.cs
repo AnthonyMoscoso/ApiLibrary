@@ -10,6 +10,6 @@ namespace BookStoreApi.Dtos
     {
         public string IdStore { get; set; }
         public string IdSeller { get; set; }
-        public  EmployeeDto Employee { get; set; }
+        
     }
 }

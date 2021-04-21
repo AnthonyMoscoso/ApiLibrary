@@ -1,4 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Repositories.Abstract.Sales;
 using BookStoreApi.Repositories.Concrect.Provide;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace BookStoreApi.Controllers.Library.Provide
     [RoutePrefix("Api/Provider")]
     public class ProviderController : ApiController
     {
-        public ProviderRepositorie _repository = new ProviderRepositorie();
+        readonly IProviderRepository _repository = new ProviderRepositorie();
 
         [HttpGet]
         public IHttpActionResult Get()

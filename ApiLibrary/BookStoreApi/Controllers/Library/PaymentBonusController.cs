@@ -1,4 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Repositories.Abstract.Payments;
 using BookStoreApi.Repositories.Concrect.Payments;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace BookStoreApi.Controllers.Library.Payments
     [RoutePrefix("Api/PaymentBonus")]
     public class PaymentBonusController : ApiController
     {
-        public PaymentBonusRepositorie _repository = new PaymentBonusRepositorie();
+        readonly IPaymentBonusRepositorie _repository = new PaymentBonusRepositorie();
 
         [HttpGet]
         public IHttpActionResult Get()

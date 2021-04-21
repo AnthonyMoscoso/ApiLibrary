@@ -1,4 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Repositories.Abstract.Files;
 using BookStoreApi.Repositories.Concrect.Files;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace BookStoreApi.Controllers.Library.Files
     [RoutePrefix("Api/ImageFile")]
     public class ImageFileController : ApiController
     {
-        public ImageFileRepositorie _repository = new ImageFileRepositorie();
+        readonly IImageFileRepositorie _repository = new ImageFileRepositorie();
 
         [HttpGet]
         public IHttpActionResult Get()

@@ -1,4 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Repositories.Abstract.Occupations;
 using BookStoreApi.Repositories.Concrect.Occupations;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace BookStoreApi.Controllers.Library.Occupations
     [RoutePrefix("Api/Occupation")]
     public class OccupationController : ApiController
     {
-        public OccupationRepositorie _repository = new OccupationRepositorie();
+        readonly IOccupationRepositorie _repository = new OccupationRepositorie();
 
         [HttpGet]
         public IHttpActionResult Get()

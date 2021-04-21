@@ -1,4 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Repositories.Abstract;
 using BookStoreApi.Repositories.Concrect.BarCodes;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace BookStoreApi.Controllers.Library.BarCodes
     [RoutePrefix("Api/BarCode")]
     public class BarCodeController : ApiController
     {
-        public BarCodeRepositorie _repository = new BarCodeRepositorie();
+        readonly IBarCodeRepository _repository = new BarCodeRepository();
 
         [HttpGet]
         public IHttpActionResult Get()

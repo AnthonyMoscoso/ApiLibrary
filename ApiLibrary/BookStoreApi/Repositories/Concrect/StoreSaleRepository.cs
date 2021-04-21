@@ -15,60 +15,58 @@ namespace BookStoreApi.Repositories.Concrect
         public StoreSaleRepository(string identificator="idStoreSale") : base(identificator)
         {
         }
-        #region Buyer
+        /*     #region Buyer
 
-        public List<StoreSaleDto> GetByBuyer(string idBuyer)
-        {
-            var list = dbSet.Where(w => w.Sale.IdBuyer.Equals(idBuyer)).ToList();
-            return mapper.Map<List<StoreSaleDto>>(list);
-        }
+             public List<StoreSaleDto> GetByBuyer(string idBuyer)
+             {
+                 var list = dbSet.Where(w => w.Sale.IdBuyer.Equals(idBuyer)).ToList();
+                 return mapper.Map<List<StoreSaleDto>>(list);
+             }
 
-        public List<StoreSaleDto> GetByBuyer(string idBuyer, int pag, int element)
-        {
-            var list = dbSet.Where(w => w.Sale.IdBuyer.Equals(idBuyer))
-            .OrderBy(w => w.Sale.CreateDate)
-            .Skip((pag-1)*element)
-            .Take(element)
-            .ToList();
-            return mapper.Map<List<StoreSaleDto>>(list);
-        }
+             public List<StoreSaleDto> GetByBuyer(string idBuyer, int pag, int element)
+             {
+                 var list = dbSet.Where(w => w.Sale.IdBuyer.Equals(idBuyer))
+                 .OrderBy(w => w.Sale.CreateDate)
+                 .Skip((pag-1)*element)
+                 .Take(element)
+                 .ToList();
+                 return mapper.Map<List<StoreSaleDto>>(list);
+             }
 
-        public List<StoreSaleDto> GetByBuyer(string idBuyer, DateTime date)
-        {
-            DateTime tomorrow = date.AddDays(1);
-            var list = dbSet.Where(w => w.Sale.IdBuyer.Equals(idBuyer) && (w.Sale.CreateDate>date & w.Sale.CreateDate<tomorrow))
-            .ToList();
-            return mapper.Map<List<StoreSaleDto>>(list);
-        }
+             public List<StoreSaleDto> GetByBuyer(string idBuyer, DateTime date)
+             {
+                 var list = dbSet.Where(w => w.Sale.IdBuyer.Equals(idBuyer) && DbFunctions.TruncateTime( w.Sale.CreateDate) == DbFunctions.TruncateTime(date))
+                 .ToList();
+                 return mapper.Map<List<StoreSaleDto>>(list);
+             }
 
-        public List<StoreSaleDto> GetByBuyer(string idBuyer, DateTime date, int pag, int element)
-        {
-            DateTime tomorrow = date.AddDays(1);
-            var list = dbSet.Where(w => w.Sale.IdBuyer.Equals(idBuyer) && (w.Sale.CreateDate > date & w.Sale.CreateDate < tomorrow))
-            .OrderBy(w => w.Sale.CreateDate)
-            .Skip((pag - 1) * element)
-            .Take(element)
-            .ToList();
-            return mapper.Map<List<StoreSaleDto>>(list);
-        }
+             public List<StoreSaleDto> GetByBuyer(string idBuyer, DateTime date, int pag, int element)
+             {
+                 var list = dbSet.Where(w => w.Sale.IdBuyer.Equals(idBuyer) && DbFunctions.TruncateTime( w.Sale.CreateDate) > DbFunctions.TruncateTime( date))
+                 .OrderBy(w => w.Sale.CreateDate)
+                 .Skip((pag - 1) * element)
+                 .Take(element)
+                 .ToList();
+                 return mapper.Map<List<StoreSaleDto>>(list);
+             }
 
-        public List<StoreSaleDto> GetByBuyer(string idBuyer, DateTime start, DateTime end)
-        {
-            var list = dbSet.Where(w => w.Sale.IdBuyer.Equals(idBuyer) && (w.Sale.CreateDate >= start & w.Sale.CreateDate <= end))
-           .ToList();
-            return mapper.Map<List<StoreSaleDto>>(list);
-        }
-
-        public List<StoreSaleDto> GetByBuyer(string idBuyer, DateTime start, DateTime end, int pag, int element)
-        {
-            var list = dbSet.Where(w => w.Sale.IdBuyer.Equals(idBuyer) && (w.Sale.CreateDate >= start & w.Sale.CreateDate <= end))
-                .OrderBy(w => w.Sale.CreateDate)
-                .Skip((pag - 1) * element)
-                .Take(element)
+             public List<StoreSaleDto> GetByBuyer(string idBuyer, DateTime start, DateTime end)
+             {
+                 var list = dbSet.Where(w => w.Sale.IdBuyer.Equals(idBuyer) && (w.Sale.CreateDate >= start & w.Sale.CreateDate <= end))
                 .ToList();
-            return mapper.Map<List<StoreSaleDto>>(list);
-        }
+                 return mapper.Map<List<StoreSaleDto>>(list);
+             }
 
+             public List<StoreSaleDto> GetByBuyer(string idBuyer, DateTime start, DateTime end, int pag, int element)
+             {
+                 var list = dbSet.Where(w => w.Sale.IdBuyer.Equals(idBuyer) && (w.Sale.CreateDate >= start & w.Sale.CreateDate <= end))
+                     .OrderBy(w => w.Sale.CreateDate)
+                     .Skip((pag - 1) * element)
+                     .Take(element)
+                     .ToList();
+                 return mapper.Map<List<StoreSaleDto>>(list);
+             }
+       #endregion */
         public List<StoreSaleDto> GetByDate(DateTime date)
         {
             DateTime tomorrow=date.AddDays(1);
@@ -103,9 +101,9 @@ namespace BookStoreApi.Repositories.Concrect
                 .ToList();
             return mapper.Map<List<StoreSaleDto>>(list);
         }
-        #endregion
+        
 
-        public List<StoreSaleDto> GetByPayMethod(int payMethod, string idStore)
+     /*   public List<StoreSaleDto> GetByPayMethod(int payMethod, string idStore)
         {
             var list =dbSet.Where(w=> w.Sale.PayMethod.Equals(payMethod) && w.IdStore.Equals(idStore)).ToList();
             return mapper.Map<List<StoreSaleDto>>(list);
@@ -136,7 +134,7 @@ namespace BookStoreApi.Repositories.Concrect
                 .ToList();
             return mapper.Map<List<StoreSaleDto>>(list);
         }
-
+     */
         public List<StoreSaleDto> GetByStatus(int status, string idStore)
         {
             var list = dbSet.Where(w=> w.Sale.SaleStatus.Equals(status) && w.IdStore.Equals(idStore)).ToList();

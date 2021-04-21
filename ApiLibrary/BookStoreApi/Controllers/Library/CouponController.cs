@@ -1,10 +1,8 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Repositories.Abstract.Coupons;
 using BookStoreApi.Repositories.Concrect.Coupons;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace BookStoreApi.Controllers.Library.Coupons
@@ -12,7 +10,7 @@ namespace BookStoreApi.Controllers.Library.Coupons
     [RoutePrefix("Api/Coupon")]
     public class CouponController : ApiController
     {
-        public CouponRepositorie _repository = new CouponRepositorie();
+        readonly ICouponRepository _repository = new CouponRepository();
 
         [HttpGet]
         public IHttpActionResult Get()

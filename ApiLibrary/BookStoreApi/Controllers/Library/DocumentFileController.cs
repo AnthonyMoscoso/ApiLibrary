@@ -1,10 +1,7 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Repositories.Abstract.Files;
 using BookStoreApi.Repositories.Concrect.Files;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace BookStoreApi.Controllers.Library.Files
@@ -12,7 +9,7 @@ namespace BookStoreApi.Controllers.Library.Files
     [RoutePrefix("Api/DocumentFile")]
     public class DocumentFileController : ApiController
     {
-        public DocumentFileRepositorie _repository = new DocumentFileRepositorie();
+        readonly IDocumentFileRepositorie _repository = new DocumentFileRepositorie();
 
         [HttpGet]
         public IHttpActionResult Get()

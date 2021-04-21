@@ -12,7 +12,7 @@ using System.Web;
 
 namespace BookStoreApi.Repositories.Concrect.Books
 {
-    public class BookRepository : Repository<Book,BookDto>, IBookRepositorie
+    public class BookRepository : Repository<Book,BookDto>, IBookRepository
     {
         public BookRepository(string identificator="IdBook") : base(identificator)
         {
@@ -127,29 +127,79 @@ namespace BookStoreApi.Repositories.Concrect.Books
                  ToList();
             return mapper.Map<List<BookDto>>(list);
         }
-        public dynamic Insert(List<BookDto>dtos)
+        public new  dynamic Insert(List<Book>list)
         {
-            List<Book> list = mapper.Map<List<Book>>(dtos);
-            dbSet.AddRange(list);
+            string message = "";
             var stores = Context.Store.ToList();
-            foreach (Store store in stores)
+            List<Book> booksWithAutors = new List<Book>();
+            List<Book> booksWithGender = new List<Book>();
+            foreach (Book b in list)
             {
-                foreach (Book b in list)
+                if (b.Autor.Count>0)
                 {
-                    BookStore bookStore = new BookStore()
+                    Book book = new Book
                     {
-                        IdBookStore= IdGenerator.GetNewId(),
-                        IdBook = b.IdBook,
-                        BookPrice = b.Price,
-                        Stock = 0,
-                        IdStore = store.IdStore
+                        Autor = new List<Autor>(),
+                        IdBook = b.IdBook
                     };
+                    List<Autor> autors = b.Autor.ToList();
+                    foreach (Autor autor in autors)
+                    {
+                        var search = Context.Autor.Find(autor.IdAutor);
+                        if (search != null)
+                        {
+                            b.Autor.Remove(autor);
+                            book.Autor.Add(autor);
+                        }
+                    }
+                    if (book.Autor.Count>0)
+                    {
+                        booksWithAutors.Add(book);
+                    }
+                }
+                if (b.Gender.Count > 0)
+                {
+                    Book book = new Book
+                    {
+                        Gender = new List<Gender>(),
+                        IdBook = b.IdBook
+                    };
+                    List<Gender> genders = b.Gender.ToList();
+                    foreach (Gender gender in genders)
+                    {
+                        var search = Context.Gender.Find(gender.IdGender);
+                        if (search != null)
+                        {
+                            b.Gender.Remove(gender);
+                            book.Gender.Add(gender);
+                        }
+                        if (book.Gender.Count>0)
+                        {
+                            booksWithGender.Add(book);
+                        }
+                    }
+                }
 
-                    Context.BookStore.Add(bookStore);
+            }
+          
+            AddBookToStore(stores,list);
+            dbSet.AddRange(list);
+            message += Save();
+            if (booksWithAutors.Count>0)
+            {
+                foreach (Book bookWithAutor in booksWithAutors)
+                {
+                    AddAutorToBook(bookWithAutor);
                 }
             }
-      
-            return Save();
+            if (booksWithGender.Count>0)
+            {
+                foreach (Book bookWithGender in booksWithGender )
+                {
+                    AddGenderToBook(bookWithGender);
+                }
+            }
+            return message += Save();
         }
 
         public new dynamic Update(List<Book> list)
@@ -168,6 +218,44 @@ namespace BookStoreApi.Repositories.Concrect.Books
 
         }
 
+        private void AddAutorToBook(Book b)
+        {
+            foreach (Autor autor in b.Autor)
+            {
+
+                var query = string.Format("Insert into BookAutor values('{0}','{1}')", b.IdBook, autor.IdAutor);
+                Context.Database.ExecuteSqlCommand(query);
+                
+            }
+        }
+        private void AddGenderToBook(Book b)
+        {
+            foreach (Gender gender in b.Gender)
+            {
+                var query = string.Format("Insert into BookGender values('{0}','{1}')", b.IdBook,gender.IdGender);
+        
+                Context.Database.ExecuteSqlCommand(query);
+            }
+        }
+        private void AddBookToStore(List<Store> stores,List<Book> list)
+        {
+            foreach (Store store in stores)
+            {
+                foreach (Book b in list)
+                {
+                    BookStore bookStore = new BookStore()
+                    {
+                        IdBookStore = IdGenerator.GetNewId(),
+                        IdBook = b.IdBook,
+                        BookPrice = b.Price,
+                        Stock = 0,
+                        IdStore = store.IdStore
+                    };
+
+                    Context.BookStore.Add(bookStore);
+                }
+            }
+        }
         private void UpdatePrice(Book entity)
         {
             Context.BookStore.Where(w => w.IdBook.Equals(entity.IdBook)).ToList().ForEach(e=> e.BookPrice=entity.Price);
@@ -249,9 +337,8 @@ namespace BookStoreApi.Repositories.Concrect.Books
             var autorsDb = Context.Autor.Where(w => w.Book.Any(b => b.IdBook.Equals(entity.IdBook))).ToList();
             var DataBaseDto = mapper.Map<List<AutorDto>>(autorsDb);
             DeleteBookAutors(autorsDb, entity);
-            InsertBookAutors(entity, DataBaseDto);
+            CreateBookAutors(entity, DataBaseDto);
         }
-
 
         private void UpdateBookGenders(Book entity)
         {
@@ -327,7 +414,7 @@ namespace BookStoreApi.Repositories.Concrect.Books
             }
         }
 
-        private void InsertBookAutors(Book entity, List<AutorDto> DataBaseDto)
+        private void CreateBookAutors(Book entity, List<AutorDto> DataBaseDto)
         {
 
             if (entity.Autor.Count>0)

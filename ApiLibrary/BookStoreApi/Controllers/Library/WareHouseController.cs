@@ -1,4 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Repositories.Abstract.WareHouses;
 using BookStoreApi.Repositories.Concrect.WareHouses;
 using System;
 using System.Collections.Generic;
@@ -13,13 +14,8 @@ namespace BookStoreApi.Controllers.Library.WareHouses
     [Authorize]
     public class WareHouseController : ApiController
     {
-        readonly WareHouseRepositorie _repository ;
+        readonly IWareHouseRepositorie _repository = new WareHouseRepositorie();
 
-
-        public WareHouseController()
-        {
-            _repository = new WareHouseRepositorie();
-        }
 
         #region Get
         [HttpGet]

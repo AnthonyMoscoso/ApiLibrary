@@ -1,4 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Repositories.Abstract.Purchases;
 using BookStoreApi.Repositories.Concrect.Purchases;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace BookStoreApi.Controllers.Library.Purchases
     [RoutePrefix("Api/Purchase")]
     public class PurchaseController : ApiController
     {
-        public PurchaseRepositorie _repository = new PurchaseRepositorie();
+        readonly IPurchaseRepository _repository = new PurchaseRepository();
 
         [HttpGet]
         public IHttpActionResult Get()

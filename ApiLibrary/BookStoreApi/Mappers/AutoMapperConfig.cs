@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BookStoreApi.Dtos;
+using BookStoreApi.Models.Dtos;
 using BookStoreApi.Models.Library;
 using BookStoreApi.Models.Request;
 using System;
@@ -72,9 +73,31 @@ namespace Mappers.Models
 
                cfg.CreateMap<Reception, ReceptionDto>().ReverseMap();
 
+               cfg.CreateMap<Reception, ReceptionOrderDto>()
+               .IncludeMembers(m=> m.Orders)
+               .ReverseMap();
+
+               cfg.CreateMap<Reception, ReceptionPurchaseDto>()
+               .IncludeMembers(m => m.Purchase)
+               .ReverseMap();
+
                cfg.CreateMap<ReceptionLine, ReceptionLineDto>().ReverseMap();
 
                cfg.CreateMap<Register, RegisterDto>().ReverseMap();
+
+               cfg.CreateMap<Register, RegisterStoreDto>()
+               .IncludeMembers(m=> m.Store)
+               .ReverseMap();
+
+               cfg.CreateMap<Register, RegisterWareHouseDto>()
+               .IncludeMembers(m => m.WareHouse)
+               .ReverseMap();
+
+               cfg.CreateMap<WareHouse, RegisterWareHouseDto>()
+               .ReverseMap();
+
+               cfg.CreateMap<Store, RegisterStoreDto>()
+               .ReverseMap();
 
                cfg.CreateMap<RegisterLine, RegisterLineDto>().ReverseMap();
 
@@ -85,6 +108,9 @@ namespace Mappers.Models
                cfg.CreateMap<ReturnSale, ReturnSaleDto>().ReverseMap();
 
                cfg.CreateMap<Rol, RolDto>().ReverseMap();
+
+               cfg.CreateMap<Orders, ReceptionOrderDto>().ReverseMap();
+               cfg.CreateMap<Purchase, ReceptionPurchaseDto>().ReverseMap();
 
                cfg.CreateMap<Sale, SaleDto>().ReverseMap();
 

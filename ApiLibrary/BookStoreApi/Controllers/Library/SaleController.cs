@@ -1,4 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Repositories.Abstract.Sales;
 using BookStoreApi.Repositories.Concrect.Sales;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace BookStoreApi.Controllers.Library.Sales
     [RoutePrefix("Api/Sale")]
     public class SaleController : ApiController
     {
-        public SaleRepositorie _repository = new SaleRepositorie();
+        readonly ISaleRepository _repository = new SaleRepository();
 
         [HttpGet]
         public IHttpActionResult Get()
@@ -146,47 +147,7 @@ namespace BookStoreApi.Controllers.Library.Sales
         }
         #endregion
 
-        #region Store
         [HttpGet]
-        [Route("Store")]
-        public IHttpActionResult GetByStore(string idStore)
-        {
-            return Ok(_repository.GetByStore(idStore));
-        }
-        [HttpGet]
-        [Route("Store")]
-        public IHttpActionResult GetByStore(string idStore,int pag,int element)
-        {
-            return Ok(_repository.GetByStore(idStore,pag,element));
-        }
-        [HttpGet]
-        [Route("Store")]
-        public IHttpActionResult GetByStore(string idStore,DateTime date)
-        {
-            return Ok(_repository.GetByStore(idStore,date));
-        }
-        [HttpGet]
-        [Route("Store")]
-        public IHttpActionResult GetByStore(string idStore, DateTime date, int pag, int element)
-        {
-            return Ok(_repository.GetByStore(idStore, date,pag,element));
-        }
-        [HttpGet]
-        [Route("Store")]
-        public IHttpActionResult GetByStore(string idStore, DateTime start,DateTime end)
-        {
-            return Ok(_repository.GetByStore(idStore, start,end));
-        }
-        [HttpGet]
-        [Route("Store")]
-        public IHttpActionResult GetByStore(string idStore, DateTime start, DateTime end,int pag,int element)
-        {
-            return Ok(_repository.GetByStore(idStore, start, end,pag,element));
-        }
-        #endregion
-
-        [HttpGet]
-        [Route("List")]
         public IHttpActionResult GetList(string ids)
         {
             return Ok(_repository.GetList(ids));

@@ -1,4 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Repositories.Abstract.Registers;
 using BookStoreApi.Repositories.Concrect.Registers;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace BookStoreApi.Controllers.Library.Registers
     [RoutePrefix("Api/Register")]
     public class RegisterController : ApiController
     {
-        public RegisterRepositorie _repository = new RegisterRepositorie();
+        readonly IRegisterRepositorie _repository = new RegisterRepositorie();
 
         [HttpGet]
         public IHttpActionResult Get()
@@ -48,56 +49,9 @@ namespace BookStoreApi.Controllers.Library.Registers
         {
             return Ok(_repository.GetByDate(start, end, pag, element));
         }
+  
+      
         [HttpGet]
-        [Route("Store")]
-        public IHttpActionResult GetByStore(string idStore)
-        {
-            return Ok(_repository.GetByStore(idStore));
-        }
-        [HttpGet]
-        [Route("Store")]
-        public IHttpActionResult GetByStore(string idStore, int pag, int element)
-        {
-            return Ok(_repository.GetByStore(idStore, pag, element));
-        }
-        [HttpGet]
-        [Route("Store")]
-        public IHttpActionResult GetByStore(string idStore, DateTime date, int pag, int element)
-        {
-            return Ok(_repository.GetByStore(idStore, date, pag, element));
-        }
-        [HttpGet]
-        [Route("Store")]
-        public IHttpActionResult GetByStore(string idStore, DateTime dateStart,DateTime dateEnd, int pag, int element)
-        {
-            return Ok(_repository.GetByStore(idStore, dateStart,dateEnd, pag, element));
-        }
-        [HttpGet]
-        [Route("WareHouse")]
-        public IHttpActionResult GetByWareHouse(string idWareHouse)
-        {
-            return Ok(_repository.GetByWareHouse(idWareHouse));
-        }
-        [HttpGet]
-        [Route("WareHouse")]
-        public IHttpActionResult GetByWareHouse(string idWareHouse, int pag, int element)
-        {
-            return Ok(_repository.GetByWareHouse(idWareHouse, pag, element));
-        }
-        [HttpGet]
-        [Route("WareHouse")]
-        public IHttpActionResult GetByWareHouse(string idWareHouse, DateTime date, int pag, int element)
-        {
-            return Ok(_repository.GetByWareHouse(idWareHouse, date, pag, element));
-        }
-        [HttpGet]
-        [Route("WareHouse")]
-        public IHttpActionResult GetByWareHouse(string idWareHouse, DateTime dateStart, DateTime dateEnd, int pag, int element)
-        {
-            return Ok(_repository.GetByWareHouse(idWareHouse, dateStart, dateEnd, pag, element));
-        }
-        [HttpGet]
-        [Route("List")]
         public IHttpActionResult GetList(string ids)
         {
             return Ok(_repository.GetList(ids));

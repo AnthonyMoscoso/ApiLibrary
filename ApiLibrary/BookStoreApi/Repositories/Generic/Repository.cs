@@ -18,7 +18,7 @@ namespace LibraryApiRest.Repositories.Concrect
         where DtoEntity  : class , new()
         where TEntity : class,new()
     {
-       public BookStoreEntities Context;
+        public BookStoreEntities Context;
 
         public DbSet<TEntity> dbSet;
         public string name;

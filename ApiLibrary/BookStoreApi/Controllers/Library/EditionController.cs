@@ -1,4 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Repositories.Abstract.Editions;
 using BookStoreApi.Repositories.Concrect.Editions;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace BookStoreApi.Controllers.Library.Editions
     [RoutePrefix("Api/Edition")]
     public class EditionController : ApiController
     {
-        public EditionRepositorie _repository = new EditionRepositorie();
+       readonly IEditionRepositorie _repository = new EditionRepositorie();
 
         [HttpGet]
         public IHttpActionResult Get()

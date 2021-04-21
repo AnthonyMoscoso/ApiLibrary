@@ -1,5 +1,6 @@
 ﻿using BookStoreApi.Dtos;
 using BookStoreApi.Models.Library;
+using BookStoreApi.Repositories.Abstract;
 using BookStoreApi.Repositories.Concrect.Books;
 using BookStoreApi.Repositories.Concrect.WareHouses;
 using System;
@@ -14,12 +15,8 @@ namespace BookStoreApi.Controllers.Library.Books
     [RoutePrefix("Api/Book")]
     public class BookController : ApiController
     {
-        readonly BookRepository _repository ;
+        readonly IBookRepository _repository = new BookRepository();
 
-        public BookController()
-        {
-            _repository = new BookRepository();
-        }
 
         [HttpGet]
         public IHttpActionResult Get()
@@ -126,7 +123,7 @@ namespace BookStoreApi.Controllers.Library.Books
             return Ok(_repository.GetByGender(ids, pag, element));
         }
         [HttpPost]
-        public IHttpActionResult Post(List<BookDto> list)
+        public IHttpActionResult Post(List<Book> list)
         {
             return Ok(_repository.Insert(list));
         }

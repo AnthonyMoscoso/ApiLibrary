@@ -1,4 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Repositories.Abstract.PayRolls;
 using BookStoreApi.Repositories.Concrect.PayRolls;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace BookStoreApi.Controllers.Library.PayRolls
     [RoutePrefix("Api/PayRoll")]
     public class PayRollController : ApiController
     {
-        public PayRollRepositorie _repository = new PayRollRepositorie();
+        readonly IPayRollRepositorie _repository = new PayRollRepositorie();
 
         [HttpGet]
         public IHttpActionResult Get()

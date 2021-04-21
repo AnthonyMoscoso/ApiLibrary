@@ -1,4 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Repositories.Abstract.Schedules;
 using BookStoreApi.Repositories.Concrect.Schedules;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace BookStoreApi.Controllers.Library.Schedules
     [RoutePrefix("Api/Schedule")]
     public class ScheduleController : ApiController
     {
-        public ScheduleRepositorie _repository = new ScheduleRepositorie();
+        readonly IScheduleRepository _repository = new ScheduleRepository();
 
         [HttpGet]
         public IHttpActionResult Get()

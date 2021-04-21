@@ -1,4 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Repositories.Abstract.Permits;
 using BookStoreApi.Repositories.Concrect.Permits;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace BookStoreApi.Controllers.Library.Permits
     [RoutePrefix("Api/Permit")]
     public class PermitController : ApiController
     {
-        public PermitRepositorie _repository = new PermitRepositorie();
+        readonly IPermitRepository _repository = new PermitRepository();
 
         [HttpGet]
         public IHttpActionResult Get()

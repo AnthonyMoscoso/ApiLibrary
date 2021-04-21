@@ -1,4 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Repositories.Abstract;
 using BookStoreApi.Repositories.Concrect.Order;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace BookWareHouseApi.Controllers.Library.Order
     [Authorize]
     public class OrderController : ApiController
     {
-        public OrderRepositorie _repository = new OrderRepositorie();
+        readonly IOrderRepositorie _repository = new OrderRepositorie();
 
         [HttpGet]
         public IHttpActionResult Get()

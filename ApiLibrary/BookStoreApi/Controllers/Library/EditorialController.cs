@@ -1,4 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Repositories.Abstract.Editorials;
 using BookStoreApi.Repositories.Concrect.Editorials;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace BookStoreApi.Controllers.Library.Editorials
     [RoutePrefix("Api/Editorial")]
     public class EditorialController : ApiController
     {
-        public EditorialRepositorie _repository = new EditorialRepositorie();
+        readonly IEditorialRepositorie _repository = new EditorialRepositorie();
 
         [HttpGet]
         public IHttpActionResult Get()

@@ -15,10 +15,10 @@ namespace BookStoreApi.Repositories.Concrect.Persons
 {
     public class EmployeeRepositorie : Repository<Employee,EmployeeDto>, IEmployeeRepositorie
     {
-        readonly PersonRepositorie personRepositorie;
+        readonly PersonRepository personRepositorie;
         public EmployeeRepositorie(string identificator = "IdEmployee") : base(identificator)
         {
-            personRepositorie = new PersonRepositorie();
+            personRepositorie = new PersonRepository();
         }
         #region Get
 

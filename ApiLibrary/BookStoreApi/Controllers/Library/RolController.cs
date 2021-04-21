@@ -1,4 +1,5 @@
 ﻿using BookStoreApi.Models.Library;
+using BookStoreApi.Repositories.Abstract.Rols;
 using BookStoreApi.Repositories.Concrect.Rols;
 using System;
 using System.Collections.Generic;
@@ -12,12 +13,8 @@ namespace BookStoreApi.Controllers.Library.Rols
     [RoutePrefix("Api/Rol")]
     public class RolController : ApiController
     {
-        readonly RolRepositorie _repository ;
+        readonly IRolRepository _repository = new RolRepository();
 
-        public RolController()
-        {
-            _repository = new RolRepositorie();
-        }
 
         [HttpGet]
         public IHttpActionResult Get()

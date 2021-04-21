@@ -1,4 +1,5 @@
 ﻿using BookStoreApi.Dtos;
+using BookStoreApi.Repositories.Abstract;
 using BookStoreApi.Repositories.Concrect;
 using System;
 using System.Collections.Generic;
@@ -13,11 +14,8 @@ namespace BookStoreApi.Controllers.Library
     [Authorize]
     public class StoreSaleController : ApiController
     {
-        readonly StoreSaleRepository _repository;
-        public StoreSaleController()
-        {
-            _repository = new StoreSaleRepository();
-        }
+        readonly IStoreSaleRepository _repository = new StoreSaleRepository();
+
         [HttpGet]
         public IHttpActionResult Get()
         {
@@ -28,44 +26,7 @@ namespace BookStoreApi.Controllers.Library
         {
             return Ok(_repository.Get(id));
         }
-        #region Buyer
-        [HttpGet]
-        [Route("Buyer")]
-        public IHttpActionResult GetByBuyer(string idBuyer)
-        {
-            return Ok(_repository.GetByBuyer(idBuyer));
-        }
-        [HttpGet]
-        [Route("Buyer")]
-        public IHttpActionResult GetByBuyer(string idBuyer, DateTime date)
-        {
-            return Ok(_repository.GetByBuyer(idBuyer, date));
-        }
-        [HttpGet]
-        [Route("Buyer")]
-        public IHttpActionResult GetByBuyer(string idBuyer, DateTime start, DateTime end)
-        {
-            return Ok(_repository.GetByBuyer(idBuyer, start, end));
-        }
-        [HttpGet]
-        [Route("Buyer")]
-        public IHttpActionResult GetByBuyer(string idBuyer, int pag, int element)
-        {
-            return Ok(_repository.GetByBuyer(idBuyer, pag, element));
-        }
-        [HttpGet]
-        [Route("Buyer")]
-        public IHttpActionResult GetByBuyer(string idBuyer, DateTime date, int pag, int element)
-        {
-            return Ok(_repository.GetByBuyer(idBuyer, date, pag, element));
-        }
-        [HttpGet]
-        [Route("Buyer")]
-        public IHttpActionResult GetByBuyer(string idBuyer, DateTime start, DateTime end, int pag, int element)
-        {
-            return Ok(_repository.GetByBuyer(idBuyer, start, end, pag, element));
-        }
-        #endregion
+        
 
         #region Date
         [HttpGet]
@@ -94,62 +55,7 @@ namespace BookStoreApi.Controllers.Library
         }
         #endregion
 
-        #region PayMethod
-        [HttpGet]
-        [Route("PayMethod")]
-        public IHttpActionResult GetByPayMethod(int payMethod)
-        {
-            return Ok(_repository.GetByPayMethod(payMethod));
-        }
-
-        [HttpGet]
-        [Route("PayMethod")]
-        public IHttpActionResult GetByPayMethod(int payMethod, int pag, int element)
-        {
-            return Ok(_repository.GetByPayMethod(payMethod, pag, element));
-        }
-        [HttpGet]
-        [Route("PayMethod")]
-        public IHttpActionResult GetByPayMethod(int payMethod, string idStore)
-        {
-            return Ok(_repository.GetByPayMethod(payMethod, idStore));
-        }
-        [HttpGet]
-        [Route("PayMethod")]
-        public IHttpActionResult GetByPayMethod(int payMethod, string idStore, int pag, int element)
-        {
-            return Ok(_repository.GetByPayMethod(payMethod, idStore, pag, element));
-        }
-        #endregion
-
-        #region SaleStatus
-        [HttpGet]
-        [Route("Status")]
-        public IHttpActionResult GetBySaleStatus(int SaleStatus)
-        {
-            return Ok(_repository.GetByStatus(SaleStatus));
-        }
-
-        [HttpGet]
-        [Route("Status")]
-        public IHttpActionResult GetByStatus(int SaleStatus, int pag, int element)
-        {
-            return Ok(_repository.GetByStatus(SaleStatus, pag, element));
-        }
-        [HttpGet]
-        [Route("Status")]
-        public IHttpActionResult GetBytatus(int SaleStatus, string idStore)
-        {
-            return Ok(_repository.GetByStatus(SaleStatus, idStore));
-        }
-        [HttpGet]
-        [Route("Status")]
-        public IHttpActionResult GetByStatus(int SaleStatus, string idStore, int pag, int element)
-        {
-            return Ok(_repository.GetByStatus(SaleStatus, idStore, pag, element));
-        }
-        #endregion
-
+      
         #region Store
         [HttpGet]
         [Route("Store")]

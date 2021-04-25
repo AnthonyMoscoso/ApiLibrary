@@ -10,7 +10,7 @@ namespace BookStoreApi.Dtos
         public string IdScheduleLine { get; set; }
         public string IdSchedule { get; set; }
         public int MonthNum { get; set; }
-        public bool IsClosed { get; set; }
+        public bool IsFree { get; set; }
         public TimeSpan? StartTime { get; set; }
         public TimeSpan? BreakStar { get; set; }
         public TimeSpan? BreakEnd { get; set; }

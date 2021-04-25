@@ -11,6 +11,7 @@ namespace BookStoreApi.Repositories.Abstract
 {
     interface IRegisterWareHouseRepository : IRepository<Register>
     {
+        new List<RegisterWareHouseDto> Get();
         List<RegisterWareHouseDto> GetByWareHouse(string idWareHouse);
         List<RegisterWareHouseDto> GetByWareHouse(string idWareHouse, int pag, int element);
         List<RegisterWareHouseDto> GetByWareHouse(string idWareHouse, DateTime date);

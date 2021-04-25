@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using LibraryApiRest.Repositories.Abstract;
 using System;
 using System.Collections.Generic;
@@ -10,15 +11,18 @@ namespace BookStoreApi.Repositories.Abstract.PayRolls
 {
     interface IPayRollRepositorie : IRepository <PayRoll>
     {
-        List<PayRoll> GetByEmployee(string idEmployee);
-        List<PayRoll> GetByEmployee(string idEmployee,int pag,int element);
-        List<PayRoll> GetByEmployee(string idEmployee,int year);
-        List<PayRoll> GetByEmployee(string idEmployee, int year,int pag,int element);
-        List<PayRoll> GetByEmployee(string idEmployee, int year,int mounth,int pag,int element);
-        List<PayRoll> GetByDate(int year);
-        List<PayRoll> GetByDate(int year,int pag,int element);
-        List<PayRoll> GetByDate(int year,int mounth);
-        List<PayRoll> GetByDate(int year,int mounth,int pag,int element);
-        List<PayRoll> GetByDate(DateTime date);
+        new dynamic Insert(List<PayRoll> list);
+        new dynamic Update(List<PayRoll> list);
+        new dynamic Delete(List<string> ids);
+        List<PayRollDto> GetByEmployee(string idEmployee);
+        List<PayRollDto> GetByEmployee(string idEmployee,int pag,int element);
+        List<PayRollDto> GetByEmployee(string idEmployee,int year);
+        List<PayRollDto> GetByEmployee(string idEmployee, int year,int pag,int element);
+        List<PayRollDto> GetByEmployee(string idEmployee, int year,int mounth,int pag,int element);
+        List<PayRollDto> GetByDate(int year);
+        List<PayRollDto> GetByDate(int year,int pag,int element);
+        List<PayRollDto> GetByDate(int year,int mounth);
+        List<PayRollDto> GetByDate(int year,int mounth,int pag,int element);
+        List<PayRollDto> GetByDate(DateTime date);
     }
 }

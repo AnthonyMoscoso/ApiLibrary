@@ -15,35 +15,19 @@ namespace BookStoreApi.Repositories.Concrect.Schedules
         {
         }
 
-        public List<Schedule> GetByEmployee(string idEmployee)
+        public List<ScheduleDto> GetByEmployee(string idEmployee)
         {
-            return dbSet.Where(w => w.Employee.IdPerson.Equals(idEmployee)).ToList();
+            var result = dbSet.Where(w => w.Employee.IdPerson.Equals(idEmployee)).ToList();
+            return mapper.Map<List<ScheduleDto>>(result);
         }
 
-        public List<Schedule> GetByEmployee(string idEmployee, int year)
+        public List<ScheduleDto> GetByEmployee(string idEmployee, int year)
         {
-            return dbSet.Where(w => w.Employee.IdPerson.Equals(idEmployee) && w.YearValue==year).ToList();
+            var result = dbSet.Where(w => w.Employee.IdPerson.Equals(idEmployee) && w.YearValue==year).ToList();
+            return mapper.Map<List<ScheduleDto>>(result);
         }
 
-        public List<Schedule> GetByStore(string idStore)
-        {
-            return dbSet.Where(w=>w.Store.IdStore.Equals(idStore)).ToList();
-        }
-
-        public List<Schedule> GetByStore(string idStore, int year)
-        {
-            return dbSet.Where(w => w.Store.IdStore.Equals(idStore) && w.YearValue == year).ToList();
-        }
-
-        public List<Schedule> GetByWareHouse(string idWareHouse)
-        {
-            return dbSet.Where(w => w.WareHouse.IdWareHouse.Equals(idWareHouse) ).ToList();
-        }
-
-        public List<Schedule> GetByWareHouse(string idWareHouse, int year)
-        {
-            return dbSet.Where(w => w.WareHouse.IdWareHouse.Equals(idWareHouse) && w.YearValue == year).ToList();
-        }
+      
 
         public new dynamic Delete(List<string> ids)
         {
@@ -65,5 +49,18 @@ namespace BookStoreApi.Repositories.Concrect.Schedules
             return null;
         }
 
+        public List<ScheduleDto> GetByEmployee(string idEmployee, int year, int month)
+        {
+            var result = dbSet.Where(w => w.IdEmployee.Equals(idEmployee) && w.YearValue == year).ToList();
+            result.ForEach(x => x.ScheduleLine = x.ScheduleLine.Where(s => s.MonthNum == month && s.IdSchedule.Equals(x.IdSchedule)).ToList());
+            return mapper.Map<List<ScheduleDto>>(result);
+        }
+
+        public List<ScheduleDto> GetByEmployee(string idEmployee, int year, int month, int day)
+        {
+            var result = dbSet.Where(w => w.IdEmployee.Equals(idEmployee) && w.YearValue == year).ToList();
+            result.ForEach(x => x.ScheduleLine = x.ScheduleLine.Where(s => s.MonthNum == month && s.IdSchedule.Equals(x.IdSchedule) && s.MonthDay==day).ToList());
+            return mapper.Map<List<ScheduleDto>>(result);
+        }
     }
 }

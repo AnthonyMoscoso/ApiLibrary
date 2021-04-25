@@ -24,7 +24,6 @@ namespace BookStoreApi.Models.Library
             this.Purchase = new HashSet<Purchase>();
             this.Register = new HashSet<Register>();
             this.ReturnSale = new HashSet<ReturnSale>();
-            this.Schedule = new HashSet<Schedule>();
         }
     
         public string IdWareHouse { get; set; }
@@ -54,7 +53,5 @@ namespace BookStoreApi.Models.Library
         public virtual ICollection<Register> Register { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReturnSale> ReturnSale { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Schedule> Schedule { get; set; }
     }
 }

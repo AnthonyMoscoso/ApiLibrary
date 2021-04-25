@@ -237,13 +237,6 @@
           <Property Name="IdEmployee" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="IdRol" Type="varchar" MaxLength="40" Nullable="false" />
         </EntityType>
-        <EntityType Name="EmployeeSchedule">
-          <Key>
-            <PropertyRef Name="IdSchedule" />
-          </Key>
-          <Property Name="IdSchedule" Type="varchar" MaxLength="40" Nullable="false" />
-          <Property Name="IdEmployee" Type="varchar" MaxLength="40" Nullable="false" />
-        </EntityType>
         <EntityType Name="EmployeeStore">
           <Key>
             <PropertyRef Name="IdEmployee" />
@@ -702,6 +695,7 @@
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateDate" Type="datetime" Nullable="false" />
           <Property Name="StatusCode" Type="int" Nullable="false" />
+          <Property Name="IdEmployee" Type="varchar" MaxLength="40" Nullable="false" />
         </EntityType>
         <EntityType Name="ScheduleLine">
           <Key>
@@ -710,7 +704,6 @@
           <Property Name="IdScheduleLine" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="IdSchedule" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="MonthNum" Type="int" Nullable="false" />
-          <Property Name="IsClosed" Type="bit" Nullable="false" />
           <Property Name="StartTime" Type="time" Precision="7" />
           <Property Name="BreakStar" Type="time" Precision="7" />
           <Property Name="BreakEnd" Type="time" Precision="7" />
@@ -719,6 +712,7 @@
           <Property Name="LastUpdateDate" Type="datetime" Nullable="false" />
           <Property Name="StatusCode" Type="int" Nullable="false" />
           <Property Name="MonthDay" Type="int" Nullable="false" />
+          <Property Name="IsFree" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Shipping">
           <Key>
@@ -801,13 +795,6 @@
           <Property Name="IdSale" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="IdSeller" Type="varchar" MaxLength="40" />
         </EntityType>
-        <EntityType Name="StoreSchedule">
-          <Key>
-            <PropertyRef Name="IdSchedule" />
-          </Key>
-          <Property Name="IdSchedule" Type="varchar" MaxLength="40" Nullable="false" />
-          <Property Name="IdStore" Type="varchar" MaxLength="40" Nullable="false" />
-        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -855,13 +842,6 @@
           <Property Name="IdWareHouse" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="IdBook" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="Stock" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="WareHouseSchedule">
-          <Key>
-            <PropertyRef Name="IdSchedule" />
-          </Key>
-          <Property Name="IdSchedule" Type="varchar" MaxLength="40" Nullable="false" />
-          <Property Name="IdWareHouse" Type="varchar" MaxLength="40" Nullable="false" />
         </EntityType>
         <Association Name="Fk_Barcode_IdBook">
           <End Role="Book" Type="Self.Book" Multiplicity="1" />
@@ -1172,30 +1152,6 @@
             </Principal>
             <Dependent Role="EmployeeRol">
               <PropertyRef Name="IdRol" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="Fk_EmployeeSchedule_IdEmployee">
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
-          <End Role="EmployeeSchedule" Type="Self.EmployeeSchedule" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Schedule">
-              <PropertyRef Name="IdSchedule" />
-            </Principal>
-            <Dependent Role="EmployeeSchedule">
-              <PropertyRef Name="IdSchedule" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="Fk_EmployeeSchedule_IdStore">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
-          <End Role="EmployeeSchedule" Type="Self.EmployeeSchedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="IdPerson" />
-            </Principal>
-            <Dependent Role="EmployeeSchedule">
-              <PropertyRef Name="IdEmployee" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1979,6 +1935,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="Fk_Schedule_IdEmployee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="IdPerson" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="IdEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="Fk_ScheduleLine_IdSchedule">
           <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
           <End Role="ScheduleLine" Type="Self.ScheduleLine" Multiplicity="*" />
@@ -2135,30 +2103,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Fk_StoreSchedule_IdEmployee">
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
-          <End Role="StoreSchedule" Type="Self.StoreSchedule" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Schedule">
-              <PropertyRef Name="IdSchedule" />
-            </Principal>
-            <Dependent Role="StoreSchedule">
-              <PropertyRef Name="IdSchedule" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="Fk_StoreSchedule_IdStore">
-          <End Role="Store" Type="Self.Store" Multiplicity="1" />
-          <End Role="StoreSchedule" Type="Self.StoreSchedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Store">
-              <PropertyRef Name="IdStore" />
-            </Principal>
-            <Dependent Role="StoreSchedule">
-              <PropertyRef Name="IdStore" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="Fk_WareHouse_IdDirection">
           <End Role="Direction" Type="Self.Direction" Multiplicity="1" />
           <End Role="WareHouse" Type="Self.WareHouse" Multiplicity="*" />
@@ -2195,30 +2139,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Fk_WareHouseSchedule_IdEmployee">
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
-          <End Role="WareHouseSchedule" Type="Self.WareHouseSchedule" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Schedule">
-              <PropertyRef Name="IdSchedule" />
-            </Principal>
-            <Dependent Role="WareHouseSchedule">
-              <PropertyRef Name="IdSchedule" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="Fk_WareHouseSchedule_IdWareHouse">
-          <End Role="WareHouse" Type="Self.WareHouse" Multiplicity="1" />
-          <End Role="WareHouseSchedule" Type="Self.WareHouseSchedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="WareHouse">
-              <PropertyRef Name="IdWareHouse" />
-            </Principal>
-            <Dependent Role="WareHouseSchedule">
-              <PropertyRef Name="IdWareHouse" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="BookStoreModelStoreContainer">
           <EntitySet Name="Autor" EntityType="Self.Autor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Barcode" EntityType="Self.Barcode" Schema="dbo" store:Type="Tables" />
@@ -2240,7 +2160,6 @@
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeImageFile" EntityType="Self.EmployeeImageFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeRol" EntityType="Self.EmployeeRol" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="EmployeeSchedule" EntityType="Self.EmployeeSchedule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeStore" EntityType="Self.EmployeeStore" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeWareHouse" EntityType="Self.EmployeeWareHouse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
@@ -2291,12 +2210,10 @@
           <EntitySet Name="Socie" EntityType="Self.Socie" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Store" EntityType="Self.Store" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StoreSale" EntityType="Self.StoreSale" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="StoreSchedule" EntityType="Self.StoreSchedule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Taxes" EntityType="Self.Taxes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WareHouse" EntityType="Self.WareHouse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WareHouseBook" EntityType="Self.WareHouseBook" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="WareHouseSchedule" EntityType="Self.WareHouseSchedule" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="Fk_Barcode_IdBook" Association="Self.Fk_Barcode_IdBook">
             <End Role="Book" EntitySet="Book" />
             <End Role="Barcode" EntitySet="Barcode" />
@@ -2400,14 +2317,6 @@
           <AssociationSet Name="Fk_EmployeeRol_IdRol" Association="Self.Fk_EmployeeRol_IdRol">
             <End Role="Rol" EntitySet="Rol" />
             <End Role="EmployeeRol" EntitySet="EmployeeRol" />
-          </AssociationSet>
-          <AssociationSet Name="Fk_EmployeeSchedule_IdEmployee" Association="Self.Fk_EmployeeSchedule_IdEmployee">
-            <End Role="Schedule" EntitySet="Schedule" />
-            <End Role="EmployeeSchedule" EntitySet="EmployeeSchedule" />
-          </AssociationSet>
-          <AssociationSet Name="Fk_EmployeeSchedule_IdStore" Association="Self.Fk_EmployeeSchedule_IdStore">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="EmployeeSchedule" EntitySet="EmployeeSchedule" />
           </AssociationSet>
           <AssociationSet Name="Fk_EmployeeStore_IdEmployee" Association="Self.Fk_EmployeeStore_IdEmployee">
             <End Role="Employee" EntitySet="Employee" />
@@ -2669,6 +2578,10 @@
             <End Role="Sale" EntitySet="Sale" />
             <End Role="ReturnSale" EntitySet="ReturnSale" />
           </AssociationSet>
+          <AssociationSet Name="Fk_Schedule_IdEmployee" Association="Self.Fk_Schedule_IdEmployee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
           <AssociationSet Name="Fk_ScheduleLine_IdSchedule" Association="Self.Fk_ScheduleLine_IdSchedule">
             <End Role="Schedule" EntitySet="Schedule" />
             <End Role="ScheduleLine" EntitySet="ScheduleLine" />
@@ -2721,14 +2634,6 @@
             <End Role="Store" EntitySet="Store" />
             <End Role="StoreSale" EntitySet="StoreSale" />
           </AssociationSet>
-          <AssociationSet Name="Fk_StoreSchedule_IdEmployee" Association="Self.Fk_StoreSchedule_IdEmployee">
-            <End Role="Schedule" EntitySet="Schedule" />
-            <End Role="StoreSchedule" EntitySet="StoreSchedule" />
-          </AssociationSet>
-          <AssociationSet Name="Fk_StoreSchedule_IdStore" Association="Self.Fk_StoreSchedule_IdStore">
-            <End Role="Store" EntitySet="Store" />
-            <End Role="StoreSchedule" EntitySet="StoreSchedule" />
-          </AssociationSet>
           <AssociationSet Name="Fk_WareHouse_IdDirection" Association="Self.Fk_WareHouse_IdDirection">
             <End Role="Direction" EntitySet="Direction" />
             <End Role="WareHouse" EntitySet="WareHouse" />
@@ -2740,14 +2645,6 @@
           <AssociationSet Name="Fk_WareHouseBook_IdWareHouse" Association="Self.Fk_WareHouseBook_IdWareHouse">
             <End Role="WareHouse" EntitySet="WareHouse" />
             <End Role="WareHouseBook" EntitySet="WareHouseBook" />
-          </AssociationSet>
-          <AssociationSet Name="Fk_WareHouseSchedule_IdEmployee" Association="Self.Fk_WareHouseSchedule_IdEmployee">
-            <End Role="Schedule" EntitySet="Schedule" />
-            <End Role="WareHouseSchedule" EntitySet="WareHouseSchedule" />
-          </AssociationSet>
-          <AssociationSet Name="Fk_WareHouseSchedule_IdWareHouse" Association="Self.Fk_WareHouseSchedule_IdWareHouse">
-            <End Role="WareHouse" EntitySet="WareHouse" />
-            <End Role="WareHouseSchedule" EntitySet="WareHouseSchedule" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -2996,9 +2893,9 @@
           <NavigationProperty Name="StoreSale" Relationship="Self.Fk_StoreSale_IdSeller" FromRole="Employee" ToRole="StoreSale" />
           <NavigationProperty Name="ImageFile" Relationship="Self.EmployeeImageFile" FromRole="Employee" ToRole="ImageFile" />
           <NavigationProperty Name="Rol" Relationship="Self.EmployeeRol" FromRole="Employee" ToRole="Rol" />
-          <NavigationProperty Name="Schedule" Relationship="Self.EmployeeSchedule" FromRole="Employee" ToRole="Schedule" />
           <NavigationProperty Name="Store" Relationship="Self.EmployeeStore" FromRole="Employee" ToRole="Store" />
           <NavigationProperty Name="WareHouse" Relationship="Self.EmployeeWareHouse" FromRole="Employee" ToRole="WareHouse" />
+          <NavigationProperty Name="Schedule" Relationship="BookStoreModel.Fk_Schedule_IdEmployee" FromRole="Employee" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="Gender">
           <Key>
@@ -3388,20 +3285,6 @@
           <NavigationProperty Name="Book" Relationship="Self.Fk_SaleLine_IdBook" FromRole="SaleLine" ToRole="Book" />
           <NavigationProperty Name="Sale" Relationship="Self.Fk_SaleLine_IdSale" FromRole="SaleLine" ToRole="Sale" />
         </EntityType>
-        <EntityType Name="Schedule">
-          <Key>
-            <PropertyRef Name="IdSchedule" />
-          </Key>
-          <Property Name="IdSchedule" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="YearValue" Type="Int32" Nullable="false" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="StatusCode" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ScheduleLine" Relationship="Self.Fk_ScheduleLine_IdSchedule" FromRole="Schedule" ToRole="ScheduleLine" />
-          <NavigationProperty Name="Employee" Relationship="Self.EmployeeSchedule" FromRole="Schedule" ToRole="Employee" />
-          <NavigationProperty Name="Store" Relationship="Self.StoreSchedule" FromRole="Schedule" ToRole="Store" />
-          <NavigationProperty Name="WareHouse" Relationship="Self.WareHouseSchedule" FromRole="Schedule" ToRole="WareHouse" />
-        </EntityType>
         <EntityType Name="ScheduleLine">
           <Key>
             <PropertyRef Name="IdScheduleLine" />
@@ -3409,7 +3292,6 @@
           <Property Name="IdScheduleLine" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IdSchedule" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="MonthNum" Type="Int32" Nullable="false" />
-          <Property Name="IsClosed" Type="Boolean" Nullable="false" />
           <Property Name="StartTime" Type="Time" Precision="7" />
           <Property Name="BreakStar" Type="Time" Precision="7" />
           <Property Name="BreakEnd" Type="Time" Precision="7" />
@@ -3418,7 +3300,8 @@
           <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="StatusCode" Type="Int32" Nullable="false" />
           <Property Name="MonthDay" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Schedule" Relationship="Self.Fk_ScheduleLine_IdSchedule" FromRole="ScheduleLine" ToRole="Schedule" />
+          <Property Name="IsFree" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Schedule" Relationship="BookStoreModel.Fk_ScheduleLine_IdSchedule" FromRole="ScheduleLine" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="Shipping">
           <Key>
@@ -3513,7 +3396,6 @@
           <NavigationProperty Name="Purchase" Relationship="Self.PurchaseStore" FromRole="Store" ToRole="Purchase" />
           <NavigationProperty Name="Register" Relationship="Self.RegisterStore" FromRole="Store" ToRole="Register" />
           <NavigationProperty Name="ReturnSale" Relationship="Self.ReturnStore" FromRole="Store" ToRole="ReturnSale" />
-          <NavigationProperty Name="Schedule" Relationship="Self.StoreSchedule" FromRole="Store" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="StoreSale">
           <Key>
@@ -3573,7 +3455,6 @@
           <NavigationProperty Name="Purchase" Relationship="Self.PurchaseWareHouse" FromRole="WareHouse" ToRole="Purchase" />
           <NavigationProperty Name="Register" Relationship="Self.RegisterWareHouse" FromRole="WareHouse" ToRole="Register" />
           <NavigationProperty Name="ReturnSale" Relationship="Self.ReturnWareHouse" FromRole="WareHouse" ToRole="ReturnSale" />
-          <NavigationProperty Name="Schedule" Relationship="Self.WareHouseSchedule" FromRole="WareHouse" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="WareHouseBook">
           <Key>
@@ -4234,18 +4115,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Fk_ScheduleLine_IdSchedule">
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
-          <End Role="ScheduleLine" Type="Self.ScheduleLine" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Schedule">
-              <PropertyRef Name="IdSchedule" />
-            </Principal>
-            <Dependent Role="ScheduleLine">
-              <PropertyRef Name="IdSchedule" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="Fk_Shipping_IdWareHouse">
           <End Role="WareHouse" Type="Self.WareHouse" Multiplicity="1" />
           <End Role="Shipping" Type="Self.Shipping" Multiplicity="*" />
@@ -4317,10 +4186,6 @@
         <Association Name="EmployeeRol">
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <End Role="Rol" Type="Self.Rol" Multiplicity="*" />
-        </Association>
-        <Association Name="EmployeeSchedule">
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
-          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
         </Association>
         <Association Name="EmployeeStore">
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
@@ -4394,14 +4259,6 @@
           <End Role="Coupon" Type="Self.Coupon" Multiplicity="0..1" />
           <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
         </Association>
-        <Association Name="StoreSchedule">
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
-          <End Role="Store" Type="Self.Store" Multiplicity="0..1" />
-        </Association>
-        <Association Name="WareHouseSchedule">
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
-          <End Role="WareHouse" Type="Self.WareHouse" Multiplicity="0..1" />
-        </Association>
         <EntityContainer Name="BookStoreEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Autor" EntityType="Self.Autor" />
           <EntitySet Name="Barcode" EntityType="Self.Barcode" />
@@ -4441,7 +4298,6 @@
           <EntitySet Name="Rol" EntityType="Self.Rol" />
           <EntitySet Name="Sale" EntityType="Self.Sale" />
           <EntitySet Name="SaleLine" EntityType="Self.SaleLine" />
-          <EntitySet Name="Schedule" EntityType="Self.Schedule" />
           <EntitySet Name="ScheduleLine" EntityType="Self.ScheduleLine" />
           <EntitySet Name="Shipping" EntityType="Self.Shipping" />
           <EntitySet Name="ShippingLine" EntityType="Self.ShippingLine" />
@@ -4669,10 +4525,6 @@
             <End Role="Sale" EntitySet="Sale" />
             <End Role="StoreSale" EntitySet="StoreSale" />
           </AssociationSet>
-          <AssociationSet Name="Fk_ScheduleLine_IdSchedule" Association="Self.Fk_ScheduleLine_IdSchedule">
-            <End Role="Schedule" EntitySet="Schedule" />
-            <End Role="ScheduleLine" EntitySet="ScheduleLine" />
-          </AssociationSet>
           <AssociationSet Name="Fk_Shipping_IdWareHouse" Association="Self.Fk_Shipping_IdWareHouse">
             <End Role="WareHouse" EntitySet="WareHouse" />
             <End Role="Shipping" EntitySet="Shipping" />
@@ -4712,10 +4564,6 @@
           <AssociationSet Name="EmployeeRol" Association="Self.EmployeeRol">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Rol" EntitySet="Rol" />
-          </AssociationSet>
-          <AssociationSet Name="EmployeeSchedule" Association="Self.EmployeeSchedule">
-            <End Role="Schedule" EntitySet="Schedule" />
-            <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
           <AssociationSet Name="EmployeeStore" Association="Self.EmployeeStore">
             <End Role="Employee" EntitySet="Employee" />
@@ -4789,15 +4637,53 @@
             <End Role="Coupon" EntitySet="Coupon" />
             <End Role="Sale" EntitySet="Sale" />
           </AssociationSet>
-          <AssociationSet Name="StoreSchedule" Association="Self.StoreSchedule">
+          <EntitySet Name="Schedule" EntityType="BookStoreModel.Schedule" />
+          <AssociationSet Name="Fk_Schedule_IdEmployee" Association="BookStoreModel.Fk_Schedule_IdEmployee">
+            <End Role="Employee" EntitySet="Employee" />
             <End Role="Schedule" EntitySet="Schedule" />
-            <End Role="Store" EntitySet="Store" />
           </AssociationSet>
-          <AssociationSet Name="WareHouseSchedule" Association="Self.WareHouseSchedule">
+          <AssociationSet Name="Fk_ScheduleLine_IdSchedule" Association="BookStoreModel.Fk_ScheduleLine_IdSchedule">
             <End Role="Schedule" EntitySet="Schedule" />
-            <End Role="WareHouse" EntitySet="WareHouse" />
+            <End Role="ScheduleLine" EntitySet="ScheduleLine" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="IdSchedule" />
+          </Key>
+          <Property Name="IdSchedule" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="YearValue" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StatusCode" Type="Int32" Nullable="false" />
+          <Property Name="IdEmployee" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employee" Relationship="BookStoreModel.Fk_Schedule_IdEmployee" FromRole="Schedule" ToRole="Employee" />
+          <NavigationProperty Name="ScheduleLine" Relationship="BookStoreModel.Fk_ScheduleLine_IdSchedule" FromRole="Schedule" ToRole="ScheduleLine" />
+        </EntityType>
+        <Association Name="Fk_Schedule_IdEmployee">
+          <End Type="BookStoreModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="BookStoreModel.Schedule" Role="Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="IdPerson" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="IdEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_ScheduleLine_IdSchedule">
+          <End Type="BookStoreModel.Schedule" Role="Schedule" Multiplicity="1" />
+          <End Type="BookStoreModel.ScheduleLine" Role="ScheduleLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="IdSchedule" />
+            </Principal>
+            <Dependent Role="ScheduleLine">
+              <PropertyRef Name="IdSchedule" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5345,24 +5231,13 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Schedule">
-            <EntityTypeMapping TypeName="BookStoreModel.Schedule">
-              <MappingFragment StoreEntitySet="Schedule">
-                <ScalarProperty Name="IdSchedule" ColumnName="IdSchedule" />
-                <ScalarProperty Name="YearValue" ColumnName="YearValue" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
-                <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ScheduleLine">
             <EntityTypeMapping TypeName="BookStoreModel.ScheduleLine">
               <MappingFragment StoreEntitySet="ScheduleLine">
+                <ScalarProperty Name="IsFree" ColumnName="IsFree" />
                 <ScalarProperty Name="IdScheduleLine" ColumnName="IdScheduleLine" />
                 <ScalarProperty Name="IdSchedule" ColumnName="IdSchedule" />
                 <ScalarProperty Name="MonthNum" ColumnName="MonthNum" />
-                <ScalarProperty Name="IsClosed" ColumnName="IsClosed" />
                 <ScalarProperty Name="StartTime" ColumnName="StartTime" />
                 <ScalarProperty Name="BreakStar" ColumnName="BreakStar" />
                 <ScalarProperty Name="BreakEnd" ColumnName="BreakEnd" />
@@ -5561,14 +5436,6 @@
               <ScalarProperty Name="IdRol" ColumnName="IdRol" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="EmployeeSchedule" TypeName="BookStoreModel.EmployeeSchedule" StoreEntitySet="EmployeeSchedule">
-            <EndProperty Name="Schedule">
-              <ScalarProperty Name="IdSchedule" ColumnName="IdSchedule" />
-            </EndProperty>
-            <EndProperty Name="Employee">
-              <ScalarProperty Name="IdPerson" ColumnName="IdEmployee" />
-            </EndProperty>
-          </AssociationSetMapping>
           <AssociationSetMapping Name="EmployeeStore" TypeName="BookStoreModel.EmployeeStore" StoreEntitySet="EmployeeStore">
             <EndProperty Name="Employee">
               <ScalarProperty Name="IdPerson" ColumnName="IdEmployee" />
@@ -5713,23 +5580,19 @@
               <ScalarProperty Name="IdSale" ColumnName="IdSale" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="StoreSchedule" TypeName="BookStoreModel.StoreSchedule" StoreEntitySet="StoreSchedule">
-            <EndProperty Name="Schedule">
-              <ScalarProperty Name="IdSchedule" ColumnName="IdSchedule" />
-            </EndProperty>
-            <EndProperty Name="Store">
-              <ScalarProperty Name="IdStore" ColumnName="IdStore" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="WareHouseSchedule" TypeName="BookStoreModel.WareHouseSchedule" StoreEntitySet="WareHouseSchedule">
-            <EndProperty Name="Schedule">
-              <ScalarProperty Name="IdSchedule" ColumnName="IdSchedule" />
-            </EndProperty>
-            <EndProperty Name="WareHouse">
-              <ScalarProperty Name="IdWareHouse" ColumnName="IdWareHouse" />
-            </EndProperty>
-          </AssociationSetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="Schedule">
+            <EntityTypeMapping TypeName="BookStoreModel.Schedule">
+              <MappingFragment StoreEntitySet="Schedule">
+                <ScalarProperty Name="IdEmployee" ColumnName="IdEmployee" />
+                <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
+                <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="YearValue" ColumnName="YearValue" />
+                <ScalarProperty Name="IdSchedule" ColumnName="IdSchedule" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

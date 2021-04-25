@@ -23,5 +23,8 @@ namespace BookStoreApi.Dtos
         public System.DateTime CreateDate { get; set; }
         public System.DateTime LastUpdateDate { get; set; }
         public int StatusCode { get; set; }
+
+        public List<TaxesDto> Taxes { get; set; }
+        public List<PaymentBonusDto> PaymentBonus { get; set; }
     }
 }

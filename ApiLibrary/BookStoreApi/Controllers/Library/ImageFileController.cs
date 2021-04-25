@@ -21,22 +21,27 @@ namespace BookStoreApi.Controllers.Library.Files
             return Ok(_repository.Get());
         }
         [HttpGet]
-        [Route("List")]
         public IHttpActionResult GetList(string ids)
         {
             return Ok(_repository.GetList(ids));
         }
 
         [HttpGet]
-        [Route("Pag")]
         public IHttpActionResult Get(int element, int pag)
         {
             return Ok(_repository.Get(element, pag));
         }
         [HttpPost]
-        public IHttpActionResult Post(List<ImageFile> list)
+        public IHttpActionResult Post(ImageFile imageFile)
         {
-            return Ok(_repository.Insert(list));
+            return Ok(_repository.Insert(imageFile));
+        }
+
+        [HttpPost]
+        [Route("Upload")]
+        public IHttpActionResult Upload()
+        {
+            return Ok(_repository.Upload());
         }
 
         [HttpPut]

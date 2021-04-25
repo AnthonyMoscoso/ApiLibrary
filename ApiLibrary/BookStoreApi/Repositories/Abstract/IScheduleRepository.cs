@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Dtos;
+using BookStoreApi.Models.Library;
 using LibraryApiRest.Repositories.Abstract;
 using System;
 using System.Collections.Generic;
@@ -10,12 +11,10 @@ namespace BookStoreApi.Repositories.Abstract.Schedules
 {
     interface IScheduleRepository : IRepository<Schedule>
     {
-       List<Schedule> GetByStore(string idStore);
-       List<Schedule> GetByStore(string idStore,int year);
-       List<Schedule> GetByWareHouse(string idWareHouse);
-       List<Schedule> GetByWareHouse(string idWareHouse,int year);
-       List<Schedule> GetByEmployee(string idEmployee);
-       List<Schedule> GetByEmployee(string idEmployee,int year);
-       
+       List<ScheduleDto> GetByEmployee(string idEmployee);
+       List<ScheduleDto> GetByEmployee(string idEmployee,int year);
+       List<ScheduleDto> GetByEmployee(string idEmployee,int year,int month);
+       List<ScheduleDto> GetByEmployee(string idEmployee, int year, int month,int day);
+
     }
 }

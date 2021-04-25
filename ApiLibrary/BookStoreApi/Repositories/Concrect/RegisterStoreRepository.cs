@@ -100,5 +100,11 @@ namespace BookStoreApi.Repositories.Concrect
             base.Update(registers);
             return Save();
         }
+
+        new public List<RegisterStoreDto> Get()
+        {
+            var result = dbSet.Where(w=> w.Store!=null).ToList();
+            return mapper.Map<List<RegisterStoreDto>>(result);
+        }
     }
 }

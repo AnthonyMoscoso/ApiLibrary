@@ -1,16 +1,19 @@
 ﻿using AutoMapper;
 using BookStoreApi.Models;
 using BookStoreApi.Models.Library;
+using BookStoreApi.Models.Utilities;
 using LibraryApiRest.Enums;
 using LibraryApiRest.Repositories.Abstract;
 using Mappers.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Web.Services.Description;
 
 namespace LibraryApiRest.Repositories.Concrect
 {
@@ -19,7 +22,7 @@ namespace LibraryApiRest.Repositories.Concrect
         where TEntity : class,new()
     {
         public BookStoreEntities Context;
-
+        public List<MessageControl> messages ;
         public DbSet<TEntity> dbSet;
         public string name;
         public string Identificator;
@@ -32,27 +35,58 @@ namespace LibraryApiRest.Repositories.Concrect
             name = typeof(TEntity).Name;
             Identificator = identificator;
             mapper = AutoMapperConfig.MapperConfiguration.CreateMapper();
+            messages = new List<MessageControl>();
         }
 
         public dynamic Delete(List<string> ids)
         {
-            string message = "";
             foreach (string id  in ids)
             {
-
+                
                 TEntity search = dbSet.Find(id);
                 if (search!=null)
                 {
-                    dbSet.Remove(search);
-                    message +=  Save();
+                   
+                    try
+                    {
+                        dbSet.Remove(search);
+                        Context.SaveChanges();
+                        MessageControl message = new MessageControl()
+                        {
+                            Code = 1,
+                            Type = "Delete",
+                            Error = false,
+                            Note = $"{name} with {Identificator} :{id} was delete corrertly"
+                        };
+                        messages.Add(message);
+                    }
+                    catch (SqlException e)
+                    {
+                        MessageControl message = new MessageControl()
+                        {
+                            Code = 2,
+                            Type = "Exception",
+                            Error = true,
+                            Note = $"{e.InnerException}"
+                        };
+                        messages.Add(message);
+                    }
+                   
                 }
                 else
                 {
-                    message += "Entity whith Id =" + id +" not was found";
+                    MessageControl message = new MessageControl()
+                    {
+                        Code = 3,
+                        Type = "Not found",
+                        Error = true,
+                        Note = $"{name} with {Identificator} :{id} was delete corrertly"
+                    };
+                    messages.Add(message);
                 }
             }
 
-            return message;
+            return messages;
         }
         public dynamic Get()
         {
@@ -96,15 +130,52 @@ namespace LibraryApiRest.Repositories.Concrect
 
         public dynamic Insert(List<TEntity> list)
         {
-            try
+            foreach (TEntity entity in list)
             {
-                dbSet.AddRange(list);
-                return Save();
+                try
+                {
+                    
+                    dbSet.Add(entity);
+                    Context.SaveChanges();
+                    MessageControl message = new MessageControl()
+                    {
+                        Code =1,
+                        Type = "Insert",
+                        Error = false,
+                        Note = $"{name} with {Identificator} {entity.GetHashCode()} was Insert",
+
+                    };
+                    messages.Add(message);
+                    
+                }
+                catch (DbUpdateException e)
+                {
+                    MessageControl message = new MessageControl()
+                    {
+                        Code = 2,
+                        Type = "Exception",
+                        Error = true,
+                        Note = $"{e.InnerException.InnerException.Message}",
+                    };
+                    messages.Add(message);
+                }
+                catch (SqlException e)
+                {
+                    MessageControl message = new MessageControl()
+                    {
+                        Code = 2,
+                        Type = "Exception",
+                        Error = true,
+                        Note = $"{e.InnerException}",
+                    };
+                    messages.Add(message);
+                }
             }
-            catch (SqlException e)
-            {
-                return e.Message;
-            }
+
+            return messages;
+
+
+
         }
 
         public dynamic Insert(TEntity entity)
@@ -112,12 +183,40 @@ namespace LibraryApiRest.Repositories.Concrect
             try
             {
                 dbSet.Add(entity);
-                return Save();
+                Context.SaveChanges();
+                MessageControl message = new MessageControl()
+                {
+                    Code = 1,
+                    Type = "Insert",
+                    Note = $"{name} with {Identificator} = {entity.GetHashCode()}  was insert",
+                    Error = false
+                };
+                messages.Add(message);
+            
+            }
+            catch (DbUpdateException e)
+            {
+                MessageControl message = new MessageControl()
+                {
+                    Code = 2,
+                    Type = "Exception",
+                    Error = true,
+                    Note = $"{e.InnerException.Message}",
+                };
+                messages.Add(message);
             }
             catch (SqlException e)
             {
-                return e.Message;
+                MessageControl message = new MessageControl()
+                {
+                    Code = 2,
+                    Type = "Exception",
+                    Error = true,
+                    Note = $"{e.InnerException}",
+                };
+                messages.Add(message);
             }
+            return messages;
         }
 
         public dynamic Save()
@@ -139,23 +238,37 @@ namespace LibraryApiRest.Repositories.Concrect
 
         public dynamic Update(List<TEntity> list)
         {
-            string message = "";
             foreach (TEntity entity in list)
             {
                 try
                 {
                     dbSet.Attach(entity);
                     Context.Entry(entity).State = EntityState.Modified;
-                    message +="\n"+ Save();
+                    Context.SaveChanges();
+                    MessageControl message = new MessageControl()
+                    {
+                        Code = 1,
+                        Type = "Insert",
+                        Error = false,
+                        Note = "",
+                    };
+                    messages.Add(message);
                 }
-                catch (Exception e)
+                catch (SqlException e)
                 {
-                    message += "\n" + e.Message;
+                    MessageControl message = new MessageControl()
+                    {
+                        Code = 2,
+                        Type = "Exception",
+                        Error = true,
+                        Note = $"{e.InnerException}",
+                    };
+                    messages.Add(message);
                 }
         
             }
             
-            return  message;
+            return  messages;
         }
     }
 }

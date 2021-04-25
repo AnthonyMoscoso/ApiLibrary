@@ -25,11 +25,10 @@ namespace BookStoreApi.Models.Library
         public System.DateTime CreateDate { get; set; }
         public System.DateTime LastUpdateDate { get; set; }
         public int StatusCode { get; set; }
+        public string IdEmployee { get; set; }
     
+        public virtual Employee Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ScheduleLine> ScheduleLine { get; set; }
-        public virtual Employee Employee { get; set; }
-        public virtual Store Store { get; set; }
-        public virtual WareHouse WareHouse { get; set; }
     }
 }

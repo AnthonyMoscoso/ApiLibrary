@@ -17,6 +17,5 @@ namespace BookStoreApi.Dtos
         public System.DateTime LastUpdateDate { get; set; }
         public int StatusCode { get; set; }
 
-        public EmployeeDto Employee { get; set; }
     }
 }

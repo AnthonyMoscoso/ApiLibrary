@@ -31,10 +31,23 @@ namespace BookStoreApi.Controllers.Library
             return Ok(_repository.GetByWareHouse(idWareHouse, pag, element));
         }
         [HttpGet]
+        public IHttpActionResult GetByWareHouse(string idWareHouse, DateTime date)
+        {
+            return Ok(_repository.GetByWareHouse(idWareHouse, date));
+        }
+
+        [HttpGet]
         public IHttpActionResult GetByWareHouse(string idWareHouse, DateTime date, int pag, int element)
         {
             return Ok(_repository.GetByWareHouse(idWareHouse, date, pag, element));
         }
+
+        [HttpGet]
+        public IHttpActionResult GetByWareHouse(string idWareHouse, DateTime dateStart, DateTime dateEnd)
+        {
+            return Ok(_repository.GetByWareHouse(idWareHouse, dateStart, dateEnd));
+        }
+
         [HttpGet]
         public IHttpActionResult GetByWareHouse(string idWareHouse, DateTime dateStart, DateTime dateEnd, int pag, int element)
         {

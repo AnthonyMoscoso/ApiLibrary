@@ -17,7 +17,6 @@ namespace BookStoreApi.Models.Library
         public string IdScheduleLine { get; set; }
         public string IdSchedule { get; set; }
         public int MonthNum { get; set; }
-        public bool IsClosed { get; set; }
         public Nullable<System.TimeSpan> StartTime { get; set; }
         public Nullable<System.TimeSpan> BreakStar { get; set; }
         public Nullable<System.TimeSpan> BreakEnd { get; set; }
@@ -26,6 +25,7 @@ namespace BookStoreApi.Models.Library
         public System.DateTime LastUpdateDate { get; set; }
         public int StatusCode { get; set; }
         public int MonthDay { get; set; }
+        public bool IsFree { get; set; }
     
         public virtual Schedule Schedule { get; set; }
     }

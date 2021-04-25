@@ -86,15 +86,14 @@ namespace BookStoreApi.Controllers.Library.PayRolls
         {
             return Ok(_repository.GetByEmployee(idEmployee, year, month,pag,element));
         }
+
         [HttpGet]
-        [Route("List")]
         public IHttpActionResult GetList(string ids)
         {
             return Ok(_repository.GetList(ids));
         }
 
         [HttpGet]
-        [Route("Pag")]
         public IHttpActionResult Get(int element, int pag)
         {
             return Ok(_repository.Get(element, pag));

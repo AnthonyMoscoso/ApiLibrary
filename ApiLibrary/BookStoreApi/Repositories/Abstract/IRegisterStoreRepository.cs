@@ -12,6 +12,7 @@ namespace BookStoreApi.Repositories.Abstract
 {
     interface IRegisterStoreRepository : IRepository<Register>
     {
+        new List<RegisterStoreDto> Get();
         List<RegisterStoreDto> GetByStore(string idStore);
         List<RegisterStoreDto> GetByStore(string idStore,int pag,int element);
         List<RegisterStoreDto> GetByStore(string idStore,DateTime date);

@@ -12,6 +12,6 @@ namespace BookStoreApi.Dtos
         public System.DateTime CreateDate { get; set; }
         public System.DateTime LastUpdateDate { get; set; }
         public int StatusCode { get; set; }
-        public List<RegisterLineDto> RegisterLines { get; set; }
+        public List<RegisterLineDto> RegisterLine { get; set; }
     }
 }

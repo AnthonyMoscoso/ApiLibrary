@@ -16,6 +16,12 @@ namespace BookStoreApi.Repositories.Concrect
         {
         }
 
+        public new List<RegisterWareHouseDto> Get()
+        {
+            var result = dbSet.Where(w=> w.WareHouse!=null).ToList();
+            return mapper.Map<List<RegisterWareHouseDto>>(result);
+        }
+
         public List<RegisterWareHouseDto> GetByWareHouse(string idWareHouse)
         {
             var result = dbSet.Where(w => w.WareHouse.IdWareHouse.Equals(idWareHouse))
@@ -26,6 +32,7 @@ namespace BookStoreApi.Repositories.Concrect
         public List<RegisterWareHouseDto> GetByWareHouse(string idWareHouse, int pag, int element)
         {
             var result = dbSet.Where(w => w.WareHouse.IdWareHouse.Equals(idWareHouse))
+                 .OrderBy(w => w.RegisterDate)
                 .Skip((pag - 1) * element)
                 .Take(element)
                 .ToList();
@@ -34,14 +41,15 @@ namespace BookStoreApi.Repositories.Concrect
         public List<RegisterWareHouseDto> GetByWareHouse(string idWareHouse, DateTime date)
         {
             var result = dbSet.Where(w => w.WareHouse.IdWareHouse.Equals(idWareHouse) &&
-                    DbFunctions.TruncateTime(date) == w.RegisterDate)
+                    DbFunctions.TruncateTime(date) == DbFunctions.TruncateTime( w.RegisterDate))
                       .ToList();
             return mapper.Map<List<RegisterWareHouseDto>>(result);
         }
         public List<RegisterWareHouseDto> GetByWareHouse(string idWareHouse, DateTime date, int pag, int element)
         {
             var result = dbSet.Where(w => w.WareHouse.IdWareHouse.Equals(idWareHouse) && 
-            DbFunctions.TruncateTime(date) == w.RegisterDate)
+            DbFunctions.TruncateTime(date) ==  DbFunctions.TruncateTime( w.RegisterDate))
+                .OrderBy(w=> w.RegisterDate)
                 .Skip((pag - 1) * element)
                 .Take(element)
                 .ToList();
@@ -61,6 +69,7 @@ namespace BookStoreApi.Repositories.Concrect
             var result = dbSet.Where(w => w.WareHouse.IdWareHouse.Equals(idWareHouse) &&
                    DbFunctions.TruncateTime(dateStart) >= DbFunctions.TruncateTime(w.RegisterDate) &&
                    DbFunctions.TruncateTime(dateEnd) <= DbFunctions.TruncateTime(dateEnd))
+                      .OrderBy(w => w.RegisterDate)
                       .Skip((pag - 1) * element)
                       .Take(element)
                       .ToList();
@@ -74,11 +83,11 @@ namespace BookStoreApi.Repositories.Concrect
             string message = "";
             foreach (RegisterWareHouseDto dto in list)
             {
-                var search = Context.Store.Find(dto.IdWareHouse);
+                var search = Context.WareHouse.Find(dto.IdWareHouse);
                 if (search != null)
                 {
                     Register register = mapper.Map<Register>(dto);
-                    register.Store = null;
+                    register.WareHouse = null;
                     dbSet.Add(register);
                     message += Save();
                     var query = string.Format("Insert into RegisterWareHouse values('{0}','{1}') ;", dto.IdWareHouse, dto.IdRegister);

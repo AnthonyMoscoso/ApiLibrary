@@ -16,5 +16,6 @@ namespace LibraryApiRest.Repositories.Abstract
         List<AutorDto> SearchByName(string text,int pag,int element);
         AutorDto GetByName(string name);
         bool ExistName(string name);
+      
     }
 }

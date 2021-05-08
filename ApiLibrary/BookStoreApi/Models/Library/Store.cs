@@ -20,7 +20,7 @@ namespace BookStoreApi.Models.Library
             this.BookStore = new HashSet<BookStore>();
             this.Orders = new HashSet<Orders>();
             this.Reception = new HashSet<Reception>();
-            this.Reservation = new HashSet<Reservation>();
+            this.ReservationStore = new HashSet<ReservationStore>();
             this.StoreSale = new HashSet<StoreSale>();
             this.Employee = new HashSet<Employee>();
             this.PayRoll = new HashSet<PayRoll>();
@@ -49,7 +49,7 @@ namespace BookStoreApi.Models.Library
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reception> Reception { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Reservation> Reservation { get; set; }
+        public virtual ICollection<ReservationStore> ReservationStore { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StoreSale> StoreSale { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

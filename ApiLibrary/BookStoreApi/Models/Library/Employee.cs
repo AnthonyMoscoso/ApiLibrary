@@ -23,11 +23,11 @@ namespace BookStoreApi.Models.Library
             this.Purchase = new HashSet<Purchase>();
             this.Reception = new HashSet<Reception>();
             this.RegisterLine = new HashSet<RegisterLine>();
-            this.Reservation = new HashSet<Reservation>();
+            this.ReservationStore = new HashSet<ReservationStore>();
+            this.Schedule = new HashSet<Schedule>();
             this.SickLeave = new HashSet<SickLeave>();
             this.StoreSale = new HashSet<StoreSale>();
             this.Rol = new HashSet<Rol>();
-            this.Schedule = new HashSet<Schedule>();
         }
     
         public string IdPerson { get; set; }
@@ -58,7 +58,9 @@ namespace BookStoreApi.Models.Library
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RegisterLine> RegisterLine { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Reservation> Reservation { get; set; }
+        public virtual ICollection<ReservationStore> ReservationStore { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Schedule> Schedule { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SickLeave> SickLeave { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -68,7 +70,5 @@ namespace BookStoreApi.Models.Library
         public virtual ICollection<Rol> Rol { get; set; }
         public virtual Store Store { get; set; }
         public virtual WareHouse WareHouse { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Schedule> Schedule { get; set; }
     }
 }

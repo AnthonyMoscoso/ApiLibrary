@@ -18,6 +18,7 @@ namespace BookStoreApi.Models.Library
         public WareHouse()
         {
             this.Orders = new HashSet<Orders>();
+            this.ReservationOnline = new HashSet<ReservationOnline>();
             this.Shipping = new HashSet<Shipping>();
             this.WareHouseBook = new HashSet<WareHouseBook>();
             this.Employee = new HashSet<Employee>();
@@ -41,6 +42,8 @@ namespace BookStoreApi.Models.Library
         public virtual Direction Direction { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Orders> Orders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ReservationOnline> ReservationOnline { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Shipping> Shipping { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

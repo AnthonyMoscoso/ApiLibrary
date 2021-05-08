@@ -12,8 +12,8 @@ namespace BookStoreApi.Dtos
         public string ImageFileName { get; set; }
         public string ImageType { get; set; }
         public string Note { get; set; }
-        public System.DateTime CreateDate { get; set; }
-        public System.DateTime LastUpdateDate { get; set; }
+        public DateTime CreateDate { get; set; }
+        public DateTime LastUpdateDate { get; set; }
         public int StatusCode { get; set; }
     }
 }

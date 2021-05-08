@@ -18,7 +18,6 @@ namespace BookStoreApi.Models.Library
         public Shipping()
         {
             this.ShippingLine = new HashSet<ShippingLine>();
-            this.OnlineSale = new HashSet<OnlineSale>();
         }
     
         public string IdShipping { get; set; }
@@ -39,7 +38,6 @@ namespace BookStoreApi.Models.Library
         public virtual WareHouse WareHouse { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShippingLine> ShippingLine { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OnlineSale> OnlineSale { get; set; }
+        public virtual OnlineSale OnlineSale { get; set; }
     }
 }

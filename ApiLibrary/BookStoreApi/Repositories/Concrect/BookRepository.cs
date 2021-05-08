@@ -448,5 +448,15 @@ namespace BookStoreApi.Repositories.Concrect.Books
         {
             throw new NotImplementedException();
         }
+
+        public dynamic RemoveImage(string idBook, string idImageFile)
+        {
+            throw new NotImplementedException();
+        }
+
+        public dynamic AddImage(string idBook, string idImageFile)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

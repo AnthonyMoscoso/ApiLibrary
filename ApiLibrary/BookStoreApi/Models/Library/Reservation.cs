@@ -15,8 +15,6 @@ namespace BookStoreApi.Models.Library
     public partial class Reservation
     {
         public string IdReservation { get; set; }
-        public string IdStore { get; set; }
-        public string IdEmployee { get; set; }
         public string IdBuyer { get; set; }
         public int ReservationStatus { get; set; }
         public Nullable<System.DateTime> FinishReservationDate { get; set; }
@@ -29,9 +27,9 @@ namespace BookStoreApi.Models.Library
         public double BookReservationPrice { get; set; }
     
         public virtual Book Book { get; set; }
-        public virtual Employee Employee { get; set; }
         public virtual Person Person { get; set; }
-        public virtual Store Store { get; set; }
+        public virtual ReservationOnline ReservationOnline { get; set; }
+        public virtual ReservationStore ReservationStore { get; set; }
         public virtual Sale Sale { get; set; }
     }
 }

@@ -58,11 +58,14 @@ namespace BookStoreApi.Models.Library
         public virtual DbSet<Register> Register { get; set; }
         public virtual DbSet<RegisterLine> RegisterLine { get; set; }
         public virtual DbSet<Reservation> Reservation { get; set; }
+        public virtual DbSet<ReservationOnline> ReservationOnline { get; set; }
+        public virtual DbSet<ReservationStore> ReservationStore { get; set; }
         public virtual DbSet<ReturnLine> ReturnLine { get; set; }
         public virtual DbSet<ReturnSale> ReturnSale { get; set; }
         public virtual DbSet<Rol> Rol { get; set; }
         public virtual DbSet<Sale> Sale { get; set; }
         public virtual DbSet<SaleLine> SaleLine { get; set; }
+        public virtual DbSet<Schedule> Schedule { get; set; }
         public virtual DbSet<ScheduleLine> ScheduleLine { get; set; }
         public virtual DbSet<Shipping> Shipping { get; set; }
         public virtual DbSet<ShippingLine> ShippingLine { get; set; }
@@ -74,6 +77,5 @@ namespace BookStoreApi.Models.Library
         public virtual DbSet<Taxes> Taxes { get; set; }
         public virtual DbSet<WareHouse> WareHouse { get; set; }
         public virtual DbSet<WareHouseBook> WareHouseBook { get; set; }
-        public virtual DbSet<Schedule> Schedule { get; set; }
     }
 }

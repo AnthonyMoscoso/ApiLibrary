@@ -8,8 +8,6 @@ namespace BookStoreApi.Dtos
     public class ReservationDto
     {
         public string IdReservation { get; set; }
-        public string IdStore { get; set; }
-        public string IdEmployee { get; set; }
         public string IdBuyer { get; set; }
         public int ReservationStatus { get; set; }
         public DateTime? FinishReservationDate { get; set; }

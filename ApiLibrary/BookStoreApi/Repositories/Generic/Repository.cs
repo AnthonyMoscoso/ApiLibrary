@@ -2,6 +2,7 @@
 using BookStoreApi.Models;
 using BookStoreApi.Models.Library;
 using BookStoreApi.Models.Utilities;
+using BookStoreApi.Utilities.Enums;
 using LibraryApiRest.Enums;
 using LibraryApiRest.Repositories.Abstract;
 using Mappers.Models;
@@ -53,10 +54,21 @@ namespace LibraryApiRest.Repositories.Concrect
                         Context.SaveChanges();
                         MessageControl message = new MessageControl()
                         {
-                            Code = 1,
-                            Type = "Delete",
+                            Code = MessageCode.correct,
+                            Type = MessageType.Delete,
                             Error = false,
                             Note = $"{name} with {Identificator} :{id} was delete corrertly"
+                        };
+                        messages.Add(message);
+                    }
+                    catch(DbUpdateException e)
+                    {
+                        MessageControl message = new MessageControl()
+                        {
+                            Code = MessageCode.exception,
+                            Type = MessageType.Exception,
+                            Error = true,
+                            Note = $"{e.InnerException.InnerException.Message}"
                         };
                         messages.Add(message);
                     }
@@ -64,10 +76,10 @@ namespace LibraryApiRest.Repositories.Concrect
                     {
                         MessageControl message = new MessageControl()
                         {
-                            Code = 2,
-                            Type = "Exception",
+                            Code = MessageCode.exception,
+                            Type = MessageType.Exception,
                             Error = true,
-                            Note = $"{e.InnerException}"
+                            Note = $"{e.InnerException.InnerException.Message}"
                         };
                         messages.Add(message);
                     }
@@ -77,10 +89,10 @@ namespace LibraryApiRest.Repositories.Concrect
                 {
                     MessageControl message = new MessageControl()
                     {
-                        Code = 3,
-                        Type = "Not found",
+                        Code = MessageCode.error,
+                        Type = MessageType.Not_Found,
                         Error = true,
-                        Note = $"{name} with {Identificator} :{id} was delete corrertly"
+                        Note = $"{name} with {Identificator} :{id} not was found"
                     };
                     messages.Add(message);
                 }
@@ -134,13 +146,13 @@ namespace LibraryApiRest.Repositories.Concrect
             {
                 try
                 {
-                    
+                   
                     dbSet.Add(entity);
                     Context.SaveChanges();
                     MessageControl message = new MessageControl()
                     {
-                        Code =1,
-                        Type = "Insert",
+                        Code = MessageCode.correct,
+                        Type = MessageType.Insert,
                         Error = false,
                         Note = $"{name} with {Identificator} {entity.GetHashCode()} was Insert",
 
@@ -152,22 +164,24 @@ namespace LibraryApiRest.Repositories.Concrect
                 {
                     MessageControl message = new MessageControl()
                     {
-                        Code = 2,
-                        Type = "Exception",
+                        Code = MessageCode.exception,
+                        Type = MessageType.Exception,
                         Error = true,
                         Note = $"{e.InnerException.InnerException.Message}",
                     };
+                    dbSet.Remove(entity);
                     messages.Add(message);
                 }
                 catch (SqlException e)
                 {
                     MessageControl message = new MessageControl()
                     {
-                        Code = 2,
-                        Type = "Exception",
+                        Code = MessageCode.exception,
+                        Type = MessageType.Exception,
                         Error = true,
-                        Note = $"{e.InnerException}",
+                        Note = $"{e.InnerException.InnerException.Message}",
                     };
+                    dbSet.Remove(entity);
                     messages.Add(message);
                 }
             }
@@ -186,8 +200,8 @@ namespace LibraryApiRest.Repositories.Concrect
                 Context.SaveChanges();
                 MessageControl message = new MessageControl()
                 {
-                    Code = 1,
-                    Type = "Insert",
+                    Code = MessageCode.correct,
+                    Type = MessageType.Insert,
                     Note = $"{name} with {Identificator} = {entity.GetHashCode()}  was insert",
                     Error = false
                 };
@@ -198,21 +212,22 @@ namespace LibraryApiRest.Repositories.Concrect
             {
                 MessageControl message = new MessageControl()
                 {
-                    Code = 2,
-                    Type = "Exception",
+                    Code = MessageCode.exception,
+                    Type = MessageType.Exception,
                     Error = true,
-                    Note = $"{e.InnerException.Message}",
+                    Note = $"{e.InnerException.InnerException.Message}",
                 };
+
                 messages.Add(message);
             }
             catch (SqlException e)
             {
                 MessageControl message = new MessageControl()
                 {
-                    Code = 2,
-                    Type = "Exception",
+                    Code = MessageCode.exception,
+                    Type = MessageType.Exception,
                     Error = true,
-                    Note = $"{e.InnerException}",
+                    Note = $"{e.InnerException.InnerException.Message}",
                 };
                 messages.Add(message);
             }
@@ -247,8 +262,8 @@ namespace LibraryApiRest.Repositories.Concrect
                     Context.SaveChanges();
                     MessageControl message = new MessageControl()
                     {
-                        Code = 1,
-                        Type = "Insert",
+                        Code = MessageCode.correct,
+                        Type = MessageType.Update,
                         Error = false,
                         Note = "",
                     };
@@ -258,8 +273,8 @@ namespace LibraryApiRest.Repositories.Concrect
                 {
                     MessageControl message = new MessageControl()
                     {
-                        Code = 2,
-                        Type = "Exception",
+                        Code = MessageCode.exception,
+                        Type = MessageType.Exception,
                         Error = true,
                         Note = $"{e.InnerException}",
                     };
@@ -269,6 +284,45 @@ namespace LibraryApiRest.Repositories.Concrect
             }
             
             return  messages;
+        }
+
+        public dynamic Update(TEntity entity)
+        {
+           
+                try
+                {
+                    dbSet.Attach(entity);
+                    Context.Entry(entity).State = EntityState.Modified;
+                    Context.SaveChanges();
+                    MessageControl message = new MessageControl()
+                    {
+                        Code = MessageCode.correct,
+                        Type = MessageType.Update,
+                        Error = false,
+                        Note = "",
+                    };
+                    messages.Add(message);
+                }
+                catch (SqlException e)
+                {
+                    MessageControl message = new MessageControl()
+                    {
+                        Code = MessageCode.exception,
+                        Type = MessageType.Exception,
+                        Error = true,
+                        Note = $"{e.InnerException}",
+                    };
+                    messages.Add(message);
+                }
+
+            
+
+            return messages;
+        }
+
+        public int Count()
+        {
+            return dbSet.Count();
         }
     }
 }

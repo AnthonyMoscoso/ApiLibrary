@@ -18,15 +18,15 @@ namespace BookStoreApi.Repositories.Concrect.Coupons
 
         public List<CouponDto> GetByDate(DateTime createTime)
         {
-            DateTime tomorrow = createTime.AddDays(1);
-            var list = dbSet.Where(w => w.CreateDate > createTime.Date && w.CreateDate < tomorrow.Date).ToList();
+
+            var list = dbSet.Where(w => DbFunctions.TruncateTime(w.CreateDate) == DbFunctions.TruncateTime( createTime)).ToList();
             return mapper.Map<List<CouponDto>>(list);
         }
 
         public List<CouponDto> GetByDate(DateTime createTime, int pag, int element)
         {
             DateTime tomorrow = createTime.AddDays(1);
-            var list = dbSet.Where(w => w.CreateDate > createTime.Date && w.CreateDate < tomorrow.Date)
+            var list = dbSet.Where(w => DbFunctions.TruncateTime( w.CreateDate) == DbFunctions.TruncateTime( createTime.Date))
                 .OrderByDescending(w => w.CreateDate)
                 .Skip((pag-1)*element).Take(element)
                 .ToList();

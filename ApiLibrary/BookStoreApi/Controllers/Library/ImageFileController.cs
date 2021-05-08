@@ -36,14 +36,6 @@ namespace BookStoreApi.Controllers.Library.Files
         {
             return Ok(_repository.Insert(imageFile));
         }
-
-        [HttpPost]
-        [Route("Upload")]
-        public IHttpActionResult Upload()
-        {
-            return Ok(_repository.Upload());
-        }
-
         [HttpPut]
         public IHttpActionResult Put(List<ImageFile> list)
         {

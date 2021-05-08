@@ -17,13 +17,16 @@ namespace BookStoreApi.Models.Library
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public OnlineSale()
         {
+            this.ReservationOnline = new HashSet<ReservationOnline>();
             this.Shipping = new HashSet<Shipping>();
         }
     
-        public string IdOnlineSale { get; set; }
+        public string IdSale { get; set; }
         public double ShippingPrice { get; set; }
     
         public virtual Sale Sale { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ReservationOnline> ReservationOnline { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Shipping> Shipping { get; set; }
     }

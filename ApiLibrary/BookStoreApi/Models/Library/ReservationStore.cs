@@ -12,22 +12,16 @@ namespace BookStoreApi.Models.Library
     using System;
     using System.Collections.Generic;
     
-    public partial class StoreSale
+    public partial class ReservationStore
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public StoreSale()
-        {
-            this.ReservationStore = new HashSet<ReservationStore>();
-        }
-    
+        public string IdReservation { get; set; }
         public string IdStore { get; set; }
-        public string IdSale { get; set; }
-        public string IdSeller { get; set; }
+        public string IdEmployee { get; set; }
+        public string IdStoreSale { get; set; }
     
         public virtual Employee Employee { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ReservationStore> ReservationStore { get; set; }
-        public virtual Sale Sale { get; set; }
+        public virtual Reservation Reservation { get; set; }
         public virtual Store Store { get; set; }
+        public virtual StoreSale StoreSale { get; set; }
     }
 }

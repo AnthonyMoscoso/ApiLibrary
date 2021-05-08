@@ -193,6 +193,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\Files\FileController.cs" />
     <Compile Include="Controllers\Library\AutorController.cs" />
     <Compile Include="Controllers\Library\BarCodeController.cs" />
     <Compile Include="Controllers\Library\BookController.cs" />
@@ -217,6 +218,7 @@
     <Compile Include="Controllers\Library\RegisterLineController.cs" />
     <Compile Include="Controllers\Library\RegisterStoreController.cs" />
     <Compile Include="Controllers\Library\RegisterWareHouseController.cs" />
+    <Compile Include="Controllers\Library\ReservationStoreController.cs" />
     <Compile Include="Controllers\Library\ScheduleLineController.cs" />
     <Compile Include="Controllers\Library\SocieController.cs" />
     <Compile Include="Controllers\Library\ProviderController.cs" />
@@ -254,6 +256,8 @@
     <Compile Include="Models\Dtos\ReceptionPurchaseDto.cs" />
     <Compile Include="Models\Dtos\RegisterStoreDto.cs" />
     <Compile Include="Models\Dtos\RegisterWareHouseDto.cs" />
+    <Compile Include="Models\Dtos\ReservationOnlineDto.cs" />
+    <Compile Include="Models\Dtos\ReservationStoreDto.cs" />
     <Compile Include="Models\Library\Autor.cs">
       <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
@@ -366,6 +370,12 @@
       <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\Reservation.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Library\ReservationOnline.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Library\ReservationStore.cs">
       <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Library\ReturnLine.cs">
@@ -505,6 +515,8 @@
     <Compile Include="Repositories\Abstract\IPersonRepository.cs" />
     <Compile Include="Repositories\Abstract\IRegisterStoreRepository.cs" />
     <Compile Include="Repositories\Abstract\IRegisterWareHouseRepository.cs" />
+    <Compile Include="Repositories\Abstract\IReservationOnlineRepository.cs" />
+    <Compile Include="Repositories\Abstract\IReservationStoreRepository.cs" />
     <Compile Include="Repositories\Abstract\ISocieRepository.cs" />
     <Compile Include="Repositories\Abstract\IProviderRepository.cs" />
     <Compile Include="Repositories\Abstract\IPurchaseLineRepositorie.cs" />
@@ -551,6 +563,8 @@
     <Compile Include="Repositories\Concrect\PersonRepository.cs" />
     <Compile Include="Repositories\Concrect\RegisterStoreRepository.cs" />
     <Compile Include="Repositories\Concrect\RegisterWareHouseRepository.cs" />
+    <Compile Include="Repositories\Concrect\ReservationOnlineRepository.cs" />
+    <Compile Include="Repositories\Concrect\ReservationStoreRepository.cs" />
     <Compile Include="Repositories\Concrect\SocieRepository.cs" />
     <Compile Include="Repositories\Concrect\ProviderRepositorie.cs" />
     <Compile Include="Repositories\Concrect\PurchaseLineRepositorie.cs" />
@@ -577,9 +591,15 @@
     <Compile Include="Repositories\Generic\IRepository.cs" />
     <Compile Include="Repositories\Concrect\AutorRepository.cs" />
     <Compile Include="Repositories\Generic\Repository.cs" />
+    <Compile Include="Repositories\Concrect\FileRepository.cs" />
+    <Compile Include="Utilities\Enums\FileType.cs" />
+    <Compile Include="Utilities\Enums\MessageCode.cs" />
+    <Compile Include="Utilities\Enums\MessageType.cs" />
     <Compile Include="Utilities\Enums\OrderStatus.cs" />
     <Compile Include="Utilities\Enums\ShippingStatus.cs" />
     <Compile Include="Utilities\IdGenerator.cs" />
+    <Compile Include="Repositories\Abstract\IFileRepository.cs" />
+    <Compile Include="Utilities\UrlDirectoryFiles.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Models\Login\UserDb.edmx">
@@ -588,13 +608,6 @@
     </EntityDeploy>
     <Content Include="Models\Login\UserDb.edmx.diagram">
       <DependentUpon>UserDb.edmx</DependentUpon>
-    </Content>
-    <EntityDeploy Include="Models\Library\LibraryDb.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>LibraryDb.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Library\LibraryDb.edmx.diagram">
-      <DependentUpon>LibraryDb.edmx</DependentUpon>
     </Content>
     <Content Include="bin\BookStoreApi.dll.config" />
     <Content Include="bin\roslyn\csc.exe.config" />
@@ -607,6 +620,13 @@
     <Content Include="bin\roslyn\vbc.exe.config" />
     <Content Include="bin\roslyn\vbc.rsp" />
     <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
+    <EntityDeploy Include="Models\Library\LibraryDb.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>LibraryDb.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Library\LibraryDb.edmx.diagram">
+      <DependentUpon>LibraryDb.edmx</DependentUpon>
+    </Content>
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

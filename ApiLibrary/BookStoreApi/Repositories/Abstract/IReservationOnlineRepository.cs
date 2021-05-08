@@ -6,11 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookStoreApi.Repositories.Abstract.Files
+namespace BookStoreApi.Repositories.Abstract
 {
-    interface IDocumentFileRepositorie : IRepository<DocumentFile>
+    interface IReservationOnlineRepository : IRepository<ReservationOnline>
     {
-        new dynamic Delete (List <string> ids );
-
     }
 }

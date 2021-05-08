@@ -10,9 +10,6 @@ namespace BookStoreApi.Repositories.Abstract.Files
 {
     interface IImageFileRepositorie : IRepository<ImageFile>
     {
-        dynamic Update(ImageFile imageFile);
-        dynamic RemoveFile(ImageFile image);
-        dynamic Upload();
-        dynamic Download(ImageFile image);
+       new dynamic Delete(List<string> ids);
     }
 }

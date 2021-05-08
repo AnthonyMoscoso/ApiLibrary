@@ -2,9 +2,12 @@
 using BookStoreApi.Models.Library;
 using BookStoreApi.Models.Utilities;
 using BookStoreApi.Repositories.Abstract.Files;
+using BookStoreApi.Utilities;
+using BookStoreApi.Utilities.Enums;
 using LibraryApiRest.Repositories.Concrect;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
@@ -16,91 +19,155 @@ namespace BookStoreApi.Repositories.Concrect.Files
 {
     public class ImageFileRepositorie :Repository <ImageFile,ImageFileDto> ,IImageFileRepositorie
     {
+        readonly FileRepository FileRepository;
         public ImageFileRepositorie(string identificator= "IdImageFile") : base(identificator)
         {
+            FileRepository = new FileRepository();
         }
 
-     
-
-        public dynamic Download(ImageFile imageFile)
+        public new dynamic Delete(List<string> ids)
         {
-            string formato = Path.GetExtension(imageFile.ImageType);
-            string name = Path.GetFileNameWithoutExtension(imageFile.ImageFileName);
-            string directorio = HttpContext.Current.Server.MapPath(@"~/Content/" + imageFile.FileDir + name + formato);
-            var stream = File.OpenRead(HttpContext.Current.Server.MapPath(@"~/Content/Images/image_not_found.jpg"));
-            if (File.Exists(directorio))
+
+            foreach (string id in ids)
             {
-                stream = File.OpenRead(directorio);
-            }
-            var response = new System.Net.Http.HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Content = new System.Net.Http.StreamContent(stream)
-            };
-
-            response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/" + imageFile.ImageType);
-            response.Content.Headers.ContentLength = stream.Length;
-
-            return response;
-        }
-
-
-        public dynamic RemoveFile(ImageFile image)
-        {
-            throw new NotImplementedException();
-        }
-
-        public dynamic Update(ImageFile imageFile)
-        {
-            throw new NotImplementedException();
-        }
-
-        public dynamic Upload()
-        {
-            var httpRequest = HttpContext.Current.Request;
-            var directory = httpRequest["Directory"];
-            var format = httpRequest["Format"];
-            var name = httpRequest["Name"];
-            bool finish = false;
-            string ruta = "";
-            MessageControl message = new MessageControl();
-                foreach (string file in httpRequest.Files)
+                var search = dbSet.Find(id);
+                if (search!=null)
                 {
-                    var postedFile = httpRequest.Files[file];
-
-                    if (postedFile != null && postedFile.ContentLength > 0)
+                    MessageControl message = FileRepository.Delete((int)FileType.Image,search.FileDir,search.ImageFileName,search.ImageType);
+                    if (message.Code == MessageCode.correct)
                     {
+                        messages.Add(message);
+                    }
+                    else
+                    {
+
+                        if (search.Employee.Count>0)
+                        {
+                            Delete_People_ImageFile(search);
+                        }
+
+                        if (search.Book.Count > 0)
+                        {
+                            Delete_Book_ImageFile(search);
+                        }
+
                         try
                         {
-                            string dir = HttpContext.Current.Server.MapPath(@"~/Content/Images/" + directory);
-                            if (!Directory.Exists(dir))
+
+                            dbSet.Remove(search);
+                            Context.SaveChanges();
+                            MessageControl messageControl = new MessageControl()
                             {
-                                DirectoryInfo di = Directory.CreateDirectory(dir);
-                            }
-                             ruta = $"{dir}/{name}.{format}";
-
-                            postedFile.SaveAs(ruta);
-                        finish = true;
+                                Code = MessageCode.correct,
+                                Error = false,
+                                Type = MessageType.Delete,
+                                Note =$"{name} with {Identificator} = {id} was delete with exit"
+                            };
+                            messages.Add(messageControl);
                         }
-                        catch (Exception e)
+                        catch (SqlException e){
+                            MessageControl messageControl = new MessageControl()
+                            {
+                                Code = MessageCode.exception,
+                                Error = true,
+                                Type = MessageType.Exception,
+                                Note = $"{e.InnerException.InnerException.Message}"
+                            };
+                            messages.Add(messageControl);
+                        }
+                        catch(Exception e)
                         {
-                        message.Code = 2;
-                        message.Error = true;
-                        message.Type = "Error";
-                        message.Note = e.Message + e.InnerException;
-                    }
-
+                            MessageControl messageControl = new MessageControl()
+                            {
+                                Code = MessageCode.exception,
+                                Error = true,
+                                Type = MessageType.Exception,
+                                Note = $"{e.InnerException.InnerException.Message}"
+                            };
+                            messages.Add(messageControl);
+                        }
+                      
                     }
                 }
-            
-            if (finish)
-            {
-                message.Code = 1;
-                message.Error = false;
-                message.Type = "Data";
-                message.Note = ruta;
+                else
+                {
+                    MessageControl messageControl = new MessageControl()
+                    {
+                        Code = MessageCode.error,
+                        Error = true,
+                        Type = MessageType.Not_Found,
+                        Note = $"{name} with {Identificator} : {id} not was found"
+                    };
+                    messages.Add(messageControl);
+                }
             }
-       
-            return message;
+
+            return messages;
         }
+
+
+        private void Delete_Book_ImageFile(ImageFile file)
+        {
+            foreach (Book book in file.Book)
+            {
+                var query = $"Delete from BookImageFile where IdBook ='{book.IdBook}';";
+                try
+                {
+                    Context.Database.ExecuteSqlCommand(query);
+                    MessageControl messageControl = new MessageControl()
+                    {
+                        Code = MessageCode.correct,
+                        Error = false,
+                        Type = MessageType.Delete,
+                        Note = $"BookImageFile with IdBook ={book.IdBook} was deleted with exit",
+                    };
+                    messages.Add(messageControl);
+                }
+                catch (DbUpdateException e)
+                {
+                    MessageControl messageControl = new MessageControl()
+                    {
+                        Code = MessageCode.exception,
+                        Error = true,
+                        Type = MessageType.Exception,
+                        Note = $"{e.InnerException.InnerException.Message}"
+                    };
+                    messages.Add(messageControl);
+                }
+            }
+        }
+        private void Delete_People_ImageFile(ImageFile file)
+        {
+            foreach (Employee employee in file.Employee)
+            {
+                var query = $"Delete from EmployeeImageFile where IdEmployee ='{employee.IdPerson}';";
+                try
+                {
+                    Context.Database.ExecuteSqlCommand(query);
+                    MessageControl messageControl = new MessageControl()
+                    {
+                        Code = MessageCode.correct,
+                        Error = false,
+                        Type = MessageType.Delete,
+                        Note = $"EmployeeImageFile with IdEmployee ={employee.IdPerson} was deleted with exit",
+                    };
+                    messages.Add(messageControl);
+                }
+                catch (DbUpdateException e)
+                {
+                    MessageControl messageControl = new MessageControl()
+                    {
+                        Code = MessageCode.exception,
+                        Error = true,
+                        Type = MessageType.Exception,
+                        Note = $"{e.InnerException.InnerException.Message}"
+                    };
+                    messages.Add(messageControl);
+                }
+            }
+        }
+      
+
+
     }
 }

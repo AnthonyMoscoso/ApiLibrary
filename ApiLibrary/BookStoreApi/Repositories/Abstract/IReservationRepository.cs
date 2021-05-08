@@ -13,59 +13,57 @@ namespace BookStoreApi.Repositories.Abstract.Reservations
     {
         #region Count
         double GetCountBook(string idBook);
-        double GetCountBook(string idBook,string idStore);
         #endregion
 
         #region Book
         List<ReservationDto> GetByBook(string idBook);
-        List<Reservation> GetByBook(string idBook,string idStore);
-        List<Reservation> GetByBook(string idBook,int pag,int element);
-        List<Reservation> GetByBook(string idBook, string idStore, int pag, int element);
+        List<ReservationDto> GetByBook(string idBook,int pag,int element);
 
-        #endregion
-
-        #region GetByStore
-        List<Reservation> GetByStore(string idStore);
-        List<Reservation> GetByStore(string idStore,int pag,int element);
-        List<Reservation> GetByStore( string idStore,DateTime date);
-        List<Reservation> GetByStore( string idStore,DateTime date, int pag, int element);
         #endregion
 
         #region Finalized 
-        List<Reservation> GetFinalized();
-        List<Reservation> GetFinalized(int pag,int element);
-        List<Reservation> GetFinalized( string idStore);
-        List<Reservation> GetFinalized(string idStore,int pag, int element);
+        List<ReservationDto> GetFinalized();
+        List<ReservationDto> GetFinalized(int pag,int element);
+        
         #endregion
 
         #region Not Finalized 
-        List<Reservation> GetNotFinalized();
-        List<Reservation> GetNotFinalized(int pag,int element);
-        List<Reservation> GetNotFinalized(string idStore);
-        List<Reservation> GetNotFinalized(string idStore,int pag,int element);
+        List<ReservationDto> GetNotFinalized();
+        List<ReservationDto> GetNotFinalized(int pag,int element);
+       
         #endregion
 
         #region Cancel
-        List<Reservation> GetCancel();
-        List<Reservation> GetCancel(int pag,int element);
-        List<Reservation> GetCancel(string idStore);
-        List<Reservation> GetCancel(string idStore,int pag,int element);
+        List<ReservationDto> GetCancel();
+        List<ReservationDto> GetCancel(int pag,int element);
+        
         #endregion
 
         #region Finalized Date 
-        List<Reservation> GetByFinalizedDate(DateTime date);
-        List<Reservation> GetByFinalizedDate(DateTime date,int pag,int element);
-        List<Reservation> GetByFinalizedDate(DateTime date,string idStore);
-        List<Reservation> GetByFinalizedDate(DateTime date,string idStore, int pag,int element);
+        List<ReservationDto> GetByFinalizedDate(DateTime date);
+        List<ReservationDto> GetByFinalizedDate(DateTime date,int pag,int element);
+        
         #endregion
 
         #region Date
-        List<Reservation> GetByDate(DateTime date);
-        List<Reservation> GetByDate(DateTime date,int pag,int element);
-        List<Reservation> GetByDate(DateTime start,DateTime end);
-        List<Reservation> GetByDate(DateTime start, DateTime end,int pag,int element);
-        List<Reservation> GetByDate(DateTime start, DateTime end,string idStore);
-        List<Reservation> GetByDate(DateTime start, DateTime end, string idStore,int pag,int element);
+        List<ReservationDto> GetByDate(DateTime date);
+        List<ReservationDto> GetByDate(DateTime date,int pag,int element);
+        List<ReservationDto> GetByDate(DateTime start,DateTime end);
+        List<ReservationDto> GetByDate(DateTime start, DateTime end,int pag,int element);
+
+        #endregion
+
+
+        #region Client
+        List<ReservationDto> GetByClient(string idClient);
+        List<ReservationDto> GetByClient(string idClient,int pag, int element);
+        List<ReservationDto> GetByClient(string idClient,DateTime start,DateTime end);
+        List<ReservationDto> GetByClient(string idClient, DateTime start, DateTime end, int pag, int element);
+        #endregion
+
+        #region Count
+        
         #endregion
     }
 }
+

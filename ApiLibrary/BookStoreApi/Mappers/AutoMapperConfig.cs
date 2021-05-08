@@ -103,6 +103,15 @@ namespace Mappers.Models
 
                cfg.CreateMap<Reservation, ReservationDto>().ReverseMap();
 
+               cfg.CreateMap<Reservation, ReservationOnlineDto>().ReverseMap();
+               cfg.CreateMap<Reservation, ReservationStoreDto>().ReverseMap();
+
+               cfg.CreateMap<ReservationStore, ReservationStoreDto>()
+               .IncludeMembers(r=>r.Reservation).ReverseMap();
+
+               cfg.CreateMap<ReservationOnline, ReservationOnlineDto>()
+               .IncludeMembers(r => r.Reservation).ReverseMap();
+
                cfg.CreateMap<ReturnLine, ReturnLineDto>().ReverseMap();
 
                cfg.CreateMap<ReturnSale, ReturnSaleDto>().ReverseMap();

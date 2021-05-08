@@ -23,7 +23,6 @@ namespace BookStoreApi.Controllers.Library.Files
         }
 
         [HttpGet]
-        [Route("Pag")]
         public IHttpActionResult Get(int element, int pag)
         {
             return Ok(_repository.Get(element, pag));

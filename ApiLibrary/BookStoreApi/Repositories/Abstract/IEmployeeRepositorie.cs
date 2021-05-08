@@ -47,5 +47,8 @@ namespace BookStoreApi.Repositories.Abstract.Persons
         dynamic Fired(EmployeeWorkPlace employeeWorkPlace);
         dynamic Insert(List<EmployeeDto> list);
         dynamic Update(List<EmployeeDto> list);
+
+        dynamic Remove_Employee_ImageFile(string idEmployee,string idImageFile);
+        dynamic Set_Employee_ImageFile(string idEmployee,string idImageFile);
     }
 }

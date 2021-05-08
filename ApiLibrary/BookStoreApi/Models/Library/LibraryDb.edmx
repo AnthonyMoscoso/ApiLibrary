@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="BookStoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="BookStoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Autor">
           <Key>
             <PropertyRef Name="IdAutor" />
@@ -291,18 +291,17 @@
         </EntityType>
         <EntityType Name="OnlineSale">
           <Key>
-            <PropertyRef Name="IdOnlineSale" />
+            <PropertyRef Name="IdSale" />
           </Key>
-          <Property Name="IdOnlineSale" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="IdSale" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="ShippingPrice" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="OnlineSaleShipping">
           <Key>
-            <PropertyRef Name="IdOnlineSale" />
             <PropertyRef Name="IdShipping" />
           </Key>
-          <Property Name="IdOnlineSale" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="IdShipping" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="IdOnlineSale" Type="varchar" MaxLength="40" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderLine">
           <Key>
@@ -566,8 +565,6 @@
             <PropertyRef Name="IdReservation" />
           </Key>
           <Property Name="IdReservation" Type="varchar" MaxLength="40" Nullable="false" />
-          <Property Name="IdStore" Type="varchar" MaxLength="40" Nullable="false" />
-          <Property Name="IdEmployee" Type="varchar" MaxLength="40" />
           <Property Name="IdBuyer" Type="varchar" MaxLength="40" />
           <Property Name="ReservationStatus" Type="int" Nullable="false" />
           <Property Name="FinishReservationDate" Type="datetime" />
@@ -579,12 +576,29 @@
           <Property Name="Quantity" Type="int" Nullable="false" />
           <Property Name="BookReservationPrice" Type="float" Nullable="false" />
         </EntityType>
+        <EntityType Name="ReservationOnline">
+          <Key>
+            <PropertyRef Name="IdReservation" />
+          </Key>
+          <Property Name="IdReservation" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="IdWareHouse" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="IdOnlineSale" Type="varchar" MaxLength="40" />
+        </EntityType>
         <EntityType Name="ReservationSale">
           <Key>
             <PropertyRef Name="IdReservation" />
           </Key>
           <Property Name="IdReservation" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="IdSale" Type="varchar" MaxLength="40" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReservationStore">
+          <Key>
+            <PropertyRef Name="IdReservation" />
+          </Key>
+          <Property Name="IdReservation" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="IdStore" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="IdEmployee" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="IdStoreSale" Type="varchar" MaxLength="40" />
         </EntityType>
         <EntityType Name="ReturnLine">
           <Key>
@@ -1211,25 +1225,25 @@
               <PropertyRef Name="IdSale" />
             </Principal>
             <Dependent Role="OnlineSale">
-              <PropertyRef Name="IdOnlineSale" />
+              <PropertyRef Name="IdSale" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Fk_OnlineSaleShipping_IdOnlineSale">
+        <Association Name="Fk_OnlineSaleShipping_OnlineSale">
           <End Role="OnlineSale" Type="Self.OnlineSale" Multiplicity="1" />
           <End Role="OnlineSaleShipping" Type="Self.OnlineSaleShipping" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="OnlineSale">
-              <PropertyRef Name="IdOnlineSale" />
+              <PropertyRef Name="IdSale" />
             </Principal>
             <Dependent Role="OnlineSaleShipping">
               <PropertyRef Name="IdOnlineSale" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Fk_OnlineSaleShipping_IdShipping">
+        <Association Name="Fk_OnlineSaleShipping_Shipping">
           <End Role="Shipping" Type="Self.Shipping" Multiplicity="1" />
-          <End Role="OnlineSaleShipping" Type="Self.OnlineSaleShipping" Multiplicity="*" />
+          <End Role="OnlineSaleShipping" Type="Self.OnlineSaleShipping" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Shipping">
               <PropertyRef Name="IdShipping" />
@@ -1719,27 +1733,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Fk_Reservation_IdEmployee">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
-          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+        <Association Name="Fk_ReservationOnline_OnlineSale">
+          <End Role="OnlineSale" Type="Self.OnlineSale" Multiplicity="0..1" />
+          <End Role="ReservationOnline" Type="Self.ReservationOnline" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="IdPerson" />
+            <Principal Role="OnlineSale">
+              <PropertyRef Name="IdSale" />
             </Principal>
-            <Dependent Role="Reservation">
-              <PropertyRef Name="IdEmployee" />
+            <Dependent Role="ReservationOnline">
+              <PropertyRef Name="IdOnlineSale" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Fk_Reservation_IdStore">
-          <End Role="Store" Type="Self.Store" Multiplicity="1" />
-          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+        <Association Name="Fk_ReservationOnline_Reservation">
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="1" />
+          <End Role="ReservationOnline" Type="Self.ReservationOnline" Multiplicity="0..1" />
           <ReferentialConstraint>
-            <Principal Role="Store">
-              <PropertyRef Name="IdStore" />
+            <Principal Role="Reservation">
+              <PropertyRef Name="IdReservation" />
             </Principal>
-            <Dependent Role="Reservation">
-              <PropertyRef Name="IdStore" />
+            <Dependent Role="ReservationOnline">
+              <PropertyRef Name="IdReservation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReservationOnline_WareHouse">
+          <End Role="WareHouse" Type="Self.WareHouse" Multiplicity="1" />
+          <End Role="ReservationOnline" Type="Self.ReservationOnline" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WareHouse">
+              <PropertyRef Name="IdWareHouse" />
+            </Principal>
+            <Dependent Role="ReservationOnline">
+              <PropertyRef Name="IdWareHouse" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1764,6 +1790,54 @@
             </Principal>
             <Dependent Role="ReservationSale">
               <PropertyRef Name="IdSale" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_ReservationStore_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="ReservationStore" Type="Self.ReservationStore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="IdPerson" />
+            </Principal>
+            <Dependent Role="ReservationStore">
+              <PropertyRef Name="IdEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_ReservationStore_Reservation">
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="1" />
+          <End Role="ReservationStore" Type="Self.ReservationStore" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Reservation">
+              <PropertyRef Name="IdReservation" />
+            </Principal>
+            <Dependent Role="ReservationStore">
+              <PropertyRef Name="IdReservation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_ReservationStore_Store">
+          <End Role="Store" Type="Self.Store" Multiplicity="1" />
+          <End Role="ReservationStore" Type="Self.ReservationStore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Store">
+              <PropertyRef Name="IdStore" />
+            </Principal>
+            <Dependent Role="ReservationStore">
+              <PropertyRef Name="IdStore" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_ReservationStore_StoreSale">
+          <End Role="StoreSale" Type="Self.StoreSale" Multiplicity="0..1" />
+          <End Role="ReservationStore" Type="Self.ReservationStore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StoreSale">
+              <PropertyRef Name="IdSale" />
+            </Principal>
+            <Dependent Role="ReservationStore">
+              <PropertyRef Name="IdStoreSale" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2192,7 +2266,9 @@
           <EntitySet Name="RegisterStore" EntityType="Self.RegisterStore" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RegisterWareHouse" EntityType="Self.RegisterWareHouse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reservation" EntityType="Self.Reservation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReservationOnline" EntityType="Self.ReservationOnline" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReservationSale" EntityType="Self.ReservationSale" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReservationStore" EntityType="Self.ReservationStore" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReturnLine" EntityType="Self.ReturnLine" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReturnSale" EntityType="Self.ReturnSale" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReturnStore" EntityType="Self.ReturnStore" Schema="dbo" store:Type="Tables" />
@@ -2338,11 +2414,11 @@
             <End Role="Sale" EntitySet="Sale" />
             <End Role="OnlineSale" EntitySet="OnlineSale" />
           </AssociationSet>
-          <AssociationSet Name="Fk_OnlineSaleShipping_IdOnlineSale" Association="Self.Fk_OnlineSaleShipping_IdOnlineSale">
+          <AssociationSet Name="Fk_OnlineSaleShipping_OnlineSale" Association="Self.Fk_OnlineSaleShipping_OnlineSale">
             <End Role="OnlineSale" EntitySet="OnlineSale" />
             <End Role="OnlineSaleShipping" EntitySet="OnlineSaleShipping" />
           </AssociationSet>
-          <AssociationSet Name="Fk_OnlineSaleShipping_IdShipping" Association="Self.Fk_OnlineSaleShipping_IdShipping">
+          <AssociationSet Name="Fk_OnlineSaleShipping_Shipping" Association="Self.Fk_OnlineSaleShipping_Shipping">
             <End Role="Shipping" EntitySet="Shipping" />
             <End Role="OnlineSaleShipping" EntitySet="OnlineSaleShipping" />
           </AssociationSet>
@@ -2506,13 +2582,17 @@
             <End Role="Person" EntitySet="Person" />
             <End Role="Reservation" EntitySet="Reservation" />
           </AssociationSet>
-          <AssociationSet Name="Fk_Reservation_IdEmployee" Association="Self.Fk_Reservation_IdEmployee">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="Reservation" EntitySet="Reservation" />
+          <AssociationSet Name="Fk_ReservationOnline_OnlineSale" Association="Self.Fk_ReservationOnline_OnlineSale">
+            <End Role="OnlineSale" EntitySet="OnlineSale" />
+            <End Role="ReservationOnline" EntitySet="ReservationOnline" />
           </AssociationSet>
-          <AssociationSet Name="Fk_Reservation_IdStore" Association="Self.Fk_Reservation_IdStore">
-            <End Role="Store" EntitySet="Store" />
+          <AssociationSet Name="Fk_ReservationOnline_Reservation" Association="Self.Fk_ReservationOnline_Reservation">
             <End Role="Reservation" EntitySet="Reservation" />
+            <End Role="ReservationOnline" EntitySet="ReservationOnline" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReservationOnline_WareHouse" Association="Self.FK_ReservationOnline_WareHouse">
+            <End Role="WareHouse" EntitySet="WareHouse" />
+            <End Role="ReservationOnline" EntitySet="ReservationOnline" />
           </AssociationSet>
           <AssociationSet Name="Fk_ReservationSale_IdReservation" Association="Self.Fk_ReservationSale_IdReservation">
             <End Role="Reservation" EntitySet="Reservation" />
@@ -2521,6 +2601,22 @@
           <AssociationSet Name="Fk_ReservationSale_IdSale" Association="Self.Fk_ReservationSale_IdSale">
             <End Role="Sale" EntitySet="Sale" />
             <End Role="ReservationSale" EntitySet="ReservationSale" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_ReservationStore_Employee" Association="Self.Fk_ReservationStore_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="ReservationStore" EntitySet="ReservationStore" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_ReservationStore_Reservation" Association="Self.Fk_ReservationStore_Reservation">
+            <End Role="Reservation" EntitySet="Reservation" />
+            <End Role="ReservationStore" EntitySet="ReservationStore" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_ReservationStore_Store" Association="Self.Fk_ReservationStore_Store">
+            <End Role="Store" EntitySet="Store" />
+            <End Role="ReservationStore" EntitySet="ReservationStore" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_ReservationStore_StoreSale" Association="Self.Fk_ReservationStore_StoreSale">
+            <End Role="StoreSale" EntitySet="StoreSale" />
+            <End Role="ReservationStore" EntitySet="ReservationStore" />
           </AssociationSet>
           <AssociationSet Name="Fk_ReturnLine_IdBook" Association="Self.Fk_ReturnLine_IdBook">
             <End Role="Book" EntitySet="Book" />
@@ -2647,7 +2743,8 @@
             <End Role="WareHouseBook" EntitySet="WareHouseBook" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BookStoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -2888,14 +2985,14 @@
           <NavigationProperty Name="Purchase" Relationship="Self.Fk_Purchase_IdEmployee" FromRole="Employee" ToRole="Purchase" />
           <NavigationProperty Name="Reception" Relationship="Self.Fk_Reception_IdEmployee" FromRole="Employee" ToRole="Reception" />
           <NavigationProperty Name="RegisterLine" Relationship="Self.Fk_RegisterLine_IdEmployee" FromRole="Employee" ToRole="RegisterLine" />
-          <NavigationProperty Name="Reservation" Relationship="Self.Fk_Reservation_IdEmployee" FromRole="Employee" ToRole="Reservation" />
+          <NavigationProperty Name="ReservationStore" Relationship="Self.Fk_ReservationStore_Employee" FromRole="Employee" ToRole="ReservationStore" />
+          <NavigationProperty Name="Schedule" Relationship="Self.Fk_Schedule_IdEmployee" FromRole="Employee" ToRole="Schedule" />
           <NavigationProperty Name="SickLeave" Relationship="Self.Fk_SickLeave_IdEmployee" FromRole="Employee" ToRole="SickLeave" />
           <NavigationProperty Name="StoreSale" Relationship="Self.Fk_StoreSale_IdSeller" FromRole="Employee" ToRole="StoreSale" />
           <NavigationProperty Name="ImageFile" Relationship="Self.EmployeeImageFile" FromRole="Employee" ToRole="ImageFile" />
           <NavigationProperty Name="Rol" Relationship="Self.EmployeeRol" FromRole="Employee" ToRole="Rol" />
           <NavigationProperty Name="Store" Relationship="Self.EmployeeStore" FromRole="Employee" ToRole="Store" />
           <NavigationProperty Name="WareHouse" Relationship="Self.EmployeeWareHouse" FromRole="Employee" ToRole="WareHouse" />
-          <NavigationProperty Name="Schedule" Relationship="BookStoreModel.Fk_Schedule_IdEmployee" FromRole="Employee" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="Gender">
           <Key>
@@ -2943,11 +3040,12 @@
         </EntityType>
         <EntityType Name="OnlineSale">
           <Key>
-            <PropertyRef Name="IdOnlineSale" />
+            <PropertyRef Name="IdSale" />
           </Key>
-          <Property Name="IdOnlineSale" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdSale" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ShippingPrice" Type="Double" Nullable="false" />
           <NavigationProperty Name="Sale" Relationship="Self.Fk_OnlineSale_Sale" FromRole="OnlineSale" ToRole="Sale" />
+          <NavigationProperty Name="ReservationOnline" Relationship="Self.Fk_ReservationOnline_OnlineSale" FromRole="OnlineSale" ToRole="ReservationOnline" />
           <NavigationProperty Name="Shipping" Relationship="Self.OnlineSaleShipping" FromRole="OnlineSale" ToRole="Shipping" />
         </EntityType>
         <EntityType Name="OrderLine">
@@ -3170,17 +3268,15 @@
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="StatusCode" Type="Int32" Nullable="false" />
+          <Property Name="ExitHour" Type="Time" Precision="7" />
           <NavigationProperty Name="Employee" Relationship="Self.Fk_RegisterLine_IdEmployee" FromRole="RegisterLine" ToRole="Employee" />
           <NavigationProperty Name="Register" Relationship="Self.Fk_RegisterLine_IdRegister" FromRole="RegisterLine" ToRole="Register" />
-          <Property Name="ExitHour" Type="Time" Precision="7" />
         </EntityType>
         <EntityType Name="Reservation">
           <Key>
             <PropertyRef Name="IdReservation" />
           </Key>
           <Property Name="IdReservation" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="IdStore" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="IdEmployee" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="IdBuyer" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="ReservationStatus" Type="Int32" Nullable="false" />
           <Property Name="FinishReservationDate" Type="DateTime" Precision="3" />
@@ -3192,10 +3288,34 @@
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="BookReservationPrice" Type="Double" Nullable="false" />
           <NavigationProperty Name="Book" Relationship="Self.Fk_Reservation_IdBook" FromRole="Reservation" ToRole="Book" />
-          <NavigationProperty Name="Employee" Relationship="Self.Fk_Reservation_IdEmployee" FromRole="Reservation" ToRole="Employee" />
           <NavigationProperty Name="Person" Relationship="Self.Fk_Reservation_IdBuyer" FromRole="Reservation" ToRole="Person" />
-          <NavigationProperty Name="Store" Relationship="Self.Fk_Reservation_IdStore" FromRole="Reservation" ToRole="Store" />
+          <NavigationProperty Name="ReservationOnline" Relationship="Self.Fk_ReservationOnline_Reservation" FromRole="Reservation" ToRole="ReservationOnline" />
+          <NavigationProperty Name="ReservationStore" Relationship="Self.Fk_ReservationStore_Reservation" FromRole="Reservation" ToRole="ReservationStore" />
           <NavigationProperty Name="Sale" Relationship="Self.ReservationSale" FromRole="Reservation" ToRole="Sale" />
+        </EntityType>
+        <EntityType Name="ReservationOnline">
+          <Key>
+            <PropertyRef Name="IdReservation" />
+          </Key>
+          <Property Name="IdReservation" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdWareHouse" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdOnlineSale" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="OnlineSale" Relationship="Self.Fk_ReservationOnline_OnlineSale" FromRole="ReservationOnline" ToRole="OnlineSale" />
+          <NavigationProperty Name="Reservation" Relationship="Self.Fk_ReservationOnline_Reservation" FromRole="ReservationOnline" ToRole="Reservation" />
+          <NavigationProperty Name="WareHouse" Relationship="Self.FK_ReservationOnline_WareHouse" FromRole="ReservationOnline" ToRole="WareHouse" />
+        </EntityType>
+        <EntityType Name="ReservationStore">
+          <Key>
+            <PropertyRef Name="IdReservation" />
+          </Key>
+          <Property Name="IdReservation" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdStore" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdEmployee" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdStoreSale" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.Fk_ReservationStore_Employee" FromRole="ReservationStore" ToRole="Employee" />
+          <NavigationProperty Name="Reservation" Relationship="Self.Fk_ReservationStore_Reservation" FromRole="ReservationStore" ToRole="Reservation" />
+          <NavigationProperty Name="Store" Relationship="Self.Fk_ReservationStore_Store" FromRole="ReservationStore" ToRole="Store" />
+          <NavigationProperty Name="StoreSale" Relationship="Self.Fk_ReservationStore_StoreSale" FromRole="ReservationStore" ToRole="StoreSale" />
         </EntityType>
         <EntityType Name="ReturnLine">
           <Key>
@@ -3285,6 +3405,19 @@
           <NavigationProperty Name="Book" Relationship="Self.Fk_SaleLine_IdBook" FromRole="SaleLine" ToRole="Book" />
           <NavigationProperty Name="Sale" Relationship="Self.Fk_SaleLine_IdSale" FromRole="SaleLine" ToRole="Sale" />
         </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="IdSchedule" />
+          </Key>
+          <Property Name="IdSchedule" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="YearValue" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StatusCode" Type="Int32" Nullable="false" />
+          <Property Name="IdEmployee" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.Fk_Schedule_IdEmployee" FromRole="Schedule" ToRole="Employee" />
+          <NavigationProperty Name="ScheduleLine" Relationship="Self.Fk_ScheduleLine_IdSchedule" FromRole="Schedule" ToRole="ScheduleLine" />
+        </EntityType>
         <EntityType Name="ScheduleLine">
           <Key>
             <PropertyRef Name="IdScheduleLine" />
@@ -3301,7 +3434,7 @@
           <Property Name="StatusCode" Type="Int32" Nullable="false" />
           <Property Name="MonthDay" Type="Int32" Nullable="false" />
           <Property Name="IsFree" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Schedule" Relationship="BookStoreModel.Fk_ScheduleLine_IdSchedule" FromRole="ScheduleLine" ToRole="Schedule" />
+          <NavigationProperty Name="Schedule" Relationship="Self.Fk_ScheduleLine_IdSchedule" FromRole="ScheduleLine" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="Shipping">
           <Key>
@@ -3389,7 +3522,7 @@
           <NavigationProperty Name="Direction" Relationship="Self.Fk_Store_IdDirection" FromRole="Store" ToRole="Direction" />
           <NavigationProperty Name="Orders" Relationship="Self.Fk_Order_IdStore" FromRole="Store" ToRole="Orders" />
           <NavigationProperty Name="Reception" Relationship="Self.Fk_Reception_IdStore" FromRole="Store" ToRole="Reception" />
-          <NavigationProperty Name="Reservation" Relationship="Self.Fk_Reservation_IdStore" FromRole="Store" ToRole="Reservation" />
+          <NavigationProperty Name="ReservationStore" Relationship="Self.Fk_ReservationStore_Store" FromRole="Store" ToRole="ReservationStore" />
           <NavigationProperty Name="StoreSale" Relationship="Self.Fk_StoreSale_IdStore" FromRole="Store" ToRole="StoreSale" />
           <NavigationProperty Name="Employee" Relationship="Self.EmployeeStore" FromRole="Store" ToRole="Employee" />
           <NavigationProperty Name="PayRoll" Relationship="Self.PayRollStore" FromRole="Store" ToRole="PayRoll" />
@@ -3405,6 +3538,7 @@
           <Property Name="IdSale" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IdSeller" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Employee" Relationship="Self.Fk_StoreSale_IdSeller" FromRole="StoreSale" ToRole="Employee" />
+          <NavigationProperty Name="ReservationStore" Relationship="Self.Fk_ReservationStore_StoreSale" FromRole="StoreSale" ToRole="ReservationStore" />
           <NavigationProperty Name="Sale" Relationship="Self.Fk_StoreSale_IdSale" FromRole="StoreSale" ToRole="Sale" />
           <NavigationProperty Name="Store" Relationship="Self.Fk_StoreSale_IdStore" FromRole="StoreSale" ToRole="Store" />
         </EntityType>
@@ -3449,6 +3583,7 @@
           <Property Name="StatusCode" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Direction" Relationship="Self.Fk_WareHouse_IdDirection" FromRole="WareHouse" ToRole="Direction" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_IdWareHouse" FromRole="WareHouse" ToRole="Orders" />
+          <NavigationProperty Name="ReservationOnline" Relationship="Self.FK_ReservationOnline_WareHouse" FromRole="WareHouse" ToRole="ReservationOnline" />
           <NavigationProperty Name="Shipping" Relationship="Self.Fk_Shipping_IdWareHouse" FromRole="WareHouse" ToRole="Shipping" />
           <NavigationProperty Name="WareHouseBook" Relationship="Self.Fk_WareHouseBook_IdWareHouse" FromRole="WareHouse" ToRole="WareHouseBook" />
           <NavigationProperty Name="Employee" Relationship="Self.EmployeeWareHouse" FromRole="WareHouse" ToRole="Employee" />
@@ -3875,14 +4010,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Fk_Reservation_IdEmployee">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
-          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+        <Association Name="Fk_ReservationStore_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="ReservationStore" Type="Self.ReservationStore" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
               <PropertyRef Name="IdPerson" />
             </Principal>
-            <Dependent Role="Reservation">
+            <Dependent Role="ReservationStore">
+              <PropertyRef Name="IdEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_Schedule_IdEmployee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="IdPerson" />
+            </Principal>
+            <Dependent Role="Schedule">
               <PropertyRef Name="IdEmployee" />
             </Dependent>
           </ReferentialConstraint>
@@ -3919,6 +4066,18 @@
               <PropertyRef Name="IdSale" />
             </Principal>
             <Dependent Role="OnlineSale">
+              <PropertyRef Name="IdSale" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_ReservationOnline_OnlineSale">
+          <End Role="OnlineSale" Type="Self.OnlineSale" Multiplicity="0..1" />
+          <End Role="ReservationOnline" Type="Self.ReservationOnline" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OnlineSale">
+              <PropertyRef Name="IdSale" />
+            </Principal>
+            <Dependent Role="ReservationOnline">
               <PropertyRef Name="IdOnlineSale" />
             </Dependent>
           </ReferentialConstraint>
@@ -4055,15 +4214,63 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Fk_Reservation_IdStore">
+        <Association Name="Fk_ReservationOnline_Reservation">
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="1" />
+          <End Role="ReservationOnline" Type="Self.ReservationOnline" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Reservation">
+              <PropertyRef Name="IdReservation" />
+            </Principal>
+            <Dependent Role="ReservationOnline">
+              <PropertyRef Name="IdReservation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_ReservationStore_Reservation">
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="1" />
+          <End Role="ReservationStore" Type="Self.ReservationStore" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Reservation">
+              <PropertyRef Name="IdReservation" />
+            </Principal>
+            <Dependent Role="ReservationStore">
+              <PropertyRef Name="IdReservation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReservationOnline_WareHouse">
+          <End Role="WareHouse" Type="Self.WareHouse" Multiplicity="1" />
+          <End Role="ReservationOnline" Type="Self.ReservationOnline" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WareHouse">
+              <PropertyRef Name="IdWareHouse" />
+            </Principal>
+            <Dependent Role="ReservationOnline">
+              <PropertyRef Name="IdWareHouse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_ReservationStore_Store">
           <End Role="Store" Type="Self.Store" Multiplicity="1" />
-          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+          <End Role="ReservationStore" Type="Self.ReservationStore" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Store">
               <PropertyRef Name="IdStore" />
             </Principal>
-            <Dependent Role="Reservation">
+            <Dependent Role="ReservationStore">
               <PropertyRef Name="IdStore" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_ReservationStore_StoreSale">
+          <End Role="StoreSale" Type="Self.StoreSale" Multiplicity="0..1" />
+          <End Role="ReservationStore" Type="Self.ReservationStore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StoreSale">
+              <PropertyRef Name="IdSale" />
+            </Principal>
+            <Dependent Role="ReservationStore">
+              <PropertyRef Name="IdStoreSale" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4112,6 +4319,18 @@
             </Principal>
             <Dependent Role="StoreSale">
               <PropertyRef Name="IdSale" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_ScheduleLine_IdSchedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+          <End Role="ScheduleLine" Type="Self.ScheduleLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="IdSchedule" />
+            </Principal>
+            <Dependent Role="ScheduleLine">
+              <PropertyRef Name="IdSchedule" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4196,7 +4415,7 @@
           <End Role="WareHouse" Type="Self.WareHouse" Multiplicity="0..1" />
         </Association>
         <Association Name="OnlineSaleShipping">
-          <End Role="OnlineSale" Type="Self.OnlineSale" Multiplicity="*" />
+          <End Role="OnlineSale" Type="Self.OnlineSale" Multiplicity="0..1" />
           <End Role="Shipping" Type="Self.Shipping" Multiplicity="*" />
         </Association>
         <Association Name="PaymentBonusOccupation">
@@ -4293,11 +4512,14 @@
           <EntitySet Name="Register" EntityType="Self.Register" />
           <EntitySet Name="RegisterLine" EntityType="Self.RegisterLine" />
           <EntitySet Name="Reservation" EntityType="Self.Reservation" />
+          <EntitySet Name="ReservationOnline" EntityType="Self.ReservationOnline" />
+          <EntitySet Name="ReservationStore" EntityType="Self.ReservationStore" />
           <EntitySet Name="ReturnLine" EntityType="Self.ReturnLine" />
           <EntitySet Name="ReturnSale" EntityType="Self.ReturnSale" />
           <EntitySet Name="Rol" EntityType="Self.Rol" />
           <EntitySet Name="Sale" EntityType="Self.Sale" />
           <EntitySet Name="SaleLine" EntityType="Self.SaleLine" />
+          <EntitySet Name="Schedule" EntityType="Self.Schedule" />
           <EntitySet Name="ScheduleLine" EntityType="Self.ScheduleLine" />
           <EntitySet Name="Shipping" EntityType="Self.Shipping" />
           <EntitySet Name="ShippingLine" EntityType="Self.ShippingLine" />
@@ -4445,9 +4667,13 @@
             <End Role="Employee" EntitySet="Employee" />
             <End Role="RegisterLine" EntitySet="RegisterLine" />
           </AssociationSet>
-          <AssociationSet Name="Fk_Reservation_IdEmployee" Association="Self.Fk_Reservation_IdEmployee">
+          <AssociationSet Name="Fk_ReservationStore_Employee" Association="Self.Fk_ReservationStore_Employee">
             <End Role="Employee" EntitySet="Employee" />
-            <End Role="Reservation" EntitySet="Reservation" />
+            <End Role="ReservationStore" EntitySet="ReservationStore" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_Schedule_IdEmployee" Association="Self.Fk_Schedule_IdEmployee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Schedule" EntitySet="Schedule" />
           </AssociationSet>
           <AssociationSet Name="Fk_SickLeave_IdEmployee" Association="Self.Fk_SickLeave_IdEmployee">
             <End Role="Employee" EntitySet="Employee" />
@@ -4460,6 +4686,10 @@
           <AssociationSet Name="Fk_OnlineSale_Sale" Association="Self.Fk_OnlineSale_Sale">
             <End Role="Sale" EntitySet="Sale" />
             <End Role="OnlineSale" EntitySet="OnlineSale" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_ReservationOnline_OnlineSale" Association="Self.Fk_ReservationOnline_OnlineSale">
+            <End Role="OnlineSale" EntitySet="OnlineSale" />
+            <End Role="ReservationOnline" EntitySet="ReservationOnline" />
           </AssociationSet>
           <AssociationSet Name="Fk_OrderLine_IdOrder" Association="Self.Fk_OrderLine_IdOrder">
             <End Role="Orders" EntitySet="Orders" />
@@ -4505,9 +4735,25 @@
             <End Role="Register" EntitySet="Register" />
             <End Role="RegisterLine" EntitySet="RegisterLine" />
           </AssociationSet>
-          <AssociationSet Name="Fk_Reservation_IdStore" Association="Self.Fk_Reservation_IdStore">
-            <End Role="Store" EntitySet="Store" />
+          <AssociationSet Name="Fk_ReservationOnline_Reservation" Association="Self.Fk_ReservationOnline_Reservation">
             <End Role="Reservation" EntitySet="Reservation" />
+            <End Role="ReservationOnline" EntitySet="ReservationOnline" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_ReservationStore_Reservation" Association="Self.Fk_ReservationStore_Reservation">
+            <End Role="Reservation" EntitySet="Reservation" />
+            <End Role="ReservationStore" EntitySet="ReservationStore" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReservationOnline_WareHouse" Association="Self.FK_ReservationOnline_WareHouse">
+            <End Role="WareHouse" EntitySet="WareHouse" />
+            <End Role="ReservationOnline" EntitySet="ReservationOnline" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_ReservationStore_Store" Association="Self.Fk_ReservationStore_Store">
+            <End Role="Store" EntitySet="Store" />
+            <End Role="ReservationStore" EntitySet="ReservationStore" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_ReservationStore_StoreSale" Association="Self.Fk_ReservationStore_StoreSale">
+            <End Role="StoreSale" EntitySet="StoreSale" />
+            <End Role="ReservationStore" EntitySet="ReservationStore" />
           </AssociationSet>
           <AssociationSet Name="Fk_ReturnLine_IdReturn" Association="Self.Fk_ReturnLine_IdReturn">
             <End Role="ReturnSale" EntitySet="ReturnSale" />
@@ -4524,6 +4770,10 @@
           <AssociationSet Name="Fk_StoreSale_IdSale" Association="Self.Fk_StoreSale_IdSale">
             <End Role="Sale" EntitySet="Sale" />
             <End Role="StoreSale" EntitySet="StoreSale" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_ScheduleLine_IdSchedule" Association="Self.Fk_ScheduleLine_IdSchedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="ScheduleLine" EntitySet="ScheduleLine" />
           </AssociationSet>
           <AssociationSet Name="Fk_Shipping_IdWareHouse" Association="Self.Fk_Shipping_IdWareHouse">
             <End Role="WareHouse" EntitySet="WareHouse" />
@@ -4637,53 +4887,7 @@
             <End Role="Coupon" EntitySet="Coupon" />
             <End Role="Sale" EntitySet="Sale" />
           </AssociationSet>
-          <EntitySet Name="Schedule" EntityType="BookStoreModel.Schedule" />
-          <AssociationSet Name="Fk_Schedule_IdEmployee" Association="BookStoreModel.Fk_Schedule_IdEmployee">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="Schedule" EntitySet="Schedule" />
-          </AssociationSet>
-          <AssociationSet Name="Fk_ScheduleLine_IdSchedule" Association="BookStoreModel.Fk_ScheduleLine_IdSchedule">
-            <End Role="Schedule" EntitySet="Schedule" />
-            <End Role="ScheduleLine" EntitySet="ScheduleLine" />
-          </AssociationSet>
-          </EntityContainer>
-        <EntityType Name="Schedule">
-          <Key>
-            <PropertyRef Name="IdSchedule" />
-          </Key>
-          <Property Name="IdSchedule" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Name="YearValue" Type="Int32" Nullable="false" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="StatusCode" Type="Int32" Nullable="false" />
-          <Property Name="IdEmployee" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Employee" Relationship="BookStoreModel.Fk_Schedule_IdEmployee" FromRole="Schedule" ToRole="Employee" />
-          <NavigationProperty Name="ScheduleLine" Relationship="BookStoreModel.Fk_ScheduleLine_IdSchedule" FromRole="Schedule" ToRole="ScheduleLine" />
-        </EntityType>
-        <Association Name="Fk_Schedule_IdEmployee">
-          <End Type="BookStoreModel.Employee" Role="Employee" Multiplicity="1" />
-          <End Type="BookStoreModel.Schedule" Role="Schedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="IdPerson" />
-            </Principal>
-            <Dependent Role="Schedule">
-              <PropertyRef Name="IdEmployee" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="Fk_ScheduleLine_IdSchedule">
-          <End Type="BookStoreModel.Schedule" Role="Schedule" Multiplicity="1" />
-          <End Type="BookStoreModel.ScheduleLine" Role="ScheduleLine" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Schedule">
-              <PropertyRef Name="IdSchedule" />
-            </Principal>
-            <Dependent Role="ScheduleLine">
-              <PropertyRef Name="IdSchedule" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4935,7 +5139,7 @@
           <EntitySetMapping Name="OnlineSale">
             <EntityTypeMapping TypeName="BookStoreModel.OnlineSale">
               <MappingFragment StoreEntitySet="OnlineSale">
-                <ScalarProperty Name="IdOnlineSale" ColumnName="IdOnlineSale" />
+                <ScalarProperty Name="IdSale" ColumnName="IdSale" />
                 <ScalarProperty Name="ShippingPrice" ColumnName="ShippingPrice" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -5125,7 +5329,6 @@
           <EntitySetMapping Name="RegisterLine">
             <EntityTypeMapping TypeName="BookStoreModel.RegisterLine">
               <MappingFragment StoreEntitySet="RegisterLine">
-                <ScalarProperty Name="ExitHour" ColumnName="ExitHour" />
                 <ScalarProperty Name="IdRegisterLine" ColumnName="IdRegisterLine" />
                 <ScalarProperty Name="IdRegister" ColumnName="IdRegister" />
                 <ScalarProperty Name="IdEmployee" ColumnName="IdEmployee" />
@@ -5133,6 +5336,7 @@
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
                 <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
+                <ScalarProperty Name="ExitHour" ColumnName="ExitHour" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5140,8 +5344,6 @@
             <EntityTypeMapping TypeName="BookStoreModel.Reservation">
               <MappingFragment StoreEntitySet="Reservation">
                 <ScalarProperty Name="IdReservation" ColumnName="IdReservation" />
-                <ScalarProperty Name="IdStore" ColumnName="IdStore" />
-                <ScalarProperty Name="IdEmployee" ColumnName="IdEmployee" />
                 <ScalarProperty Name="IdBuyer" ColumnName="IdBuyer" />
                 <ScalarProperty Name="ReservationStatus" ColumnName="ReservationStatus" />
                 <ScalarProperty Name="FinishReservationDate" ColumnName="FinishReservationDate" />
@@ -5152,6 +5354,25 @@
                 <ScalarProperty Name="IdBook" ColumnName="IdBook" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="BookReservationPrice" ColumnName="BookReservationPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReservationOnline">
+            <EntityTypeMapping TypeName="BookStoreModel.ReservationOnline">
+              <MappingFragment StoreEntitySet="ReservationOnline">
+                <ScalarProperty Name="IdReservation" ColumnName="IdReservation" />
+                <ScalarProperty Name="IdWareHouse" ColumnName="IdWareHouse" />
+                <ScalarProperty Name="IdOnlineSale" ColumnName="IdOnlineSale" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReservationStore">
+            <EntityTypeMapping TypeName="BookStoreModel.ReservationStore">
+              <MappingFragment StoreEntitySet="ReservationStore">
+                <ScalarProperty Name="IdReservation" ColumnName="IdReservation" />
+                <ScalarProperty Name="IdStore" ColumnName="IdStore" />
+                <ScalarProperty Name="IdEmployee" ColumnName="IdEmployee" />
+                <ScalarProperty Name="IdStoreSale" ColumnName="IdStoreSale" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5231,10 +5452,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Schedule">
+            <EntityTypeMapping TypeName="BookStoreModel.Schedule">
+              <MappingFragment StoreEntitySet="Schedule">
+                <ScalarProperty Name="IdSchedule" ColumnName="IdSchedule" />
+                <ScalarProperty Name="YearValue" ColumnName="YearValue" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+                <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
+                <ScalarProperty Name="IdEmployee" ColumnName="IdEmployee" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ScheduleLine">
             <EntityTypeMapping TypeName="BookStoreModel.ScheduleLine">
               <MappingFragment StoreEntitySet="ScheduleLine">
-                <ScalarProperty Name="IsFree" ColumnName="IsFree" />
                 <ScalarProperty Name="IdScheduleLine" ColumnName="IdScheduleLine" />
                 <ScalarProperty Name="IdSchedule" ColumnName="IdSchedule" />
                 <ScalarProperty Name="MonthNum" ColumnName="MonthNum" />
@@ -5246,6 +5478,7 @@
                 <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
                 <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
                 <ScalarProperty Name="MonthDay" ColumnName="MonthDay" />
+                <ScalarProperty Name="IsFree" ColumnName="IsFree" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5454,7 +5687,7 @@
           </AssociationSetMapping>
           <AssociationSetMapping Name="OnlineSaleShipping" TypeName="BookStoreModel.OnlineSaleShipping" StoreEntitySet="OnlineSaleShipping">
             <EndProperty Name="OnlineSale">
-              <ScalarProperty Name="IdOnlineSale" ColumnName="IdOnlineSale" />
+              <ScalarProperty Name="IdSale" ColumnName="IdOnlineSale" />
             </EndProperty>
             <EndProperty Name="Shipping">
               <ScalarProperty Name="IdShipping" ColumnName="IdShipping" />
@@ -5580,19 +5813,7 @@
               <ScalarProperty Name="IdSale" ColumnName="IdSale" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="Schedule">
-            <EntityTypeMapping TypeName="BookStoreModel.Schedule">
-              <MappingFragment StoreEntitySet="Schedule">
-                <ScalarProperty Name="IdEmployee" ColumnName="IdEmployee" />
-                <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
-                <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="YearValue" ColumnName="YearValue" />
-                <ScalarProperty Name="IdSchedule" ColumnName="IdSchedule" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          </EntityContainerMapping>
+        </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

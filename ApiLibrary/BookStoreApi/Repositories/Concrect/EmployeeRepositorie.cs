@@ -2,11 +2,14 @@
 using BookStoreApi.Dtos;
 using BookStoreApi.Models.Library;
 using BookStoreApi.Models.Request;
+using BookStoreApi.Models.Utilities;
 using BookStoreApi.Repositories.Abstract.Persons;
+using BookStoreApi.Utilities.Enums;
 using LibraryApiRest.Repositories.Concrect;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -19,6 +22,7 @@ namespace BookStoreApi.Repositories.Concrect.Persons
         public EmployeeRepositorie(string identificator = "IdEmployee") : base(identificator)
         {
             personRepositorie = new PersonRepository();
+           
         }
         #region Get
 
@@ -268,41 +272,51 @@ namespace BookStoreApi.Repositories.Concrect.Persons
         #region Insert 
         public dynamic  Insert(List<EmployeeDto> list)
         {
-            try
-            {
-                List<Employee> employees = mapper.Map <List<Employee>>(list);
-                return Insert(employees);
-            }
-            catch (SqlException)
-            {
-
-            }
-            return null;
+           List<Employee> employees = mapper.Map <List<Employee>>(list);
+            return Insert(employees); 
         }
 
         public dynamic Update(List<EmployeeDto> list)
         {
-            string message = "";
-            try
-            {
+
+           
+               
                 List<Person> people = mapper.Map<List<Person>>(list);
-                message += personRepositorie.Update(people);
+                personRepositorie.Update(people);
                 foreach (EmployeeDto dto in list)
                 {
                     Employee employee = mapper.Map<Employee>(dto);
                     dbSet.Attach(employee);
                     Context.Entry(employee).State = EntityState.Modified;
-                    message += Save();
+                    try
+                    {
+                        Context.SaveChanges();
+                        MessageControl message = new MessageControl()
+                        {
 
+                        };
+                        messages.Add(message);
+                    }
+                    catch (DbUpdateException e)
+                    {
+                        MessageControl message = new MessageControl()
+                        {
 
+                        };
+                        messages.Add(message);
+                    }
+                    catch (SqlException e)
+                    {
+                        MessageControl message = new MessageControl()
+                        {
+
+                        };
+                     messages.Add(message);
+                    }
                 }
-               
-            }
-            catch (SqlException)
-            {
 
-            }
-            return message;
+
+                return messages;
         }
 
         public dynamic Hire(EmployeeWorkPlace employeeWorkPlace)
@@ -361,6 +375,106 @@ namespace BookStoreApi.Repositories.Concrect.Persons
                     message += string.Format("any employee was found with this id {0}",id); ;
                 }
             }
+            return message;
+        }
+
+        public dynamic Remove_Employee_ImageFile(string idEmployee, string idImageFile)
+        {
+            var employee = dbSet.Find(idEmployee);
+            var file = Context.ImageFile.Find(idImageFile);
+            MessageControl message = new MessageControl(); 
+            if (employee!=null && file!=null)
+            {
+                var query = $"Delete from EmployeeImageFile where IdEmployee ='{employee.IdPerson}'";
+                try
+                {
+                    Context.Database.ExecuteSqlCommand(query);
+                    Context.SaveChanges();
+                    message.Error = false;
+                    message.Type = MessageType.Insert;
+                    message.Code = MessageCode.correct;
+                    message.Note = $"EmployeeImageFile with {Identificator} = {idEmployee} was delete ";
+                }
+                catch(DbUpdateException e)
+                {
+                    message.Error = true;
+                    message.Type = MessageType.Exception;
+                    message.Code = MessageCode.exception;
+                    message.Note = $"{e.InnerException.InnerException.Message}";
+                }
+            }
+            else if(employee == null && file!=null )
+            {
+                message.Error = true;
+                message.Type = MessageType.Not_Found;
+                message.Code = MessageCode.error;
+                message.Note = $"{name} with  {Identificator} : {idEmployee} not was found";
+                   
+            }
+            else if (file == null && employee!=null)
+            {
+                message.Error = true;
+                message.Type = MessageType.Not_Found;
+                message.Code = MessageCode.error;
+                message.Note = $"file with  IdFile: {idImageFile} not was found";
+            }
+            else
+            {
+                message.Error = true;
+                message.Type = MessageType.Not_Found;
+                message.Code = MessageCode.error;
+                message.Note = $"file with  IdFile: {idImageFile} not was found";
+            }
+            return message;
+        }
+
+        public dynamic Set_Employee_ImageFile(string idEmployee, string idImageFile)
+        {
+            var employee = dbSet.Find(idEmployee);
+            var file =Context.ImageFile.Find(idImageFile);
+            MessageControl message = new MessageControl();
+            if (employee!=null && file!=null)
+            {
+                var query = $"Insert into EmployeeImageFile values('{employee.IdPerson}','{file.IdImageFile}');";
+                try
+                {
+                    Context.Database.ExecuteSqlCommand(query);
+                    Context.SaveChanges();
+                    message.Error = false;
+                    message.Type = MessageType.Insert;
+                    message.Code = MessageCode.correct;
+                    message.Note = $"EmployeeImageFile with = {idEmployee} was delete ";
+                }
+                catch (DbUpdateException e)
+                {
+                    message.Error = true;
+                    message.Type = MessageType.Exception;
+                    message.Code = MessageCode.exception;
+                    message.Note = $"{e.InnerException.InnerException.Message}";
+                }
+            }
+            else if (employee == null & file!=null)
+            {
+                message.Error = true;
+                message.Type = MessageType.Not_Found;
+                message.Code = MessageCode.error;
+                message.Note = $"{name} with {Identificator} = {employee.IdPerson} not was found";
+            }
+            else if(file==null && employee != null)
+            {
+                message.Error = true;
+                message.Type = MessageType.Not_Found;
+                message.Code = MessageCode.error;
+                message.Note = $"ImageFile with IdImage ={file.IdImageFile} not was found";
+            }
+            else
+            {
+                message.Error = true;
+                message.Type = MessageType.Not_Found;
+                message.Code = MessageCode.error;
+                message.Note = $"ImageFile && Employe not was found";
+            }
+          
             return message;
         }
         #endregion

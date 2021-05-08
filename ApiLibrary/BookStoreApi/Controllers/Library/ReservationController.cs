@@ -33,12 +33,7 @@ namespace BookStoreApi.Controllers.Library.Reservations
         {
             return Ok(_repository.GetCountBook(idBook));
         }
-        [HttpGet]
-        [Route("Count")]
-        public IHttpActionResult Count(string idBook,string idStore)
-        {
-            return Ok(_repository.GetCountBook(idBook,idStore));
-        }
+   
         #endregion
 
         #region Book
@@ -48,24 +43,14 @@ namespace BookStoreApi.Controllers.Library.Reservations
         {
             return Ok(_repository.GetByBook(idBook));
         }
-        [HttpGet]
-        [Route("Book")]
-        public IHttpActionResult GetByBook(string idBook,string idStore)
-        {
-            return Ok(_repository.GetByBook(idBook,idStore));
-        }
+       
         [HttpGet]
         [Route("Book")]
         public IHttpActionResult GetByBook(string idBook,int pag,int element)
         {
             return Ok(_repository.GetByBook(idBook,pag,element));
         }
-        [HttpGet]
-        [Route("Book")]
-        public IHttpActionResult GetByBook(string idBook, string idStore, int pag, int element)
-        {
-            return Ok(_repository.GetByBook(idBook, idStore,pag,element));
-        }
+        
         #endregion
 
         #region Date
@@ -95,32 +80,8 @@ namespace BookStoreApi.Controllers.Library.Reservations
         }
         #endregion
 
-        #region Store
-        [HttpGet]
-        [Route("Store")]
-        public IHttpActionResult GetByStore(string idStore)
-        {
-            return Ok(_repository.GetByStore(idStore));
-        }
-        [HttpGet]
-        [Route("Store")]
-        public IHttpActionResult GetByStore(string idStore,int pag,int element)
-        {
-            return Ok(_repository.GetByStore(idStore,pag,element));
-        }
-        [HttpGet]
-        [Route("Store")]
-        public IHttpActionResult GetByStore(string idStore,DateTime date)
-        {
-            return Ok(_repository.GetByStore(idStore,date));
-        }
-        [HttpGet]
-        [Route("Store")]
-        public IHttpActionResult GetByStore(string idStore,DateTime date,int pag,int element)
-        {
-            return Ok(_repository.GetByStore(idStore,date,pag,element));
-        }
-        #endregion
+    
+   
 
         #region Finalized Date
         [HttpGet]
@@ -136,18 +97,7 @@ namespace BookStoreApi.Controllers.Library.Reservations
         {
             return Ok(_repository.GetByFinalizedDate(date,pag,element));
         }
-        [HttpGet]
-        [Route("FinalizedDate")]
-        public IHttpActionResult GetByFinalizedDate(DateTime date, string idStore)
-        {
-            return Ok(_repository.GetByFinalizedDate(date, idStore));
-        }
-        [HttpGet]
-        [Route("FinalizedDate")]
-        public IHttpActionResult GetByFinalizedDate(DateTime date,string idStore, int pag, int element)
-        {
-            return Ok(_repository.GetByFinalizedDate(date,idStore, pag, element));
-        }
+      
         #endregion
 
         #region Cancel
@@ -163,28 +113,12 @@ namespace BookStoreApi.Controllers.Library.Reservations
         {
             return Ok(_repository.GetCancel(pag,element));
         }
-        [HttpGet]
-        [Route("Cancel")]
-        public IHttpActionResult GetCancel(string idStore)
-        {
-            return Ok(_repository.GetCancel(idStore));
-        }
-        [HttpGet]
-        [Route("Cancel")]
-        public IHttpActionResult GetCancel(string idStore ,int pag, int element)
-        {
-            return Ok(_repository.GetCancel(idStore,pag, element));
-        }
+
+      
         #endregion
 
         #region Finalized 
-        [HttpGet]
-        [Route("Finalized")]
-        public IHttpActionResult GetFinalized()
-        {
-            return Ok(_repository.GetFinalized());
-        }
-
+       
         [HttpGet]
         [Route("Finalized")]
         public IHttpActionResult GetFinalized(int pag,int element)
@@ -192,19 +126,7 @@ namespace BookStoreApi.Controllers.Library.Reservations
             return Ok(_repository.GetFinalized(pag,element));
         }
 
-        [HttpGet]
-        [Route("Finalized")]
-        public IHttpActionResult GetFinalized(string idStore)
-        {
-            return Ok(_repository.GetFinalized(idStore));
-        }
-
-        [HttpGet]
-        [Route("Finalized")]
-        public IHttpActionResult GetFinalized(string idStore,int pag,int element)
-        {
-            return Ok(_repository.GetFinalized(idStore,pag,element));
-        }
+      
         #endregion
 
         #region Not Finalized 
@@ -223,22 +145,34 @@ namespace BookStoreApi.Controllers.Library.Reservations
         }
 
         [HttpGet]
-        [Route("NotFinalized")]
-        public IHttpActionResult GetNotFinalized(string idStore)
+        [Route("Cliente/{id}")]
+        public IHttpActionResult GetByCliente(string idCliente)
         {
-            return Ok(_repository.GetNotFinalized(idStore));
+            return Ok(_repository.GetByClient(idCliente));
         }
 
         [HttpGet]
-        [Route("NotFinalized")]
-        public IHttpActionResult GetNotFinalized(string idStore, int pag, int element)
+        [Route("Cliente/{id}")]
+        public IHttpActionResult GetByCliente(string idCliente,int pag,int element)
         {
-            return Ok(_repository.GetNotFinalized(idStore, pag, element));
+            return Ok(_repository.GetByClient(idCliente,pag,element));
+        }
+
+        [HttpGet]
+        [Route("Cliente/{id}")]
+        public IHttpActionResult GetByCliente(string idCliente,DateTime start ,DateTime end)
+        {
+            return Ok(_repository.GetByClient(idCliente,start,end));
+        }
+        [HttpGet]
+        [Route("Cliente/{id}")]
+        public IHttpActionResult GetByCliente(string idCliente, DateTime start, DateTime end, int pag, int element)
+        {
+            return Ok(_repository.GetByClient(idCliente, start, end,pag,element));
         }
         #endregion
 
         [HttpGet]
-        [Route("List")]
         public IHttpActionResult GetList(string ids)
         {
             return Ok(_repository.GetList(ids));

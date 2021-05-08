@@ -15,25 +15,65 @@ namespace BookStoreApi.Controllers.Library.Reservations
     {
         readonly IReservationRepository _repository = new ReservationRepository();
 
+        #region Generics 
+        [HttpGet]
+        [Route("Count")]
+        public IHttpActionResult Count()
+        {
+            return Ok(_repository.Count());
+        }
         [HttpGet]
         public IHttpActionResult Get()
         {
             return Ok(_repository.Get());
         }
+
         [HttpGet]
         public IHttpActionResult Get(string id)
         {
             return Ok(_repository.Get(id));
         }
 
+        [HttpGet]
+        public IHttpActionResult GetList(string ids)
+        {
+            return Ok(_repository.GetList(ids));
+        }
+
+        [HttpGet]
+        [Route("Pag")]
+        public IHttpActionResult Get(int element, int pag)
+        {
+            return Ok(_repository.Get(element, pag));
+        }
+        [HttpPost]
+        public IHttpActionResult Post(List<Reservation> list)
+        {
+            return Ok(_repository.Insert(list));
+        }
+
+        [HttpPut]
+        public IHttpActionResult Put(List<Reservation> list)
+        {
+            return Ok(_repository.Update(list));
+        }
+
+        [HttpDelete]
+        public IHttpActionResult Delete(List<string> ids)
+        {
+            return Ok(_repository.Delete(ids));
+        }
+
+        #endregion
+
         #region Count 
         [HttpGet]
         [Route("Count")]
         public IHttpActionResult Count(string idBook)
         {
-            return Ok(_repository.GetCountBook(idBook));
+            return Ok(_repository.CountByBook(idBook));
         }
-   
+
         #endregion
 
         #region Book
@@ -79,9 +119,6 @@ namespace BookStoreApi.Controllers.Library.Reservations
             return Ok(_repository.GetByDate(start, end,pag,element));
         }
         #endregion
-
-    
-   
 
         #region Finalized Date
         [HttpGet]
@@ -172,34 +209,7 @@ namespace BookStoreApi.Controllers.Library.Reservations
         }
         #endregion
 
-        [HttpGet]
-        public IHttpActionResult GetList(string ids)
-        {
-            return Ok(_repository.GetList(ids));
-        }
-
-        [HttpGet]
-        [Route("Pag")]
-        public IHttpActionResult Get(int element, int pag)
-        {
-            return Ok(_repository.Get(element, pag));
-        }
-        [HttpPost]
-        public IHttpActionResult Post(List<Reservation> list)
-        {
-            return Ok(_repository.Insert(list));
-        }
-
-        [HttpPut]
-        public IHttpActionResult Put(List<Reservation> list)
-        {
-            return Ok(_repository.Update(list));
-        }
-
-        [HttpDelete]
-        public IHttpActionResult Delete(List<string> ids)
-        {
-            return Ok(_repository.Delete(ids));
-        }
+        
+        
     }
 }

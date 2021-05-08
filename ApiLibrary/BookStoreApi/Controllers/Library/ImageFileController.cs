@@ -15,27 +15,42 @@ namespace BookStoreApi.Controllers.Library.Files
     {
         readonly IImageFileRepositorie _repository = new ImageFileRepositorie();
 
+        #region Generics 
+        [HttpGet]
+        [Route("Count")]
+        public IHttpActionResult Count()
+        {
+            return Ok(_repository.Count());
+        }
         [HttpGet]
         public IHttpActionResult Get()
         {
             return Ok(_repository.Get());
         }
+
+        [HttpGet]
+        public IHttpActionResult Get(string id)
+        {
+            return Ok(_repository.Get(id));
+        }
+
         [HttpGet]
         public IHttpActionResult GetList(string ids)
         {
             return Ok(_repository.GetList(ids));
         }
-
         [HttpGet]
-        public IHttpActionResult Get(int element, int pag)
+        [Route("Pag")]
+        public IHttpActionResult Get(int element, int page)
         {
-            return Ok(_repository.Get(element, pag));
+            return Ok(_repository.Get(element, page));
         }
         [HttpPost]
-        public IHttpActionResult Post(ImageFile imageFile)
+        public IHttpActionResult Post(List<ImageFile> list)
         {
-            return Ok(_repository.Insert(imageFile));
+            return Ok(_repository.Insert(list));
         }
+
         [HttpPut]
         public IHttpActionResult Put(List<ImageFile> list)
         {
@@ -47,5 +62,8 @@ namespace BookStoreApi.Controllers.Library.Files
         {
             return Ok(_repository.Delete(ids));
         }
+
+        #endregion
+
     }
 }

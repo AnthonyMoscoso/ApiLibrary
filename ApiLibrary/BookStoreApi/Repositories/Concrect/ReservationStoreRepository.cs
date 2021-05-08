@@ -279,7 +279,18 @@ namespace BookStoreApi.Repositories.Concrect
             return messages;
         }
 
-
-    
+        public int Count(string idStore)
+        {
+            return dbSet.Count(w => w.IdStore.Equals(idStore));
+        }
+        public int Count(string idStore, DateTime start, DateTime end)
+        {
+            return dbSet.Count(w => w.IdStore.Equals(idStore)
+             && DbFunctions.TruncateTime(start) >= DbFunctions.TruncateTime(w.Reservation.CreateDate)
+            && DbFunctions.TruncateTime(end) <= DbFunctions.TruncateTime(w.Reservation.CreateDate)
+            && DbFunctions.TruncateTime(start) >= DbFunctions.TruncateTime(w.Reservation.FinishReservationDate.Value)
+            && DbFunctions.TruncateTime(end) <= DbFunctions.TruncateTime(w.Reservation.FinishReservationDate.Value)
+            );
+        }
     }
 }

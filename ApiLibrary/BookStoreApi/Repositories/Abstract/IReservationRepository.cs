@@ -12,7 +12,7 @@ namespace BookStoreApi.Repositories.Abstract.Reservations
     interface IReservationRepository : IRepository <Reservation>
     {
         #region Count
-        double GetCountBook(string idBook);
+        double CountByBook(string idBook);
         #endregion
 
         #region Book
@@ -61,9 +61,7 @@ namespace BookStoreApi.Repositories.Abstract.Reservations
         List<ReservationDto> GetByClient(string idClient, DateTime start, DateTime end, int pag, int element);
         #endregion
 
-        #region Count
-        
-        #endregion
+
     }
 }
 

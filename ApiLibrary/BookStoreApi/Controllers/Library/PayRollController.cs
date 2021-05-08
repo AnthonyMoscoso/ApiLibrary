@@ -15,6 +15,13 @@ namespace BookStoreApi.Controllers.Library.PayRolls
     {
         readonly IPayRollRepositorie _repository = new PayRollRepositorie();
 
+        #region Generics 
+        [HttpGet]
+        [Route("Count")]
+        public IHttpActionResult Count()
+        {
+            return Ok(_repository.Count());
+        }
         [HttpGet]
         public IHttpActionResult Get()
         {
@@ -26,6 +33,40 @@ namespace BookStoreApi.Controllers.Library.PayRolls
         {
             return Ok(_repository.Get(id));
         }
+
+        [HttpGet]
+        public IHttpActionResult GetList(string ids)
+        {
+            return Ok(_repository.GetList(ids));
+        }
+
+        [HttpGet]
+        [Route("Pag")]
+        public IHttpActionResult Get(int element, int pag)
+        {
+            return Ok(_repository.Get(element, pag));
+        }
+        [HttpPost]
+        public IHttpActionResult Post(List<PayRoll> list)
+        {
+            return Ok(_repository.Insert(list));
+        }
+
+        [HttpPut]
+        public IHttpActionResult Put(List<PayRoll> list)
+        {
+            return Ok(_repository.Update(list));
+        }
+
+        [HttpDelete]
+        public IHttpActionResult Delete(List<string> ids)
+        {
+            return Ok(_repository.Delete(ids));
+        }
+
+        #endregion
+
+        #region Date
         [HttpGet]
         [Route("Date")]
         public IHttpActionResult GetByDate(int year)
@@ -56,6 +97,9 @@ namespace BookStoreApi.Controllers.Library.PayRolls
         {
             return Ok(_repository.GetByDate(date));
         }
+        #endregion
+
+        #region Employee
         [HttpGet]
         [Route("Employee")]
         public IHttpActionResult GetByEmployee(string idEmployee)
@@ -87,33 +131,9 @@ namespace BookStoreApi.Controllers.Library.PayRolls
             return Ok(_repository.GetByEmployee(idEmployee, year, month,pag,element));
         }
 
-        [HttpGet]
-        public IHttpActionResult GetList(string ids)
-        {
-            return Ok(_repository.GetList(ids));
-        }
+        #endregion
 
-        [HttpGet]
-        public IHttpActionResult Get(int element, int pag)
-        {
-            return Ok(_repository.Get(element, pag));
-        }
-        [HttpPost]
-        public IHttpActionResult Post(List<PayRoll> list)
-        {
-            return Ok(_repository.Insert(list));
-        }
 
-        [HttpPut]
-        public IHttpActionResult Put(List<PayRoll> list)
-        {
-            return Ok(_repository.Update(list));
-        }
 
-        [HttpDelete]
-        public IHttpActionResult Delete(List<string> ids)
-        {
-            return Ok(_repository.Delete(ids));
-        }
     }
 }

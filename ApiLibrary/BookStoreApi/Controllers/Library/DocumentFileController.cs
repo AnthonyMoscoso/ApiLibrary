@@ -11,22 +11,37 @@ namespace BookStoreApi.Controllers.Library.Files
     {
         readonly IDocumentFileRepositorie _repository = new DocumentFileRepositorie();
 
+        #region Generics 
+        [HttpGet]
+        [Route("Count")]
+        public IHttpActionResult Count()
+        {
+            return Ok(_repository.Count());
+        }
         [HttpGet]
         public IHttpActionResult Get()
         {
             return Ok(_repository.Get());
         }
+
+        [HttpGet]
+        public IHttpActionResult Get(string id)
+        {
+            return Ok(_repository.Get(id));
+        }
+
         [HttpGet]
         public IHttpActionResult GetList(string ids)
         {
             return Ok(_repository.GetList(ids));
         }
-
         [HttpGet]
-        public IHttpActionResult Get(int element, int pag)
+        [Route("Pag")]
+        public IHttpActionResult Get(int element, int page)
         {
-            return Ok(_repository.Get(element, pag));
+            return Ok(_repository.Get(element, page));
         }
+
         [HttpPost]
         public IHttpActionResult Post(List<DocumentFile> list)
         {
@@ -44,5 +59,10 @@ namespace BookStoreApi.Controllers.Library.Files
         {
             return Ok(_repository.Delete(ids));
         }
+
+
+
+
+        #endregion
     }
 }

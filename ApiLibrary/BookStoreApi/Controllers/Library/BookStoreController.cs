@@ -11,21 +11,35 @@ namespace BookStoreApi.Controllers.Library.Books
        readonly IBookStoreRepository _repository = new BookStoreRepository();
 
 
+        #region Generics 
+        [HttpGet]
+        [Route("Count")]
+        public IHttpActionResult Count()
+        {
+            return Ok(_repository.Count());
+        }
         [HttpGet]
         public IHttpActionResult Get()
         {
             return Ok(_repository.Get());
         }
+
         [HttpGet]
         public IHttpActionResult Get(string id)
         {
             return Ok(_repository.Get(id));
         }
+
         [HttpGet]
-        [Route("Stock")]
-        public IHttpActionResult GetStock(string idBook,string idStore)
+        public IHttpActionResult GetList(string ids)
         {
-            return Ok(_repository.GetStock(idBook,idStore));
+            return Ok(_repository.GetList(ids));
+        }
+        [HttpGet]
+        [Route("Pag")]
+        public IHttpActionResult Get(int element, int pag)
+        {
+            return Ok(_repository.Get(element, pag));
         }
         [HttpPost]
         public IHttpActionResult Post(List<BookStore> list)
@@ -44,5 +58,16 @@ namespace BookStoreApi.Controllers.Library.Books
         {
             return Ok(_repository.Delete(ids));
         }
+
+        #endregion
+        [HttpGet]
+        [Route("Stock")]
+        public IHttpActionResult GetStock(string idBook,string idStore)
+        {
+            return Ok(_repository.GetStock(idBook,idStore));
+        }
+
+
+  
     }
 }

@@ -12,16 +12,60 @@ namespace BookStoreApi.Controllers.Library.Coupons
     {
         readonly ICouponRepository _repository = new CouponRepository();
 
+        #region Generics 
+        [HttpGet]
+        [Route("Count")]
+        public IHttpActionResult Count()
+        {
+            return Ok(_repository.Count());
+        }
         [HttpGet]
         public IHttpActionResult Get()
         {
             return Ok(_repository.Get());
         }
+
         [HttpGet]
         public IHttpActionResult Get(string id)
         {
             return Ok(_repository.Get(id));
         }
+
+        [HttpGet]
+        public IHttpActionResult GetList(string ids)
+        {
+            return Ok(_repository.GetList(ids));
+        }
+        [HttpGet]
+        [Route("Pag")]
+        public IHttpActionResult Get(int element, int page)
+        {
+            return Ok(_repository.Get(element, page));
+        }
+
+        [HttpPost]
+        public IHttpActionResult Post(List<Coupon> list)
+        {
+            return Ok(_repository.Insert(list));
+        }
+
+        [HttpPut]
+        public IHttpActionResult Put(List<Coupon> list)
+        {
+            return Ok(_repository.Update(list));
+        }
+
+        [HttpDelete]
+        public IHttpActionResult Delete(List<string> ids)
+        {
+            return Ok(_repository.Delete(ids));
+        }
+
+
+
+
+        #endregion
+        
         [HttpGet]
         [Route("Date")]
         public IHttpActionResult GetByDate(DateTime date)
@@ -70,34 +114,6 @@ namespace BookStoreApi.Controllers.Library.Coupons
         {
             return Ok(_repository.GetNotFinalized(pag, element));
         }
-        [HttpGet]
-        [Route("Pag")]
-        public IHttpActionResult Get(int element, int page)
-        {
-            return Ok(_repository.Get(element, page));
-        }
-
-        [HttpPost]
-        public IHttpActionResult Post(List<Coupon> list)
-        {
-            return Ok(_repository.Insert(list));
-        }
-        [HttpGet]
-        [Route("List")]
-        public IHttpActionResult GetList(string ids)
-        {
-            return Ok(_repository.GetList(ids));
-        }
-        [HttpPut]
-        public IHttpActionResult Put(List<Coupon> list)
-        {
-            return Ok(_repository.Update(list));
-        }
-
-        [HttpDelete]
-        public IHttpActionResult Delete(List<string> ids)
-        {
-            return Ok(_repository.Delete(ids));
-        }
+   
     }
 }

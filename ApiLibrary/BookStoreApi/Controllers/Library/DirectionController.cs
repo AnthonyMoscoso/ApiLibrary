@@ -11,6 +11,13 @@ namespace BookStoreApi.Controllers.Library.Directions
     {
         readonly IDirectionRepository _repository = new DirectionRepository();
 
+        #region Generics 
+        [HttpGet]
+        [Route("Count")]
+        public IHttpActionResult Count()
+        {
+            return Ok(_repository.Count());
+        }
         [HttpGet]
         public IHttpActionResult Get()
         {
@@ -22,19 +29,19 @@ namespace BookStoreApi.Controllers.Library.Directions
         {
             return Ok(_repository.Get(id));
         }
+
         [HttpGet]
-        [Route("List")]
         public IHttpActionResult GetList(string ids)
         {
             return Ok(_repository.GetList(ids));
         }
-
         [HttpGet]
         [Route("Pag")]
-        public IHttpActionResult Get(int element, int pag)
+        public IHttpActionResult Get(int element, int page)
         {
-            return Ok(_repository.Get(element, pag));
+            return Ok(_repository.Get(element, page));
         }
+
         [HttpPost]
         public IHttpActionResult Post(List<Direction> list)
         {
@@ -52,5 +59,10 @@ namespace BookStoreApi.Controllers.Library.Directions
         {
             return Ok(_repository.Delete(ids));
         }
+
+
+
+
+        #endregion
     }
 }

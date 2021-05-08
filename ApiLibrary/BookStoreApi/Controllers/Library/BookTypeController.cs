@@ -10,8 +10,15 @@ namespace BookStoreApi.Controllers.Library.Books
     public class BookTypeController : ApiController
     {
         readonly IBookTypeRepository _repository = new BookTypeRepository();
- 
 
+
+        #region Generics 
+        [HttpGet]
+        [Route("Count")]
+        public IHttpActionResult Count()
+        {
+            return Ok(_repository.Count());
+        }
         [HttpGet]
         public IHttpActionResult Get()
         {
@@ -23,37 +30,17 @@ namespace BookStoreApi.Controllers.Library.Books
         {
             return Ok(_repository.Get(id));
         }
+
         [HttpGet]
-        [Route("List")]
         public IHttpActionResult GetList(string ids)
         {
             return Ok(_repository.GetList(ids));
-        }
-
-        [HttpGet]
-        [Route("Name")]
-        public IHttpActionResult GetByName(string name)
-        {
-            return Ok(_repository.GetByName(name));
         }
         [HttpGet]
         [Route("Pag")]
         public IHttpActionResult Get(int element, int pag)
         {
             return Ok(_repository.Get(element, pag));
-        }
-
-        [HttpGet]
-        [Route("SearchByName")]
-        public IHttpActionResult SearchByName(string text)
-        {
-            return Ok(_repository.SearchByName(text));
-        }
-        [HttpGet]
-        [Route("SearchByName")]
-        public IHttpActionResult SearchByName(string text, int pag, int element)
-        {
-            return Ok(_repository.SearchByName(text, pag, element));
         }
         [HttpPost]
         public IHttpActionResult Post(List<BookType> list)
@@ -72,5 +59,31 @@ namespace BookStoreApi.Controllers.Library.Books
         {
             return Ok(_repository.Delete(ids));
         }
+
+        
+
+        #endregion
+
+        [HttpGet]
+        [Route("Name")]
+        public IHttpActionResult GetByName(string name)
+        {
+            return Ok(_repository.GetByName(name));
+        }
+  
+
+        [HttpGet]
+        [Route("SearchByName")]
+        public IHttpActionResult SearchByName(string text)
+        {
+            return Ok(_repository.SearchByName(text));
+        }
+        [HttpGet]
+        [Route("SearchByName")]
+        public IHttpActionResult SearchByName(string text, int pag, int element)
+        {
+            return Ok(_repository.SearchByName(text, pag, element));
+        }
+  
     }
 }

@@ -15,40 +15,35 @@ namespace BookStoreApi.Controllers.Library.Editorials
     {
         readonly IEditorialRepositorie _repository = new EditorialRepositorie();
 
+        #region Generics 
+        [HttpGet]
+        [Route("Count")]
+        public IHttpActionResult Count()
+        {
+            return Ok(_repository.Count());
+        }
         [HttpGet]
         public IHttpActionResult Get()
         {
             return Ok(_repository.Get());
         }
+
         [HttpGet]
         public IHttpActionResult Get(string id)
         {
             return Ok(_repository.Get(id));
         }
+
         [HttpGet]
-        [Route("SearchByName")]
-        public IHttpActionResult SearchByName(string text)
-        {
-            return Ok(_repository.SearchByName(text));
-        }
-        [HttpGet]
-        [Route("SearchByName")]
-        public IHttpActionResult SearchByName(string text, int pag, int element)
-        {
-            return Ok(_repository.SearchByName(text, pag, element));
-        }
-        [HttpGet]
-        [Route("List")]
         public IHttpActionResult GetList(string ids)
         {
             return Ok(_repository.GetList(ids));
         }
-
         [HttpGet]
         [Route("Pag")]
-        public IHttpActionResult Get(int element, int pag)
+        public IHttpActionResult Get(int element, int page)
         {
-            return Ok(_repository.Get(element, pag));
+            return Ok(_repository.Get(element, page));
         }
         [HttpPost]
         public IHttpActionResult Post(List<Editorial> list)
@@ -67,5 +62,22 @@ namespace BookStoreApi.Controllers.Library.Editorials
         {
             return Ok(_repository.Delete(ids));
         }
+
+        #endregion
+
+        [HttpGet]
+        [Route("SearchByName")]
+        public IHttpActionResult SearchByName(string text)
+        {
+            return Ok(_repository.SearchByName(text));
+        }
+        [HttpGet]
+        [Route("SearchByName")]
+        public IHttpActionResult SearchByName(string text, int pag, int element)
+        {
+            return Ok(_repository.SearchByName(text, pag, element));
+        }
+        
+
     }
 }

@@ -19,7 +19,7 @@ namespace BookStoreApi.Repositories.Concrect.Reservations
 
         #region Count
 
-        public double GetCountBook(string idBook)
+        public double CountByBook(string idBook)
         {
             return dbSet.Count(w => w.IdBook.Equals(idBook));
         }

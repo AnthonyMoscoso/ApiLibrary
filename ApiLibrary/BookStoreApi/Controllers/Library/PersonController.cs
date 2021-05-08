@@ -15,11 +15,25 @@ namespace BookStoreApi.Controllers.Library.Persons
     {
         readonly IPersonRepository _repository = new PersonRepository();
 
+        #region Generics 
+        [HttpGet]
+        [Route("Count")]
+        public IHttpActionResult Count()
+        {
+            return Ok(_repository.Count());
+        }
         [HttpGet]
         public IHttpActionResult Get()
         {
             return Ok(_repository.Get());
         }
+
+        [HttpGet]
+        public IHttpActionResult Get(string id)
+        {
+            return Ok(_repository.Get(id));
+        }
+
         [HttpGet]
         public IHttpActionResult GetList(string ids)
         {
@@ -49,5 +63,7 @@ namespace BookStoreApi.Controllers.Library.Persons
         {
             return Ok(_repository.Delete(ids));
         }
+
+        #endregion
     }
 }

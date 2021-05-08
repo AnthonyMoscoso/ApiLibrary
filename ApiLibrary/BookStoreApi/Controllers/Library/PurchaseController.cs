@@ -15,28 +15,38 @@ namespace BookStoreApi.Controllers.Library.Purchases
     {
         readonly IPurchaseRepository _repository = new PurchaseRepository();
 
+        #region Generics 
+        [HttpGet]
+        [Route("Count")]
+        public IHttpActionResult Count()
+        {
+            return Ok(_repository.Count());
+        }
         [HttpGet]
         public IHttpActionResult Get()
         {
             return Ok(_repository.Get());
         }
+
         [HttpGet]
         public IHttpActionResult Get(string id)
         {
             return Ok(_repository.Get(id));
         }
+
         [HttpGet]
-        [Route("List")]
         public IHttpActionResult GetList(string ids)
         {
             return Ok(_repository.GetList(ids));
         }
+
         [HttpGet]
         [Route("Pag")]
         public IHttpActionResult Get(int element, int pag)
         {
             return Ok(_repository.Get(element, pag));
         }
+
         [HttpPost]
         public IHttpActionResult Post(List<Purchase> list)
         {
@@ -54,5 +64,8 @@ namespace BookStoreApi.Controllers.Library.Purchases
         {
             return Ok(_repository.Delete(ids));
         }
+
+        #endregion
+
     }
 }

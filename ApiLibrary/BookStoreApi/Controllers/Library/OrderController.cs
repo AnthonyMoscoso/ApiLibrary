@@ -13,16 +13,58 @@ namespace BookWareHouseApi.Controllers.Library.Order
     {
         readonly IOrderRepositorie _repository = new OrderRepositorie();
 
+        #region Generics 
+        [HttpGet]
+        [Route("Count")]
+        public IHttpActionResult Count()
+        {
+            return Ok(_repository.Count());
+        }
         [HttpGet]
         public IHttpActionResult Get()
         {
             return Ok(_repository.Get());
         }
+
         [HttpGet]
         public IHttpActionResult Get(string id)
         {
             return Ok(_repository.Get(id));
         }
+
+        [HttpGet]
+        public IHttpActionResult GetList(string ids)
+        {
+            return Ok(_repository.GetList(ids));
+        }
+
+        [HttpGet]
+        [Route("Pag")]
+        public IHttpActionResult Get(int element, int pag)
+        {
+            return Ok(_repository.Get(element, pag));
+        }
+        [HttpPost]
+        public IHttpActionResult Post(List<Orders> list)
+        {
+            return Ok(_repository.Insert(list));
+        }
+
+        [HttpPut]
+        public IHttpActionResult Put(List<Orders> list)
+        {
+            return Ok(_repository.Update(list));
+        }
+
+        [HttpDelete]
+        public IHttpActionResult Delete(List<string> ids)
+        {
+            return Ok(_repository.Delete(ids));
+        }
+
+        #endregion
+
+        #region Date
         [HttpGet]
         [Route("Date")]
         public IHttpActionResult GetByDate(DateTime date)
@@ -47,6 +89,8 @@ namespace BookWareHouseApi.Controllers.Library.Order
         {
             return Ok(_repository.GetByDate(start,end, pag, element));
         }
+
+        #endregion
 
         #region Store
         [HttpGet]
@@ -87,6 +131,7 @@ namespace BookWareHouseApi.Controllers.Library.Order
         }
         #endregion
 
+        #region WareHouse
         [HttpGet]
         [Route("WareHouse")]
         public IHttpActionResult GetByWareHouse(string idWareHouse)
@@ -123,35 +168,8 @@ namespace BookWareHouseApi.Controllers.Library.Order
         {
             return Ok(_repository.GetByWareHouse(idWareHouse, start, end, pag, element));
         }
-        [HttpGet]
-        [Route("List")]
-        public IHttpActionResult GetList(string ids)
-        {
-            return Ok(_repository.GetList(ids));
-        }
+        #endregion
 
-        [HttpGet]
-        [Route("Pag")]
-        public IHttpActionResult Get(int element, int pag)
-        {
-            return Ok(_repository.Get(element, pag));
-        }
-        [HttpPost]
-        public IHttpActionResult Post(List<Orders> list)
-        {
-            return Ok(_repository.Insert(list));
-        }
 
-        [HttpPut]
-        public IHttpActionResult Put(List<Orders> list)
-        {
-            return Ok(_repository.Update(list));
-        }
-
-        [HttpDelete]
-        public IHttpActionResult Delete(List<string> ids)
-        {
-            return Ok(_repository.Delete(ids));
-        }
     }
 }

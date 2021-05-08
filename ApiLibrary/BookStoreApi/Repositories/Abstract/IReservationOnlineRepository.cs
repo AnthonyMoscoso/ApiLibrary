@@ -1,4 +1,5 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Models.Dtos;
+using BookStoreApi.Models.Library;
 using LibraryApiRest.Repositories.Abstract;
 using System;
 using System.Collections.Generic;
@@ -10,5 +11,8 @@ namespace BookStoreApi.Repositories.Abstract
 {
     interface IReservationOnlineRepository : IRepository<ReservationOnline>
     {
+        int Count(string idWareHouse);
+        int Count(string idWareHouse,DateTime start, DateTime end);
+        List<ReservationOnlineDto> GetReservations(string idWareHouse);
     }
 }

@@ -17,7 +17,13 @@ namespace BookStoreApi.Controllers.Library.Books
     {
         readonly IBookRepository _repository = new BookRepository();
 
-
+        #region Generics 
+        [HttpGet]
+        [Route("Count")]
+        public IHttpActionResult Count()
+        {
+            return Ok(_repository.Count());
+        }
         [HttpGet]
         public IHttpActionResult Get()
         {
@@ -25,17 +31,42 @@ namespace BookStoreApi.Controllers.Library.Books
         }
 
         [HttpGet]
+        public IHttpActionResult Get(string id)
+        {
+            return Ok(_repository.Get(id));
+        }
+
+        [HttpGet]
         public IHttpActionResult GetList(string ids)
         {
             return Ok(_repository.GetList(ids));
         }
-
         [HttpGet]
         [Route("Pag")]
         public IHttpActionResult Get(int element, int pag)
         {
             return Ok(_repository.Get(element, pag));
         }
+        [HttpPost]
+        public IHttpActionResult Post(List<Book> list)
+        {
+            return Ok(_repository.Insert(list));
+        }
+
+        [HttpPut]
+        public IHttpActionResult Put(List<Book> list)
+        {
+            return Ok(_repository.Update(list));
+        }
+
+        [HttpDelete]
+        public IHttpActionResult Delete(List<string> ids)
+        {
+            return Ok(_repository.Delete(ids));
+        }
+
+        #endregion
+
         [HttpGet]
         [Route("Name")]
         public IHttpActionResult SearchByName(string text)
@@ -122,23 +153,9 @@ namespace BookStoreApi.Controllers.Library.Books
             List<string> ids = genders.Split(',').ToList();
             return Ok(_repository.GetByGender(ids, pag, element));
         }
-        [HttpPost]
-        public IHttpActionResult Post(List<Book> list)
-        {
-            return Ok(_repository.Insert(list));
-        }
+    
 
-        [HttpPut]
-        public IHttpActionResult Put(List<Book> list)
-        {
-            return Ok(_repository.Update(list));
-        }
-
-        [HttpDelete]
-        public IHttpActionResult Delete(List<string> ids)
-        {
-            return Ok(_repository.Delete(ids));
-        }
+ 
 
     }
 }

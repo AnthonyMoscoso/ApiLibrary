@@ -14,12 +14,59 @@ namespace BookStoreApi.Controllers.Library
     {
         readonly IRegisterWareHouseRepository _repository = new RegisterWareHouseRepository();
 
+        #region Generics 
+        [HttpGet]
+        [Route("Count")]
+        public IHttpActionResult Count()
+        {
+            return Ok(_repository.Count());
+        }
         [HttpGet]
         public IHttpActionResult Get()
         {
             return Ok(_repository.Get());
         }
 
+        [HttpGet]
+        public IHttpActionResult Get(string id)
+        {
+            return Ok(_repository.Get(id));
+        }
+
+        [HttpGet]
+        public IHttpActionResult GetList(string ids)
+        {
+            return Ok(_repository.GetList(ids));
+        }
+
+        [HttpGet]
+        [Route("Pag")]
+        public IHttpActionResult Get(int element, int pag)
+        {
+            return Ok(_repository.Get(element, pag));
+        }
+
+        [HttpPost]
+        public IHttpActionResult Post(List<RegisterWareHouseDto> list)
+        {
+            return Ok(_repository.Insert(list));
+        }
+
+        [HttpPut]
+        public IHttpActionResult Put(List<RegisterWareHouseDto> list)
+        {
+            return Ok(_repository.Update(list));
+        }
+
+        [HttpDelete]
+        public IHttpActionResult Delete(List<string> ids)
+        {
+            return Ok(_repository.Delete(ids));
+        }
+
+        #endregion
+
+        #region By WareHouse
         [HttpGet]
         public IHttpActionResult GetByWareHouse(string idWareHouse)
         {
@@ -54,22 +101,7 @@ namespace BookStoreApi.Controllers.Library
             return Ok(_repository.GetByWareHouse(idWareHouse, dateStart, dateEnd, pag, element));
         }
 
-        [HttpPost]
-        public IHttpActionResult Post(List<RegisterWareHouseDto> list)
-        {
-            return Ok(_repository.Insert(list));
-        }
+        #endregion
 
-        [HttpPut]
-        public IHttpActionResult Put(List<RegisterWareHouseDto> list)
-        {
-            return Ok(_repository.Update(list));
-        }
-
-        [HttpDelete]
-        public IHttpActionResult Delete(List<string>ids)
-        {
-            return Ok(_repository.Delete(ids));
-        }
     }
 }

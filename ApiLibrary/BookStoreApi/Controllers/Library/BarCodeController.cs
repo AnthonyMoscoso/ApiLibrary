@@ -1,11 +1,7 @@
 ﻿using BookStoreApi.Models.Library;
 using BookStoreApi.Repositories.Abstract;
 using BookStoreApi.Repositories.Concrect.BarCodes;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace BookStoreApi.Controllers.Library.BarCodes
@@ -16,28 +12,41 @@ namespace BookStoreApi.Controllers.Library.BarCodes
         readonly IBarCodeRepository _repository = new BarCodeRepository();
 
         [HttpGet]
+        [Route("Count")]
+        public IHttpActionResult Count()
+        {
+            return Ok(_repository.Count());
+        }
+        [HttpGet]
         public IHttpActionResult Get()
         {
             return Ok(_repository.Get());
         }
+
         [HttpGet]
-        [Route("List")]
+        public IHttpActionResult Get(string id)
+        {
+            return Ok(_repository.Get(id));
+        }
+
+        [HttpGet]
         public IHttpActionResult GetList(string ids)
         {
             return Ok(_repository.GetList(ids));
         }
-
         [HttpGet]
         [Route("Pag")]
-        public IHttpActionResult Get(int element, int page)
+        public IHttpActionResult Get(int element, int pag)
         {
-            return Ok(_repository.Get(element, page));
+            return Ok(_repository.Get(element, pag));
         }
+
         [HttpPost]
         public IHttpActionResult Post(List<Barcode> list)
         {
             return Ok(_repository.Insert(list));
         }
+
 
         [HttpPut]
         public IHttpActionResult Put(List<Barcode> list)

@@ -15,6 +15,12 @@ namespace BookStoreApi.Controllers
         readonly IAutorRepository _repository = new AutorRepository();
 
         [HttpGet]
+        [Route("Count")]
+        public IHttpActionResult Count()
+        {
+            return Ok(_repository.Count());
+        }
+        [HttpGet]
         public IHttpActionResult Get ()
         {
             return Ok(_repository.Get());
@@ -31,6 +37,32 @@ namespace BookStoreApi.Controllers
         {
             return Ok(_repository.GetList(ids));
         }
+        [HttpGet]
+        [Route("Pag")]
+        public IHttpActionResult Get(int element, int pag)
+        {
+            return Ok(_repository.Get(element, pag));
+        }
+
+        [HttpPost]
+        public IHttpActionResult Post(List<Autor> list)
+        {
+            return Ok(_repository.Insert(list));
+        }
+
+
+        [HttpPut]
+        public IHttpActionResult Put(List<Autor> list)
+        {
+            return Ok(_repository.Update(list));
+        }
+
+        [HttpDelete]
+        public IHttpActionResult Delete(List<string> ids)
+        {
+            return Ok(_repository.Delete(ids));
+        }
+
 
         [HttpGet]
         [Route("Name")]
@@ -39,13 +71,7 @@ namespace BookStoreApi.Controllers
             return Ok(_repository.GetByName(name));
         }
 
-        [HttpGet]
-        [Route("Pag")]
-        public IHttpActionResult Get(int element, int pag)
-        {
-            return Ok(_repository.Get(element, pag));
-        }
-
+        
         [HttpGet]
         [Route("SearchByName")]
         public IHttpActionResult SearchByName(string text)
@@ -66,24 +92,6 @@ namespace BookStoreApi.Controllers
         }
 
 
-        [HttpPost]
-        public IHttpActionResult Post(List<Autor> list)
-        {
-            return Ok(_repository.Insert(list));
-        }
-       
-
-        [HttpPut]
-        public IHttpActionResult Put(List<Autor>list)
-        {
-            return Ok(_repository.Update(list));
-        }
-
-        [HttpDelete]
-        public IHttpActionResult Delete(List<string>ids)
-        {
-            return Ok(_repository.Delete(ids));
-        }
 
    
 

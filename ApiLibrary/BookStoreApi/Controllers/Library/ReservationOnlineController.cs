@@ -1,15 +1,19 @@
-﻿using BookStoreApi.Models.Library;
+﻿using BookStoreApi.Models.Dtos;
+using BookStoreApi.Models.Library;
 using BookStoreApi.Repositories.Abstract;
-using BookStoreApi.Repositories.Concrect.BarCodes;
+using BookStoreApi.Repositories.Concrect;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 
-namespace BookStoreApi.Controllers.Library.BarCodes
+namespace BookStoreApi.Controllers.Library
 {
-    [RoutePrefix("Api/BarCode")]
-    public class BarCodeController : ApiController
+    public class ReservationOnlineController : ApiController
     {
-        readonly IBarCodeRepository _repository = new BarCodeRepository();
+        readonly IReservationOnlineRepository _repository = new ReservationOnlineRepository();
 
         #region Generics 
         [HttpGet]
@@ -42,13 +46,13 @@ namespace BookStoreApi.Controllers.Library.BarCodes
             return Ok(_repository.Get(element, pag));
         }
         [HttpPost]
-        public IHttpActionResult Post(List<Barcode> list)
+        public IHttpActionResult Post(List<ReservationOnlineDto> list)
         {
             return Ok(_repository.Insert(list));
         }
 
         [HttpPut]
-        public IHttpActionResult Put(List<Barcode> list)
+        public IHttpActionResult Put(List<ReservationOnlineDto> list)
         {
             return Ok(_repository.Update(list));
         }
@@ -60,6 +64,5 @@ namespace BookStoreApi.Controllers.Library.BarCodes
         }
 
         #endregion
-
     }
 }

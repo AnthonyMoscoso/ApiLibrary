@@ -15,8 +15,7 @@ namespace BookStoreApi.Repositories.Abstract
         #region GetByStore
         List<ReservationStoreDto> GetByStore(string idStore);
         List<ReservationStoreDto> GetByStore(string idStore, int pag, int element);
-        List<ReservationStoreDto> GetByStore(string idStore, DateTime date);
-        List<ReservationStoreDto> GetByStore(string idStore, DateTime date, int pag, int element);
+
         List<ReservationStoreDto> GetByStore(string idStore, DateTime start,DateTime end);
         List<ReservationStoreDto> GetByStore(string idStore, DateTime start, DateTime end, int pag, int element);
 

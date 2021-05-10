@@ -18,5 +18,6 @@ namespace BookStoreApi.Dtos
         public string IdBook { get; set; }
         public int Quantity { get; set; }
         public double BookReservationPrice { get; set; }
+        public byte ReservationType { get; set; }
     }
 }

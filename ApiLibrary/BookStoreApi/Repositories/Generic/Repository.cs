@@ -18,10 +18,16 @@ using System.Web.Services.Description;
 
 namespace LibraryApiRest.Repositories.Concrect
 {
+    /// <summary>
+    /// Generic repository <T> for generic methods 
+    /// </summary>
+    /// <typeparam name="TEntity">Entity on our orm in Ado.net</typeparam>
+    /// <typeparam name="DtoEntity">Entity to map our TEntity </typeparam>
     public class Repository<TEntity,DtoEntity> : IRepository<TEntity> 
         where DtoEntity  : class , new()
         where TEntity : class,new()
     {
+
         public BookStoreEntities Context;
         public List<MessageControl> messages ;
         public DbSet<TEntity> dbSet;
@@ -29,6 +35,12 @@ namespace LibraryApiRest.Repositories.Concrect
         public string Identificator;
         public string query;
         public IMapper mapper;
+
+
+        /// <summary>
+        /// Construtor of our generic repository
+        /// </summary>
+        /// <param name="identificator">name of primary key column of our table</param>
         public Repository(string identificator)
         {
             Context = new BookStoreEntities();
@@ -39,6 +51,11 @@ namespace LibraryApiRest.Repositories.Concrect
             messages = new List<MessageControl>();
         }
 
+        /// <summary>
+        /// Method to delete a list of entitys from our database about a list of id
+        /// </summary>
+        /// <param name="ids">list of ids</param>
+        /// <returns>List of message with the result of our method </returns>
         public dynamic Delete(List<string> ids)
         {
             foreach (string id  in ids)
@@ -100,6 +117,11 @@ namespace LibraryApiRest.Repositories.Concrect
 
             return messages;
         }
+        
+        /// <summary>
+        /// Method  to get all entitys from our database
+        /// </summary>
+        /// <returns>list of entitys from the database</returns>
         public dynamic Get()
         {
 
@@ -107,6 +129,11 @@ namespace LibraryApiRest.Repositories.Concrect
             return mapper.Map<List<DtoEntity>>(list);
         }
 
+        /// <summary>
+        /// method to get a list of entities through ids
+        /// </summary>
+        /// <param name="ids">string with our ids</param>
+        /// <returns>our entities</returns>
         public dynamic GetList(string ids)
         {
             List<string> list = ids.Split(',').ToList();
@@ -124,6 +151,12 @@ namespace LibraryApiRest.Repositories.Concrect
             return mapper.Map<List<DtoEntity>>(entities);
         }
 
+        /// <summary>
+        /// Method to get our entity paginates from our database
+        /// </summary>
+        /// <param name="elements">num of element to take</param>
+        /// <param name="pag">num of pag  </param>
+        /// <returns>the list paginate</returns>
         public dynamic Get(int elements, int pag)
         {
    
@@ -133,6 +166,11 @@ namespace LibraryApiRest.Repositories.Concrect
             return mapper.Map<List<DtoEntity>>(list);
         }
 
+        /// <summary>
+        /// Method to get a specific entity for the id
+        /// </summary>
+        /// <param name="id">id to find our entity</param>
+        /// <returns>entity by id or null</returns>
         public dynamic Get(string id)
         {
             var search = dbSet.Find(id);
@@ -140,6 +178,11 @@ namespace LibraryApiRest.Repositories.Concrect
 
         }
 
+        /// <summary>
+        /// Method to insert a list of our entity in our database
+        /// </summary>
+        /// <param name="list">list of entity</param>
+        /// <returns>List of message with the result of inserts</returns>
         public dynamic Insert(List<TEntity> list)
         {
             foreach (TEntity entity in list)
@@ -192,6 +235,11 @@ namespace LibraryApiRest.Repositories.Concrect
 
         }
 
+        /// <summary>
+        /// Method to insert a entity in our database
+        /// </summary>
+        /// <param name="entity">entity to insert</param>
+        /// <returns>Message with the result of our method</returns>
         public dynamic Insert(TEntity entity)
         {
             try
@@ -234,6 +282,10 @@ namespace LibraryApiRest.Repositories.Concrect
             return messages;
         }
 
+       /// <summary>
+       /// Method to Save changes in our db
+       /// </summary>
+       /// <returns>Mesage with the result of this method</returns>
         public dynamic Save()
         {
             try
@@ -251,6 +303,11 @@ namespace LibraryApiRest.Repositories.Concrect
             }
         }
 
+        /// <summary>
+        /// Method to update a list of entities 
+        /// </summary>
+        /// <param name="list">List of our entity</param>
+        /// <returns>a message with the result of this method</returns>
         public dynamic Update(List<TEntity> list)
         {
             foreach (TEntity entity in list)
@@ -286,6 +343,11 @@ namespace LibraryApiRest.Repositories.Concrect
             return  messages;
         }
 
+        /// <summary>
+        /// Method to update a entity in our database
+        /// </summary>
+        /// <param name="entity">Our entity to update</param>
+        /// <returns>a message with the result of this method</returns>
         public dynamic Update(TEntity entity)
         {
            
@@ -320,6 +382,10 @@ namespace LibraryApiRest.Repositories.Concrect
             return messages;
         }
 
+        /// <summary>
+        /// Method that return quantity of our entity <T> in database
+        /// </summary>
+        /// <returns>int quantity</returns>
         public int Count()
         {
             return dbSet.Count();

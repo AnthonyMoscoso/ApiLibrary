@@ -67,31 +67,26 @@ namespace BookStoreApi.Controllers.Library
 
         #region Store
         [HttpGet]
+        [Route("Store/{idStore}")]
         public IHttpActionResult GetByStore(string idStore)
         {
             return Ok(_repository.GetByStore(idStore));
         }
         [HttpGet]
+        [Route("Store")]
         public IHttpActionResult GetByStore(string idStore,int pag,int element)
         {
             return Ok(_repository.GetByStore(idStore,pag,element));
         }
+
         [HttpGet]
-        public IHttpActionResult GetByStore(string idStore,DateTime date)
-        {
-            return Ok(_repository.GetByStore(idStore,date));
-        }
-        [HttpGet]
-        public IHttpActionResult GetByStore(string idStore,DateTime date,int pag,int element)
-        {
-            return Ok(_repository.GetByStore(idStore,date,pag,element));
-        }
-        [HttpGet]
+        [Route("Store")]
         public IHttpActionResult GetByStore(string idStore, DateTime start, DateTime end)
         {
             return Ok(_repository.GetByStore(idStore, start, end));
         }
         [HttpGet]
+        [Route("Store")]
         public IHttpActionResult GetByStore(string idStore, DateTime start,DateTime end, int pag, int element)
         {
             return Ok(_repository.GetByStore(idStore,start,end,pag,element));

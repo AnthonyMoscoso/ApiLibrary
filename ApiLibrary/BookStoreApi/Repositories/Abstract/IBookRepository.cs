@@ -26,7 +26,7 @@ namespace BookStoreApi.Repositories.Abstract
         List<BookDto> GetByEdition(string idEdition,int pag,int element);
         List<BookDto> SearchByName(string text);
         List<BookDto> SearchByName(string text,int pag,int element);
-        List<BookStoreDto> Store(string idStore,int pag,int element);
+        
 
 
         dynamic RemoveImage(string idBook,string idImageFile);

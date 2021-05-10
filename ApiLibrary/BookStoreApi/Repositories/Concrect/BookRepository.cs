@@ -1,12 +1,15 @@
 ﻿using BookStoreApi.Dtos;
 using BookStoreApi.Models.Library;
 using BookStoreApi.Models.Request;
+using BookStoreApi.Models.Utilities;
 using BookStoreApi.Repositories.Abstract;
 using BookStoreApi.Utilities;
 using LibraryApiRest.Repositories.Concrect;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -18,6 +21,7 @@ namespace BookStoreApi.Repositories.Concrect.Books
         {
         }
 
+        #region Autor
         public List<BookDto> GetByAutor(string idAutor)
         {
             var list = dbSet.Where(w => w.Autor.Any(a => a.IdAutor.Equals(idAutor))).ToList();
@@ -33,6 +37,9 @@ namespace BookStoreApi.Repositories.Concrect.Books
             return mapper.Map<List<BookDto>>(list);
         }
 
+        #endregion
+
+        #region Category
         public List<BookDto> GetByCategory(string idCategory)
         {
             List<Book>list = dbSet.Where(w => w.IdType.Equals(idCategory) 
@@ -50,6 +57,9 @@ namespace BookStoreApi.Repositories.Concrect.Books
             return mapper.Map<List<BookDto>>(list);
         }
 
+        #endregion
+
+        #region Edition
         public List<BookDto> GetByEdition(string idEdition)
         {
             var list = dbSet.Where(w => w.IdEdition.Equals(idEdition)).ToList();
@@ -65,6 +75,9 @@ namespace BookStoreApi.Repositories.Concrect.Books
             return mapper.Map<List<BookDto>>(list);
         }
 
+        #endregion
+
+        #region Editorial
         public List<BookDto> GetByEditorial(string idEditorial)
         {
             var list = dbSet.Where(w => w.BookEditorial.Any(e => e.IdEditorial.Equals(idEditorial))).ToList();
@@ -81,6 +94,9 @@ namespace BookStoreApi.Repositories.Concrect.Books
             return mapper.Map<List<BookDto>>(list);
         }
 
+        #endregion
+
+        #region gender
         public List<BookDto> GetByGender(List<string> idGeners)
         {
             var list = dbSet.Where(w => w.Gender.Any(g => idGeners.Any(y=> y.Equals(g.IdGender)))).ToList();
@@ -96,8 +112,10 @@ namespace BookStoreApi.Repositories.Concrect.Books
             return mapper.Map<List<BookDto>>(list);
         }
 
+        #endregion
 
 
+        #region Search By Name
         public List<BookDto> SearchByName(string text)
         {
             var list = dbSet.Where(w => w.BookTittle.Contains(text)).ToList();
@@ -113,6 +131,10 @@ namespace BookStoreApi.Repositories.Concrect.Books
             return mapper.Map<List<BookDto>>(list);
         }
 
+        #endregion
+
+
+        #region Search By Autor Name
         public List<BookDto> SearchByAutorName(string text)
         {
             var list = dbSet.Where(w => w.Autor.Any(a => a.AutorName.Contains(text))).ToList();
@@ -127,79 +149,111 @@ namespace BookStoreApi.Repositories.Concrect.Books
                  ToList();
             return mapper.Map<List<BookDto>>(list);
         }
+        #endregion
+
+
         public new  dynamic Insert(List<Book>list)
         {
-            string message = "";
-            var stores = Context.Store.ToList();
-            List<Book> booksWithAutors = new List<Book>();
-            List<Book> booksWithGender = new List<Book>();
+            List<string> querys = new List<string>();
+
             foreach (Book b in list)
             {
+
                 if (b.Autor.Count>0)
-                {
-                    Book book = new Book
-                    {
-                        Autor = new List<Autor>(),
-                        IdBook = b.IdBook
-                    };
-                    List<Autor> autors = b.Autor.ToList();
-                    foreach (Autor autor in autors)
+                {            
+                    List<Autor> book_autors = b.Autor.ToList();
+                    
+                    foreach (Autor autor in book_autors)
                     {
                         var search = Context.Autor.Find(autor.IdAutor);
                         if (search != null)
                         {
                             b.Autor.Remove(autor);
-                            book.Autor.Add(autor);
+                            var query = string.Format("Insert into BookAutor values ('{0}','{1}')", b.IdBook, autor.IdAutor);
+                            querys.Add(query);
                         }
-                    }
-                    if (book.Autor.Count>0)
-                    {
-                        booksWithAutors.Add(book);
                     }
                 }
                 if (b.Gender.Count > 0)
                 {
-                    Book book = new Book
-                    {
-                        Gender = new List<Gender>(),
-                        IdBook = b.IdBook
-                    };
-                    List<Gender> genders = b.Gender.ToList();
-                    foreach (Gender gender in genders)
+
+                    List<Gender> book_genders = b.Gender.ToList();
+                    foreach (Gender gender in book_genders)
                     {
                         var search = Context.Gender.Find(gender.IdGender);
                         if (search != null)
                         {
                             b.Gender.Remove(gender);
-                            book.Gender.Add(gender);
-                        }
-                        if (book.Gender.Count>0)
-                        {
-                            booksWithGender.Add(book);
+                            var query = string.Format("Insert into BookGender values('{0}','{1}')", b.IdBook, gender.IdGender);
+                            querys.Add(query);
                         }
                     }
                 }
 
+                try
+                {
+                   
+                    dbSet.Add(b);
+                  
+                    AddBookToStore(b);
+                    AddBookToWareHouse(b);
+                    Context.SaveChanges();
+                    querys.ForEach(query => Context.Database.ExecuteSqlCommand(query));
+                    Context.SaveChanges();
+                    MessageControl message = new MessageControl()
+                    {
+                       Code = Utilities.Enums.MessageCode.correct,
+                       Error = false,
+                       Type = Utilities.Enums.MessageType.Insert,
+                       Note = $"{name} with {Identificator} : {b.IdBook} was insert"
+                    };
+                    messages.Add(message);
+                }
+                catch(DbUpdateException e)
+                {
+                    MessageControl message = new MessageControl()
+                    {
+                        Code = Utilities.Enums.MessageCode.exception,
+                        Error = true,
+                        Type = Utilities.Enums.MessageType.Exception,
+                        Note = e.InnerException.InnerException.Message
+                    };
+                    dbSet.Remove(b);
+                    messages.Add(message);
+                }
+                catch(SqlException e)
+                {
+                    MessageControl message = new MessageControl()
+                    {
+                        Code = Utilities.Enums.MessageCode.exception,
+                        Error = true,
+                        Type = Utilities.Enums.MessageType.Exception,
+                        Note = e.InnerException.InnerException.Message
+                    };
+                    dbSet.Remove(b);
+                    messages.Add(message);
+                }
+                catch (Exception e)
+                {
+                    MessageControl message = new MessageControl()
+                    {
+                        Code = Utilities.Enums.MessageCode.exception,
+                        Error = true,
+                        Type = Utilities.Enums.MessageType.Exception,
+                        Note = e.InnerException.InnerException.Message
+                    };
+                    dbSet.Remove(b);
+                    messages.Add(message);
+                }
+    
+
+
             }
           
-            AddBookToStore(stores,list);
-            dbSet.AddRange(list);
-            message += Save();
-            if (booksWithAutors.Count>0)
-            {
-                foreach (Book bookWithAutor in booksWithAutors)
-                {
-                    AddAutorToBook(bookWithAutor);
-                }
-            }
-            if (booksWithGender.Count>0)
-            {
-                foreach (Book bookWithGender in booksWithGender )
-                {
-                    AddGenderToBook(bookWithGender);
-                }
-            }
-            return message += Save();
+           
+
+            return messages;
+    
         }
 
         public new dynamic Update(List<Book> list)
@@ -218,31 +272,13 @@ namespace BookStoreApi.Repositories.Concrect.Books
 
         }
 
-        private void AddAutorToBook(Book b)
-        {
-            foreach (Autor autor in b.Autor)
-            {
-
-                var query = string.Format("Insert into BookAutor values('{0}','{1}')", b.IdBook, autor.IdAutor);
-                Context.Database.ExecuteSqlCommand(query);
-                
-            }
-        }
-        private void AddGenderToBook(Book b)
-        {
-            foreach (Gender gender in b.Gender)
-            {
-                var query = string.Format("Insert into BookGender values('{0}','{1}')", b.IdBook,gender.IdGender);
+      
         
-                Context.Database.ExecuteSqlCommand(query);
-            }
-        }
-        private void AddBookToStore(List<Store> stores,List<Book> list)
+        private void AddBookToStore(Book b)
         {
+            List<Store> stores = Context.Store.ToList();
             foreach (Store store in stores)
             {
-                foreach (Book b in list)
-                {
                     BookStore bookStore = new BookStore()
                     {
                         IdBookStore = IdGenerator.GetNewId(),
@@ -251,11 +287,27 @@ namespace BookStoreApi.Repositories.Concrect.Books
                         Stock = 0,
                         IdStore = store.IdStore
                     };
-
                     Context.BookStore.Add(bookStore);
-                }
+            }             
+        }
+
+        private void AddBookToWareHouse(Book b)
+        {
+            List<WareHouse> wareHouses = Context.WareHouse.ToList();
+            foreach (WareHouse ware in wareHouses)
+            {
+                WareHouseBook wareHouseBook = new WareHouseBook()
+                {
+                        IdWareHouse = ware.IdWareHouse,
+                        IdBook = b.IdBook,
+                        IdWareHouseBook = IdGenerator.GetNewId(),
+                        Stock =0,
+                        
+                 };
+                Context.WareHouseBook.Add(wareHouseBook);
             }
         }
+
         private void UpdatePrice(Book entity)
         {
             Context.BookStore.Where(w => w.IdBook.Equals(entity.IdBook)).ToList().ForEach(e=> e.BookPrice=entity.Price);
@@ -264,7 +316,7 @@ namespace BookStoreApi.Repositories.Concrect.Books
 
         public new dynamic Delete(List<string> ids)
         {
-            string message = "";
+           
             foreach (string id in ids)
             {
                 var search = dbSet.Find(id);
@@ -272,28 +324,75 @@ namespace BookStoreApi.Repositories.Concrect.Books
                 {
                     if (!HasConnections(search.IdBook))
                     {
-                        var query = string.Format("Delete from BookAutor where IdBook='{0}';", search.IdBook);
-                        Context.Database.ExecuteSqlCommand(query);
-                        message += Save();
-                        Context.BookStore.RemoveRange(Context.BookStore.Where(w => w.IdBook.Equals(id)).ToList());
-                        Context.WareHouseBook.RemoveRange(Context.WareHouseBook.Where(w => w.IdBook.Equals(id)).ToList());
-                        DeleteBookAutors(search.Autor.ToList(), search);
-                        DeleteBookGenders(search.Gender.ToList(), search);
-                        dbSet.Remove(search);
-                        message += Save();
+                        try
+                        {
+                            var query = string.Format("Delete from BookAutor where IdBook='{0}';", search.IdBook);
+                            Context.Database.ExecuteSqlCommand(query);
+
+                            Context.BookStore.RemoveRange(Context.BookStore.Where(w => w.IdBook.Equals(id)).ToList());
+                            Context.WareHouseBook.RemoveRange(Context.WareHouseBook.Where(w => w.IdBook.Equals(id)).ToList());
+
+                            DeleteBookAutors(search.Autor.ToList(), search);
+                            DeleteBookGenders(search.Gender.ToList(), search);
+                            dbSet.Remove(search);
+
+                            Context.SaveChanges();
+                        }
+                        catch (DbUpdateException e)
+                        {
+                            MessageControl message = new MessageControl()
+                            {
+                                Code = Utilities.Enums.MessageCode.exception,
+                                Error = true,
+                                Type = Utilities.Enums.MessageType.Exception,
+                                Note = e.InnerException.InnerException.Message
+                            };
+                           
+                            messages.Add(message);
+                        }
+                        catch (SqlException e)
+                        {
+                            MessageControl message = new MessageControl()
+                            {
+                                Code = Utilities.Enums.MessageCode.exception,
+                                Error = true,
+                                Type = Utilities.Enums.MessageType.Exception,
+                                Note = e.InnerException.InnerException.Message
+                            };
+                            
+                            messages.Add(message);
+                        }
+                        catch (Exception e)
+                        {
+                            MessageControl message = new MessageControl()
+                            {
+                                Code = Utilities.Enums.MessageCode.exception,
+                                Error = true,
+                                Type = Utilities.Enums.MessageType.Exception,
+                                Note = e.InnerException.InnerException.Message
+                            };
+                            
+                            messages.Add(message);
+                        }
                     }
                     else
                     {
-                        message +="Can't delete a book that was sale, puchase..... with id "+ id;
-                    }
-    
+                        return messages;
+                    }    
                 }
                 else
                 {
-                    message += string.Format(" any book was found with this id :{0}",id);
+                    MessageControl message = new MessageControl()
+                    {
+                        Code = Utilities.Enums.MessageCode.exception,
+                        Error = true,
+                        Type = Utilities.Enums.MessageType.Exception,
+                        Note = $"any {name} was found with this {Identificator} :{id}"
+                    };
+                    messages.Add(message);
                 }
             }
-            return message;
+            return messages;
         }
 
 
@@ -310,27 +409,89 @@ namespace BookStoreApi.Repositories.Concrect.Books
 
         private bool HasSales(string id)
         {
-            return Context.SaleLine.Where(w => w.IdBook.Equals(id)) != null;
+            bool exists = Context.SaleLine.Where(w => w.IdBook.Equals(id)).ToList() != null;
+            if (exists)
+            {
+                MessageControl message = new MessageControl()
+                {
+                    Code = Utilities.Enums.MessageCode.correct,
+                    Error = false,
+                    Type = Utilities.Enums.MessageType.Delete,
+                    Note = $"{name} with {Identificator} :{id} have Sales"
+                };
+                messages.Add(message);
+            }
+            return exists ;
         }
 
         private bool HasReservations(string id)
         {
-           return Context.Reservation.Where(w => w.IdBook.Equals(id)) != null;
+            bool exists = Context.Reservation.Where(w => w.IdBook.Equals(id)).ToList() != null;
+            if (exists)
+            {
+                MessageControl message = new MessageControl()
+                {
+                    Code = Utilities.Enums.MessageCode.correct,
+                    Error = false,
+                    Type = Utilities.Enums.MessageType.Delete,
+                    Note = $"{name} with {Identificator} :{id} have Reservations"
+                };
+                messages.Add(message);
+            }
+            return exists;
         }
 
         private bool HasOrders(string id)
         {
-            return Context.OrderLine.Where(w => w.IdBook.Equals(id)) != null;
+            bool exists = Context.OrderLine.Where(w => w.IdBook.Equals(id)).ToList() != null;
+            if (exists)
+            {
+                MessageControl message = new MessageControl()
+                {
+                    Code = Utilities.Enums.MessageCode.correct,
+                    Error = false,
+                    Type = Utilities.Enums.MessageType.Delete,
+                    Note = $"{name} with {Identificator} :{id} have Orders"
+                };
+                messages.Add(message);
+            }
+            return exists;
         }
 
         private bool HasPurchase(string id)
         {
-            return Context.PurchaseLine.Where(W => W.IdBook.Equals(id)) != null;
+            bool exists = Context.PurchaseLine.Where(W => W.IdBook.Equals(id)).ToList() != null;
+            if (exists)
+            {
+                MessageControl message = new MessageControl()
+                {
+                    Code = Utilities.Enums.MessageCode.correct,
+                    Error = false,
+                    Type = Utilities.Enums.MessageType.Delete,
+                    Note = $"{name} with {Identificator} :{id} have Purchases"
+                };
+                messages.Add(message);
+            }
+
+            return exists;
         }
 
         private bool HasShippings(string id)
         {
-            return Context.SaleLine.Where(w => w.IdBook.Equals(id)) != null;
+            bool exists = Context.SaleLine.Where(w => w.IdBook.Equals(id)).ToList() != null;
+            if (exists)
+            {
+                MessageControl message = new MessageControl()
+                {
+                    Code = Utilities.Enums.MessageCode.correct,
+                    Error = false,
+                    Type = Utilities.Enums.MessageType.Delete,
+                    Note = $"{name} with {Identificator} :{id} have Shippings"
+                };
+                messages.Add(message);
+            }
+           
+            return exists;
         }
         private void UpdateBookAutors(Book entity)
         {
@@ -444,10 +605,7 @@ namespace BookStoreApi.Repositories.Concrect.Books
      
             }
         }
-        public List<BookStoreDto> Store(string idStore, int pag, int element)
-        {
-            throw new NotImplementedException();
-        }
+       
 
         public dynamic RemoveImage(string idBook, string idImageFile)
         {

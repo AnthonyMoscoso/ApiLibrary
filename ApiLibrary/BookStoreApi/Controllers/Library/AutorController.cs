@@ -14,6 +14,7 @@ namespace BookStoreApi.Controllers
 
         readonly IAutorRepository _repository = new AutorRepository();
 
+        #region Generics 
         [HttpGet]
         [Route("Count")]
         public IHttpActionResult Count()
@@ -21,7 +22,7 @@ namespace BookStoreApi.Controllers
             return Ok(_repository.Count());
         }
         [HttpGet]
-        public IHttpActionResult Get ()
+        public IHttpActionResult Get()
         {
             return Ok(_repository.Get());
         }
@@ -43,13 +44,11 @@ namespace BookStoreApi.Controllers
         {
             return Ok(_repository.Get(element, pag));
         }
-
         [HttpPost]
         public IHttpActionResult Post(List<Autor> list)
         {
             return Ok(_repository.Insert(list));
         }
-
 
         [HttpPut]
         public IHttpActionResult Put(List<Autor> list)
@@ -63,6 +62,7 @@ namespace BookStoreApi.Controllers
             return Ok(_repository.Delete(ids));
         }
 
+        #endregion
 
         [HttpGet]
         [Route("Name")]

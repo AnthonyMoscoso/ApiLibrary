@@ -40,7 +40,10 @@ namespace LibraryApiRest.Repositories.Concrect
 
         public List<AutorDto> SearchByName(string text, int pag, int element)
         {
-            var result= dbSet.Where(w => w.AutorName.Contains(text)).OrderBy(w=> w.AutorName).Skip((pag-1)*element).Take(element).ToList();
+            var result= dbSet.Where(w => w.AutorName.Contains(text))
+                .OrderBy(w=> w.AutorName)
+                .Skip((pag-1)*element)
+                .Take(element).ToList();
             return mapper.Map<List<AutorDto>>(result);
         }
     }

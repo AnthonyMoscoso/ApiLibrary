@@ -31,37 +31,21 @@ namespace BookStoreApi.Repositories.Concrect
         public List<ReservationStoreDto> GetByStore(string idStore, int pag, int element)
         {
             var result = dbSet.Where(w => w.IdStore.Equals(idStore))
+                   .OrderBy(w => w.Reservation.CreateDate)
                 .Skip((pag-1)*element)
                 .Take(element)
                 .ToList();
             return mapper.Map<List<ReservationStoreDto>>(result);
         }
 
-        public List<ReservationStoreDto> GetByStore(string idStore, DateTime date)
-        {
-            var result = dbSet.Where(w => w.IdStore.Equals(idStore)
-            && DbFunctions.TruncateTime(w.Reservation.CreateDate).Equals(date))
-                .ToList();
-            return mapper.Map<List<ReservationStoreDto>>(result);
-        }
-
-        public List<ReservationStoreDto> GetByStore(string idStore, DateTime date, int pag, int element)
-        {
-            var result = dbSet.Where(w => w.IdStore.Equals(idStore)
-          && DbFunctions.TruncateTime(w.Reservation.CreateDate).Equals(date))
-               .Skip((pag - 1) * element)
-                .Take(element)
-                .ToList();
-            return mapper.Map<List<ReservationStoreDto>>(result);
-        }
+       
 
         public List<ReservationStoreDto> GetByStore(string idStore, DateTime start, DateTime end)
         {
             var result = dbSet.Where(w => w.IdStore.Equals(idStore)
-            && DbFunctions.TruncateTime(start) >= DbFunctions.TruncateTime(w.Reservation.CreateDate)
-            && DbFunctions.TruncateTime(end) <= DbFunctions.TruncateTime(w.Reservation.CreateDate)
-            && DbFunctions.TruncateTime(start) >= DbFunctions.TruncateTime(w.Reservation.FinishReservationDate.Value)
-            && DbFunctions.TruncateTime(end) <= DbFunctions.TruncateTime(w.Reservation.FinishReservationDate.Value))
+              && (DbFunctions.TruncateTime(w.Reservation.CreateDate) >= DbFunctions.TruncateTime(start) && DbFunctions.TruncateTime(end) >= DbFunctions.TruncateTime(w.Reservation.CreateDate)
+                || (DbFunctions.TruncateTime(w.Reservation.FinishReservationDate.Value) >= DbFunctions.TruncateTime(start) && DbFunctions.TruncateTime(end) >= DbFunctions.TruncateTime(w.Reservation.FinishReservationDate.Value))
+                || !w.Reservation.FinishReservationDate.HasValue))
                 .ToList();
             return mapper.Map<List<ReservationStoreDto>>(result);
         }
@@ -69,10 +53,10 @@ namespace BookStoreApi.Repositories.Concrect
         public List<ReservationStoreDto> GetByStore(string idStore, DateTime start, DateTime end, int pag, int element)
         {
             var result = dbSet.Where(w => w.IdStore.Equals(idStore)
-                && DbFunctions.TruncateTime(start) >= DbFunctions.TruncateTime(w.Reservation.CreateDate)
-                && DbFunctions.TruncateTime(end) <= DbFunctions.TruncateTime(w.Reservation.CreateDate)
-                && DbFunctions.TruncateTime(start) >= DbFunctions.TruncateTime(w.Reservation.FinishReservationDate.Value)
-                && DbFunctions.TruncateTime(end) <= DbFunctions.TruncateTime(w.Reservation.FinishReservationDate.Value))
+            && (DbFunctions.TruncateTime(w.Reservation.CreateDate) >= DbFunctions.TruncateTime(start) && DbFunctions.TruncateTime(end) >= DbFunctions.TruncateTime(w.Reservation.CreateDate)
+           || (DbFunctions.TruncateTime(w.Reservation.FinishReservationDate.Value) >= DbFunctions.TruncateTime(start) && DbFunctions.TruncateTime(end) >= DbFunctions.TruncateTime(w.Reservation.FinishReservationDate.Value))
+            || !w.Reservation.FinishReservationDate.HasValue))         
+                 .OrderBy(w => w.Reservation.CreateDate)
                 .Skip((pag - 1) * element)
                 .Take(element)
                 .ToList();
@@ -84,12 +68,11 @@ namespace BookStoreApi.Repositories.Concrect
           
             foreach (ReservationStoreDto dto in list)
             {
-                var reser = mapper.Map<Reservation>(dto);
+
                 var r_store = mapper.Map<ReservationStore>(dto);
             
                 try
                 {
-                    Context.Reservation.Add(reser);
                     dbSet.Add(r_store);
                     Context.SaveChanges();
                     MessageControl message = new MessageControl()
@@ -111,7 +94,7 @@ namespace BookStoreApi.Repositories.Concrect
                         Note = $"{e.InnerException.InnerException.Message}"
                     };
                     messages.Add(message);
-                    Context.Reservation.Remove(reser);
+
                     dbSet.Remove(r_store);
                 }
                 catch (SqlException e)
@@ -124,7 +107,7 @@ namespace BookStoreApi.Repositories.Concrect
                         Note = $"{e.InnerException.InnerException.Message}"
                     };
                     messages.Add(message);
-                    Context.Reservation.Remove(reser);
+
                     dbSet.Remove(r_store);
                 }
                 catch (Exception e)
@@ -137,7 +120,7 @@ namespace BookStoreApi.Repositories.Concrect
                         Note = $"{e.InnerException.InnerException.Message}"
                     };
                     messages.Add(message);
-                    Context.Reservation.Remove(reser);
+
                     dbSet.Remove(r_store);
                 }
             }
@@ -149,15 +132,18 @@ namespace BookStoreApi.Repositories.Concrect
             foreach (ReservationStoreDto dto in list)
             {
                 var reser = mapper.Map<Reservation>(dto);
-                var r_store = mapper.Map<ReservationStore>(dto);
+                
 
                 try
                 {
                     var search = dbSet.Find(dto.IdReservation);
                     if (search!=null)
                     {
-                        messages.Add(reservationRepository.Update(reser));
-                        messages.Add(Update(r_store));
+
+                        messages.AddRange(reservationRepository.Update(reser));
+                        dbSet.Attach(search);
+                        Context.Entry(search).State = EntityState.Modified;
+                        Save();
                     }
                     else
                     {
@@ -221,6 +207,7 @@ namespace BookStoreApi.Repositories.Concrect
                     {
                         dbSet.Remove(search);
                         Context.Reservation.Remove(Context.Reservation.Find(id));
+                        Context.SaveChanges();
                         MessageControl message = new MessageControl()
                         {
                             Code = Utilities.Enums.MessageCode.correct,
@@ -228,6 +215,7 @@ namespace BookStoreApi.Repositories.Concrect
                             Type = Utilities.Enums.MessageType.Delete,
                             Note = $"{name} with {Identificator} :{id} was delete"
                         };
+                        messages.Add(message);
                     }
                     catch (DbUpdateException e)
                     {
@@ -286,11 +274,10 @@ namespace BookStoreApi.Repositories.Concrect
         public int Count(string idStore, DateTime start, DateTime end)
         {
             return dbSet.Count(w => w.IdStore.Equals(idStore)
-             && DbFunctions.TruncateTime(start) >= DbFunctions.TruncateTime(w.Reservation.CreateDate)
-            && DbFunctions.TruncateTime(end) <= DbFunctions.TruncateTime(w.Reservation.CreateDate)
-            && DbFunctions.TruncateTime(start) >= DbFunctions.TruncateTime(w.Reservation.FinishReservationDate.Value)
-            && DbFunctions.TruncateTime(end) <= DbFunctions.TruncateTime(w.Reservation.FinishReservationDate.Value)
-            );
+                  && (
+                  DbFunctions.TruncateTime(w.Reservation.CreateDate) >= DbFunctions.TruncateTime(start) 
+                  && DbFunctions.TruncateTime(end) >= DbFunctions.TruncateTime(w.Reservation.CreateDate)
+           || (DbFunctions.TruncateTime(w.Reservation.FinishReservationDate.Value) >= DbFunctions.TruncateTime(start) && DbFunctions.TruncateTime(end) >= DbFunctions.TruncateTime(w.Reservation.FinishReservationDate.Value))));
         }
     }
 }

@@ -54,23 +54,11 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=6.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.6.8.0\lib\net461\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.IdentityModel.Logging, Version=6.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.IdentityModel.Logging.6.8.0\lib\net461\Microsoft.IdentityModel.Logging.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.IdentityModel.Tokens, Version=6.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.6.8.0\lib\net461\Microsoft.IdentityModel.Tokens.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=6.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.6.8.0\lib\net461\System.IdentityModel.Tokens.Jwt.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
@@ -169,26 +157,6 @@
     <Content Include="bin\System.Web.Http.WebHost.xml" />
     <Content Include="bin\System.Web.Http.xml" />
     <Content Include="Global.asax" />
-    <Content Include="Ado\Library\LibraryDb.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>LibraryDb.edmx</DependentUpon>
-      <LastGenOutput>LibraryDb.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Ado\Library\LibraryDb.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>LibraryDb.edmx</DependentUpon>
-      <LastGenOutput>LibraryDb.cs</LastGenOutput>
-    </Content>
-    <Content Include="Ado\Login\UserDb.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>UserDb.edmx</DependentUpon>
-      <LastGenOutput>UserDb.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Ado\Login\UserDb.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>UserDb.edmx</DependentUpon>
-      <LastGenOutput>UserDb.cs</LastGenOutput>
-    </Content>
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -238,378 +206,12 @@
     <Compile Include="Controllers\Library\WareHouseBookController.cs" />
     <Compile Include="Controllers\Library\WareHouseController.cs" />
     <Compile Include="Controllers\Login\LoginController.cs" />
-    <Compile Include="Authorize\Repositorie\LoginRepositorie.cs" />
-    <Compile Include="Authorize\Tokens\TokenGenerator.cs" />
-    <Compile Include="Authorize\Tokens\TokenValidationHandler.cs" />
-    <Compile Include="Models\Dtos\AutorDto.cs" />
-    <Compile Include="Models\Dtos\BarCodeDto.cs" />
-    <Compile Include="Models\Dtos\BookDto.cs" />
-    <Compile Include="Models\Dtos\BookEditorialDto.cs" />
-    <Compile Include="Models\Dtos\BookTypeDto.cs" />
-    <Compile Include="Models\Dtos\CouponDto.cs" />
-    <Compile Include="Models\Dtos\DirectionDto.cs" />
-    <Compile Include="Models\Dtos\DiscountDto.cs" />
-    <Compile Include="Models\Dtos\DocumentFileDto.cs" />
-    <Compile Include="Models\Dtos\EditionDto.cs" />
-    <Compile Include="Models\Dtos\EditorialDto.cs" />
-    <Compile Include="Models\Dtos\OnlineSaleDto.cs" />
-    <Compile Include="Models\Dtos\ReceptionOrderDto.cs" />
-    <Compile Include="Models\Dtos\ReceptionPurchaseDto.cs" />
-    <Compile Include="Models\Dtos\RegisterStoreDto.cs" />
-    <Compile Include="Models\Dtos\RegisterWareHouseDto.cs" />
-    <Compile Include="Models\Dtos\ReservationOnlineDto.cs" />
-    <Compile Include="Models\Dtos\ReservationStoreDto.cs" />
-    <Compile Include="Ado\Library\Autor.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\Barcode.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\Book.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\BookEditorial.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\BookStore.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\BookType.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\Box.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\Coupon.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\Direction.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\Discount.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\DocumentFile.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\Edition.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\Editorial.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\Employee.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\Gender.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\ImageFile.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\LibraryDb.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LibraryDb.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\LibraryDb.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\LibraryDb.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LibraryDb.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\Occupation.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\OnlineSale.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\OrderLine.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\Orders.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\PaymentBonus.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\PaymentBonusEmployee.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\PayRoll.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\Permit.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\Person.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\Providers.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\Purchase.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\PurchaseLine.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\Reception.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\ReceptionLine.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\Register.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\RegisterLine.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\Reservation.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\ReservationOnline.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\ReservationStore.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\ReturnLine.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\ReturnSale.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\Rol.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\Sale.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\SaleLine.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\Schedule.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\ScheduleLine.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\Shipping.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\ShippingLine.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\SickLeave.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\Socie.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\Store.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\StoreSale.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\sysdiagrams.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\Taxes.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\WareHouse.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Library\WareHouseBook.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Utilities\EmployeeWorkPlace.cs" />
-    <Compile Include="Models\Dtos\GenderDto.cs" />
-    <Compile Include="Models\Dtos\ImageFileDto.cs" />
-    <Compile Include="Models\Dtos\OccupationDto.cs" />
-    <Compile Include="Models\Dtos\OrderDto.cs" />
-    <Compile Include="Models\Dtos\OrderLineDto.cs" />
-    <Compile Include="Models\Dtos\PaymentBonusDto.cs" />
-    <Compile Include="Models\Dtos\PayRollDto.cs" />
-    <Compile Include="Models\Dtos\ProviderDto.cs" />
-    <Compile Include="Models\Dtos\PurchaseDto.cs" />
-    <Compile Include="Models\Dtos\PurchaseLineDto.cs" />
-    <Compile Include="Models\Dtos\ReceptionDto.cs" />
-    <Compile Include="Models\Dtos\ReceptionLineDto.cs" />
-    <Compile Include="Models\Dtos\RegisterDto.cs" />
-    <Compile Include="Models\Dtos\RegisterLineDto.cs" />
-    <Compile Include="Models\Dtos\ReservationDto.cs" />
-    <Compile Include="Models\Dtos\ReturnLineDto.cs" />
-    <Compile Include="Models\Dtos\ReturnSaleDto.cs" />
-    <Compile Include="Models\Dtos\RolDto.cs" />
-    <Compile Include="Models\Dtos\SaleDto.cs" />
-    <Compile Include="Models\Dtos\SaleLineDto.cs" />
-    <Compile Include="Models\Dtos\ScheduleDto.cs" />
-    <Compile Include="Models\Dtos\ScheduleLineDto.cs" />
-    <Compile Include="Models\Dtos\ShippingDto.cs" />
-    <Compile Include="Models\Dtos\ShippingLineDto.cs" />
-    <Compile Include="Models\Dtos\StoreDto.cs" />
-    <Compile Include="Models\Dtos\StoreSaleDto.cs" />
-    <Compile Include="Models\Dtos\TaxesDto.cs" />
-    <Compile Include="Models\Dtos\WareHouseBookDto.cs" />
-    <Compile Include="Models\Dtos\WareHouseDto.cs" />
-    <Compile Include="Enums\ReservationStatus.cs" />
-    <Compile Include="Enums\StatusCode.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Mappers\AutoMapperConfig.cs" />
-    <Compile Include="Ado\Login\LoginRequest.cs" />
-    <Compile Include="Ado\Login\UserDb.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>UserDb.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Login\UserDb.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>UserDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Login\UserDb.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>UserDb.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Ado\Login\Users.cs">
-      <DependentUpon>UserDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Dtos\BookStoreDto.cs" />
-    <Compile Include="Models\Dtos\EmployeeDto.cs" />
-    <Compile Include="Models\Dtos\PermitDto.cs" />
-    <Compile Include="Models\Dtos\PersonDto.cs" />
-    <Compile Include="Models\Dtos\SocieDto.cs" />
-    <Compile Include="Models\Utilities\MessageControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\Abstract\IBookEditorialRepository.cs" />
-    <Compile Include="Repositories\Abstract\IBookStoreRepository.cs" />
-    <Compile Include="Repositories\Abstract\IBookTypeRepository.cs" />
-    <Compile Include="Repositories\Abstract\ICouponRepository.cs" />
-    <Compile Include="Repositories\Abstract\IDirectionRepository.cs" />
-    <Compile Include="Repositories\Abstract\IDiscountRepository.cs" />
-    <Compile Include="Repositories\Abstract\IEditionRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\IEditorialRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\IDocumentFileRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\IImageFileRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\IGenderRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\IAutorRepository.cs" />
-    <Compile Include="Repositories\Abstract\IBarCodeRepository.cs" />
-    <Compile Include="Repositories\Abstract\IBookRepository.cs" />
-    <Compile Include="Repositories\Abstract\IOccupationRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\IOrderLineRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\IOrderRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\IPaymentBonusRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\IPayRollRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\IPermitRepository.cs" />
-    <Compile Include="Repositories\Abstract\IEmployeeRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\IPersonRepository.cs" />
-    <Compile Include="Repositories\Abstract\IRegisterStoreRepository.cs" />
-    <Compile Include="Repositories\Abstract\IRegisterWareHouseRepository.cs" />
-    <Compile Include="Repositories\Abstract\IReservationOnlineRepository.cs" />
-    <Compile Include="Repositories\Abstract\IReservationStoreRepository.cs" />
-    <Compile Include="Repositories\Abstract\ISocieRepository.cs" />
-    <Compile Include="Repositories\Abstract\IProviderRepository.cs" />
-    <Compile Include="Repositories\Abstract\IPurchaseLineRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\IPurchaseRepository.cs" />
-    <Compile Include="Repositories\Abstract\IReceptionLineRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\IReceptionRepository.cs" />
-    <Compile Include="Repositories\Abstract\IRegisterLineRepository.cs" />
-    <Compile Include="Repositories\Abstract\IRegisterRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\IReservationRepository.cs" />
-    <Compile Include="Repositories\Abstract\IReturnLineRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\IReturnSaleRepository.cs" />
-    <Compile Include="Repositories\Abstract\IRolRepository.cs" />
-    <Compile Include="Repositories\Abstract\ISaleLineRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\ISaleRepository.cs" />
-    <Compile Include="Repositories\Abstract\IScheduleLineRepository.cs" />
-    <Compile Include="Repositories\Abstract\IScheduleRepository.cs" />
-    <Compile Include="Repositories\Abstract\IShippingLineRepositorie.cs" />
-    <Compile Include="Repositories\Abstract\IShippingRepository.cs" />
-    <Compile Include="Repositories\Abstract\IStoreRepository.cs" />
-    <Compile Include="Repositories\Abstract\IStoreSaleRepository.cs" />
-    <Compile Include="Repositories\Abstract\ITaxesRepository.cs" />
-    <Compile Include="Repositories\Abstract\IWareHouseBookRepository.cs" />
-    <Compile Include="Repositories\Abstract\IWareHouseRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\BarCodeRepository.cs" />
-    <Compile Include="Repositories\Concrect\BookEditorialRepository.cs" />
-    <Compile Include="Repositories\Concrect\BookRepository.cs" />
-    <Compile Include="Repositories\Concrect\BookStoreRepository.cs" />
-    <Compile Include="Repositories\Concrect\BookTypeRepository.cs" />
-    <Compile Include="Repositories\Concrect\CouponRepository.cs" />
-    <Compile Include="Repositories\Concrect\DirectionRepository.cs" />
-    <Compile Include="Repositories\Concrect\DiscountRepository.cs" />
-    <Compile Include="Repositories\Concrect\EditionRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\EditorialRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\DocumentFileRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\ImageFileRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\GenderRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\OccupationRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\OrderLineRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\OrderRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\PaymentBonusRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\PayRollRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\PermitRepository.cs" />
-    <Compile Include="Repositories\Concrect\EmployeeRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\PersonRepository.cs" />
-    <Compile Include="Repositories\Concrect\RegisterStoreRepository.cs" />
-    <Compile Include="Repositories\Concrect\RegisterWareHouseRepository.cs" />
-    <Compile Include="Repositories\Concrect\ReservationOnlineRepository.cs" />
-    <Compile Include="Repositories\Concrect\ReservationStoreRepository.cs" />
-    <Compile Include="Repositories\Concrect\SocieRepository.cs" />
-    <Compile Include="Repositories\Concrect\ProviderRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\PurchaseLineRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\PurchaseRepository.cs" />
-    <Compile Include="Repositories\Concrect\ReceptionLineRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\ReceptionRepository.cs" />
-    <Compile Include="Repositories\Concrect\RegisterLineRepository.cs" />
-    <Compile Include="Repositories\Concrect\RegisterRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\ReservationRepository.cs" />
-    <Compile Include="Repositories\Concrect\ReturnLineRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\ReturnSaleRepository.cs" />
-    <Compile Include="Repositories\Concrect\RolRepository.cs" />
-    <Compile Include="Repositories\Concrect\SaleLineRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\SaleRepository.cs" />
-    <Compile Include="Repositories\Concrect\ScheduleLineRepository.cs" />
-    <Compile Include="Repositories\Concrect\ScheduleRepository.cs" />
-    <Compile Include="Repositories\Concrect\ShippingLineRepositorie.cs" />
-    <Compile Include="Repositories\Concrect\ShippingRepository.cs" />
-    <Compile Include="Repositories\Concrect\StoreRepository.cs" />
-    <Compile Include="Repositories\Concrect\StoreSaleRepository.cs" />
-    <Compile Include="Repositories\Concrect\TaxesRepository.cs" />
-    <Compile Include="Repositories\Concrect\WareHouseBookRepository.cs" />
-    <Compile Include="Repositories\Concrect\WareHouseRepositorie.cs" />
-    <Compile Include="Repositories\Generic\IRepository.cs" />
-    <Compile Include="Repositories\Concrect\AutorRepository.cs" />
-    <Compile Include="Repositories\Generic\Repository.cs" />
-    <Compile Include="Repositories\Concrect\FileRepository.cs" />
-    <Compile Include="Utilities\Enums\FileType.cs" />
-    <Compile Include="Utilities\Enums\MessageCode.cs" />
-    <Compile Include="Utilities\Enums\MessageType.cs" />
-    <Compile Include="Utilities\Enums\OrderStatus.cs" />
-    <Compile Include="Utilities\Enums\ShippingStatus.cs" />
-    <Compile Include="Utilities\IdGenerator.cs" />
-    <Compile Include="Repositories\Abstract\IFileRepository.cs" />
-    <Compile Include="Utilities\UrlDirectoryFiles.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Ado\Login\UserDb.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>UserDb.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Ado\Login\UserDb.edmx.diagram">
-      <DependentUpon>UserDb.edmx</DependentUpon>
-    </Content>
     <Content Include="bin\BookStoreApi.dll.config" />
     <Content Include="bin\roslyn\csc.exe.config" />
     <Content Include="bin\roslyn\csc.rsp" />
@@ -621,13 +223,6 @@
     <Content Include="bin\roslyn\vbc.exe.config" />
     <Content Include="bin\roslyn\vbc.rsp" />
     <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
-    <EntityDeploy Include="Ado\Library\LibraryDb.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>LibraryDb.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Ado\Library\LibraryDb.edmx.diagram">
-      <DependentUpon>LibraryDb.edmx</DependentUpon>
-    </Content>
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -643,7 +238,49 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\" />
     <Folder Include="Data\" />
+    <Folder Include="Scripts\" />
     <Folder Include="Views\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ado.Library\Ado.Library.csproj">
+      <Project>{7965865a-d1f6-4d42-9563-9d2dde070995}</Project>
+      <Name>Ado.Library</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ado.Users\Ado.User.csproj">
+      <Project>{78a7aa00-6c83-4336-9768-61fd5aa433db}</Project>
+      <Name>Ado.User</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models.Ado\Models.Ado.csproj">
+      <Project>{E95982B4-23D7-406C-B457-8EBF5ED7C521}</Project>
+      <Name>Models.Ado</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models.Dtos\Models.Dtos.csproj">
+      <Project>{37DC8AF1-E48D-47CE-BD66-BAEE73948D9D}</Project>
+      <Name>Models.Dtos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models.Utilities\Models.Utilities.csproj">
+      <Project>{c4e1b4b8-771f-4aaa-9eb1-77cc371b88e7}</Project>
+      <Name>Models.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nucleo.AutoMappers\Nucleo.AutoMappers.csproj">
+      <Project>{00be379b-8d19-41a6-ad0a-3d253268f8bd}</Project>
+      <Name>Nucleo.AutoMappers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nucleo.DBAccess\Nucleo.DBAccess.csproj">
+      <Project>{b7816c94-c966-4571-9afb-5154cdf25f2e}</Project>
+      <Name>Nucleo.DBAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nucleo.Files.Web\Nucleo.Files.Web.csproj">
+      <Project>{f1c0ff4f-9179-432f-8a91-f9ead4a7b687}</Project>
+      <Name>Nucleo.Files.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nucleo.Tokens\Nucleo.Tokens.csproj">
+      <Project>{9d06fda9-b989-4596-bace-1edb4f10676f}</Project>
+      <Name>Nucleo.Tokens</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

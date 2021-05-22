@@ -1,14 +1,10 @@
-﻿using BookStoreApi.Models.Library;
-using BookStoreApi.Repositories.Abstract.Payments;
-using BookStoreApi.Repositories.Concrect.Payments;
-using System;
+﻿using Models.Repositories.Concrect.Payments;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using Models.Ado.Library;
+using Ado.Library;
 
-namespace BookStoreApi.Controllers.Library.Payments
+namespace Models.Controllers.Library.Payments
 {
     [RoutePrefix("Api/PaymentBonus")]
     public class PaymentBonusController : ApiController

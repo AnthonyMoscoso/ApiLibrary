@@ -1,13 +1,8 @@
-﻿using BookStoreApi.Models.Dtos;
-using BookStoreApi.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+﻿using System.Web.Http;
+using Ado.Library;
+using Nucleo.Files.Web;
 
-namespace BookStoreApi.Controllers.Files
+namespace Nucleo.FilesAcces
 {
     [RoutePrefix("api/File")]
     public class FileController : ApiController

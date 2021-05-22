@@ -1,10 +1,11 @@
-﻿using BookStoreApi.Models.Library;
-using BookStoreApi.Repositories.Abstract;
-using BookStoreApi.Repositories.Concrect.BarCodes;
+﻿using Models.Repositories.Abstract;
+using Models.Repositories.Concrect.BarCodes;
 using System.Collections.Generic;
 using System.Web.Http;
+using Models.Ado.Library;
+using Ado.Library;
 
-namespace BookStoreApi.Controllers.Library.BarCodes
+namespace Models.Controllers.Library.BarCodes
 {
     [RoutePrefix("Api/BarCode")]
     public class BarCodeController : ApiController

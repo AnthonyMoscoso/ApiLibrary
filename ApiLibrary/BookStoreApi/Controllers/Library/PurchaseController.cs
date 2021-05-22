@@ -1,14 +1,10 @@
-﻿using BookStoreApi.Models.Library;
-using BookStoreApi.Repositories.Abstract.Purchases;
-using BookStoreApi.Repositories.Concrect.Purchases;
-using System;
+﻿using Models.Repositories.Concrect.Purchases;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using Models.Ado.Library;
+using Ado.Library;
 
-namespace BookStoreApi.Controllers.Library.Purchases
+namespace Models.Controllers.Library.Purchases
 {
     [RoutePrefix("Api/Purchase")]
     public class PurchaseController : ApiController

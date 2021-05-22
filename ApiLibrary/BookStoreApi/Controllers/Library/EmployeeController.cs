@@ -1,12 +1,11 @@
-﻿using BookStoreApi.Dtos;
-using BookStoreApi.Models.Request;
-using BookStoreApi.Repositories.Abstract.Persons;
-using BookStoreApi.Repositories.Concrect.Persons;
+﻿using Ado.Library;
+using Models.Dtos;
+using Models.Repositories.Concrect.Persons;
 using System;
 using System.Collections.Generic;
 using System.Web.Http;
 
-namespace BookStoreApi.Controllers.Library.Persons
+namespace Models.Controllers.Library.Persons
 {
     [Authorize]
     [RoutePrefix("Api/Employee")]

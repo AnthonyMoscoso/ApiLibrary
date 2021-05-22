@@ -1,14 +1,10 @@
-﻿using BookStoreApi.Models.Library;
-using BookStoreApi.Repositories.Abstract.Registers;
-using BookStoreApi.Repositories.Concrect.Registers;
-using System;
+﻿using Models.Repositories.Concrect.Registers;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using Models.Ado.Library;
+using Ado.Library;
 
-namespace BookStoreApi.Controllers.Library
+namespace Models.Controllers.Library
 {
     [RoutePrefix("api/RegisterLine")]
     [Authorize]

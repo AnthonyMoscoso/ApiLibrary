@@ -1,14 +1,11 @@
-﻿using BookStoreApi.Models.Library;
-using BookStoreApi.Repositories.Abstract.Reservations;
-using BookStoreApi.Repositories.Concrect.Reservations;
+﻿using Models.Repositories.Concrect.Reservations;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using Models.Ado.Library;
+using Ado.Library;
 
-namespace BookStoreApi.Controllers.Library.Reservations
+namespace Models.Controllers.Library.Reservations
 {
     [RoutePrefix("Api/Reservation")]
     public class ReservationController : ApiController

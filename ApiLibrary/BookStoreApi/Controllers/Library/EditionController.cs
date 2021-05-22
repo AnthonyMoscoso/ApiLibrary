@@ -1,14 +1,10 @@
-﻿using BookStoreApi.Models.Library;
-using BookStoreApi.Repositories.Abstract.Editions;
-using BookStoreApi.Repositories.Concrect.Editions;
-using System;
+﻿using Models.Repositories.Concrect.Editions;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using Models.Ado.Library;
+using Ado.Library;
 
-namespace BookStoreApi.Controllers.Library.Editions
+namespace Models.Controllers.Library.Editions
 {
     [RoutePrefix("Api/Edition")]
     public class EditionController : ApiController

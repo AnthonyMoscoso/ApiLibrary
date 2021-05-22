@@ -1,10 +1,10 @@
-﻿using BookStoreApi.Models.Library;
-using BookStoreApi.Repositories.Abstract.Directions;
-using BookStoreApi.Repositories.Concrect.Directions;
+﻿using Models.Repositories.Concrect.Directions;
 using System.Collections.Generic;
 using System.Web.Http;
+using Models.Ado.Library;
+using Ado.Library;
 
-namespace BookStoreApi.Controllers.Library.Directions
+namespace Models.Controllers.Library.Directions
 {
     [RoutePrefix("Api/Direction")]
     public class DirectionController : ApiController

@@ -1,14 +1,10 @@
-﻿using BookStoreApi.Models.Library;
-using BookStoreApi.Repositories.Abstract.Rols;
-using BookStoreApi.Repositories.Concrect.Rols;
-using System;
+﻿using Models.Repositories.Concrect.Rols;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using Models.Ado.Library;
+using Ado.Library;
 
-namespace BookStoreApi.Controllers.Library.Rols
+namespace Models.Controllers.Library.Rols
 {
     [RoutePrefix("Api/Rol")]
     public class RolController : ApiController

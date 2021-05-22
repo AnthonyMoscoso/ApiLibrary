@@ -1,14 +1,11 @@
-﻿using BookStoreApi.Models.Library;
-using BookStoreApi.Repositories.Abstract.Sales;
-using BookStoreApi.Repositories.Concrect.Sales;
+﻿using Models.Repositories.Concrect.Sales;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using Models.Ado.Library;
+using Ado.Library;
 
-namespace BookStoreApi.Controllers.Library.Sales
+namespace Models.Controllers.Library.Sales
 {
     [RoutePrefix("Api/Sale")]
     public class SaleController : ApiController

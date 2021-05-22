@@ -1,14 +1,10 @@
-﻿using BookStoreApi.Models.Library;
-using BookStoreApi.Repositories.Abstract.Discounts;
-using BookStoreApi.Repositories.Concrect.Discounts;
-using System;
+﻿using Models.Repositories.Concrect.Discounts;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using Models.Ado.Library;
+using Ado.Library;
 
-namespace BookStoreApi.Controllers.Library.Discounts
+namespace Models.Controllers.Library.Discounts
 {
     [RoutePrefix("Api/Discount")]
     public class DiscountController : ApiController

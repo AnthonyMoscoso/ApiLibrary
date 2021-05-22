@@ -1,20 +1,17 @@
-﻿using BookStoreApi.Models.Library;
-using BookStoreApi.Repositories.Abstract.WareHouses;
-using BookStoreApi.Repositories.Concrect.WareHouses;
-using System;
+﻿using Ado.Library;
+using Models.Ado.Library;
+using Models.Repositories.Concrect.WareHouses;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
-namespace BookStoreApi.Controllers.Library.WareHouses
+
+namespace Models.Controllers.Library.WareHouses
 {
     [RoutePrefix("Api/WareHouse")]
     [Authorize]
     public class WareHouseController : ApiController
     {
-        readonly IWareHouseRepositorie _repository = new WareHouseRepositorie();
+       readonly IWareHouseRepositorie _repository = new WareHouseRepositorie();
 
 
         #region Get

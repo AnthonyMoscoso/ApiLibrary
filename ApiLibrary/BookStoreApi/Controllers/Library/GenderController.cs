@@ -1,14 +1,10 @@
-﻿using BookStoreApi.Models.Library;
-using BookStoreApi.Repositories.Abstract.Genders;
-using BookStoreApi.Repositories.Concrect.Genders;
-using System;
+﻿using Models.Repositories.Concrect.Genders;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using Models.Ado.Library;
+using Ado.Library;
 
-namespace BookStoreApi.Controllers.Library.Genders
+namespace Models.Controllers.Library.Genders
 {
     [RoutePrefix("Api/Gender")]
     public class GenderController : ApiController

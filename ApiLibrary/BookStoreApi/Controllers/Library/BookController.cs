@@ -1,16 +1,12 @@
-﻿using BookStoreApi.Dtos;
-using BookStoreApi.Models.Library;
-using BookStoreApi.Repositories.Abstract;
-using BookStoreApi.Repositories.Concrect.Books;
-using BookStoreApi.Repositories.Concrect.WareHouses;
-using System;
+﻿using Models.Repositories.Abstract;
+using Models.Repositories.Concrect.Books;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using Models.Ado.Library;
+using Ado.Library;
 
-namespace BookStoreApi.Controllers.Library.Books
+namespace Models.Controllers.Library.Books
 {
     [RoutePrefix("Api/Book")]
     public class BookController : ApiController

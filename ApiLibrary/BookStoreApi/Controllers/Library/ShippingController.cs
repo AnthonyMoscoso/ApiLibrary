@@ -1,14 +1,11 @@
-﻿using BookStoreApi.Models.Library;
-using BookStoreApi.Repositories.Abstract.Shippings;
-using BookStoreApi.Repositories.Concrect.Shippings;
+﻿using Models.Repositories.Concrect.Shippings;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using Models.Ado.Library;
+using Ado.Library;
 
-namespace BookStoreApi.Controllers.Library.Shippings
+namespace Models.Controllers.Library.Shippings
 {
     [RoutePrefix("Api/Shipping")]
     public class ShippingController : ApiController

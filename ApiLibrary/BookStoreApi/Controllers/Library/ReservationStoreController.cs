@@ -1,12 +1,12 @@
-﻿using BookStoreApi.Models.Dtos;
-using BookStoreApi.Models.Library;
-using BookStoreApi.Repositories.Abstract;
-using BookStoreApi.Repositories.Concrect;
+﻿using Ado.Library;
+using Models.Models.Dtos;
+using Models.Repositories.Abstract;
+using Models.Repositories.Concrect;
 using System;
 using System.Collections.Generic;
 using System.Web.Http;
 
-namespace BookStoreApi.Controllers.Library
+namespace Models.Controllers.Library
 {
     [RoutePrefix("api/ReservationStore")]
     [Authorize]

@@ -1,15 +1,12 @@
-﻿using BookStoreApi.Controllers.Login;
-using BookStoreApi.Controllers.Login.Repositorie;
-using BookStoreApi.Models.Login;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Ado.User.Abstracts;
+using Ado.User.Specifics;
+using Models.Models.Login;
+using Nucleo.Tokens;
 using System.Net;
-using System.Net.Http;
 using System.Threading;
 using System.Web.Http;
 
-namespace BookStoreApi.Controllers
+namespace Models.Controllers
 {
     /// <summary>
     /// login controller class for authenticate users
@@ -18,7 +15,7 @@ namespace BookStoreApi.Controllers
     [RoutePrefix("api/login")]
     public class LoginController : ApiController
     {
-        LoginRepositorie _repositorie = new LoginRepositorie();
+        readonly ILoginRepository _repositorie = new LoginRepositorie();
         [HttpGet]
         [Route("echoping")]
         public IHttpActionResult EchoPing()

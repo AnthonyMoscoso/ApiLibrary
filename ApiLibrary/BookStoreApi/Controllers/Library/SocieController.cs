@@ -1,15 +1,10 @@
-﻿using BookStoreApi.Models.Library;
-using BookStoreApi.Models.Request;
-using BookStoreApi.Repositories.Abstract.Persons;
-using BookStoreApi.Repositories.Concrect.Persons;
-using System;
+﻿using Ado.Library;
+using Models.Dtos;
+using Models.Repositories.Concrect.Persons;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
-namespace BookStoreApi.Controllers.Library.Persons
+namespace Models.Controllers.Library.Persons
 {
     [RoutePrefix("Api/Socie")]
     public class SocieController : ApiController

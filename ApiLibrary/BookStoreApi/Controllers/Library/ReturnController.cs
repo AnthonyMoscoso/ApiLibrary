@@ -1,16 +1,14 @@
-﻿using BookStoreApi.Models.Library;
-using BookStoreApi.Repositories.Abstract.Returns;
-using BookStoreApi.Repositories.Concrect.Returns;
+﻿using Models.Repositories.Concrect.Returns;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using Models.Ado.Library;
+using Ado.Library;
 
-namespace BookStoreApi.Controllers.Library.Returns
+namespace Models.Controllers.Library.Returns
 {
     [RoutePrefix("Api/Return")]
+    [Authorize]
     public class ReturnController : ApiController 
     {
         readonly IReturnSaleRepository _repository = new ReturnSaleRepository();
@@ -133,7 +131,6 @@ namespace BookStoreApi.Controllers.Library.Returns
         #endregion
 
         [HttpGet]
-        [Route("List")]
         public IHttpActionResult GetList(string ids)
         {
             return Ok(_repository.GetList(ids));
@@ -163,6 +160,38 @@ namespace BookStoreApi.Controllers.Library.Returns
             return Ok(_repository.Delete(ids));
         }
 
+
+        #region WareHouse
+
+        [HttpGet]
+        [Route("WareHouse/{id}")]
+        public IHttpActionResult GetByWareHouse(string id)
+        {
+            return Ok(_repository.GetByWareHouse(id));
+        }
+
+        [HttpGet]
+        [Route("WareHouse")]
+        public IHttpActionResult GetByWareHouse(string id, int pag, int element)
+        {
+            return Ok(_repository.GetByWareHouse(id, pag, element));
+        }
+
+        [HttpGet]
+        [Route("WareHouse")]
+        public IHttpActionResult GetByWareHouse(string id, DateTime start, DateTime end)
+        {
+            return Ok(_repository.GetByWareHouse(id, start, end));
+        }
+
+        [HttpGet]
+        [Route("WareHouse")]
+        public IHttpActionResult GetByWareHouse(string id, DateTime start, DateTime end, int pag, int element)
+        {
+            return Ok(_repository.GetByWareHouse(id, start, end, pag, element));
+        }
+
+        #endregion
 
     }
 }

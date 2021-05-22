@@ -1,14 +1,11 @@
-﻿using BookStoreApi.Models.Library;
-using BookStoreApi.Repositories.Abstract.Taxe;
-using BookStoreApi.Repositories.Concrect.Taxe;
-using System;
+﻿
+using Models.Repositories.Concrect.Taxe;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+using Models.Ado.Library;
 using System.Web.Http;
+using Ado.Library;
 
-namespace BookStoreApi.Controllers.Library.Taxe
+namespace Models.Controllers.Library.Taxe
 {
     [RoutePrefix("Api/Taxes")]
     public class TaxesController : ApiController

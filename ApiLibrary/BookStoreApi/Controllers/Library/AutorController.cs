@@ -1,10 +1,10 @@
-﻿using BookStoreApi.Models.Library;
-using LibraryApiRest.Repositories.Abstract;
+﻿using Ado.Library;
 using LibraryApiRest.Repositories.Concrect;
+using Models.Ado.Library;
 using System.Collections.Generic;
 using System.Web.Http;
 
-namespace BookStoreApi.Controllers
+namespace Models.Controllers
 {
 
     [RoutePrefix("Api/Autor")]

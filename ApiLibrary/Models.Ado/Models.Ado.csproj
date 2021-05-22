@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E95982B4-23D7-406C-B457-8EBF5ED7C521}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Models.Ado</RootNamespace>
+    <AssemblyName>Models.Ado</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Library\Autor.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\Barcode.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\Book.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\BookEditorial.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\BookStore.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\BookType.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\Box.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\Coupon.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\Direction.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\Discount.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\DocumentFile.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\Edition.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\Editorial.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\Employee.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\Gender.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\ImageFile.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\LibraryDb.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LibraryDb.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\LibraryDb.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\LibraryDb.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LibraryDb.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Library\Occupation.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\OnlineSale.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\OrderLine.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\Orders.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\PaymentBonus.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\PaymentBonusEmployee.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\PayRoll.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\Permit.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\Person.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\Providers.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\Purchase.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\PurchaseLine.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\Reception.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\ReceptionLine.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\Register.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\RegisterLine.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\Reservation.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\ReservationOnline.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\ReservationStore.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\ReturnSale.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\Rol.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\Sale.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\SaleLine.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\Schedule.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\ScheduleLine.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\Shipping.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\ShippingLine.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\SickLeave.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\Socie.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\Store.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\StoreSale.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\sysdiagrams.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\Taxes.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\WareHouse.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Library\WareHouseBook.cs">
+      <DependentUpon>LibraryDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Login\UserDb.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserDb.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Login\UserDb.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Login\UserDb.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserDb.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Login\Users.cs">
+      <DependentUpon>UserDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Models.Utilities\Models.Utilities.csproj">
+      <Project>{c4e1b4b8-771f-4aaa-9eb1-77cc371b88e7}</Project>
+      <Name>Models.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nucleo.Utilities\Nucleo.Utilities.csproj">
+      <Project>{3936ffbd-66e2-4b8c-876f-5747289e3d6b}</Project>
+      <Name>Nucleo.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EntityDeploy Include="Library\LibraryDb.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>LibraryDb.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="Library\LibraryDb.edmx.diagram">
+      <DependentUpon>LibraryDb.edmx</DependentUpon>
+    </None>
+    <EntityDeploy Include="Login\UserDb.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>UserDb.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Login\UserDb.edmx.diagram">
+      <DependentUpon>UserDb.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Library\LibraryDb.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>LibraryDb.Context.cs</LastGenOutput>
+      <DependentUpon>LibraryDb.edmx</DependentUpon>
+    </Content>
+    <Content Include="Library\LibraryDb.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LibraryDb.edmx</DependentUpon>
+      <LastGenOutput>LibraryDb.cs</LastGenOutput>
+    </Content>
+    <Content Include="Login\UserDb.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>UserDb.edmx</DependentUpon>
+      <LastGenOutput>UserDb.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Login\UserDb.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>UserDb.edmx</DependentUpon>
+      <LastGenOutput>UserDb.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

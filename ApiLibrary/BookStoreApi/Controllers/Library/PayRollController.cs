@@ -1,14 +1,11 @@
-﻿using BookStoreApi.Models.Library;
-using BookStoreApi.Repositories.Abstract.PayRolls;
-using BookStoreApi.Repositories.Concrect.PayRolls;
+﻿using Models.Repositories.Concrect.PayRolls;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using Models.Ado.Library;
+using Ado.Library;
 
-namespace BookStoreApi.Controllers.Library.PayRolls
+namespace Models.Controllers.Library.PayRolls
 {
     [RoutePrefix("Api/PayRoll")]
     public class PayRollController : ApiController

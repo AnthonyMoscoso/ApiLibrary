@@ -1,15 +1,6 @@
-﻿
-
-using AutoMapper;
-using BookStoreApi.Models.Library;
-using BookStoreApi.Models.Request;
-using Mappers.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Mappers.Models;
 using System.Web;
 using System.Web.Http;
-using System.Web.Routing;
 
 namespace WebApplication1
 {

@@ -1,14 +1,10 @@
-﻿using BookStoreApi.Models.Library;
-using BookStoreApi.Repositories.Abstract.Permits;
-using BookStoreApi.Repositories.Concrect.Permits;
-using System;
+﻿using Models.Repositories.Concrect.Permits;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+using Models.Ado.Library;
 using System.Web.Http;
+using Ado.Library;
 
-namespace BookStoreApi.Controllers.Library.Permits
+namespace Models.Controllers.Library.Permits
 {
     [RoutePrefix("Api/Permit")]
     public class PermitController : ApiController

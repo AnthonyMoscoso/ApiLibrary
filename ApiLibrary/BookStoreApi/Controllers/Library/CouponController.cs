@@ -1,11 +1,11 @@
-﻿using BookStoreApi.Models.Library;
-using BookStoreApi.Repositories.Abstract.Coupons;
-using BookStoreApi.Repositories.Concrect.Coupons;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using Ado.Library;
+using Models.Ado.Library;
+using Models.Repositories.Concrect.Coupons;
 
-namespace BookStoreApi.Controllers.Library.Coupons
+namespace Models.Controllers.Library.Coupons
 {
     [RoutePrefix("Api/Coupon")]
     public class CouponController : ApiController

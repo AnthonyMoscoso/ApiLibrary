@@ -1,14 +1,11 @@
-﻿using BookStoreApi.Models.Library;
-using BookStoreApi.Repositories.Abstract.Occupations;
-using BookStoreApi.Repositories.Concrect.Occupations;
-using System;
+﻿using Ado.Library;
+using DBAccess.Ado.Repositories.Concrect.Occupations;
+using Models.Ado.Library;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
-namespace BookStoreApi.Controllers.Library.Occupations
+
+namespace BookStoreApi.Controllers.Library
 {
     [RoutePrefix("Api/Occupation")]
     public class OccupationController : ApiController

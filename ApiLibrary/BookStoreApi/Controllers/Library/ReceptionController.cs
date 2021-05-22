@@ -1,15 +1,11 @@
-﻿using BookStoreApi.Dtos;
-using BookStoreApi.Models.Library;
-using BookStoreApi.Repositories.Abstract.Receptions;
-using BookStoreApi.Repositories.Concrect.Receptions;
+﻿using Models.Repositories.Concrect.Receptions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using Models.Ado.Library;
+using Ado.Library;
 
-namespace BookStoreApi.Controllers.Library.Receptions
+namespace Models.Controllers.Library.Receptions
 {
     [RoutePrefix("Api/Reception")]
     public class ReceptionController : ApiController

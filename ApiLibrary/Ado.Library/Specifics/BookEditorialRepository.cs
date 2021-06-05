@@ -6,11 +6,11 @@ using Models.Dtos;
 using Nucleo.DBAccess.Ado;
 using System.Linq;
 
-namespace Models.Repositories.Concrect.Books
+namespace Ado.Library.Specifics
 {
-    public class BookEditorialRepository : Repository<BookEditorial,BookEditorialDto>, IBookEditorialRepository
+    public class BookEditorialRepository : Repository<BookEditorial>, IBookEditorialRepository
     {
-        public BookEditorialRepository(string identificator="IdBookEditorial") : base(identificator)
+        public BookEditorialRepository(BookStoreEntities context,string identificator="IdBookEditorial") : base(context,identificator)
         {
         }
 

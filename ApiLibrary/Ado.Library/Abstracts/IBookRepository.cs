@@ -2,29 +2,31 @@
 using Models.Dtos;
 using System.Collections.Generic;
 using Nucleo.DBAccess.Ado;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 
 namespace Ado.Library
 {
     public interface IBookRepository : IRepository<Book>
     {
-        List<BookDto> GetByAutor(string idAutor);
-        List<BookDto> GetByAutor(string idAutor,int pag,int element);
-        List<BookDto> SearchByAutorName(string text);
-        List<BookDto> SearchByAutorName(string text,int pag,int element);
-        List<BookDto> GetByCategory(string idCategory);
-        List<BookDto> GetByCategory(string idCategory,int pag,int element);
-        List<BookDto> GetByGender(List<string>idGender);
-        List<BookDto> GetByGender(List<string> idGender,int pag,int element);
-        List<BookDto> GetByEditorial(string idEditorial);
-        List<BookDto> GetByEditorial(string idEditorial,int pag, int element);
-        List<BookDto> GetByEdition(string idEdition);
-        List<BookDto> GetByEdition(string idEdition,int pag,int element);
-        List<BookDto> SearchByName(string text);
-        List<BookDto> SearchByName(string text,int pag,int element);
+       
+        IEnumerable<Book> GetByAutor(string idAutor);
+        IEnumerable<Book> GetByAutor(string idAutor,int pag,int element);
+        IEnumerable<Book> SearchByAutorName(string text);
+        IEnumerable<Book> SearchByAutorName(string text,int pag,int element);
+        IEnumerable<Book> GetByCategory(string idCategory);
+        IEnumerable<Book> GetByCategory(string idCategory,int pag,int element);
+        IEnumerable<Book> GetByGender(List<string>idGender);
+        IEnumerable<Book> GetByGender(List<string> idGender,int pag,int element);
+        IEnumerable<Book> GetByEditorial(string idEditorial);
+        IEnumerable<Book> GetByEditorial(string idEditorial,int pag, int element);
+        IEnumerable<Book> GetByEdition(string idEdition);
+        IEnumerable<Book> GetByEdition(string idEdition,int pag,int element);
+        IEnumerable<Book> SearchByName(string text);
+        IEnumerable<Book> SearchByName(string text,int pag,int element);
         
 
 
-        dynamic RemoveImage(string idBook,string idImageFile);
-        dynamic AddImage(string idBook, string idImageFile);
+
     }
 }

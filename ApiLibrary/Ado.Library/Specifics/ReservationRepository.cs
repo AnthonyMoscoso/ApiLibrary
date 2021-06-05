@@ -8,11 +8,11 @@ using Nucleo.DBAccess.Ado;
 using Nucleo.Utilities.Enums;
 using Ado.Library;
 
-namespace Models.Repositories.Concrect.Reservations
+namespace Ado.Library.Specifics
 {
-    public class ReservationRepository : Repository<Reservation,ReservationDto>, IReservationRepository
+    public class ReservationRepository : Repository<Reservation>, IReservationRepository
     {
-        public ReservationRepository(string identificator="IdReservation") : base(identificator)
+        public ReservationRepository(BookStoreEntities context,string identificator="IdReservation") : base(context,identificator)
         {
         }
 
@@ -25,58 +25,45 @@ namespace Models.Repositories.Concrect.Reservations
         #endregion
 
         #region Get By Book
-        public List<ReservationDto> GetByBook(string idBook)
+        public IEnumerable<Reservation> GetByBook(string idBook)
         {
-            var result = dbSet.Where(w => w.IdBook.Equals(idBook)).ToList();
-            return mapper.Map<List<ReservationDto>>(result);
+            IEnumerable<Reservation> result = dbSet.Where(w => w.IdBook.Equals(idBook));
+            return result;
         }
 
-        public List<ReservationDto> GetByBook(string idBook, int pag, int element)
+        public IEnumerable<Reservation> GetByBook(string idBook, int pag, int element)
         {
-            var result = dbSet.Where(w => w.IdBook.Equals(idBook))
+            IEnumerable<Reservation> result = dbSet.Where(w => w.IdBook.Equals(idBook))
                 .OrderBy(w => w.CreateDate)
                 .Skip((pag - 1) * element)
-                .Take(element)
-                .ToList();
-            return mapper.Map<List<ReservationDto>>(result);
+                .Take(element);
+            return result;
         }
 
         #endregion
 
         #region Get By Date
-        public List<ReservationDto> GetByDate(DateTime date)
+        public IEnumerable<Reservation> GetByDate(DateTime date)
         {
-            var result = dbSet.Where(w =>DbFunctions.TruncateTime( w.CreateDate)== DbFunctions.TruncateTime(date)).ToList();
-            return mapper.Map<List<ReservationDto>>(result);
+            IEnumerable<Reservation> result = dbSet.Where(w => DbFunctions.TruncateTime(w.CreateDate) == DbFunctions.TruncateTime(date));
+            return (result);
         }
 
-        public List<ReservationDto> GetByDate(DateTime date, int pag, int element)
+        public IEnumerable<Reservation> GetByDate(DateTime date, int pag, int element)
         {
-            var result = dbSet.Where(w => DbFunctions.TruncateTime(w.CreateDate) == DbFunctions.TruncateTime(date))
-                .Skip((pag - 1) * element)
-                .Take(element)
-                .ToList();
-            return mapper.Map<List<ReservationDto>>(result);
+            IQueryable<Reservation> result = dbSet.Where(w => DbFunctions.TruncateTime(w.CreateDate) == DbFunctions.TruncateTime(date)).Skip((pag - 1) * element).Take(element);
+            return (result);
         }
-        public List<ReservationDto> GetByDate(DateTime start, DateTime end)
+        public IEnumerable<Reservation> GetByDate(DateTime start, DateTime end)
         {
-            var result = dbSet.Where(w => DbFunctions.TruncateTime(w.CreateDate) >= DbFunctions.TruncateTime(start ) 
-            && DbFunctions.TruncateTime(w.CreateDate) <= DbFunctions.TruncateTime(end)
-            && DbFunctions.TruncateTime (w.FinishReservationDate) <= DbFunctions.TruncateTime(end)
-            && DbFunctions.TruncateTime(w.FinishReservationDate) >= DbFunctions.TruncateTime(start))
-                .ToList();
-            return mapper.Map<List<ReservationDto>>(result);
+            IEnumerable<Reservation> result = dbSet.Where(w => DbFunctions.TruncateTime(w.CreateDate) >= DbFunctions.TruncateTime(start) && DbFunctions.TruncateTime(w.CreateDate) <= DbFunctions.TruncateTime(end) && DbFunctions.TruncateTime(w.FinishReservationDate) <= DbFunctions.TruncateTime(end) && DbFunctions.TruncateTime(w.FinishReservationDate) >= DbFunctions.TruncateTime(start));
+            return (result);
         }
 
-        public List<ReservationDto> GetByDate(DateTime start, DateTime end, int pag, int element)
+        public IEnumerable<Reservation> GetByDate(DateTime start, DateTime end, int pag, int element)
         {
-            var result = dbSet.Where(w => DbFunctions.TruncateTime( w.CreateDate) >= DbFunctions.TruncateTime( start) 
-            && DbFunctions.TruncateTime( w.CreateDate) <= DbFunctions.TruncateTime(end)
-            && DbFunctions.TruncateTime(w.FinishReservationDate) <= DbFunctions.TruncateTime(end)
-            && DbFunctions.TruncateTime(w.FinishReservationDate) >= DbFunctions.TruncateTime(start))
-                 .OrderBy(w => w.CreateDate)
-                .Skip((pag - 1) * element).Take(element).ToList();
-            return mapper.Map<List<ReservationDto>>(result);
+            IEnumerable<Reservation> result = dbSet.Where(w => DbFunctions.TruncateTime(w.CreateDate) >= DbFunctions.TruncateTime(start) && DbFunctions.TruncateTime(w.CreateDate) <= DbFunctions.TruncateTime(end) && DbFunctions.TruncateTime(w.FinishReservationDate) <= DbFunctions.TruncateTime(end) && DbFunctions.TruncateTime(w.FinishReservationDate) >= DbFunctions.TruncateTime(start)).OrderBy(w => w.CreateDate).Skip((pag - 1) * element).Take(element);
+            return (result);
         }
 
 
@@ -84,123 +71,93 @@ namespace Models.Repositories.Concrect.Reservations
 
         #endregion
 
-      
+
 
         #region Get By Finalized Date
-        public List<ReservationDto> GetByFinalizedDate(DateTime date)
+        public IEnumerable<Reservation> GetByFinalizedDate(DateTime date)
         {
-            var result = dbSet.Where(w => w.FinishReservationDate.Value.Date <date.Date).ToList();
-            return mapper.Map<List<ReservationDto>>(result);
+            IEnumerable<Reservation> result = dbSet.Where(w => w.FinishReservationDate.Value.Date < date.Date);
+            return (result);
         }
 
-        public List<ReservationDto> GetByFinalizedDate(DateTime date, int pag, int element)
+        public IEnumerable<Reservation> GetByFinalizedDate(DateTime date, int pag, int element)
         {
-            var result = dbSet.Where(w => w.FinishReservationDate.Value.Date< date.Date)
-                .OrderBy(w => w.CreateDate)
-                .Skip((pag - 1) * element).Take(element).ToList();
-            return mapper.Map<List<ReservationDto>>(result);
+            IEnumerable<Reservation> result = dbSet.Where(w => w.FinishReservationDate.Value.Date < date.Date).OrderBy(w => w.CreateDate).Skip((pag - 1) * element).Take(element);
+            return (result);
         }
-        
 
-    
+
+
         #endregion
 
         #region Cancel 
-        public List<ReservationDto> GetCancel()
+        public IEnumerable<Reservation> GetCancel()
         {
-            var result = dbSet.Where(w=> w.ReservationStatus==(int)ReservationStatus.Cancel).ToList();
-            return mapper.Map<List<ReservationDto>>(result);
+            IEnumerable<Reservation> result = dbSet.Where(w => w.ReservationStatus == (int)ReservationStatus.Cancel);
+            return (result);
         }
 
-        public List<ReservationDto> GetCancel(int pag, int element)
+        public IEnumerable<Reservation> GetCancel(int pag, int element)
         {
-            var result = dbSet.Where(w=>w.ReservationStatus==(int)ReservationStatus.Cancel)
-                .OrderBy(w => w.CreateDate)
-                .Skip((pag - 1) * element).Take(element).ToList();
-            return mapper.Map<List<ReservationDto>>(result);
+            IEnumerable<Reservation> result = dbSet.Where(w => w.ReservationStatus == (int)ReservationStatus.Cancel).OrderBy(w => w.CreateDate).Skip((pag - 1) * element).Take(element);
+            return (result);
         }
 
-      
+
 
         #endregion
 
         #region Finalized 
-        public List<ReservationDto> GetFinalized()
+        public IEnumerable<Reservation> GetFinalized()
         {
-            var result = dbSet.Where(w => w.FinishReservationDate.Value <= DateTime.Now).ToList();
-            return mapper.Map<List<ReservationDto>>(result);
+            IEnumerable<Reservation> result = dbSet.Where(w => w.FinishReservationDate.Value <= DateTime.Now);
+            return (result);
         }
 
-        public List<ReservationDto> GetFinalized(int pag, int element)
+        public IEnumerable<Reservation> GetFinalized(int pag, int element)
         {
-            var result = dbSet.Where(w => w.FinishReservationDate.Value <= DateTime.Now)
-                 .OrderBy(w => w.CreateDate)
-                .Skip((pag - 1) * element).Take(element).ToList();
-            return mapper.Map<List<ReservationDto>>(result);
+            IEnumerable<Reservation> result = dbSet.Where(w => w.FinishReservationDate.Value <= DateTime.Now).OrderBy(w => w.CreateDate).Skip((pag - 1) * element).Take(element);
+            return (result);
         }
 
-   
+
         #endregion
 
         #region Not Finalized 
-        public List<ReservationDto> GetNotFinalized()
+        public IEnumerable<Reservation> GetNotFinalized()
         {
-            var result = dbSet.Where(w => w.FinishReservationDate.Value.Date > DateTime.Now.Date
-            || !w.FinishReservationDate.HasValue
-            ).ToList();
-            return mapper.Map<List<ReservationDto>>(result);
+            IEnumerable<Reservation> result = dbSet.Where(w => w.FinishReservationDate.Value.Date > DateTime.Now.Date || !w.FinishReservationDate.HasValue);
+            return (result);
         }
 
-        public List<ReservationDto> GetNotFinalized(int pag, int element)
+        public IEnumerable<Reservation> GetNotFinalized(int pag, int element)
         {
-            var result = dbSet.Where(w => w.FinishReservationDate.Value.Date > DateTime.Now.Date 
-            || !w.FinishReservationDate.HasValue)
-                 .OrderBy(w => w.CreateDate)
-                .Skip((pag - 1) * element).Take(element).ToList();
-            return mapper.Map<List<ReservationDto>>(result);
+            IEnumerable<Reservation> result = dbSet.Where(w => w.FinishReservationDate.Value.Date > DateTime.Now.Date || !w.FinishReservationDate.HasValue).OrderBy(w => w.CreateDate).Skip((pag - 1) * element).Take(element);
+            return (result);
         }
 
-        public List<ReservationDto> GetByClient(string idClient)
+        public IEnumerable<Reservation> GetByClient(string idClient)
         {
-            var result = dbSet.Where(w => w.Person.IdPerson.Equals(idClient)).ToList();
-            return mapper.Map<List<ReservationDto>>(result);
+            IEnumerable<Reservation> result = dbSet.Where(w => w.Person.IdPerson.Equals(idClient));
+            return (result);
         }
 
-        public List<ReservationDto> GetByClient(string idClient, int pag, int element)
+        public IEnumerable<Reservation> GetByClient(string idClient, int pag, int element)
         {
-            var result = dbSet.Where(w => w.Person.IdPerson.Equals(idClient))
-                .OrderBy(w=> w.CreateDate)
-                .Skip((pag - 1) * element)
-                .Take(element)
-                .ToList();
-            return mapper.Map<List<ReservationDto>>(result);
+            IEnumerable<Reservation> result = dbSet.Where(w => w.Person.IdPerson.Equals(idClient)).OrderBy(w => w.CreateDate).Skip((pag - 1) * element).Take(element);
+            return (result);
         }
 
-        public List<ReservationDto> GetByClient(string idClient, DateTime start, DateTime end)
+        public IEnumerable<Reservation> GetByClient(string idClient, DateTime start, DateTime end)
         {
-            var result = dbSet.Where(w =>
-            w.Person.IdPerson.Equals(idClient)
-            && (DbFunctions.TruncateTime(w.CreateDate) >= DbFunctions.TruncateTime(start)
-            && DbFunctions.TruncateTime(w.CreateDate) <= DbFunctions.TruncateTime(end))
-            && (DbFunctions.TruncateTime(w.FinishReservationDate.Value) >= DbFunctions.TruncateTime(start)
-            && DbFunctions.TruncateTime(w.FinishReservationDate.Value) <= DbFunctions.TruncateTime(end)))
-                .ToList(); 
-            return mapper.Map<List<ReservationDto>>(result);
+            IEnumerable<Reservation> result = dbSet.Where(w => w.Person.IdPerson.Equals(idClient) && (DbFunctions.TruncateTime(w.CreateDate) >= DbFunctions.TruncateTime(start) && DbFunctions.TruncateTime(w.CreateDate) <= DbFunctions.TruncateTime(end)) && (DbFunctions.TruncateTime(w.FinishReservationDate.Value) >= DbFunctions.TruncateTime(start) && DbFunctions.TruncateTime(w.FinishReservationDate.Value) <= DbFunctions.TruncateTime(end)));
+            return (result);
         }
 
-        public List<ReservationDto> GetByClient(string idClient, DateTime start, DateTime end, int pag, int element)
+        public IEnumerable<Reservation> GetByClient(string idClient, DateTime start, DateTime end, int pag, int element)
         {
-            var result = dbSet.Where(w =>
-          w.Person.IdPerson.Equals(idClient)
-          && (DbFunctions.TruncateTime(w.CreateDate) >= DbFunctions.TruncateTime(start)
-          && DbFunctions.TruncateTime(w.CreateDate) <= DbFunctions.TruncateTime(end))
-          && (DbFunctions.TruncateTime(w.FinishReservationDate.Value) >= DbFunctions.TruncateTime(start)
-          && DbFunctions.TruncateTime(w.FinishReservationDate.Value) <= DbFunctions.TruncateTime(end)))
-                .OrderBy(w => w.CreateDate)
-                .Skip((pag - 1) * element)
-                .Take(element)
-                .ToList();
-            return mapper.Map<List<ReservationDto>>(result);
+            IEnumerable<Reservation> result = dbSet.Where(w => w.Person.IdPerson.Equals(idClient) && (DbFunctions.TruncateTime(w.CreateDate) >= DbFunctions.TruncateTime(start) && DbFunctions.TruncateTime(w.CreateDate) <= DbFunctions.TruncateTime(end)) && (DbFunctions.TruncateTime(w.FinishReservationDate.Value) >= DbFunctions.TruncateTime(start) && DbFunctions.TruncateTime(w.FinishReservationDate.Value) <= DbFunctions.TruncateTime(end))).OrderBy(w => w.CreateDate).Skip((pag - 1) * element).Take(element);
+            return (result);
         }
 
 

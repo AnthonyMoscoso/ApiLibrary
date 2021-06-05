@@ -5,18 +5,18 @@ using Models.Ado.Library;
 using Nucleo.DBAccess.Ado;
 using Ado.Library;
 
-namespace Models.Repositories.Concrect.Registers
+namespace Ado.Library.Specifics
 {
-    public class RegisterLineRepository : Repository<RegisterLine,RegisterLineDto>, IRegisterLineRepository
+    public class RegisterLineRepository : Repository<RegisterLine>, IRegisterLineRepository
     {
-        public RegisterLineRepository(string identificator="IdRegisterLine") : base(identificator)
+        public RegisterLineRepository(BookStoreEntities context,string identificator="IdRegisterLine") : base(context,identificator)
         {
         }
 
-        public List<RegisterLineDto> GetByRegister(string idRegister)
+        public IEnumerable<RegisterLine> GetByRegister(string idRegister)
         {
-            var list= dbSet.Where(w => w.IdRegister.Equals(idRegister)).ToList();
-            return mapper.Map<List<RegisterLineDto>>(list);
+            var list= dbSet.Where(w => w.IdRegister.Equals(idRegister));
+            return (list);
         }
     }
 }

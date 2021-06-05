@@ -6,14 +6,14 @@ using Models.Ado.Library;
 using Nucleo.DBAccess.Ado;
 using Ado.Library;
 
-namespace Models.Repositories.Concrect.Rols
+namespace Ado.Library.Specifics
 {
-    public class RolRepository : Repository<Rol,RolDto>, IRolRepository
+    public class RolRepository : Repository<Rol>, IRolRepository
     {
-        public RolRepository(string identificator="IdRol") : base(identificator)
+        public RolRepository(BookStoreEntities context,string identificator="IdRol") : base(context,identificator)
         {
         }
-        public new dynamic Update(List<Rol> list)
+     /*   public new dynamic Update(List<Rol> list)
         {
             string message = "";
             foreach (Rol entity in list)
@@ -27,9 +27,9 @@ namespace Models.Repositories.Concrect.Rols
 
             }
             return Save(); ; 
-        }
+        }*/
 
-        private void DeletePermit(List<Permit> list,Rol entity)
+      /*  private void DeletePermit(List<Permit> list,Rol entity)
         {
             if (list.Count > 0)
             {
@@ -47,9 +47,9 @@ namespace Models.Repositories.Concrect.Rols
                 }
                 Save();
             }
-        }
+        }*/
 
-        private void InsertPermit(Rol entity,List<Permit> permitsInDB)
+      /*  private void InsertPermit(Rol entity,List<Permit> permitsInDB)
         {
             if (entity.Permit.Count > 0)
             {
@@ -78,9 +78,9 @@ namespace Models.Repositories.Concrect.Rols
 
                 }
             }
-        }
+        }*/
 
-        public new dynamic Delete(List<string> ids)
+      /*  public new dynamic Delete(List<string> ids)
         {
             string message = "";
             foreach (string id in ids)
@@ -102,18 +102,18 @@ namespace Models.Repositories.Concrect.Rols
             }
 
             return message;
-        }
+        }*/
 
-        public List<Rol> SearchByName(string text)
+        public IEnumerable<Rol> SearchByName(string text)
         {
-            return dbSet.Where(w => w.RolName.Contains(text)).ToList();
+            return dbSet.Where(w => w.RolName.Contains(text));
         }
 
-        public List<Rol> SearchByName(string text, int pag, int element)
+        public IEnumerable<Rol> SearchByName(string text, int pag, int element)
         {
             return dbSet.Where(w => w.RolName.Contains(text))
                 .OrderBy(w=> w.CreateDate)
-                .Skip((pag - 1) * element).Take(element).ToList();
+                .Skip((pag - 1) * element).Take(element);
         }
     }
 }

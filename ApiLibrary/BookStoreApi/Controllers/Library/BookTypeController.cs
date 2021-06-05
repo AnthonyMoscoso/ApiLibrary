@@ -1,15 +1,19 @@
-﻿using Models.Repositories.Concrect.Books;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Web.Http;
-using Models.Ado.Library;
-using Ado.Library;
+using Negocios.BookStoreServices.Abstracts;
+using Models.Dtos;
 
 namespace Models.Controllers.Library.Books
 {
     [RoutePrefix("Api/BookType")]
     public class BookTypeController : ApiController
     {
-        readonly IBookTypeRepository _repository = new BookTypeRepository();
+        readonly IBookTypeService _service;
+
+        public BookTypeController(IBookTypeService service)
+        {
+            _service = service;
+        }
 
 
         #region Generics 
@@ -17,47 +21,47 @@ namespace Models.Controllers.Library.Books
         [Route("Count")]
         public IHttpActionResult Count()
         {
-            return Ok(_repository.Count());
+            return Ok(_service.Count());
         }
         [HttpGet]
         public IHttpActionResult Get()
         {
-            return Ok(_repository.Get());
+            return Ok(_service.Get());
         }
 
         [HttpGet]
         public IHttpActionResult Get(string id)
         {
-            return Ok(_repository.Get(id));
+            return Ok(_service.Get(id));
         }
 
         [HttpGet]
         public IHttpActionResult GetList(string ids)
         {
-            return Ok(_repository.GetList(ids));
+            return Ok(_service.GetList(ids));
         }
         [HttpGet]
         [Route("Pag")]
         public IHttpActionResult Get(int element, int pag)
         {
-            return Ok(_repository.Get(element, pag));
+            return Ok(_service.Get(element, pag));
         }
         [HttpPost]
-        public IHttpActionResult Post(List<BookType> list)
+        public IHttpActionResult Post(List<BookTypeDto> list)
         {
-            return Ok(_repository.Insert(list));
+            return Ok(_service.Insert(list));
         }
 
         [HttpPut]
-        public IHttpActionResult Put(List<BookType> list)
+        public IHttpActionResult Put(List<BookTypeDto> list)
         {
-            return Ok(_repository.Update(list));
+            return Ok(_service.Update(list));
         }
 
         [HttpDelete]
         public IHttpActionResult Delete(List<string> ids)
         {
-            return Ok(_repository.Delete(ids));
+            return Ok(_service.Delete(ids));
         }
 
         
@@ -68,7 +72,7 @@ namespace Models.Controllers.Library.Books
         [Route("Name")]
         public IHttpActionResult GetByName(string name)
         {
-            return Ok(_repository.GetByName(name));
+            return Ok(_service.GetByName(name));
         }
   
 
@@ -76,13 +80,13 @@ namespace Models.Controllers.Library.Books
         [Route("SearchByName")]
         public IHttpActionResult SearchByName(string text)
         {
-            return Ok(_repository.SearchByName(text));
+            return Ok(_service.SearchByName(text));
         }
         [HttpGet]
         [Route("SearchByName")]
         public IHttpActionResult SearchByName(string text, int pag, int element)
         {
-            return Ok(_repository.SearchByName(text, pag, element));
+            return Ok(_service.SearchByName(text, pag, element));
         }
   
     }

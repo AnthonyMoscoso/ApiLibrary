@@ -4,23 +4,24 @@ using Models.Ado.Library;
 using Nucleo.DBAccess.Ado;
 using Ado.Library;
 
-namespace Models.Repositories.Concrect.Purchases
+namespace Ado.Library.Specifics
 {
-    public class PurchaseRepository : Repository<Purchase,PurchaseDto>, IPurchaseRepository
+    public class PurchaseRepository : Repository<Purchase>, IPurchaseRepository
     {
-        public PurchaseRepository(string identificator="IdPurchase") : base(identificator)
+        public PurchaseRepository(BookStoreEntities context, string identificator="IdPurchase") : base(context,identificator)
         {
         }
-        public new dynamic Insert(List<Purchase> list)
+      /*  public new dynamic Insert(IEnumerable<Purchase> list)
         {
             List<Purchase> purchasesWithStores = new List<Purchase>();
             foreach (Purchase purchase in list)
             {
-                if (purchase.Store!=null)
+                if (purchase.Store != null)
                 {
-                    var search = Context.Store.Find(purchase.Store.IdStore);
-                    if (search!=null){
-                    
+                    var search = _Context.Store.Find(purchase.Store.IdStore);
+                    if (search != null)
+                    {
+
                         Purchase purchase1 = new Purchase()
                         {
                             IdPurchase = purchase.IdPurchase,
@@ -34,16 +35,16 @@ namespace Models.Repositories.Concrect.Purchases
             }
             dbSet.AddRange(list);
             Save();
-            if (purchasesWithStores.Count>0)
+            if (purchasesWithStores.Count > 0)
             {
                 foreach (Purchase purchase in purchasesWithStores)
                 {
                     var query = string.Format("Insert into  PurchaseStore values ('{0}','{1}')", purchase.IdPurchase, purchase.Store.IdStore);
-                    Context.Database.ExecuteSqlCommand(query);
+                    _Context.Database.ExecuteSqlCommand(query);
                 }
             }
             return Save();
-        }
-        
+        }*/
+
     }
 }

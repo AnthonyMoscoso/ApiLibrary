@@ -7,9 +7,9 @@ namespace Ado.Library
 {
     public interface IAutorRepository : IRepository<Autor>
     {
-        List<AutorDto> SearchByName(string text);
-        List<AutorDto> SearchByName(string text,int pag,int element);
-        AutorDto GetByName(string name);
+        IEnumerable<Autor> SearchByName(string text);
+        IEnumerable<Autor> SearchByName(string text,int pag,int element);
+        Autor GetByName(string name);
         bool ExistName(string name);
       
     }

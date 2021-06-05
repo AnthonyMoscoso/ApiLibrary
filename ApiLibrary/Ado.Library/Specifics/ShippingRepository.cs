@@ -7,205 +7,195 @@ using System.Linq;
 using Nucleo.DBAccess.Ado;
 using Ado.Library;
 
-namespace Models.Repositories.Concrect.Shippings
+namespace Ado.Library.Specifics
 {
-    public class ShippingRepository : Repository<Shipping,ShippingDto>, IShippingRepository
+    public class ShippingRepository : Repository<Shipping>, IShippingRepository
     {
-        public ShippingRepository(string identificator="IdShipping") : base(identificator)
+        public ShippingRepository(BookStoreEntities context,string identificator="IdShipping") : base(context,identificator)
         {
         }
 
         #region Arrival Date
-        public List<ShippingDto> GetByArrivalDate(DateTime date)
+        public IEnumerable<Shipping> GetByArrivalDate(DateTime date)
         {
-            var result = dbSet.Where(w => w.ArrivalDate.HasValue && DbFunctions.TruncateTime(w.ArrivalDate.Value) == DbFunctions.TruncateTime(date)).ToList();
-            return mapper.Map<List<ShippingDto>>(result);
+            IEnumerable<Shipping> result = dbSet.Where(w => w.ArrivalDate.HasValue && DbFunctions.TruncateTime(w.ArrivalDate.Value) == DbFunctions.TruncateTime(date));
+            return (result);
         }
 
-        public List<ShippingDto> GetByArrivalDate(DateTime date, int pag, int element)
+        public IEnumerable<Shipping> GetByArrivalDate(DateTime date, int pag, int element)
         {
-            var result = dbSet.Where(w => DbFunctions.TruncateTime(w.ArrivalDate.Value) == DbFunctions.TruncateTime(date))
+            IEnumerable<Shipping> result = dbSet.Where(w => DbFunctions.TruncateTime(w.ArrivalDate.Value) == DbFunctions.TruncateTime(date))
                 .OrderBy(w=> w.CreateDate)
                 .Skip((pag - 1) * element)
                 .Take(element)
-                .ToList();
-            return mapper.Map<List<ShippingDto>>(result);
+                ;
+            return (result);
         }
 
-        public List<ShippingDto> GetByArrivalDate(DateTime start, DateTime end, int pag, int element)
+        public IEnumerable<Shipping> GetByArrivalDate(DateTime start, DateTime end, int pag, int element)
         {
-            var result= dbSet.Where(w=> DbFunctions.TruncateTime(w.ArrivalDate.Value)>= DbFunctions.TruncateTime(start) 
+            IEnumerable<Shipping> result= dbSet.Where(w=> DbFunctions.TruncateTime(w.ArrivalDate.Value)>= DbFunctions.TruncateTime(start) 
             && DbFunctions.TruncateTime(w.ArrivalDate.Value)<= DbFunctions.TruncateTime(end))
                 .OrderBy(w=> w.CreateDate)
                 .Skip((pag - 1) * element)
                 .Take(element)
-                .ToList();
-            return mapper.Map<List<ShippingDto>>(result);
+                ;
+            return (result);
         }
 
-        public List<ShippingDto> GetByArrivalDate(DateTime start, DateTime end)
+        public IEnumerable<Shipping> GetByArrivalDate(DateTime start, DateTime end)
         {
-            var result= dbSet.Where(w => DbFunctions.TruncateTime(w.ArrivalDate.Value) 
+            IEnumerable<Shipping> result= dbSet.Where(w => DbFunctions.TruncateTime(w.ArrivalDate.Value) 
             >= DbFunctions.TruncateTime(start) 
             && DbFunctions.TruncateTime(w.ArrivalDate.Value) <= DbFunctions.TruncateTime(end))
-            .ToList();
-            return mapper.Map<List<ShippingDto>>(result);
+            ;
+            return (result);
         }
         #endregion
 
         #region Book
-        public List<ShippingDto> GetByBook(string idBook)
+        public IEnumerable<Shipping> GetByBook(string idBook)
         {
-            var result = dbSet.Where(w => w.ShippingLine.Any(s => s.IdBook.Equals(idBook))).ToList();
-            return mapper.Map<List<ShippingDto>>(result);
+            IEnumerable<Shipping> result = dbSet.Where(w => w.ShippingLine.Any(s => s.IdBook.Equals(idBook)));
+            return (result);
         }
 
-        public List<ShippingDto> GetByBook(string idBook, int pag, int element)
+        public IEnumerable<Shipping> GetByBook(string idBook, int pag, int element)
         {
-            var result = dbSet.Where(w => w.ShippingLine.Any(s => s.IdBook.Equals(idBook)))
+            IEnumerable<Shipping> result = dbSet.Where(w => w.ShippingLine.Any(s => s.IdBook.Equals(idBook)))
                 .OrderBy(w=> w.CreateDate)
                 .Skip((pag - 1) * element)
                 .Take(element)
-                .ToList();
-            return mapper.Map<List<ShippingDto>>(result);
+                ;
+            return (result);
         }
         #endregion
 
         #region DepartureDate 
 
-        public List<ShippingDto> GetByDepartureDate(DateTime date, int pag, int element)
+        public IEnumerable<Shipping> GetByDepartureDate(DateTime date, int pag, int element)
         {
-            var result = dbSet.Where(w =>DbFunctions.TruncateTime(w.DepartureDate)==(DbFunctions.TruncateTime(date.Date)))
+            IEnumerable<Shipping> result = dbSet.Where(w =>DbFunctions.TruncateTime(w.DepartureDate)==(DbFunctions.TruncateTime(date.Date)))
                 .OrderBy(w => w.CreateDate)
                 .Skip((pag - 1) * element)
                 .Take(element)
-                .ToList();
-            return mapper.Map<List<ShippingDto>>(result);
+                ;
+            return (result);
         }
 
-        public List<ShippingDto> GetByDepartureDate(DateTime start, DateTime end, int pag, int element)
+        public IEnumerable<Shipping> GetByDepartureDate(DateTime start, DateTime end, int pag, int element)
         {
-            var result = dbSet.Where(w => DbFunctions.TruncateTime(w.DepartureDate) >=  DbFunctions.TruncateTime(start) 
+            IEnumerable<Shipping> result = dbSet.Where(w => DbFunctions.TruncateTime(w.DepartureDate) >=  DbFunctions.TruncateTime(start) 
             && DbFunctions.TruncateTime( w.DepartureDate) <= DbFunctions.TruncateTime( end))
                 .OrderBy(w=> w.CreateDate)
                .Skip((pag - 1) * element)
                .Take(element)
-               .ToList();
-            return mapper.Map<List<ShippingDto>>(result);
+               ;
+            return (result);
         }
-        public List<ShippingDto> GetByDepartureDate(DateTime date)
+        public IEnumerable<Shipping> GetByDepartureDate(DateTime date)
         {
-            var result = dbSet.Where( w => DbFunctions.TruncateTime( w.DepartureDate)==(DbFunctions.TruncateTime( date))).ToList();
-            return mapper.Map<List<ShippingDto>>(result);
+            IEnumerable<Shipping> result = dbSet.Where( w => DbFunctions.TruncateTime( w.DepartureDate)==(DbFunctions.TruncateTime( date)));
+            return (result);
         }
 
-        public List<ShippingDto> GetByDepartureDate(DateTime start, DateTime end)
+        public IEnumerable<Shipping> GetByDepartureDate(DateTime start, DateTime end)
         {
-            var result = dbSet.Where(w => DbFunctions.TruncateTime(w.DepartureDate) >= DbFunctions.TruncateTime(start) 
+            IEnumerable<Shipping> result = dbSet.Where(w => DbFunctions.TruncateTime(w.DepartureDate) >= DbFunctions.TruncateTime(start) 
             && DbFunctions.TruncateTime(w.DepartureDate) <= DbFunctions.TruncateTime(end))
-                .ToList();
-            return mapper.Map<List<ShippingDto>>(result);
+                ;
+            return (result);
         }
         #endregion
 
         #region ExitAddress
-        public List<ShippingDto> GetByExitAddress(string idAddress)
+        public IEnumerable<Shipping> GetByExitAddress(string idAddress)
         {
-            var result = dbSet.Where(w => w.IdDirectionFrom.Equals(idAddress)).ToList();
-            return mapper.Map<List<ShippingDto>>(result);
+            IEnumerable<Shipping> result = dbSet.Where(w => w.IdDirectionFrom.Equals(idAddress));
+            return (result);
         }
 
-        public List<ShippingDto> GetByExitAddress(string idAddress, int pag, int element)
+        public IEnumerable<Shipping> GetByExitAddress(string idAddress, int pag, int element)
         {
-            var result = dbSet.Where(w=>w.IdDirectionFrom.Equals(idAddress))
+            IEnumerable<Shipping> result = dbSet.Where(w=>w.IdDirectionFrom.Equals(idAddress))
                 .OrderBy(w => w.CreateDate)
                 .Skip((pag - 1) * element)
                 .Take(element)
-                .ToList();
-            return mapper.Map<List<ShippingDto>>(result);
+                ;
+            return (result);
         }
-        public List<ShippingDto> GetByExitAddress( string idExitAddress,int status)
+        public IEnumerable<Shipping> GetByExitAddress( string idExitAddress,int status)
         {
-            var result = dbSet.Where(w => w.ShippingStatus == status && w.IdDirectionFrom.Equals(idExitAddress)).ToList();
-            return mapper.Map<List<ShippingDto>>(result);
+            IEnumerable<Shipping> result = dbSet.Where(w => w.ShippingStatus == status && w.IdDirectionFrom.Equals(idExitAddress));
+            return (result);
         }
 
-        public List<ShippingDto> GetByExitAddress( string idExitAddress, int status, int pag, int element)
+        public IEnumerable<Shipping> GetByExitAddress( string idExitAddress, int status, int pag, int element)
         {
-            var result = dbSet.Where(w => w.ShippingStatus == status && w.IdDirectionFrom.Equals(idExitAddress))
+            IEnumerable<Shipping> result = dbSet.Where(w => w.ShippingStatus == status && w.IdDirectionFrom.Equals(idExitAddress))
                 .OrderBy(w=> w.CreateDate)
                 .Skip((pag - 1) * element)
                 .Take(element)
-                .ToList();
-            return mapper.Map<List<ShippingDto>>(result);
+                ;
+            return (result);
         }
         #endregion
 
         #region Recipent Addrees 
-        public List<ShippingDto> GetByRecipientAddress(string idAddrees)
+        public IEnumerable<Shipping> GetByRecipientAddress(string idAddrees)
         {
-            var result = dbSet.Where(w => w.IdDirectionTo.Equals(idAddrees)).ToList();
-            return mapper.Map<List<ShippingDto>>(result);
+            IEnumerable<Shipping> result = dbSet.Where(w => w.IdDirectionTo.Equals(idAddrees));
+            return (result);
         }
 
-        public List<ShippingDto> GetByRecipientAddress(string idAddrees, int pag, int element)
+        public IEnumerable<Shipping> GetByRecipientAddress(string idAddrees, int pag, int element)
         {
-            var result = dbSet.Where(w => w.IdDirectionTo.Equals(idAddrees))
+            IEnumerable<Shipping> result = dbSet.Where(w => w.IdDirectionTo.Equals(idAddrees))
                 .OrderBy(w => w.CreateDate)
-                .Skip((pag - 1) * element).Take(element).ToList();
-            return mapper.Map<List<ShippingDto>>(result);
+                .Skip((pag - 1) * element).Take(element);
+            return (result);
         }
-        public List<ShippingDto> GetByRecipientAddress( string idRecipient, int status)
+        public IEnumerable<Shipping> GetByRecipientAddress( string idRecipient, int status)
         {
-            var result = dbSet.Where(w => w.ShippingStatus == status && w.IdDirectionTo.Equals(idRecipient)).ToList();
-            return mapper.Map<List<ShippingDto>>(result);
+            IEnumerable<Shipping> result = dbSet.Where(w => w.ShippingStatus == status && w.IdDirectionTo.Equals(idRecipient));
+            return (result);
         }
 
-        public List<ShippingDto> GetByRecipientAddress( string idRecipient, int status, int pag, int element)
+        public IEnumerable<Shipping> GetByRecipientAddress( string idRecipient, int status, int pag, int element)
         {
-            var result = dbSet.Where(w => w.ShippingStatus == status && w.IdDirectionTo.Equals(idRecipient))
+            IEnumerable<Shipping> result = dbSet.Where(w => w.ShippingStatus == status && w.IdDirectionTo.Equals(idRecipient))
                 .OrderBy(w=> w.CreateDate)
                 .Skip((pag - 1) * element)
                 .Take(element)
-                .ToList();
-            return mapper.Map<List<ShippingDto>>(result);
+                ;
+            return (result);
         }
         #endregion
 
         #region Status 
-        public List<ShippingDto> GetByStatus(int status)
+        public IEnumerable<Shipping> GetByStatus(int status)
         {
-            var result = dbSet.Where(w => w.ShippingStatus == status).ToList();
-            return mapper.Map<List<ShippingDto>>(result);
+            IEnumerable<Shipping> result = dbSet.Where(w => w.ShippingStatus == status);
+            return (result);
         }
 
-        public List<ShippingDto> GetByStatus(int status, int pag, int element)
+        public IEnumerable<Shipping> GetByStatus(int status, int pag, int element)
         {
-            var result = dbSet.Where(w => w.ShippingStatus == status)
+            IEnumerable<Shipping> result = dbSet.Where(w => w.ShippingStatus == status)
                 .OrderBy(w=> w.CreateDate)
-                .Skip((pag - 1) * element).Take(element).ToList();
-            return mapper.Map<List<ShippingDto>>(result);
+                .Skip((pag - 1) * element).Take(element);
+            return (result);
         }
 
         #endregion
 
-       public new dynamic Insert(List<Shipping> list)
-       {
-            foreach (Shipping entity in list)
-            {
-                ModifyStock(entity.ShippingLine.ToList(),entity.IdWareHouse);
-            }
-            var shippings = mapper.Map<List<Shipping>>(list);
-            dbSet.AddRange(shippings);
-            return Save();
-
-       }
+     
 
         private void ModifyStock(List<ShippingLine>lines,string idWareHouse)
         {
             foreach (ShippingLine line in lines)
             {
-                Context.WareHouseBook.Where(w => w.IdBook.Equals(line.IdBook) && w.IdWareHouse.Equals(idWareHouse)).SingleOrDefault().Stock -= line.Quantity;   
+                _Context.Set<WareHouseBook>().Where(w => w.IdBook.Equals(line.IdBook) && w.IdWareHouse.Equals(idWareHouse)).SingleOrDefault().Stock -= line.Quantity;   
             }
         }
 

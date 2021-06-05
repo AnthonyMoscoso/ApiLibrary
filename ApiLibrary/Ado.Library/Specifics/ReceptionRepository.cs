@@ -1,6 +1,4 @@
-﻿using Models.Dtos;
-using Models.Models.Dtos;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -8,90 +6,89 @@ using Models.Ado.Library;
 using Nucleo.DBAccess.Ado;
 using Ado.Library;
 
-namespace Models.Repositories.Concrect.Receptions
+namespace Ado.Library.Specifics
 {
-    public class ReceptionRepository : Repository<Reception,ReceptionDto>, IReceptionRepository
+    public class ReceptionRepository : Repository<Reception>, IReceptionRepository
     {
-        public ReceptionRepository(string identificator="IdReception") : base(identificator)
+        public ReceptionRepository(BookStoreEntities context,string identificator="IdReception") : base(context,identificator)
         {
         }
 
         
-        public List<ReceptionDto> GetByDate(DateTime date)
+        public IEnumerable<Reception> GetByDate(DateTime date)
         {
-            var result = dbSet.Where(w => (DbFunctions.TruncateTime(w.CreateDate) == DbFunctions.TruncateTime(date)))
-                .ToList();
-            return mapper.Map<List<ReceptionDto>>(result);
+            IEnumerable<Reception> result = dbSet.Where(w => (DbFunctions.TruncateTime(w.CreateDate) == DbFunctions.TruncateTime(date)));
+            return result;
         }
 
-        public List<ReceptionDto> GetByDate(DateTime date, int pag, int element)
+        public IEnumerable<Reception> GetByDate(DateTime date, int pag, int element)
         {
-            var result = dbSet.Where(w => (DbFunctions.TruncateTime(w.CreateDate) == DbFunctions.TruncateTime(date)))
+            IEnumerable<Reception> result = dbSet.Where(w => (DbFunctions.TruncateTime(w.CreateDate) == DbFunctions.TruncateTime(date)))
                 .OrderBy(w=> w.CreateDate)
                 .Skip((pag - 1) * element).Take(element).ToList();
-            return mapper.Map<List<ReceptionDto>>(result);
+            return result;
         }
    
-        public List<ReceptionDto> GetByDate(DateTime dateStart, DateTime dateEnd)
+        public IEnumerable<Reception> GetByDate(DateTime dateStart, DateTime dateEnd)
         {
-            var result = dbSet.Where(w => DbFunctions.TruncateTime(w.CreateDate) >= DbFunctions.TruncateTime( dateStart) 
+            IEnumerable<Reception> result = dbSet.Where(w => DbFunctions.TruncateTime(w.CreateDate) >= DbFunctions.TruncateTime( dateStart) 
             && DbFunctions.TruncateTime( w.CreateDate ) <= DbFunctions.TruncateTime(dateEnd))
                 .ToList();
-            return mapper.Map<List<ReceptionDto>>(result);
+            return result;
         }
 
-        public List<ReceptionDto> GetByDate(DateTime dateStart, DateTime dateEnd, int pag, int element)
+        public IEnumerable<Reception> GetByDate(DateTime dateStart, DateTime dateEnd, int pag, int element)
         {
-            var result = dbSet.Where(w => DbFunctions.TruncateTime( w.CreateDate) >= DbFunctions.TruncateTime( dateStart) 
+            IEnumerable<Reception> result = dbSet.Where(w => DbFunctions.TruncateTime( w.CreateDate) >= DbFunctions.TruncateTime( dateStart) 
             && DbFunctions.TruncateTime( w.CreateDate) <= DbFunctions.TruncateTime( dateEnd.Date))
                 .OrderBy(w => w.CreateDate)
                 .Skip((pag - 1) * element).Take(element).ToList();
-            return mapper.Map<List<ReceptionDto>>(result);
+            return result;
         }
 
-        public List<ReceptionOrderDto> GetByOrder(string idOrder)
+        public IEnumerable<Reception> GetByOrder(string idOrder)
         {
-            var result = dbSet.Where(w => w.Orders.IdOrder.Equals(idOrder)).ToList();
-            return mapper.Map<List<ReceptionOrderDto>>(result);
+            IEnumerable<Reception> result = dbSet.Where(w => w.Orders.IdOrder.Equals(idOrder));
+            return result;
         }
 
-        public List<ReceptionPurchaseDto> GetByPurchase(string idPurchase)
+        public IEnumerable<Reception> GetByPurchase(string idPurchase)
         {
-            var result = dbSet.Where(w => w.Purchase.IdPurchase.Equals(idPurchase)).ToList();
-            return mapper.Map<List<ReceptionPurchaseDto>>(result);
+            IEnumerable<Reception> result = dbSet.Where(w => w.Purchase.IdPurchase.Equals(idPurchase));
+            return result;
         }
 
-        public List<ReceptionDto> GetByStore(string idStore)
+        public IEnumerable<Reception> GetByStore(string idStore)
         {
-            var result = dbSet.Where(w => w.IdStore.Equals(idStore)).ToList();
-            return mapper.Map<List<ReceptionDto>>(result);
+            IEnumerable<Reception> result = dbSet.Where(w => w.IdStore.Equals(idStore)).ToList();
+            return result;
         }
 
-        public List<ReceptionDto> GetByStore(string idStore, int pag, int element)
+        public IEnumerable<Reception> GetByStore(string idStore, int pag, int element)
         {
-            var result = dbSet.Where(w => w.IdStore.Equals(idStore))
+            IEnumerable<Reception> result = dbSet.Where(w => w.IdStore.Equals(idStore))
                 .OrderBy(w=> w.CreateDate)
                 .Skip((pag - 1) * element).Take(element).ToList();
-            return mapper.Map<List<ReceptionDto>>(result);
+            return result;
         }
-        public List<ReceptionDto> GetByStore(string idStore, DateTime date)
+        public IEnumerable<Reception> GetByStore(string idStore, DateTime date)
         {
-            var result = dbSet.Where(w => w.IdStore.Equals(idStore) 
+            IEnumerable<Reception> result = dbSet.Where(w => w.IdStore.Equals(idStore) 
             && (DbFunctions.TruncateTime(w.CreateDate) == DbFunctions.TruncateTime(date)))
                 .ToList();
-            return mapper.Map<List<ReceptionDto>>(result);
+            return result;
         }
 
-        public List<ReceptionDto> GetByStore(string idStore, DateTime date, int pag, int element)
+        public IEnumerable<Reception> GetByStore(string idStore, DateTime date, int pag, int element)
         {
-            var result = dbSet.Where(w => w.IdStore.Equals(idStore)
+            IEnumerable<Reception> result = dbSet.Where(w => w.IdStore.Equals(idStore)
             && (DbFunctions.TruncateTime(w.CreateDate) == DbFunctions.TruncateTime(date)))
                 .OrderBy(w => w.CreateDate)
                 .Skip((pag - 1) * element).Take(element).ToList();
-            return mapper.Map<List<ReceptionDto>>(result);
+            return result;
         }
 
-        public new dynamic Insert(List<Reception>list)
+        /*public new dynamic Insert(IEnumerable<Reception>list)
         {
             foreach (Reception entity in list)
             {
@@ -100,9 +97,9 @@ namespace Models.Repositories.Concrect.Receptions
                     Context.BookStore.Where(w => w.IdBook.Equals(line.IdBook) && w.IdStore.Equals(entity.IdStore)).SingleOrDefault().Stock += line.Quantity;
                 }
             }
-            dbSet.AddRange(mapper.Map<List<Reception>>(list));
+            dbSet.AddRange(mapper.Map<IEnumerable<Reception>>(list));
             return Save();
-        }
+        }*/
 
     }
 }

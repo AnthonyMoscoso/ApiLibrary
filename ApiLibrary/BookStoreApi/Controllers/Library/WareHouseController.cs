@@ -1,6 +1,5 @@
-﻿using Ado.Library;
-using Models.Ado.Library;
-using Models.Repositories.Concrect.WareHouses;
+﻿using Models.Dtos;
+using Negocios.BookStoreServices.Abstracts;
 using System.Collections.Generic;
 using System.Web.Http;
 
@@ -11,32 +10,37 @@ namespace Models.Controllers.Library.WareHouses
     [Authorize]
     public class WareHouseController : ApiController
     {
-       readonly IWareHouseRepositorie _repository = new WareHouseRepositorie();
+        readonly IWareHouseService _service;
 
+
+        public WareHouseController(IWareHouseService service)
+        {
+            _service = service;
+        }
 
         #region Get
         [HttpGet]
         public IHttpActionResult Get()
         {
-            return Ok(_repository.Get());
+            return Ok(_service.Get());
         }
         [HttpGet]
         public IHttpActionResult Get(string id)
         {
-            return Ok(_repository.Get(id));
+            return Ok(_service.Get(id));
         }
 
         [HttpGet]
         public IHttpActionResult GetList(string ids)
         {
-            return Ok(_repository.GetList(ids));
+            return Ok(_service.GetList(ids));
         }
 
         [HttpGet]
         [Route("Pag")]
         public IHttpActionResult Get(int element, int pag)
         {
-            return Ok(_repository.Get(element, pag));
+            return Ok(_service.Get(element, pag));
         }
         #endregion
 
@@ -47,13 +51,13 @@ namespace Models.Controllers.Library.WareHouses
         [Route("PostalCode")]
         public IHttpActionResult GetByPostalCode(string code)
         {
-            return Ok(_repository.GetByPostalCode(code));
+            return Ok(_service.GetByPostalCode(code));
         }
         [HttpGet]
         [Route("PostalCode")]
         public IHttpActionResult GetByPostalCode(string code, int pag, int element)
         {
-            return Ok(_repository.GetByPostalCode(code, pag, element));
+            return Ok(_service.GetByPostalCode(code, pag, element));
         }
         #endregion
 
@@ -62,13 +66,13 @@ namespace Models.Controllers.Library.WareHouses
         [Route("Country")]
         public IHttpActionResult GetByCountry(string Country)
         {
-            return Ok(_repository.GetByCountry(Country));
+            return Ok(_service.GetByCountry(Country));
         }
         [HttpGet]
         [Route("Country")]
         public IHttpActionResult GetByCountry(string Country, int pag, int element)
         {
-            return Ok(_repository.GetByCountry(Country, pag, element));
+            return Ok(_service.GetByCountry(Country, pag, element));
         }
         #endregion
 
@@ -77,13 +81,13 @@ namespace Models.Controllers.Library.WareHouses
         [Route("Poblation")]
         public IHttpActionResult GetByPoblation(string Poblation)
         {
-            return Ok(_repository.GetByPoblation(Poblation));
+            return Ok(_service.GetByPoblation(Poblation));
         }
         [HttpGet]
         [Route("Poblation")]
         public IHttpActionResult GetByPoblation(string Poblation, int pag, int element)
         {
-            return Ok(_repository.GetByPoblation(Poblation, pag, element));
+            return Ok(_service.GetByPoblation(Poblation, pag, element));
         }
         #endregion
 
@@ -92,25 +96,25 @@ namespace Models.Controllers.Library.WareHouses
         [Route("Employee")]
         public IHttpActionResult GetByEmployee(string idEmployee)
         {
-            return Ok(_repository.GetByEmployee(idEmployee));
+            return Ok(_service.GetByEmployee(idEmployee));
         }
         #endregion
         [HttpPost]
-        public IHttpActionResult Post(List<WareHouse> list)
+        public IHttpActionResult Post(List<WareHouseDto> list)
         {
-            return Ok(_repository.Insert(list));
+            return Ok(_service.Insert(list));
         }
 
         [HttpPut]
-        public IHttpActionResult Put(List<WareHouse> list)
+        public IHttpActionResult Put(List<WareHouseDto> list)
         {
-            return Ok(_repository.Update(list));
+            return Ok(_service.Update(list));
         }
 
         [HttpDelete]
         public IHttpActionResult Delete(List<string> ids)
         {
-            return Ok(_repository.Delete(ids));
+            return Ok(_service.Delete(ids));
         }
     }
 }

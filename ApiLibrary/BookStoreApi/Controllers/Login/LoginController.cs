@@ -1,6 +1,7 @@
 ﻿using Ado.User.Abstracts;
 using Ado.User.Specifics;
 using Models.Models.Login;
+using Negocio.UserServices.Abstracts;
 using Nucleo.Tokens;
 using System.Net;
 using System.Threading;
@@ -15,7 +16,13 @@ namespace Models.Controllers
     [RoutePrefix("api/login")]
     public class LoginController : ApiController
     {
-        readonly ILoginRepository _repositorie = new LoginRepositorie();
+        readonly IUserService _service;
+
+        public LoginController(IUserService service)
+        {
+            _service = service;
+        }
+
         [HttpGet]
         [Route("echoping")]
         public IHttpActionResult EchoPing()
@@ -41,7 +48,7 @@ namespace Models.Controllers
             }
             else
             {
-                if (_repositorie.Login(login))
+                if (_service.Login(login))
                 {
                     var token = TokenGenerator.GenerateTokenJwt(login.Username);
                     return Ok(token);

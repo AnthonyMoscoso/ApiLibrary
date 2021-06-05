@@ -6,7 +6,7 @@ namespace Ado.Library
 {
     public interface IPermitRepository : IRepository<Permit>
     {
-        List<Permit> SearchByName(string text);
-        List<Permit> SearchByName(string text,int pag,int element);
+        IEnumerable<Permit> SearchByName(string text);
+        IEnumerable<Permit> SearchByName(string text, int pag, int element);
     }
 }

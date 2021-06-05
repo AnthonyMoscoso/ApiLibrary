@@ -1,6 +1,5 @@
-﻿using Ado.Library;
-using Models.Dtos;
-using Models.Repositories.Concrect.Persons;
+﻿using Models.Dtos;
+using Negocios.BookStoreServices.Abstracts;
 using System.Collections.Generic;
 using System.Web.Http;
 
@@ -9,36 +8,41 @@ namespace Models.Controllers.Library.Persons
     [RoutePrefix("Api/Socie")]
     public class SocieController : ApiController
     {
-        readonly ISocieRepository _repository = new SocieRepository();
+        readonly ISocieService _service ;
+
+        public SocieController(ISocieService service)
+        {
+            _service = service;
+        }
 
         #region Get
         [HttpGet]
         public IHttpActionResult Get()
         {
-            return Ok(_repository.Get());
+            return Ok(_service.Get());
         }
         [HttpGet]
         public IHttpActionResult Get(string id)
         {
-            return Ok(_repository.Get(id));
+            return Ok(_service.Get(id));
         }
 
         [HttpGet]
         public IHttpActionResult GetList(string ids)
         {
-            return Ok(_repository.GetList(ids));
+            return Ok(_service.GetList(ids));
         }
         [HttpGet]
         public IHttpActionResult GetByDni(string dni)
         {
-            return Ok(_repository.GetByDni(dni));
+            return Ok(_service.GetByDni(dni));
         }
 
         [HttpGet]
         [Route("Pag")]
         public IHttpActionResult Get(int element, int pag)
         {
-            return Ok(_repository.Get(element, pag));
+            return Ok(_service.Get(element, pag));
         }
         #endregion
 
@@ -46,19 +50,19 @@ namespace Models.Controllers.Library.Persons
         public IHttpActionResult Post(List<SocieDto> list)
         {
            
-            return Ok(_repository.Insert(list));
+            return Ok(_service.Insert(list));
         }
 
         [HttpPut]
         public IHttpActionResult Put(List<SocieDto> list)
         {
-            return Ok(_repository.Update(list));
+            return Ok(_service.Update(list));
         }
 
         [HttpDelete]
         public IHttpActionResult Delete(List<string> ids)
         {
-            return Ok(_repository.Delete(ids));
+            return Ok(_service.Delete(ids));
         }
     }
 }

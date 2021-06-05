@@ -5,41 +5,35 @@ using System.Linq;
 using Nucleo.DBAccess.Ado;
 using Ado.Library;
 
-namespace Models.Repositories.Concrect.Books
+namespace Ado.Library.Specifics
 {
-    public class BookTypeRepository : Repository<BookType,BookTypeDto>, IBookTypeRepository
+    public class BookTypeRepository : Repository<BookType>, IBookTypeRepository
     {
-        public BookTypeRepository(string identificator= "IdType") : base(identificator)
+        public BookTypeRepository(BookStoreEntities context, string identificator= "IdType") : base(context,identificator)
         {
 
         }
 
-        public new List<BookTypeDto> Get()
-        {
-            var list = dbSet.ToList();
-            return mapper.Map<List<BookTypeDto>>(list);
-        }
-
-        public BookTypeDto GetByName(string name)
+      
+        public BookType GetByName(string name)
         {
             var list = dbSet.Where(w => w.TypeName.Equals(name)).FirstOrDefault();
-            return mapper.Map<BookTypeDto>(list);
+            return list;
         }
 
-        public List<BookTypeDto> SearchByName(string text)
+        public IEnumerable<BookType> SearchByName(string text)
         {
-            var list = dbSet.Where(w => w.TypeName.Contains(text)).ToList();
-            return mapper.Map<List<BookTypeDto>>(list);
+            var list = dbSet.Where(w => w.TypeName.Contains(text));
+            return list;
         }
 
-        public List<BookTypeDto> SearchByName(string text, int pag, int element)
+        public IEnumerable<BookType> SearchByName(string text, int pag, int element)
         {
             var list = dbSet.Where(w => w.TypeName.Contains(text))
                 .OrderBy(w => w.CreateDate)
                 .Skip((pag - 1) * element)
-                .Take(element)
-                .ToList();
-            return mapper.Map<List<BookTypeDto>>(list);
+                .Take(element);
+            return list;
         }
     }
 }

@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Models.Ado\Models.Ado.csproj" />
+    <ProjectReference Include="..\Models.Dtos\Models.Dtos.csproj" />
+    <ProjectReference Include="..\Nucleo.AutoMappers\Nucleo.Mappers.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\Ado.Library\bin\Debug\AutoMapper.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

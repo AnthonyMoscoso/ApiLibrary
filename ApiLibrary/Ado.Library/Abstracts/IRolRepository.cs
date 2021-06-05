@@ -6,7 +6,7 @@ namespace Ado.Library
 {
     public interface IRolRepository : IRepository<Rol>
     {
-        List<Rol> SearchByName(string text);
-        List<Rol> SearchByName(string text,int pag,int element);
+        IEnumerable<Rol> SearchByName(string text);
+        IEnumerable<Rol> SearchByName(string text,int pag,int element);
     }
 }

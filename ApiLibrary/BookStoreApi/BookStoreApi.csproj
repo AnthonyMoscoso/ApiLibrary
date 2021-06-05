@@ -57,6 +57,9 @@
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -184,8 +187,6 @@
     <Compile Include="Controllers\Library\EmployeeController.cs" />
     <Compile Include="Controllers\Library\PersonController.cs" />
     <Compile Include="Controllers\Library\RegisterLineController.cs" />
-    <Compile Include="Controllers\Library\RegisterStoreController.cs" />
-    <Compile Include="Controllers\Library\RegisterWareHouseController.cs" />
     <Compile Include="Controllers\Library\ReservationOnlineController.cs" />
     <Compile Include="Controllers\Library\ReservationStoreController.cs" />
     <Compile Include="Controllers\Library\ScheduleLineController.cs" />
@@ -242,13 +243,13 @@
     <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Ado.Library\Ado.Library.csproj">
+    <ProjectReference Include="..\Ado.Library\DataAccess.Ado.Library.csproj">
       <Project>{7965865a-d1f6-4d42-9563-9d2dde070995}</Project>
-      <Name>Ado.Library</Name>
+      <Name>DataAccess.Ado.Library</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ado.Users\Ado.User.csproj">
+    <ProjectReference Include="..\Ado.Users\DataAccess.Ado.User.csproj">
       <Project>{78a7aa00-6c83-4336-9768-61fd5aa433db}</Project>
-      <Name>Ado.User</Name>
+      <Name>DataAccess.Ado.User</Name>
     </ProjectReference>
     <ProjectReference Include="..\Models.Ado\Models.Ado.csproj">
       <Project>{E95982B4-23D7-406C-B457-8EBF5ED7C521}</Project>
@@ -262,17 +263,41 @@
       <Project>{c4e1b4b8-771f-4aaa-9eb1-77cc371b88e7}</Project>
       <Name>Models.Utilities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nucleo.AutoMappers\Nucleo.AutoMappers.csproj">
+    <ProjectReference Include="..\Negocio.UserServices\Negocio.UserServices.csproj">
+      <Project>{3d8b36a0-d7fb-4921-8dd3-b86e42d48748}</Project>
+      <Name>Negocio.UserServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Negocios.AutoMapper\Negocios.AutoMapper.csproj">
+      <Project>{bcb673ce-b524-46de-9600-2943734b2dd0}</Project>
+      <Name>Negocios.AutoMapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Negocios.BookStore\Negocios.BookStoreServices.csproj">
+      <Project>{f705ce98-3f51-4c4a-9c73-e73dacd56bea}</Project>
+      <Name>Negocios.BookStoreServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Negocios.DependencyInjection\Negocios.DependencyInjection.csproj">
+      <Project>{ac2cc079-63b1-4025-b9d7-50e382fa8c8e}</Project>
+      <Name>Negocios.DependencyInjection</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nucleo.AutoMappers\Nucleo.Mappers.csproj">
       <Project>{00be379b-8d19-41a6-ad0a-3d253268f8bd}</Project>
-      <Name>Nucleo.AutoMappers</Name>
+      <Name>Nucleo.Mappers</Name>
     </ProjectReference>
     <ProjectReference Include="..\Nucleo.DBAccess\Nucleo.DBAccess.csproj">
       <Project>{b7816c94-c966-4571-9afb-5154cdf25f2e}</Project>
       <Name>Nucleo.DBAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Nucleo.DependencyInjection\Nucleo.DependencyInjection.csproj">
+      <Project>{5e281f55-4bf7-4ead-ae8b-a02c174bbac9}</Project>
+      <Name>Nucleo.DependencyInjection</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Nucleo.Files.Web\Nucleo.Files.Web.csproj">
       <Project>{f1c0ff4f-9179-432f-8a91-f9ead4a7b687}</Project>
       <Name>Nucleo.Files.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nucleo.Services\Nucleo.Services.csproj">
+      <Project>{2b6fcd47-fe07-4633-9e3d-c0f67e3db210}</Project>
+      <Name>Nucleo.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\Nucleo.Tokens\Nucleo.Tokens.csproj">
       <Project>{9d06fda9-b989-4596-bace-1edb4f10676f}</Project>

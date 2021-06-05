@@ -4,11 +4,11 @@ using Models.Ado.Library;
 using Nucleo.DBAccess.Ado;
 using Ado.Library;
 
-namespace Models.Repositories.Concrect.WareHouses
+namespace Ado.Library.Specifics
 {
-    public class WareHouseBookRepository : Repository<WareHouseBook,WareHouseBookDto>, IWareHouseBookRepository
+    public class WareHouseBookRepository : Repository<WareHouseBook>, IWareHouseBookRepository
     {
-        public WareHouseBookRepository(string identificator="IdWareHouseBook") : base(identificator)
+        public WareHouseBookRepository(BookStoreEntities context,string identificator="IdWareHouseBook") : base(context,identificator)
         {
         }
 

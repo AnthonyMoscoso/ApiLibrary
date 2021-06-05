@@ -5,11 +5,11 @@ using Models.Dtos;
 using Ado.Library;
 using Nucleo.DBAccess.Ado;
 
-namespace Models.Repositories.Concrect.Books
+namespace Ado.Library.Specifics
 {
-    public class BookStoreRepository : Repository<BookStore,BookStoreDto>, IBookStoreRepository
+    public class BookStoreRepository : Repository<BookStore>, IBookStoreRepository
     {
-        public BookStoreRepository(string identificator = "IdBookStore") : base(identificator)
+        public BookStoreRepository(BookStoreEntities context,string identificator="IdBookStore") : base(context,identificator)
         {
         }
 
@@ -26,11 +26,5 @@ namespace Models.Repositories.Concrect.Books
             return stock;
         }
 
-        public new List<BookStoreDto> Get(){
-            var list = dbSet.ToList();
-            return mapper.Map<List<BookStoreDto>>(list);
-        }
-
-        
     }
 }

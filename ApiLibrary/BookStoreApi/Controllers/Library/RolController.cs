@@ -1,68 +1,72 @@
-﻿using Models.Repositories.Concrect.Rols;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Web.Http;
-using Models.Ado.Library;
-using Ado.Library;
+using Negocios.BookStoreServices.Abstracts;
+using Models.Dtos;
 
 namespace Models.Controllers.Library.Rols
 {
     [RoutePrefix("Api/Rol")]
     public class RolController : ApiController
     {
-        readonly IRolRepository _repository = new RolRepository();
+        readonly IRolService _service ;
 
+        public RolController(IRolService service)
+        {
+            service = _service;
+        }
+        
 
         [HttpGet]
         public IHttpActionResult Get()
         {
-            return Ok(_repository.Get());
+            return Ok(_service.Get());
         }
         [HttpGet]
         public IHttpActionResult Get(string id)
         {
-            return Ok(_repository.Get(id));
+            return Ok(_service.Get(id));
         }
         [HttpGet]
         [Route("SearchByName")]
         public IHttpActionResult SearchByName(string text)
         {
-            return Ok(_repository.SearchByName(text));
+            return Ok(_service.SearchByName(text));
         }
         [HttpGet]
         [Route("SearchByName")]
         public IHttpActionResult SearchByName(string text, int pag, int element)
         {
-            return Ok(_repository.SearchByName(text, pag, element));
+            return Ok(_service.SearchByName(text, pag, element));
         }
         [HttpGet]
         [Route("List")]
         public IHttpActionResult GetList(string ids)
         {
-            return Ok(_repository.GetList(ids));
+            return Ok(_service.GetList(ids));
         }
 
         [HttpGet]
         [Route("Pag")]
         public IHttpActionResult Get(int element, int pag)
         {
-            return Ok(_repository.Get(element, pag));
+            return Ok(_service.Get(element, pag));
         }
         [HttpPost]
-        public IHttpActionResult Post(List<Rol> list)
+        public IHttpActionResult Post(List<RolDto> list)
         {
-            return Ok(_repository.Insert(list));
+            return Ok(_service.Insert(list));
         }
 
         [HttpPut]
-        public IHttpActionResult Put(List<Rol> list)
+        public IHttpActionResult Put(List<RolDto> list)
         {
-            return Ok(_repository.Update(list));
+            return Ok(_service.Update(list));
         }
 
         [HttpDelete]
         public IHttpActionResult Delete(List<string> ids)
         {
-            return Ok(_repository.Delete(ids));
+            return Ok(_service.Delete(ids));
         }
     }
 }

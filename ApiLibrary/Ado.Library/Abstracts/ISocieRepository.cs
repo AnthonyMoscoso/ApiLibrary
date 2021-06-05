@@ -8,17 +8,13 @@ namespace Ado.Library
 {
     public interface ISocieRepository : IRepository<Socie>
     {
-        SocieDto GetByDni(string dni);
-        List<SocieDto> GetByDate(DateTime date);
-        List<SocieDto> GetByDate(DateTime start, DateTime end);
-        List<SocieDto> GetDesactivates();
-        dynamic DeleteDesactivates();
-        void DesactivateAccount(string idSocie);
-        void ReactivateAccount(string idSocie);
-        List<SocieDto> SearchByName(string text);
-        List<SocieDto> SearchByName(string text,int pag,int element);
+        Socie GetByDni(string dni);
+        IEnumerable<Socie> GetByDate(DateTime date);
+        IEnumerable<Socie> GetByDate(DateTime start, DateTime end);
+        IEnumerable<Socie> GetDesactivates();
+        IEnumerable<Socie> SearchByName(string text);
+        IEnumerable<Socie> SearchByName(string text,int pag,int element);
 
-        dynamic Insert(List<SocieDto> list);
-        dynamic Update(List<SocieDto> list);
+      
     }
 }

@@ -5,67 +5,59 @@ using Models.Ado.Library;
 using Nucleo.DBAccess.Ado;
 using Ado.Library;
 
-namespace Models.Repositories.Concrect.Taxe
+namespace Ado.Library.Specifics
 {
-    public class TaxesRepository : Repository<Taxes,TaxesDto>, ITaxesRepository
+    public class TaxesRepository : Repository<Taxes>, ITaxesRepository
     {
-        public TaxesRepository(string identificator="IdTaxes") : base(identificator)
+        public TaxesRepository(BookStoreEntities context,string identificator="IdTaxes") : base(context,identificator)
         {
         }
 
-        public new dynamic Delete(List<string> ids)
+        /*   public new dynamic Delete(List<string> ids)
+           {
+               string message = "";
+               foreach (string id in ids)
+               {
+                   Taxes search = dbSet.Find(id);
+                   if (search!=null)
+                   {
+                       if (search.PayRoll.Count>0)
+                       {
+                          string n= string.Format("Can delete Taxes {0}  is using by any Payroll, delete first all Payroll that has been related for delete",search.TaxTittle);
+                           message += n;
+                       }
+                       else
+                       {
+                           dbSet.Remove(search);
+                           message += Save();
+                       }
+                   }
+                   else
+                   {
+                       message += "Entity whith Id =" + id + " not was found";
+                   }
+               }
+               return message;
+           }*/
+
+        public IEnumerable<Taxes> GetByType(int type)
         {
-            string message = "";
-            foreach (string id in ids)
-            {
-                Taxes search = dbSet.Find(id);
-                if (search!=null)
-                {
-                    if (search.PayRoll.Count>0)
-                    {
-                       string n= string.Format("Can delete Taxes {0}  is using by any Payroll, delete first all Payroll that has been related for delete",search.TaxTittle);
-                        message += n;
-                    }
-                    else
-                    {
-                        dbSet.Remove(search);
-                        message += Save();
-                    }
-                }
-                else
-                {
-                    message += "Entity whith Id =" + id + " not was found";
-                }
-            }
-            return message;
+            return dbSet.Where(w => w.TaxType == type);
         }
 
-        public List<Taxes> GetByType(int type)
+        public IEnumerable<Taxes> GetByType(int type, int pag, int element)
         {
-            return dbSet.Where(w => w.TaxType == type).ToList();
+            return dbSet.Where(w => w.TaxType == type).OrderBy(w => w.CreateDate).Skip((pag - 1) * element).Take(element);
         }
 
-        public List<Taxes> GetByType(int type, int pag, int element)
+        public IEnumerable<Taxes> SearchByName(string text)
         {
-            return dbSet.Where(w => w.TaxType == type)
-                .OrderBy(w => w.CreateDate)
-                .Skip((pag - 1) * element)
-                .Take(element)
-                .ToList(); 
+            return dbSet.Where(w => w.TaxTittle.Contains(text));
         }
 
-        public List<Taxes> SearchByName(string text)
+        public IEnumerable<Taxes> SearchByName(string text, int pag, int element)
         {
-            return dbSet.Where(w => w.TaxTittle.Contains(text)).ToList();
-        }
-
-        public List<Taxes> SearchByName(string text, int pag, int element)
-        {
-            return dbSet.Where(w => w.TaxTittle.Contains(text))
-                .OrderBy(w=> w.CreateDate)
-                .Skip((pag - 1) * element)
-                .Take(element)
-                .ToList(); 
+            return dbSet.Where(w => w.TaxTittle.Contains(text)).OrderBy(w => w.CreateDate).Skip((pag - 1) * element).Take(element);
         }
     }
 }

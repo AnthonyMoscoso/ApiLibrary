@@ -7,6 +7,6 @@ namespace Ado.Library
 {
     public interface IRegisterLineRepository : IRepository<RegisterLine>
     {
-        List<RegisterLineDto> GetByRegister(string idRegister);
+        IEnumerable<RegisterLine> GetByRegister(string idRegister);
     }
 }

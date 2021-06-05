@@ -3,11 +3,11 @@ using Models.Ado.Library;
 using Nucleo.DBAccess.Ado;
 using Ado.Library;
 
-namespace Models.Repositories.Concrect.Directions
+namespace Ado.Library.Specifics
 {
-    public class DirectionRepository : Repository<Direction,DirectionDto>, IDirectionRepository
+    public class DirectionRepository : Repository<Direction>, IDirectionRepository
     {
-        public DirectionRepository(string identificator="IdDirection") : base(identificator)
+        public DirectionRepository(BookStoreEntities context,string identificator="IdDirection") : base(context,identificator)
         {
         }
 

@@ -1,68 +1,63 @@
 ﻿using Models.Ado.Library;
-using Models.Models.Dtos;
-using Models.Repositories.Concrect.Reservations;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Data.SqlClient;
 using System.Linq;
 using Nucleo.DBAccess.Ado;
-using Nucleo.Utilities;
 using Ado.Library;
 
-namespace Models.Repositories.Concrect
+namespace Ado.Library.Specifics
 {
-    public class ReservationStoreRepository : Repository<ReservationStore, ReservationStoreDto>, IReservationStoreRepository
+    public class ReservationStoreRepository : Repository<ReservationStore>, IReservationStoreRepository
     {
-        readonly IReservationRepository reservationRepository = new ReservationRepository();
-        public ReservationStoreRepository(string identificator ="IdReservation") : base(identificator)
+
+        public ReservationStoreRepository(BookStoreEntities context,string identificator ="IdReservation") : base(context,identificator)
         {
         }
 
-        public List<ReservationStoreDto> GetByStore(string idStore)
+        public IEnumerable<ReservationStore> GetByStore(string idStore)
         {
-            var result = dbSet.Where(w => w.IdStore.Equals(idStore)).ToList();
-            return mapper.Map<List<ReservationStoreDto>>(result);
+            IEnumerable<ReservationStore> result= dbSet.Where(w => w.IdStore.Equals(idStore)).ToList();
+            return (result);
         }
 
-        public List<ReservationStoreDto> GetByStore(string idStore, int pag, int element)
+        public IEnumerable<ReservationStore> GetByStore(string idStore, int pag, int element)
         {
-            var result = dbSet.Where(w => w.IdStore.Equals(idStore))
+            IEnumerable<ReservationStore> result= dbSet.Where(w => w.IdStore.Equals(idStore))
                    .OrderBy(w => w.Reservation.CreateDate)
                 .Skip((pag-1)*element)
                 .Take(element)
                 .ToList();
-            return mapper.Map<List<ReservationStoreDto>>(result);
+            return (result);
         }
 
-        public List<ReservationStoreDto> GetByStore(string idStore, DateTime start, DateTime end)
+        public IEnumerable<ReservationStore> GetByStore(string idStore, DateTime start, DateTime end)
         {
-            var result = dbSet.Where(w => w.IdStore.Equals(idStore)
+            IEnumerable<ReservationStore> result= dbSet.Where(w => w.IdStore.Equals(idStore)
               && (DbFunctions.TruncateTime(w.Reservation.CreateDate) >= DbFunctions.TruncateTime(start) && DbFunctions.TruncateTime(end) >= DbFunctions.TruncateTime(w.Reservation.CreateDate)
                 || (DbFunctions.TruncateTime(w.Reservation.FinishReservationDate.Value) >= DbFunctions.TruncateTime(start) && DbFunctions.TruncateTime(end) >= DbFunctions.TruncateTime(w.Reservation.FinishReservationDate.Value))
                 || !w.Reservation.FinishReservationDate.HasValue))
-                .ToList();
-            return mapper.Map<List<ReservationStoreDto>>(result);
+           ;
+            return (result);
         }
 
-        public List<ReservationStoreDto> GetByStore(string idStore, DateTime start, DateTime end, int pag, int element)
+        public IEnumerable<ReservationStore> GetByStore(string idStore, DateTime start, DateTime end, int pag, int element)
         {
-            var result = dbSet.Where(w => w.IdStore.Equals(idStore)
+            IEnumerable<ReservationStore> result= dbSet.Where(w => w.IdStore.Equals(idStore)
                  && (DbFunctions.TruncateTime(w.Reservation.CreateDate) >= DbFunctions.TruncateTime(start) && DbFunctions.TruncateTime(end) >= DbFunctions.TruncateTime(w.Reservation.CreateDate)
                 || (DbFunctions.TruncateTime(w.Reservation.FinishReservationDate.Value) >= DbFunctions.TruncateTime(start) && DbFunctions.TruncateTime(end) >= DbFunctions.TruncateTime(w.Reservation.FinishReservationDate.Value))
                 || !w.Reservation.FinishReservationDate.HasValue))
                  .OrderBy(w => w.Reservation.CreateDate)
                 .Skip((pag - 1) * element)
                 .Take(element)
-                .ToList();
-            return mapper.Map<List<ReservationStoreDto>>(result);
+                ;
+            return (result);
         }
 
-        public dynamic Insert(List<ReservationStoreDto> list)
+     /*   public dynamic Insert(IEnumerable<ReservationStore> list)
         {
           
-            foreach (ReservationStoreDto dto in list)
+            foreach (ReservationStore dto in list)
             {
 
                 var r_store = mapper.Map<ReservationStore>(dto);
@@ -121,11 +116,11 @@ namespace Models.Repositories.Concrect
                 }
             }
             return messages;
-        }
+        }*/
 
-        public dynamic Update(List<ReservationStoreDto> list)
+      /*  public dynamic Update(IEnumerable<ReservationStore> list)
         {
-            foreach (ReservationStoreDto dto in list)
+            foreach (ReservationStore dto in list)
             {
                 var reser = mapper.Map<Reservation>(dto);
                 
@@ -191,8 +186,9 @@ namespace Models.Repositories.Concrect
             }
             return messages;
         }
-
-        public new dynamic Delete(List<string>ids)
+      */
+      /*
+        public new dynamic Delete(IEnumerable<string>ids)
         {
             foreach (string id in ids)
             {
@@ -262,7 +258,7 @@ namespace Models.Repositories.Concrect
             }
             return messages;
         }
-
+      */
         public int Count(string idStore)
         {
             return dbSet.Count(w => w.IdStore.Equals(idStore));

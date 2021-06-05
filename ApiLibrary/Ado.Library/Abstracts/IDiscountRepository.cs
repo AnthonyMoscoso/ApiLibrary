@@ -6,10 +6,10 @@ namespace Ado.Library
 {
     public interface IDiscountRepository : IRepository<Discount>
     {
-        List<Discount> GetNotFinnalized();
-        List<Discount> GetNotFinnalized(int pag,int element);
-        List<Discount> GetFinnalized();
-        List<Discount> GetFinnalized(int pag, int element);
+        IEnumerable<Discount> GetNotFinnalized();
+        IEnumerable<Discount> GetNotFinnalized(int pag,int element);
+        IEnumerable<Discount> GetFinnalized();
+        IEnumerable<Discount> GetFinnalized(int pag, int element);
         Discount GetByBook(string idBook);
     }
 }

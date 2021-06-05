@@ -9,60 +9,57 @@ namespace Ado.Library
     public interface IReturnSaleRepository : IRepository<ReturnSale>
     {
         #region GetByMethod
-        List<ReturnSaleDto> GetByMethod(int RepaymentMethod);
-        List<ReturnSaleDto> GetByMethod(int RepaymentMethod, int pag, int element);
-        List<ReturnSaleDto> GetByMethod(int RepaymentMethod, string idStore);
-        List<ReturnSaleDto> GetByMethod(int RepaymentMethod, string idStore, int pag, int element);
+        IEnumerable<ReturnSale> GetByMethod(int RepaymentMethod);
+        IEnumerable<ReturnSale> GetByMethod(int RepaymentMethod, int pag, int element);
+        IEnumerable<ReturnSale> GetByMethod(int RepaymentMethod, string idStore);
+        IEnumerable<ReturnSale> GetByMethod(int RepaymentMethod, string idStore, int pag, int element);
 
         #endregion
 
         #region GetByMotive
 
-        List<ReturnSaleDto> GetByMotive(string motive);
-        List<ReturnSaleDto> GetByMotive(string motive, int pag, int element);
-        List<ReturnSaleDto> GetByMotive(string motive, string idStore);
-        List<ReturnSaleDto> GetByMotive(string motive, string idStore, int pag, int element);
+        IEnumerable<ReturnSale> GetByMotive(string motive);
+        IEnumerable<ReturnSale> GetByMotive(string motive, int pag, int element);
+        IEnumerable<ReturnSale> GetByMotive(string motive, string idStore);
+        IEnumerable<ReturnSale> GetByMotive(string motive, string idStore, int pag, int element);
         #endregion
 
 
 
         #region GetBySale 
-        List<ReturnSaleDto> GetBySale(string idSale);
+        IEnumerable<ReturnSale> GetBySale(string idSale);
 
         #endregion
 
         #region GetByDate 
-        List<ReturnSaleDto> GetByDate(DateTime date);
-        List<ReturnSaleDto> GetByDate(DateTime date, int pag, int element);
-        List<ReturnSaleDto> GetByDate(DateTime start, DateTime end);
-        List<ReturnSaleDto> GetByDate(DateTime start, DateTime end, int pag, int element);
+        IEnumerable<ReturnSale> GetByDate(DateTime date);
+        IEnumerable<ReturnSale> GetByDate(DateTime date, int pag, int element);
+        IEnumerable<ReturnSale> GetByDate(DateTime start, DateTime end);
+        IEnumerable<ReturnSale> GetByDate(DateTime start, DateTime end, int pag, int element);
         #endregion
 
 
         #region By WareHouse
 
-        IList<ReturnSaleDto> GetByWareHouse(string idWareHouse);
-        IList<ReturnSaleDto> GetByWareHouse(string idWareHouse, int pag, int element);
-        IList<ReturnSaleDto> GetByWareHouse(string idWareHouse, DateTime start, DateTime end);
-        IList<ReturnSaleDto> GetByWareHouse(string idWareHouse, DateTime start, DateTime end, int pag, int element);
+        IEnumerable<ReturnSale> GetByWareHouse(string idWareHouse);
+        IEnumerable<ReturnSale> GetByWareHouse(string idWareHouse, int pag, int element);
+        IEnumerable<ReturnSale> GetByWareHouse(string idWareHouse, DateTime start, DateTime end);
+        IEnumerable<ReturnSale> GetByWareHouse(string idWareHouse, DateTime start, DateTime end, int pag, int element);
 
         #endregion
 
 
         #region GetByStore
-        IList<ReturnSaleDto> GetByStore(string idStore);
-        IList<ReturnSaleDto> GetByStore(string idStore, int pag, int element);
-        IList<ReturnSaleDto> GetByStore(string idStore, DateTime start, DateTime end);
-        IList<ReturnSaleDto> GetByStore(string idStore, DateTime start, DateTime end, int pag, int element);
+        IEnumerable<ReturnSale> GetByStore(string idStore);
+        IEnumerable<ReturnSale> GetByStore(string idStore, int pag, int element);
+        IEnumerable<ReturnSale> GetByStore(string idStore, DateTime start, DateTime end);
+        IEnumerable<ReturnSale> GetByStore(string idStore, DateTime start, DateTime end, int pag, int element);
         #endregion
 
 
         #region Insert - Update - Delete
 
-        dynamic Insert(IList<ReturnSaleDto> list);
-        dynamic Update(IList<ReturnSaleDto> list);
-
-        new dynamic Delete(List<string>ids);
+        new dynamic Delete(IEnumerable<string>ids);
         #endregion
 
     }

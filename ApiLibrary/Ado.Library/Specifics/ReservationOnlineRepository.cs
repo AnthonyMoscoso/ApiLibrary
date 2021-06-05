@@ -1,21 +1,16 @@
-﻿using Models.Models.Dtos;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Data.SqlClient;
 using System.Linq;
 using Models.Ado.Library;
-using Nucleo.Utilities;
-using Nucleo.Utilities.Enums;
 using Nucleo.DBAccess.Ado;
 using Ado.Library;
 
-namespace Models.Repositories.Concrect
+namespace Ado.Library.Specifics
 {
-    public class ReservationOnlineRepository : Repository<ReservationOnline, ReservationOnlineDto> ,IReservationOnlineRepository
+    public class ReservationOnlineRepository : Repository<ReservationOnline> ,IReservationOnlineRepository
     {
-        public ReservationOnlineRepository(string identificator="IdReservation") : base(identificator)
+        public ReservationOnlineRepository(BookStoreEntities context,string identificator="IdReservation") : base(context,identificator)
         {
         }
 
@@ -31,74 +26,20 @@ namespace Models.Repositories.Concrect
             && DbFunctions.TruncateTime(end)<= w.Reservation.FinishReservationDate.Value);
         }
 
-        public List<ReservationOnlineDto> GetReservations(string idWareHouse)
+        public IEnumerable<ReservationOnline> GetReservations(string idWareHouse)
         {
-            var result = dbSet.Where(w => w.IdWareHouse.Equals(idWareHouse)).ToList();
-            return mapper.Map<List<ReservationOnlineDto>>(result);
+            IEnumerable<ReservationOnline> result = dbSet.Where(w => w.IdWareHouse.Equals(idWareHouse)).ToList();
+            return (result);
         }
 
-        public dynamic Insert(List<ReservationOnlineDto> list)
-        {
-            foreach (ReservationOnlineDto dto in list)
-            {
-                var reservation_online = mapper.Map<ReservationOnline>(dto);
-                try
-                {
-                    dbSet.Add(reservation_online);
-                    Context.SaveChanges();
-                }
-                catch (DbUpdateException e)
-                {
-                    MessageControl message = new MessageControl()
-                    {
-                        Code = MessageCode.exception,
-                        Error = true,
-                        Type = MessageType.Exception,
-                        Note = e.InnerException.InnerException.Message
-                    };
-                    messages.Add(message);
-                    dbSet.Remove(reservation_online);
-                }
-                catch (SqlException e)
-                {
-                    MessageControl message = new MessageControl()
-                    {
-                        Code = MessageCode.exception,
-                        Error = true,
-                        Type = MessageType.Exception,
-                        Note = e.InnerException.InnerException.Message
-                    };
-                    messages.Add(message);
-                    dbSet.Remove(reservation_online);
-                }
-                catch (Exception e)
-                {
-                    MessageControl message = new MessageControl()
-                    {
-                        Code = MessageCode.exception,
-                        Error = true,
-                        Type = MessageType.Exception,
-                        Note = e.InnerException.InnerException.Message
-                    };
-                    messages.Add(message);
-                    dbSet.Remove(reservation_online);
-                }
-            }
-            return messages;
-        }
 
-        public dynamic Update(List<ReservationOnlineDto> list)
-        {
-
-            return messages;
-        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public new dynamic Delete(List<string> ids)
+    /*    public new dynamic Delete(List<string> ids)
         {
             foreach (string id in ids)
             {
@@ -166,6 +107,6 @@ namespace Models.Repositories.Concrect
                 }
             }
             return messages;
-        }
+        }*/
     }
 }

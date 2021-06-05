@@ -7,8 +7,8 @@ namespace Ado.Library
 {
     public interface IBookTypeRepository : IRepository<BookType>
     {
-        List<BookTypeDto> SearchByName(string text);
-        List<BookTypeDto> SearchByName(string text, int pag, int element);
-        BookTypeDto GetByName(string name);
+        IEnumerable<BookType> SearchByName(string text);
+        IEnumerable<BookType> SearchByName(string text, int pag, int element);
+        BookType GetByName(string name);
     }
 }

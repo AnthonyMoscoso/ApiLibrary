@@ -21,7 +21,7 @@ namespace Models.Dtos
         public System.DateTime LastUpdateDate { get; set; }
         public int StatusCode { get; set; }
 
-        public List<TaxesDto> Taxes { get; set; }
-        public List<PaymentBonusDto> PaymentBonus { get; set; }
+        public ICollection<TaxesDto> Taxes { get; set; }
+        public ICollection<PaymentBonusDto> PaymentBonus { get; set; }
     }
 }

@@ -5,30 +5,30 @@ using Models.Ado.Library;
 using Nucleo.DBAccess.Ado;
 using Ado.Library;
 
-namespace Models.Repositories.Concrect.Schedules
+namespace Ado.Library.Specifics
 {
-    public class ScheduleLineRepository : Repository<ScheduleLine,ScheduleLineDto>, IScheduleLineRepository
+    public class ScheduleLineRepository : Repository<ScheduleLine>, IScheduleLineRepository
     {
-        public ScheduleLineRepository(string identificator="IdScheduleLine") : base(identificator)
+        public ScheduleLineRepository(BookStoreEntities context,string identificator="IdScheduleLine") : base(context,identificator)
         {
         }
 
-        public List<ScheduleLineDto> GetBySchedule(string idSchedule)
+        public IEnumerable<ScheduleLine> GetBySchedule(string idSchedule)
         {
             var result = dbSet.Where(w=>w.IdSchedule.Equals(idSchedule)).ToList();
-            return mapper.Map<List<ScheduleLineDto>>(result);
+            return (result);
         }
 
-        public List<ScheduleLineDto> GetBySchedule(string idSchedule, int month)
+        public IEnumerable<ScheduleLine> GetBySchedule(string idSchedule, int month)
         {
             var result = dbSet.Where(w => w.IdSchedule.Equals(idSchedule) && w.MonthNum == month ).ToList();
-            return mapper.Map<List<ScheduleLineDto>>(result);
+            return (result);
         }
 
-        public List<ScheduleLineDto> GetBySchedule(string idSchedule, int month, int day)
+        public IEnumerable<ScheduleLine> GetBySchedule(string idSchedule, int month, int day)
         {
             var result = dbSet.Where(w => w.IdSchedule.Equals(idSchedule) && w.MonthNum == month && w.MonthDay == day ).ToList();
-            return mapper.Map<List<ScheduleLineDto>>(result);
+            return (result);
         }
     }
 }

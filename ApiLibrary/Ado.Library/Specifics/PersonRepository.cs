@@ -3,11 +3,11 @@ using Models.Dtos;
 using Nucleo.DBAccess.Ado;
 using Ado.Library;
 
-namespace Models.Repositories.Concrect.Persons
-{
-    public class PersonRepository : Repository<Person,PersonDto>, IPersonRepository
+namespace Ado.Library.Specifics
+{ 
+    public class PersonRepository : Repository<Person>, IPersonRepository
     {
-        public PersonRepository(string identificator="IdPerson") : base(identificator)
+        public PersonRepository(BookStoreEntities context,string identificator="IdPerson") : base(context,identificator)
         {
         }
     }

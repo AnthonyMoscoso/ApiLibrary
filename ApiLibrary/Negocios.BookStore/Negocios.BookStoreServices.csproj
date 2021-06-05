@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F705CE98-3F51-4C4A-9C73-E73DACD56BEA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Negocios.BookStore</RootNamespace>
+    <AssemblyName>Negocios.BookStore</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.10.1.1\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Abstracts\IBookEditorialService.cs" />
+    <Compile Include="Abstracts\IBookService.cs" />
+    <Compile Include="Abstracts\IBookStoreService.cs" />
+    <Compile Include="Abstracts\IBookTypeService.cs" />
+    <Compile Include="Abstracts\ICouponService.cs" />
+    <Compile Include="Abstracts\IDirectionService.cs" />
+    <Compile Include="Abstracts\IDiscountService.cs" />
+    <Compile Include="Abstracts\IDocumentFileService.cs" />
+    <Compile Include="Abstracts\IEditionService.cs" />
+    <Compile Include="Abstracts\IEditorialService.cs" />
+    <Compile Include="Abstracts\IEmployeeService.cs" />
+    <Compile Include="Abstracts\IGenderService.cs" />
+    <Compile Include="Abstracts\IImageFileService.cs" />
+    <Compile Include="Abstracts\IOccupationService.cs" />
+    <Compile Include="Abstracts\IOrderLineService.cs" />
+    <Compile Include="Abstracts\IOrderService.cs" />
+    <Compile Include="Abstracts\IPaymentBonusService.cs" />
+    <Compile Include="Abstracts\IPayRollService.cs" />
+    <Compile Include="Abstracts\IPermitService.cs" />
+    <Compile Include="Abstracts\IPersonService.cs" />
+    <Compile Include="Abstracts\IProviderService.cs" />
+    <Compile Include="Abstracts\IPurchaseLineService.cs" />
+    <Compile Include="Abstracts\IPurchaseService.cs" />
+    <Compile Include="Abstracts\IReceptionLineService.cs" />
+    <Compile Include="Abstracts\IReceptionService.cs" />
+    <Compile Include="Abstracts\IRegisterService.cs" />
+    <Compile Include="Abstracts\IRegisterLineService.cs" />
+    <Compile Include="Abstracts\IReservationOnlineService.cs" />
+    <Compile Include="Abstracts\IReservationService.cs" />
+    <Compile Include="Abstracts\IReservationStoreService.cs" />
+    <Compile Include="Abstracts\IReturnSaleService.cs" />
+    <Compile Include="Abstracts\IRolService.cs" />
+    <Compile Include="Abstracts\ISaleLineService.cs" />
+    <Compile Include="Abstracts\ISaleService.cs" />
+    <Compile Include="Abstracts\IScheduleLineService.cs" />
+    <Compile Include="Abstracts\IScheduleService.cs" />
+    <Compile Include="Abstracts\IShippingLineService.cs" />
+    <Compile Include="Abstracts\IShippingService.cs" />
+    <Compile Include="Abstracts\ISocieService.cs" />
+    <Compile Include="Abstracts\IStoreSaleService.cs" />
+    <Compile Include="Abstracts\IStoreService.cs" />
+    <Compile Include="Abstracts\ITaxesService.cs" />
+    <Compile Include="Abstracts\IWareHouseBookService.cs" />
+    <Compile Include="Abstracts\IWareHouseService.cs" />
+    <Compile Include="Specifics\SaleService.cs" />
+    <Compile Include="Specifics\AutorService.cs" />
+    <Compile Include="Specifics\BookEditorialService.cs" />
+    <Compile Include="Specifics\BookService.cs" />
+    <Compile Include="Specifics\BookStoreService.cs" />
+    <Compile Include="Specifics\BookTypeService.cs" />
+    <Compile Include="Specifics\CouponService.cs" />
+    <Compile Include="Specifics\DirectionService.cs" />
+    <Compile Include="Specifics\DiscountService.cs" />
+    <Compile Include="Specifics\EditionService.cs" />
+    <Compile Include="Specifics\EditorialService.cs" />
+    <Compile Include="Specifics\EmployeeService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Abstracts\IAutorService.cs" />
+    <Compile Include="Specifics\DocumentFileService.cs" />
+    <Compile Include="Specifics\GenderService.cs" />
+    <Compile Include="Specifics\ImageFileService.cs" />
+    <Compile Include="Specifics\OccupationService.cs" />
+    <Compile Include="Specifics\OrderLineService.cs" />
+    <Compile Include="Specifics\OrderService.cs" />
+    <Compile Include="Specifics\PaymentBonusService.cs" />
+    <Compile Include="Specifics\PayRollService.cs" />
+    <Compile Include="Specifics\PermitService.cs" />
+    <Compile Include="Specifics\PersonService.cs" />
+    <Compile Include="Specifics\ProviderService.cs" />
+    <Compile Include="Specifics\PurchaseLineService.cs" />
+    <Compile Include="Specifics\PurchaseService.cs" />
+    <Compile Include="Specifics\ReceptionLineService.cs" />
+    <Compile Include="Specifics\ReceptionService.cs" />
+    <Compile Include="Specifics\RegisterLineService.cs" />
+    <Compile Include="Specifics\RegisterService.cs" />
+    <Compile Include="Specifics\ReservationOnlineService.cs" />
+    <Compile Include="Specifics\ReservationService.cs" />
+    <Compile Include="Specifics\ReservationStoreService.cs" />
+    <Compile Include="Specifics\ReturnSaleService.cs" />
+    <Compile Include="Specifics\RolService.cs" />
+    <Compile Include="Specifics\SaleLineService.cs" />
+    <Compile Include="Specifics\ScheduleLineService.cs" />
+    <Compile Include="Specifics\ScheduleService.cs" />
+    <Compile Include="Specifics\ShippingLineService.cs" />
+    <Compile Include="Specifics\ShippingService.cs" />
+    <Compile Include="Specifics\SocieService.cs" />
+    <Compile Include="Specifics\StoreSaleService.cs" />
+    <Compile Include="Specifics\StoreService.cs" />
+    <Compile Include="Specifics\TaxesService.cs" />
+    <Compile Include="Specifics\WareHouseBookService.cs" />
+    <Compile Include="Specifics\WareHouseService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ado.Library\DataAccess.Ado.Library.csproj">
+      <Project>{7965865a-d1f6-4d42-9563-9d2dde070995}</Project>
+      <Name>DataAccess.Ado.Library</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models.Ado\Models.Ado.csproj">
+      <Project>{e95982b4-23d7-406c-b457-8ebf5ed7c521}</Project>
+      <Name>Models.Ado</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models.Dtos\Models.Dtos.csproj">
+      <Project>{37dc8af1-e48d-47ce-bd66-baee73948d9d}</Project>
+      <Name>Models.Dtos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models.Utilities\Models.Utilities.csproj">
+      <Project>{c4e1b4b8-771f-4aaa-9eb1-77cc371b88e7}</Project>
+      <Name>Models.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nucleo.AutoMappers\Nucleo.Mappers.csproj">
+      <Project>{00be379b-8d19-41a6-ad0a-3d253268f8bd}</Project>
+      <Name>Nucleo.Mappers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nucleo.DBAccess\Nucleo.DBAccess.csproj">
+      <Project>{B7816C94-C966-4571-9AFB-5154CDF25F2E}</Project>
+      <Name>Nucleo.DBAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nucleo.Services\Nucleo.Services.csproj">
+      <Project>{2b6fcd47-fe07-4633-9e3d-c0f67e3db210}</Project>
+      <Name>Nucleo.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nucleo.Utilities\Nucleo.Utilities.csproj">
+      <Project>{3936ffbd-66e2-4b8c-876f-5747289e3d6b}</Project>
+      <Name>Nucleo.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

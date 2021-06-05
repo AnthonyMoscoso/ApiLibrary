@@ -7,8 +7,8 @@ namespace Ado.Library
 { 
      public interface IScheduleLineRepository : IRepository<ScheduleLine>
     {
-        List<ScheduleLineDto> GetBySchedule(string idSchedule);
-        List<ScheduleLineDto> GetBySchedule(string idSchedule,int month);
-        List<ScheduleLineDto> GetBySchedule(string idSchedule, int month,int day);
+        IEnumerable<ScheduleLine> GetBySchedule(string idSchedule);
+        IEnumerable<ScheduleLine> GetBySchedule(string idSchedule,int month);
+        IEnumerable<ScheduleLine> GetBySchedule(string idSchedule, int month,int day);
     }
 }

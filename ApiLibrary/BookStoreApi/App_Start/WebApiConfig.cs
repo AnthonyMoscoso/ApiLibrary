@@ -9,7 +9,6 @@ namespace WebApplication1
         public static void Register(HttpConfiguration config)
         {
             config.MapHttpAttributeRoutes();
-            
             config.MessageHandlers.Add(new TokenValidationHandler());
             config.Routes.MapHttpRoute(
                 name: "BookStoreApi",

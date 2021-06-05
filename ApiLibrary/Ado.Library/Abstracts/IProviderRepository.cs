@@ -6,7 +6,7 @@ namespace Ado.Library
 {
     public interface IProviderRepository : IRepository<Providers>
     {
-        List<Providers> SearchByName(string text);
-        List<Providers> SearchByName( string text,int pag,int element);
+        IEnumerable<Providers> SearchByName(string text);
+        IEnumerable<Providers> SearchByName(string text, int pag, int element);
     }
 }

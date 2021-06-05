@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using Mappers.Models;
-using Models.Ado.Library;
+﻿using Models.Ado.Library;
 using Nucleo.Utilities;
 using Nucleo.Utilities.Enums;
 using System;
@@ -10,8 +8,7 @@ using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
 
 namespace Nucleo.DBAccess.Ado
 {
@@ -20,40 +17,40 @@ namespace Nucleo.DBAccess.Ado
     /// </summary>
     /// <typeparam name="TEntity">Entity on our orm in Ado.net</typeparam>
     /// <typeparam name="DtoEntity">Entity to map our TEntity </typeparam>
-    public class Repository<TEntity, DtoEntity> : IRepository<TEntity>
-        where DtoEntity : class, new()
+    public abstract class Repository<TEntity> : IRepository<TEntity>
         where TEntity : class, new()
     {
 
-        public BookStoreEntities Context;
+        // public DbContext _Context;
+        public DbContext _Context { get; set; }
         public List<MessageControl> messages;
         public DbSet<TEntity> dbSet;
         public string name;
         public string Identificator;
         public string query;
-        public IMapper mapper;
 
 
         /// <summary>
         /// Construtor of our generic repository
         /// </summary>
         /// <param name="identificator">name of primary key column of our table</param>
-        public Repository(string identificator)
+        public Repository(DbContext context,string identificator)
         {
-            Context = new BookStoreEntities();
-            dbSet = Context.Set<TEntity>();
+            _Context = context;
+            dbSet = _Context.Set<TEntity>();
             name = typeof(TEntity).Name;
             Identificator = identificator;
-            mapper = AutoMapperConfig.MapperConfiguration.CreateMapper();
             messages = new List<MessageControl>();
         }
+
+
 
         /// <summary>
         /// Method to delete a list of entitys from our database about a list of id
         /// </summary>
         /// <param name="ids">list of ids</param>
         /// <returns>List of message with the result of our method </returns>
-        public dynamic Delete(List<string> ids)
+        public dynamic Delete(IEnumerable<string> ids)
         {
             foreach (string id in ids)
             {
@@ -62,41 +59,10 @@ namespace Nucleo.DBAccess.Ado
                 if (search != null)
                 {
 
-                    try
-                    {
-                        dbSet.Remove(search);
-                        Context.SaveChanges();
-                        MessageControl message = new MessageControl()
-                        {
-                            Code = MessageCode.correct,
-                            Type = MessageType.Delete,
-                            Error = false,
-                            Note = $"{name} with {Identificator} :{id} was delete corrertly"
-                        };
-                        messages.Add(message);
-                    }
-                    catch (DbUpdateException e)
-                    {
-                        MessageControl message = new MessageControl()
-                        {
-                            Code = MessageCode.exception,
-                            Type = MessageType.Exception,
-                            Error = true,
-                            Note = $"{e.InnerException.InnerException.Message}"
-                        };
-                        messages.Add(message);
-                    }
-                    catch (SqlException e)
-                    {
-                        MessageControl message = new MessageControl()
-                        {
-                            Code = MessageCode.exception,
-                            Type = MessageType.Exception,
-                            Error = true,
-                            Note = $"{e.InnerException.InnerException.Message}"
-                        };
-                        messages.Add(message);
-                    }
+
+                    dbSet.Remove(search);
+                    Save($"{name} with {Identificator} :{id} was delete corrertly", MessageCode.correct, MessageType.Delete);
+
 
                 }
                 else
@@ -111,7 +77,7 @@ namespace Nucleo.DBAccess.Ado
                     messages.Add(message);
                 }
             }
-            Dispose();
+
             return messages;
         }
 
@@ -119,13 +85,10 @@ namespace Nucleo.DBAccess.Ado
         /// Method  to get all entitys from our database
         /// </summary>
         /// <returns>list of entitys from the database</returns>
-        public dynamic Get()
+        public IEnumerable<TEntity> Get()
         {
-
-            List<TEntity> list =
-                dbSet.ToList();
-            Dispose();
-            return mapper.Map<List<DtoEntity>>(list);
+            IEnumerable<TEntity> list = dbSet;
+            return list;
         }
 
         /// <summary>
@@ -133,21 +96,20 @@ namespace Nucleo.DBAccess.Ado
         /// </summary>
         /// <param name="ids">string with our ids</param>
         /// <returns>our entities</returns>
-        public dynamic GetList(string ids)
+        public IEnumerable<TEntity> GetList(string ids)
         {
-            List<string> list = ids.Split(',').ToList();
-            List<TEntity> entities = new List<TEntity>();
+            IEnumerable<string> list = ids.Split(',').ToList();
             foreach (string id in list)
             {
 
                 TEntity search = dbSet.Find(id);
                 if (search != null)
                 {
-                    entities.Add(search);
+                   yield return search;
                 }
             }
-            Dispose();
-            return mapper.Map<List<DtoEntity>>(entities);
+
+
         }
 
         /// <summary>
@@ -156,13 +118,10 @@ namespace Nucleo.DBAccess.Ado
         /// <param name="elements">num of element to take</param>
         /// <param name="pag">num of pag  </param>
         /// <returns>the list paginate</returns>
-        public dynamic Get(int elements, int pag)
+        public IEnumerable<TEntity> Get(int elements, int pag)
         {
-
-
-            List<TEntity> list = dbSet.OrderBy(x => Identificator).Skip((pag - 1) * elements).Take(elements).ToList();
-            Dispose();
-            return mapper.Map<List<DtoEntity>>(list);
+            IEnumerable<TEntity> list = dbSet.OrderBy(x => Identificator).Skip((pag - 1) * elements).Take(elements).ToList();
+            return list;
         }
 
         /// <summary>
@@ -170,11 +129,11 @@ namespace Nucleo.DBAccess.Ado
         /// </summary>
         /// <param name="id">id to find our entity</param>
         /// <returns>entity by id or null</returns>
-        public dynamic Get(string id)
+        public TEntity Get(string id)
         {
-            var search = dbSet.Find(id);
-            Dispose();
-            return search != null ? (dynamic)mapper.Map<DtoEntity>(search) : (dynamic)"Not was found";
+            TEntity search = dbSet.Find(id);
+
+            return search;
 
         }
 
@@ -183,53 +142,17 @@ namespace Nucleo.DBAccess.Ado
         /// </summary>
         /// <param name="list">list of entity</param>
         /// <returns>List of message with the result of inserts</returns>
-        public dynamic Insert(List<TEntity> list)
+        public dynamic Insert(IEnumerable<TEntity> list)
         {
             foreach (TEntity entity in list)
             {
-                try
-                {
 
-                    dbSet.Add(entity);
-                    Context.SaveChanges();
-                    MessageControl message = new MessageControl()
-                    {
-                        Code = MessageCode.correct,
-                        Type = MessageType.Insert,
-                        Error = false,
-                        Note = $"{name} with {Identificator} {entity.GetHashCode()} was Insert",
+                dbSet.Add(entity);
+                Save($"{name} with {Identificator} {entity.GetHashCode()} was Insert", MessageCode.correct, MessageType.Insert);
 
-                    };
-                    messages.Add(message);
-
-                }
-                catch (DbUpdateException e)
-                {
-                    MessageControl message = new MessageControl()
-                    {
-                        Code = MessageCode.exception,
-                        Type = MessageType.Exception,
-                        Error = true,
-                        Note = $"{e.InnerException.InnerException.Message}",
-                    };
-                    dbSet.Remove(entity);
-                    messages.Add(message);
-                }
-                catch (SqlException e)
-                {
-                    MessageControl message = new MessageControl()
-                    {
-                        Code = MessageCode.exception,
-                        Type = MessageType.Exception,
-                        Error = true,
-                        Note = $"{e.InnerException.InnerException.Message}",
-                    };
-                    dbSet.Remove(entity);
-                    messages.Add(message);
-                }
             }
 
-            Dispose();
+
             return messages;
 
 
@@ -243,19 +166,41 @@ namespace Nucleo.DBAccess.Ado
         /// <returns>Message with the result of our method</returns>
         public dynamic Insert(TEntity entity)
         {
+
+            dbSet.Add(entity);
+            Save($"{name} with {Identificator} = {entity.GetHashCode()}  was insert", MessageCode.correct, MessageType.Insert);
+
+            return messages;
+        }
+
+        /// <summary>
+        /// Method to Save changes in our db
+        /// </summary>
+        /// <returns>Mesage with the result of this method</returns>
+        public dynamic Save(string text = null, MessageCode Code = MessageCode.error, MessageType type = MessageType.Exception)
+        {
             try
             {
-                dbSet.Add(entity);
-                Context.SaveChanges();
+                _Context.SaveChanges();
                 MessageControl message = new MessageControl()
                 {
-                    Code = MessageCode.correct,
-                    Type = MessageType.Insert,
-                    Note = $"{name} with {Identificator} = {entity.GetHashCode()}  was insert",
-                    Error = false
+                    Code = Code,
+                    Type = type,
+                    Error = false,
+                    Note = text ?? "Changes saves "
                 };
                 messages.Add(message);
-
+            }
+            catch (DbEntityValidationException e)
+            {
+                MessageControl message = new MessageControl()
+                {
+                    Code = MessageCode.exception,
+                    Type = MessageType.Exception,
+                    Error = true,
+                    Note = $"{e.InnerException.InnerException.Message ?? e.Message}"
+                };
+                messages.Add(message);
             }
             catch (DbUpdateException e)
             {
@@ -264,9 +209,8 @@ namespace Nucleo.DBAccess.Ado
                     Code = MessageCode.exception,
                     Type = MessageType.Exception,
                     Error = true,
-                    Note = $"{e.InnerException.InnerException.Message}",
+                    Note = $"{e.InnerException.InnerException.Message ?? e.Message}"
                 };
-
                 messages.Add(message);
             }
             catch (SqlException e)
@@ -276,33 +220,22 @@ namespace Nucleo.DBAccess.Ado
                     Code = MessageCode.exception,
                     Type = MessageType.Exception,
                     Error = true,
-                    Note = $"{e.InnerException.InnerException.Message}",
+                    Note = $"{e.InnerException.InnerException.Message ?? e.Message}"
                 };
                 messages.Add(message);
             }
-            Dispose();
+            catch (Exception e)
+            {
+                MessageControl message = new MessageControl()
+                {
+                    Code = MessageCode.exception,
+                    Type = MessageType.Exception,
+                    Error = true,
+                    Note = $"{e.InnerException.InnerException.Message ?? e.Message}"
+                };
+                messages.Add(message);
+            }
             return messages;
-        }
-
-        /// <summary>
-        /// Method to Save changes in our db
-        /// </summary>
-        /// <returns>Mesage with the result of this method</returns>
-        public dynamic Save()
-        {
-            try
-            {
-                Context.SaveChanges();
-                return "Changes saves ";
-            }
-            catch (DbEntityValidationException e)
-            {
-                return e.Message;
-            }
-            catch (SqlException e)
-            {
-                return e.Message;
-            }
         }
 
         /// <summary>
@@ -310,38 +243,18 @@ namespace Nucleo.DBAccess.Ado
         /// </summary>
         /// <param name="list">List of our entity</param>
         /// <returns>a message with the result of this method</returns>
-        public dynamic Update(List<TEntity> list)
+        public dynamic Update(IEnumerable<TEntity> list)
         {
             foreach (TEntity entity in list)
             {
-                try
-                {
-                    dbSet.Attach(entity);
-                    Context.Entry(entity).State = EntityState.Modified;
-                    Context.SaveChanges();
-                    MessageControl message = new MessageControl()
-                    {
-                        Code = MessageCode.correct,
-                        Type = MessageType.Update,
-                        Error = false,
-                        Note = "",
-                    };
-                    messages.Add(message);
-                }
-                catch (SqlException e)
-                {
-                    MessageControl message = new MessageControl()
-                    {
-                        Code = MessageCode.exception,
-                        Type = MessageType.Exception,
-                        Error = true,
-                        Note = $"{e.InnerException}",
-                    };
-                    messages.Add(message);
-                }
+
+                dbSet.Attach(entity);
+                _Context.Entry(entity).State = EntityState.Modified;
+                Save($"entity was updated ", MessageCode.correct, MessageType.Update);
+
 
             }
-            Dispose();
+
             return messages;
         }
 
@@ -353,34 +266,9 @@ namespace Nucleo.DBAccess.Ado
         public dynamic Update(TEntity entity)
         {
 
-            try
-            {
-                dbSet.Attach(entity);
-                Context.Entry(entity).State = EntityState.Modified;
-                Context.SaveChanges();
-                MessageControl message = new MessageControl()
-                {
-                    Code = MessageCode.correct,
-                    Type = MessageType.Update,
-                    Error = false,
-                    Note = "",
-                };
-                messages.Add(message);
-            }
-            catch (SqlException e)
-            {
-                MessageControl message = new MessageControl()
-                {
-                    Code = MessageCode.exception,
-                    Type = MessageType.Exception,
-                    Error = true,
-                    Note = $"{e.InnerException}",
-                };
-                messages.Add(message);
-            }
-
-            Dispose();
-
+            dbSet.Attach(entity);
+            _Context.Entry(entity).State = EntityState.Modified;
+            Save($"entity was updated ", MessageCode.correct, MessageType.Update);
             return messages;
         }
 
@@ -391,7 +279,7 @@ namespace Nucleo.DBAccess.Ado
         public int Count()
         {
             int count = dbSet.Count();
-            Dispose();
+
             return count;
         }
 
@@ -399,7 +287,7 @@ namespace Nucleo.DBAccess.Ado
         {
             try
             {
-                Context.Dispose();
+                _Context.Dispose();
             }
             catch (Exception)
             {
@@ -410,6 +298,53 @@ namespace Nucleo.DBAccess.Ado
 
             }
 
+        }
+
+        public dynamic Delete(string id)
+        {
+
+            TEntity search = dbSet.Find(id);
+            if (search != null)
+            {
+
+                dbSet.Remove(search);
+                Save($"{name} with {Identificator} :{id} was delete corrertly", MessageCode.correct, MessageType.Delete);
+
+
+            }
+            else
+            {
+                MessageControl message = new MessageControl()
+                {
+                    Code = MessageCode.error,
+                    Type = MessageType.Not_Found,
+                    Error = true,
+                    Note = $"{name} with {Identificator} :{id} not was found"
+                };
+                messages.Add(message);
+            }
+            return messages;
+        }
+
+        public IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> predicate)
+        {
+            return dbSet.Where(predicate);
+        }
+        public dynamic SqlQuery(string query)
+        {
+            _Context.Database.ExecuteSqlCommand(query);
+            return Save();
+
+        }
+
+        public int Count(Expression<Func<TEntity, bool>> predicate)
+        {
+            return dbSet.Count(predicate);
+        }
+
+        public TEntity GetSingle(Expression<Func<TEntity, bool>> predicate)
+        {
+            return dbSet.Where(predicate).SingleOrDefault();
         }
     }
 }

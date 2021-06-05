@@ -6,47 +6,45 @@ using Models.Ado.Library;
 using Nucleo.DBAccess.Ado;
 using Ado.Library;
 
-namespace Models.Repositories.Concrect.Discounts
+namespace Ado.Library.Specifics
 {
-    public class DiscountRepository : Repository<Discount,DiscountDto>, IDiscountRepository
+    public class DiscountRepository : Repository<Discount>, IDiscountRepository
     {
-        public DiscountRepository(string identificator="IdDiscount") : base(identificator)
+        public DiscountRepository(BookStoreEntities context,string identificator="IdDiscount") : base(context,identificator)
         {
         }
 
         public Discount GetByBook(string idBook)
         {
-            var entity = dbSet.Where(w => w.Book.Any(b => b.IdBook.Equals(idBook)) && w.EndDate>DateTime.Now).SingleOrDefault();
-            return entity;
+            Discount search = dbSet.Where(w => w.Book.Any(b => b.IdBook.Equals(idBook)) && w.EndDate>DateTime.Now).SingleOrDefault();
+            return search;
         }
 
-        public List<Discount> GetFinnalized()
+        public IEnumerable<Discount> GetFinnalized()
         {
-            return dbSet.Where(w => w.EndDate.Value <= DateTime.Now ).ToList();
+            return dbSet.Where(w => w.EndDate.Value <= DateTime.Now );
         }
 
-        public List<Discount> GetFinnalized(int pag, int element)
+        public IEnumerable<Discount> GetFinnalized(int pag, int element)
         {
             return dbSet.Where(w => w.EndDate.Value <= DateTime.Now)
                 .OrderBy(w=> w.CreateDate)
                 .Skip((pag - 1) * element)
-                .Take(element)
-                .ToList();
+                .Take(element) ;
         }
 
-        public List<Discount> GetNotFinnalized()
+        public IEnumerable<Discount> GetNotFinnalized()
         {
-            var list = dbSet.Where(w => w.EndDate.Value > DateTime.Now || !w.EndDate.HasValue).ToList();
-            return list;
+            var IEnumerable = dbSet.Where(w => w.EndDate.Value > DateTime.Now || !w.EndDate.HasValue);
+            return IEnumerable;
         }
 
-        public List<Discount> GetNotFinnalized(int pag, int element)
+        public IEnumerable<Discount> GetNotFinnalized(int pag, int element)
         {
             return dbSet.Where(w => w.EndDate.Value > DateTime.Now || !w.EndDate.HasValue)
                 .OrderBy(w => w.CreateDate)
                 .Skip((pag - 1) * element)
-                .Take(element)
-                .ToList();
+                .Take(element);
         }
     }
 }

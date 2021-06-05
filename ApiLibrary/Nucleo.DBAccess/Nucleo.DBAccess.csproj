@@ -64,10 +64,6 @@
       <Project>{c4e1b4b8-771f-4aaa-9eb1-77cc371b88e7}</Project>
       <Name>Models.Utilities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nucleo.AutoMappers\Nucleo.AutoMappers.csproj">
-      <Project>{00be379b-8d19-41a6-ad0a-3d253268f8bd}</Project>
-      <Name>Nucleo.AutoMappers</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Nucleo.Utilities\Nucleo.Utilities.csproj">
       <Project>{3936ffbd-66e2-4b8c-876f-5747289e3d6b}</Project>
       <Name>Nucleo.Utilities</Name>

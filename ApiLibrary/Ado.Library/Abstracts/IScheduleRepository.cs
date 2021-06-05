@@ -7,10 +7,10 @@ namespace Ado.Library
 {
     public interface IScheduleRepository : IRepository<Schedule>
     {
-       List<ScheduleDto> GetByEmployee(string idEmployee);
-       List<ScheduleDto> GetByEmployee(string idEmployee,int year);
-       List<ScheduleDto> GetByEmployee(string idEmployee,int year,int month);
-       List<ScheduleDto> GetByEmployee(string idEmployee, int year, int month,int day);
+       IEnumerable<Schedule> GetByEmployee(string idEmployee);
+       IEnumerable<Schedule> GetByEmployee(string idEmployee,int year);
+       IEnumerable<Schedule> GetByEmployee(string idEmployee,int year,int month);
+       IEnumerable<Schedule> GetByEmployee(string idEmployee, int year, int month,int day);
 
     }
 }

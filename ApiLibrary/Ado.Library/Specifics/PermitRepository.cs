@@ -6,23 +6,23 @@ using Models.Dtos;
 using Nucleo.DBAccess.Ado;
 using Ado.Library;
 
-namespace Models.Repositories.Concrect.Permits
+namespace Ado.Library.Specifics
 {
-    public class PermitRepository : Repository<Permit,PermitDto>, IPermitRepository
+    public class PermitRepository : Repository<Permit>, IPermitRepository
     {
-        public PermitRepository(string identificator="IdPermit") : base(identificator)
+        public PermitRepository(BookStoreEntities context,string identificator="IdPermit") : base(context,identificator)
         {
         }
 
-        public List<Permit> SearchByName(string text)
+        public IEnumerable<Permit> SearchByName(string text)
         {
-            return dbSet.Where(w=>w.PermitName.Contains(text)).ToList();
+            return dbSet.Where(w => w.PermitName.Contains(text)).ToList();
         }
 
-        public List<Permit> SearchByName(string text, int pag, int element)
+        public IEnumerable<Permit> SearchByName(string text, int pag, int element)
         {
             return dbSet.Where(w => w.PermitName.Contains(text))
-                .OrderBy(w=> w.CreateDate)
+                .OrderBy(w => w.CreateDate)
                 .Skip((pag - 1) * element)
                 .Take(element)
                 .ToList();

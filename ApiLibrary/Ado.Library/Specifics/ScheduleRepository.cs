@@ -5,29 +5,29 @@ using Models.Ado.Library;
 using Nucleo.DBAccess.Ado;
 using Ado.Library;
 
-namespace Models.Repositories.Concrect.Schedules
+namespace Ado.Library.Specifics
 {
-    public class ScheduleRepository : Repository<Schedule,ScheduleDto>, IScheduleRepository
+    public class ScheduleRepository : Repository<Schedule>, IScheduleRepository
     {
-        public ScheduleRepository(string identificator="IdSchedule") : base(identificator)
+        public ScheduleRepository(BookStoreEntities context,string identificator="IdSchedule") : base(context,identificator)
         {
         }
 
-        public List<ScheduleDto> GetByEmployee(string idEmployee)
+        public IEnumerable<Schedule> GetByEmployee(string idEmployee)
         {
-            var result = dbSet.Where(w => w.Employee.IdPerson.Equals(idEmployee)).ToList();
-            return mapper.Map<List<ScheduleDto>>(result);
+             IEnumerable<Schedule> result = dbSet.Where(w => w.Employee.IdPerson.Equals(idEmployee));
+            return (result);
         }
 
-        public List<ScheduleDto> GetByEmployee(string idEmployee, int year)
+        public IEnumerable<Schedule> GetByEmployee(string idEmployee, int year)
         {
-            var result = dbSet.Where(w => w.Employee.IdPerson.Equals(idEmployee) && w.YearValue==year).ToList();
-            return mapper.Map<List<ScheduleDto>>(result);
+             IEnumerable<Schedule> result = dbSet.Where(w => w.Employee.IdPerson.Equals(idEmployee) && w.YearValue==year);
+            return (result);
         }
 
       
 
-        public new dynamic Delete(List<string> ids)
+        public new dynamic Delete(IEnumerable<string> ids)
         {
             foreach (string id in ids)
             {
@@ -47,18 +47,18 @@ namespace Models.Repositories.Concrect.Schedules
             return null;
         }
 
-        public List<ScheduleDto> GetByEmployee(string idEmployee, int year, int month)
+        public IEnumerable<Schedule> GetByEmployee(string idEmployee, int year, int month)
         {
-            var result = dbSet.Where(w => w.IdEmployee.Equals(idEmployee) && w.YearValue == year).ToList();
+            List<Schedule> result = dbSet.Where(w => w.IdEmployee.Equals(idEmployee) && w.YearValue == year).ToList();
             result.ForEach(x => x.ScheduleLine = x.ScheduleLine.Where(s => s.MonthNum == month && s.IdSchedule.Equals(x.IdSchedule)).ToList());
-            return mapper.Map<List<ScheduleDto>>(result);
+            return (result);
         }
 
-        public List<ScheduleDto> GetByEmployee(string idEmployee, int year, int month, int day)
+        public IEnumerable<Schedule> GetByEmployee(string idEmployee, int year, int month, int day)
         {
-            var result = dbSet.Where(w => w.IdEmployee.Equals(idEmployee) && w.YearValue == year).ToList();
+            List<Schedule>  result = dbSet.Where(w => w.IdEmployee.Equals(idEmployee) && w.YearValue == year).ToList();
             result.ForEach(x => x.ScheduleLine = x.ScheduleLine.Where(s => s.MonthNum == month && s.IdSchedule.Equals(x.IdSchedule) && s.MonthDay==day).ToList());
-            return mapper.Map<List<ScheduleDto>>(result);
+            return (result);
         }
     }
 }

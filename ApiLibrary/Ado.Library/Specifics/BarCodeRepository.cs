@@ -4,11 +4,12 @@ using Models.Dtos;
 using Models.Repositories.Abstract;
 using Nucleo.DBAccess.Ado;
 
-namespace Models.Repositories.Concrect.BarCodes
+namespace Ado.Library.Specifics
 {
-    public class BarCodeRepository : Repository<Barcode,BarCodeDto>, IBarCodeRepository
+    public class BarCodeRepository : Repository<Barcode>, IBarCodeRepository
     {
-        public BarCodeRepository(string identificator= "IdBarcode") : base(identificator)
+        public BarCodeRepository(BookStoreEntities context, string identificator= "IdBarcode") :
+            base(context,identificator)
         {
         }
     }

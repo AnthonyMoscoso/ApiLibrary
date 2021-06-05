@@ -11,23 +11,27 @@ namespace Models.Repositories.Abstract
 
 
         #region GetByStore
-        List<StoreSaleDto> GetByStore(string idStore);
-        List<StoreSaleDto> GetByStore(string idStore, int pag, int element);
-        List<StoreSaleDto> GetByStore(string idStore, DateTime date);
-        List<StoreSaleDto> GetByStore(string idStore, DateTime date, int pag, int element);
-        List<StoreSaleDto> GetByStore(string idStore, DateTime start, DateTime end);
-        List<StoreSaleDto> GetByStore(string idStore, DateTime start, DateTime end, int pag, int element);
+        IEnumerable<StoreSale> GetByStore(string idStore);
+        IEnumerable<StoreSale> GetByStore(string idStore, int pag, int element);
+        IEnumerable<StoreSale> GetByStore(string idStore, DateTime date);
+        IEnumerable<StoreSale> GetByStore(string idStore, DateTime date, int pag, int element);
+        IEnumerable<StoreSale> GetByStore(string idStore, DateTime start, DateTime end);
+        IEnumerable<StoreSale> GetByStore(string idStore, DateTime start, DateTime end, int pag, int element);
         #endregion
 
         #region GetByDate 
-        List<StoreSaleDto> GetByDate(DateTime date);
-        List<StoreSaleDto> GetByDate(DateTime date, int pag, int element);
-        List<StoreSaleDto> GetByDate(DateTime start, DateTime end);
-        List<StoreSaleDto> GetByDate(DateTime start, DateTime end, int pag, int element);
+        IEnumerable<StoreSale> GetByDate(DateTime date);
+        IEnumerable<StoreSale> GetByDate(DateTime date, int pag, int element);
+        IEnumerable<StoreSale> GetByDate(DateTime start, DateTime end);
+        IEnumerable<StoreSale> GetByDate(DateTime start, DateTime end, int pag, int element);
 
         #endregion
 
-        dynamic Insert(List<StoreSaleDto> list);
-        dynamic Update(List<StoreSaleDto> list);
+
+        #region GetByStatus 
+
+        IEnumerable<StoreSale> GetByStatus(int status, string idStore);
+        IEnumerable<StoreSale> GetByStatus(int status, string idStore, int pag, int element);
+        #endregion
     }
 }

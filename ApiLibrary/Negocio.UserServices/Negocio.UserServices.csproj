@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ado.Users\DataAccess.Ado.User.csproj" />
+    <ProjectReference Include="..\Nucleo.Services\Nucleo.Services.csproj" />
+  </ItemGroup>
+
+</Project>

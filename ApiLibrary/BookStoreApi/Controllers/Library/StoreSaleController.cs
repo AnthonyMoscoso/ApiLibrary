@@ -1,6 +1,7 @@
 ﻿using Models.Dtos;
 using Models.Repositories.Abstract;
-using Models.Repositories.Concrect;
+using Ado.Library.Specifics;
+using Negocios.BookStoreServices.Abstracts;
 using System;
 using System.Collections.Generic;
 using System.Web.Http;
@@ -11,17 +12,22 @@ namespace Models.Controllers.Library
     [Authorize]
     public class StoreSaleController : ApiController
     {
-        readonly IStoreSaleRepository _repository = new StoreSaleRepository();
+        readonly IStoreSaleService _service;
+
+        public StoreSaleController(IStoreSaleService service)
+        {
+            _service = service;
+        }
 
         [HttpGet]
         public IHttpActionResult Get()
         {
-            return Ok(_repository.Get());
+            return Ok(_service.Get());
         }
         [HttpGet]
         public IHttpActionResult Get(string id)
         {
-            return Ok(_repository.Get(id));
+            return Ok(_service.Get(id));
         }
         
 
@@ -30,25 +36,25 @@ namespace Models.Controllers.Library
         [Route("Date")]
         public IHttpActionResult GetByDate(DateTime date)
         {
-            return Ok(_repository.GetByDate(date));
+            return Ok(_service.GetByDate(date));
         }
         [HttpGet]
         [Route("Date")]
         public IHttpActionResult GetByDate(DateTime date, int pag, int element)
         {
-            return Ok(_repository.GetByDate(date, pag, element));
+            return Ok(_service.GetByDate(date, pag, element));
         }
         [HttpGet]
         [Route("Date")]
         public IHttpActionResult GetByDate(DateTime start, DateTime end)
         {
-            return Ok(_repository.GetByDate(start, end));
+            return Ok(_service.GetByDate(start, end));
         }
         [HttpGet]
         [Route("Date")]
         public IHttpActionResult GetByDate(DateTime start, DateTime end, int pag, int element)
         {
-            return Ok(_repository.GetByDate(start, end, pag, element));
+            return Ok(_service.GetByDate(start, end, pag, element));
         }
         #endregion
 
@@ -58,37 +64,37 @@ namespace Models.Controllers.Library
         [Route("Store")]
         public IHttpActionResult GetByStore(string idStore)
         {
-            return Ok(_repository.GetByStore(idStore));
+            return Ok(_service.GetByStore(idStore));
         }
         [HttpGet]
         [Route("Store")]
         public IHttpActionResult GetByStore(string idStore, int pag, int element)
         {
-            return Ok(_repository.GetByStore(idStore, pag, element));
+            return Ok(_service.GetByStore(idStore, pag, element));
         }
         [HttpGet]
         [Route("Store")]
         public IHttpActionResult GetByStore(string idStore, DateTime date)
         {
-            return Ok(_repository.GetByStore(idStore, date));
+            return Ok(_service.GetByStore(idStore, date));
         }
         [HttpGet]
         [Route("Store")]
         public IHttpActionResult GetByStore(string idStore, DateTime date, int pag, int element)
         {
-            return Ok(_repository.GetByStore(idStore, date, pag, element));
+            return Ok(_service.GetByStore(idStore, date, pag, element));
         }
         [HttpGet]
         [Route("Store")]
         public IHttpActionResult GetByStore(string idStore, DateTime start, DateTime end)
         {
-            return Ok(_repository.GetByStore(idStore, start, end));
+            return Ok(_service.GetByStore(idStore, start, end));
         }
         [HttpGet]
         [Route("Store")]
         public IHttpActionResult GetByStore(string idStore, DateTime start, DateTime end, int pag, int element)
         {
-            return Ok(_repository.GetByStore(idStore, start, end, pag, element));
+            return Ok(_service.GetByStore(idStore, start, end, pag, element));
         }
         #endregion
 
@@ -96,30 +102,30 @@ namespace Models.Controllers.Library
         [Route("List")]
         public IHttpActionResult GetList(string ids)
         {
-            return Ok(_repository.GetList(ids));
+            return Ok(_service.GetList(ids));
         }
         [HttpGet]
         [Route("Pag")]
         public IHttpActionResult Get(int element, int pag)
         {
-            return Ok(_repository.Get(element, pag));
+            return Ok(_service.Get(element, pag));
         }
         [HttpPost]
         public IHttpActionResult Post(List<StoreSaleDto> list)
         {
-            return Ok(_repository.Insert(list));
+            return Ok(_service.Insert(list));
         }
 
         [HttpPut]
         public IHttpActionResult Put(List<StoreSaleDto> list)
         {
-            return Ok(_repository.Update(list));
+            return Ok(_service.Update(list));
         }
 
         [HttpDelete]
         public IHttpActionResult Delete(List<string> ids)
         {
-            return Ok(_repository.Delete(ids));
+            return Ok(_service.Delete(ids));
         }
     }
 }

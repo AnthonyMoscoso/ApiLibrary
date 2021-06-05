@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Ninject" Version="3.3.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ado.Library\DataAccess.Ado.Library.csproj" />
+    <ProjectReference Include="..\Ado.Users\DataAccess.Ado.User.csproj" />
+    <ProjectReference Include="..\Negocio.UserServices\Negocio.UserServices.csproj" />
+    <ProjectReference Include="..\Negocios.BookStore\Negocios.BookStoreServices.csproj" />
+  </ItemGroup>
+
+</Project>

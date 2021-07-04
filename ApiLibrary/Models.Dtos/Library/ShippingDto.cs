@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Core.Models.Abstracts;
+using System;
 using System.Collections.Generic;
 
 namespace Models.Dtos
 {
-    public class ShippingDto
+    public class ShippingDto : IEntity
     {
         public string IdShipping { get; set; }
         public string IdDirectionFrom { get; set; }
@@ -21,5 +22,6 @@ namespace Models.Dtos
         public List<ShippingLineDto> ShippingLine { get; set; }
         public DirectionDto Direction { get; set; }
         public DirectionDto Direction1 { get; set; }
+        public string _Id { get => IdShipping; set => IdShipping = value; }
     }
 }

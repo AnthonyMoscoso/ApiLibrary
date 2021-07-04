@@ -1,26 +1,31 @@
 ﻿using Models.Ado.Library;
 using Models.Dtos;
-using Negocios.BookStoreServices.Abstracts;
-using Nucleo.DBAccess.Ado;
-using Nucleo.Services.Abstracts;
+using Business.BookStoreServices.Abstracts;
+using Core.DBAccess.Ado;
+using Core.Services.Abstracts;
 using System.Collections.Generic;
+using Ado.Library;
 
-namespace Negocios.BookStoreServices.Specifics
+namespace Business.BookStoreServices.Specifics
 {
     public class EditorialService : ServiceMapperBase<EditorialDto, Editorial>, IEditorialService
     {
-        public EditorialService(IRepository<Editorial> repository) : base(repository)
+        readonly new IEditorialRepository _repository;
+        public EditorialService(IEditorialRepository repository) : base(repository)
         {
+            _repository = repository;
         }
 
         public IEnumerable<EditorialDto> SearchByName(string text)
         {
-            throw new System.NotImplementedException();
+            IEnumerable<Editorial> result = _repository.SearchByName(text);
+            return mapper.Map<IEnumerable<EditorialDto>>(result);
         }
 
         public IEnumerable<EditorialDto> SearchByName(string text, int pag, int element)
         {
-            throw new System.NotImplementedException();
+            IEnumerable<Editorial> result = _repository.SearchByName(text,pag,element);
+            return mapper.Map<IEnumerable<EditorialDto>>(result);
         }
     }
 }

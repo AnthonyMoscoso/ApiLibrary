@@ -53,9 +53,6 @@
     <Compile Include="Library\Autor.cs">
       <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
-    <Compile Include="Library\Barcode.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
     <Compile Include="Library\Book.cs">
       <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
@@ -80,9 +77,6 @@
     <Compile Include="Library\Discount.cs">
       <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
-    <Compile Include="Library\DocumentFile.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
     <Compile Include="Library\Edition.cs">
       <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
@@ -93,9 +87,6 @@
       <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Library\Gender.cs">
-      <DependentUpon>LibraryDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Library\ImageFile.cs">
       <DependentUpon>LibraryDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Library\LibraryDb.Context.cs">
@@ -246,9 +237,13 @@
       <Project>{c4e1b4b8-771f-4aaa-9eb1-77cc371b88e7}</Project>
       <Name>Models.Utilities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nucleo.Utilities\Nucleo.Utilities.csproj">
+    <ProjectReference Include="..\Nucleo.Models\Core.Models.csproj">
+      <Project>{8c467702-7619-4d58-bffc-f200f22fb83d}</Project>
+      <Name>Core.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nucleo.Utilities\Core.Utilities.csproj">
       <Project>{3936ffbd-66e2-4b8c-876f-5747289e3d6b}</Project>
-      <Name>Nucleo.Utilities</Name>
+      <Name>Core.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

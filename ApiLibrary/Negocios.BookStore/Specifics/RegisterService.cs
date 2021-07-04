@@ -1,25 +1,28 @@
 ﻿using Models.Ado.Library;
 using Models.Dtos;
-using Negocios.BookStoreServices.Abstracts;
-using Nucleo.DBAccess.Ado;
-using Nucleo.Services.Abstracts;
+using Business.BookStoreServices.Abstracts;
+using Core.DBAccess.Ado;
+using Core.Services.Abstracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ado.Library;
 
-namespace Negocios.BookStoreServices.Specifics
+namespace Business.BookStoreServices.Specifics
 {
     public class RegisterService : ServiceMapperBase<RegisterDto, Register>, IRegisterService
     {
-        public RegisterService(IRepository<Register> repository) : base(repository)
+        readonly  new IRegisterRepository _repository;
+        public RegisterService(IRegisterRepository repository) : base(repository)
         {
+            _repository = repository;
         }
 
         public IEnumerable<RegisterDto> GetByDate(DateTime date)
         {
-            throw new NotImplementedException();
+            return mapper.Map<IEnumerable<RegisterDto>>(_repository.GetByDate(date));
         }
 
         public IEnumerable<RegisterDto> GetByDate(DateTime date, int pag, int element)

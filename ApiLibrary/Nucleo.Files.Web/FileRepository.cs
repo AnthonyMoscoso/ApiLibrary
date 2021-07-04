@@ -1,5 +1,4 @@
-﻿using Nucleo.Utilities;
-using Nucleo.Utilities.Enums;
+﻿using Core.Utilities;
 using System;
 using System.IO;
 using System.Net;
@@ -7,143 +6,141 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web;
 
-namespace Nucleo.Files.Web
+namespace Core.Files.Web
 {
     public class FileRepository : IFileRepository
     {
-        public  dynamic Delete(int type, string dir, string name,string format)
+    
+        public dynamic Delete(string directory,string name)
         {
-            string directory = "";
-
-            if (type == (int)FileType.Document)
+            string url_file = $"{directory}/{name}";
+            if (Directory.Exists(directory))
             {
-                directory = $"{UrlDirectoryFiles.DocumentDirectory}/{dir}/{name}.{format}";
-            }
-            else if (type == (int)FileType.Image)
-            {
-                directory = $"{UrlDirectoryFiles.ImageDirectory}/{dir}/{name}.{format}";
-         
-            }
-            MessageControl message = new MessageControl();
-            if (File.Exists(directory))
-            {
-                try
+                if (File.Exists(url_file))
                 {
-                    File.Delete(directory);
-                    message.Code = MessageCode.correct;
-                    message.Type = MessageType.Not_Found;
-                    message.Error = false;
-                    message.Note = $" {Enum.GetName(typeof(FileType), type)} : {name} in directory {dir} was delete ";
-                    
+                    try
+                    {
+                        File.Delete(directory);
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
+
                 }
-                catch (Exception e)
-                {
-                    message.Code = MessageCode.exception;
-                    message.Error = true;
-                    message.Type = MessageType.Exception;
-                    message.Note = e.Message + e.InnerException;
-                }
-                
-            }
-            return message;
-        }
-
-        public dynamic DownLoad(int type,string dir,string name)
-        {
-            string directory = "";
-            string header = "";
-   
-            if (type==(int)FileType.Document)
-            {
-                directory = $"{UrlDirectoryFiles.DocumentDirectory}/{dir}/{name}";
-                header = "application/pdf";
-            }
-            else if (type == (int)FileType.Image)
-            {
-                directory = $"{UrlDirectoryFiles.ImageDirectory}/{dir}/{name}";
-                string format = Path.GetExtension(name);
-                if (format.Equals(".jpg"))
-                {
-                    format = ".jpeg";
-                }
-                header = $"image/{format.Replace(".","")}";
-            }
-
-      
-            Stream stream = null;
-            if (File.Exists(directory))
-            {
-                stream = File.OpenRead(directory);
-                var response = new HttpResponseMessage(HttpStatusCode.OK)
-                {
-                    Content = new StreamContent(stream)
-                };
-
-                response.Content.Headers.ContentType = new MediaTypeHeaderValue(header);
-                response.Content.Headers.ContentLength = stream.Length;
-
-                return response;
             }
             else
             {
-                MessageControl messageControl = new MessageControl()
-                {
-                    Code = MessageCode.correct,
-                    Error = false,
-                    Type = MessageType.Not_Found,
-                    Note = $"Image Not was found"
-                };
 
-                return messageControl;
+            }
+            return "";
+          
+        }
+
+        public dynamic DownLoad(string type,string dir,string name)
+        {
+            string url_file = string.Empty;
+            string header = string.Empty;
+
+            switch (type)
+            {
+                case "Document":
+                    url_file = $"{UrlDirectoryFiles.DocumentDirectory}/{dir}/{name}";
+                    header = "application/pdf";
+                    break;
+                case "Images":
+                    url_file = $"{UrlDirectoryFiles.ImageDirectory}/{dir}/{name}";
+                    string format = Path.GetExtension(name);
+                    if (format.Equals(".jpg"))
+                    {
+                        format = ".jpeg";
+                    }
+                    header = $"image/{format.Replace(".", "")}";
+                    break;
+                default:
+                    break;
+            }         
+            if (File.Exists(url_file))
+            {
+                try
+                {
+                    Stream stream = File.OpenRead(url_file);
+                    var response = new HttpResponseMessage(HttpStatusCode.OK)
+                    {
+                        Content = new StreamContent(stream)
+                    };
+
+                    response.Content.Headers.ContentType = new MediaTypeHeaderValue(header);
+                    response.Content.Headers.ContentLength = stream.Length;
+
+                    return response;
+                }
+                catch (Exception e)
+                {
+                    return e.InnerException?.InnerException?.Message ?? e.Message;
+                }
+  
+            }
+            else
+            {
+                return "File not was found";
             }
     
         }
 
         public dynamic Upload()
         {
-            var httpRequest = HttpContext.Current.Request;
-            var directory = httpRequest["Directory"];
-            var format = httpRequest["Format"];
-            var name = httpRequest["Name"];
-            var DocumentType = httpRequest["Type"];
-            string ruta = "";
-            MessageControl message = new MessageControl();
-            foreach (string file in httpRequest.Files)
+            HttpRequest httpRequest = HttpContext.Current.Request;
+            string directory = httpRequest["Directory"];
+            string format = httpRequest["Format"];
+            string name = httpRequest["Name"];
+            string DocumentType = httpRequest["Type"];
+            string url = string.Empty;
+            if (httpRequest.Files != null && httpRequest.Files.Count>0)
             {
-                var postedFile = httpRequest.Files[file];
-
-                if (postedFile != null && postedFile.ContentLength > 0)
+                foreach (string file in httpRequest.Files)
                 {
-                    try
-                    {
-                        string dir = "";
-                        if (DocumentType.Equals("Image"))
-                        {
-                           dir = $"{UrlDirectoryFiles.ImageDirectory}/{directory}";
-                        }
-                        else if (DocumentType.Equals("Document"))
-                        {
-                            dir = $"{UrlDirectoryFiles.DocumentDirectory}/{directory}";
-                        }
-                      
-                        if (!Directory.Exists(dir))
-                        {
-                            DirectoryInfo di = Directory.CreateDirectory(dir);
-                        }
-                        ruta = $"{dir}/{name}.{format}";
-                        postedFile.SaveAs(ruta);
-                    }
-                    catch (Exception e)
-                    {
-                        message.Code = MessageCode.exception;
-                        message.Error = true;
-                        message.Type = MessageType.Exception;
-                        message.Note = e.Message + e.InnerException;
-                    }
+                    HttpPostedFile postedFile = httpRequest.Files[file];
 
+                    if (postedFile != null && postedFile.ContentLength > 0)
+                    {
+                        try
+                        {
+                            string url_dir = string.Empty;
+                            if (DocumentType.Equals("Image"))
+                            {
+                                url_dir = $"{UrlDirectoryFiles.ImageDirectory}/{directory}";
+                            }
+                            else if (DocumentType.Equals("Document"))
+                            {
+                                url_dir = $"{UrlDirectoryFiles.DocumentDirectory}/{directory}";
+                            }
+
+                            if (!Directory.Exists(url_dir))
+                            {
+                                DirectoryInfo di = Directory.CreateDirectory(url_dir);
+                            }
+                            url = $"{url_dir}/{name}.{format}";
+                            postedFile.SaveAs(url);
+                        }
+                        catch (Exception e)
+                        {
+                            return e.InnerException?.InnerException?.Message ?? e.Message;
+                        }
+                    }
+                    else
+                    {
+                       return  "file dont have send";
+                    }
                 }
             }
-            return message;
+            else
+            {
+                return "Error format to upload file ";
+            }
+            return url;
+            
+            
         }
     }
 }

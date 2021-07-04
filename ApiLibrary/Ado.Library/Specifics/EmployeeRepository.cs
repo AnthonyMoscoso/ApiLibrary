@@ -6,19 +6,20 @@ using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
 using Models.Ado.Library;
-using Nucleo.Utilities.Enums;
-using Nucleo.Utilities;
-using Nucleo.DBAccess.Ado;
+using Core.Utilities.Enums;
+using Core.Utilities;
+using Core.DBAccess.Ado;
 using Ado.Library;
+using Core.Logger.Repository.Specifics;
 
 namespace Ado.Library.Specifics
 {
-    public class EmployeeRepository : Repository<Employee>, IEmployeeRepository
+    public class EmployeeRepository : AdoRepository<Employee>, IEmployeeRepository
     {
         readonly IPersonRepository _personRepositorie;
         public EmployeeRepository(BookStoreEntities context,string identificator="IdEmployee") : base(context,identificator)
         {
-            _personRepositorie = new PersonRepository(context);
+          
            
         }
         #region Get
@@ -265,53 +266,53 @@ namespace Ado.Library.Specifics
         #endregion
    
 
-        public dynamic Hire(EmployeeWorkPlace employeeWorkPlace)
+        public void Hire(EmployeeWorkPlace employeeWorkPlace)
         {
             string query;
             switch (employeeWorkPlace.Type)
             {
                 case 1:
                     query = string.Format("Insert into EmployeeStore values ('{0}','{1}')",employeeWorkPlace.IdEmployee, employeeWorkPlace.IdOffice);
-                    SqlQuery(query);
+                    ExecuteQuery(query);
                     break;
                 case 2:
                     query = string.Format("Insert into EmployeeWareHouse values ('{0}','{1}')", employeeWorkPlace.IdEmployee, employeeWorkPlace.IdOffice);
-                    SqlQuery(query);
+                    ExecuteQuery(query);
                     break;
 
             }
-            return Save();
+            
                 
         }
 
-        public dynamic Fired(EmployeeWorkPlace employeeWorkPlace)
+        public void Fired(EmployeeWorkPlace employeeWorkPlace)
         {
             string query;
             switch (employeeWorkPlace.Type)
             {
                 case 1:
                     query = $"Delete from EmployeeStore where idEmployee='{employeeWorkPlace.IdEmployee}' AND idStore='{employeeWorkPlace.IdOffice}'";
-                    SqlQuery(query);
+                    ExecuteQuery(query);
                     break;
                 case 2:
                     query = string.Format("Delete from EmployeeWareHouse where idEmployee = '{0}' AND idWareHouse = '{1}'", employeeWorkPlace.IdEmployee, employeeWorkPlace.IdOffice);
-                    SqlQuery(query);
+                    ExecuteQuery(query);
                     break;
 
             }
-            return Save();
+     
         }
 
         public new dynamic Delete(IEnumerable<string> ids)
         {
-            string message="";
+            string message=string.Empty;
             foreach (string id in ids)
             {
                 var search = dbSet.Find(id);
                 if (search!=null)
                 {
 
-                    Person person = _personRepositorie.Get(id);
+                    Person person = _personRepositorie.GetSingle(id);
                     if (person!=null)
                     {
                         _personRepositorie.Delete(id);
@@ -320,10 +321,13 @@ namespace Ado.Library.Specifics
                 }
                 else
                 {
-                    message += string.Format("any employee was found with this id {0}",id); ;
+
+                    _log.Write(string.Format("any employee was found with this id {0}", id));
                 }
             }
-            return message;
+
+            return Save();
+           
         }
 
         /*public dynamic Remove_Employee_ImageFile(string idEmployee, string idImageFile)

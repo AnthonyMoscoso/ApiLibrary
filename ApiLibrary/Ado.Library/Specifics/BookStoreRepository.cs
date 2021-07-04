@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Models.Dtos;
 using Ado.Library;
-using Nucleo.DBAccess.Ado;
+using Core.DBAccess.Ado;
+using Core.Logger.Repository.Specifics;
 
 namespace Ado.Library.Specifics
 {
-    public class BookStoreRepository : Repository<BookStore>, IBookStoreRepository
+    public class BookStoreRepository : AdoRepository<BookStore>, IBookStoreRepository
     {
-        public BookStoreRepository(BookStoreEntities context,string identificator="IdBookStore") : base(context,identificator)
+        public BookStoreRepository(BookStoreEntities context, string identificator="IdBookStore") : base(context,identificator)
         {
         }
 

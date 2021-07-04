@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using Models.Ado.Library;
-using Nucleo.DBAccess.Ado;
+using Core.DBAccess.Ado;
 using Ado.Library;
+using Core.Logger.Repository.Specifics;
 
 namespace Ado.Library.Specifics
 {
-    public class ReservationOnlineRepository : Repository<ReservationOnline> ,IReservationOnlineRepository
+    public class ReservationOnlineRepository : AdoRepository<ReservationOnline> ,IReservationOnlineRepository
     {
-        public ReservationOnlineRepository(BookStoreEntities context,string identificator="IdReservation") : base(context,identificator)
+        public ReservationOnlineRepository(BookStoreEntities context, string identificator="IdReservation") : base(context,identificator)
         {
         }
 

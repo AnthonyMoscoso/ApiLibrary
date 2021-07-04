@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Core.Models.Abstracts;
 
 namespace Models.Dtos
 {
-    public class BookDto
+    public class BookDto : IEntity
     {
         public string IdBook { get; set; }
         public string IdType { get; set; }
@@ -23,6 +24,6 @@ namespace Models.Dtos
         public List<AutorDto> Autor { get; set; }
         public List<BookEditorialDto> BookEditorial { get; set; }
         public List<GenderDto> Gender { get; set; }
-
+        public string _Id { get => IdBook; set => IdBook = value; }
     }
 }

@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using Models.Ado.Library;
-using Nucleo.DBAccess.Ado;
+using Core.DBAccess.Ado;
 using Ado.Library;
+using Core.Logger.Repository.Specifics;
 
 namespace Ado.Library.Specifics
 {
-    public class PaymentBonusRepository : Repository<PaymentBonus>, IPaymentBonusRepository
+    public class PaymentBonusRepository : AdoRepository<PaymentBonus>, IPaymentBonusRepository
     {
-        public PaymentBonusRepository(BookStoreEntities context,string identificator="IdPaymentBonus") : base(context,identificator)
+        public PaymentBonusRepository(BookStoreEntities context, string identificator="IdPaymentBonus") : base(context,identificator)
         {
         }
 

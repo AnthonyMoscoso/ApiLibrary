@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using Models.Ado.Library;
-using Nucleo.DBAccess.Ado;
+using Core.DBAccess.Ado;
 using Ado.Library;
+using Core.Logger.Repository.Specifics;
 
 namespace Ado.Library.Specifics
 {
-    public class ScheduleRepository : Repository<Schedule>, IScheduleRepository
+    public class ScheduleRepository : AdoRepository<Schedule>, IScheduleRepository
     {
-        public ScheduleRepository(BookStoreEntities context,string identificator="IdSchedule") : base(context,identificator)
+        public ScheduleRepository(BookStoreEntities context,  string identificator = "IdSchedule") : base(context, identificator)
         {
         }
 

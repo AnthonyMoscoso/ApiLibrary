@@ -4,7 +4,7 @@ using Models.Dtos;
 using Models.Models.Dtos;
 using System;
 
-namespace Negocios.AutoMapper
+namespace Business.AutoMapper
 {
     public static class AutoMapperConfig
     {
@@ -15,7 +15,6 @@ namespace Negocios.AutoMapper
             {
                 cfg.CreateMap<Autor, AutorDto>().ReverseMap();
 
-                cfg.CreateMap<Barcode, BarCodeDto>().ReverseMap();
 
                 cfg.CreateMap<Book, BookDto>().ReverseMap();
                 cfg.CreateMap<BookEditorial, BookEditorialDto>().ReverseMap();
@@ -28,7 +27,7 @@ namespace Negocios.AutoMapper
 
                 cfg.CreateMap<Discount, DiscountDto>().ReverseMap();
 
-                cfg.CreateMap<DocumentFile, DocumentFileDto>().ReverseMap();
+
 
                 cfg.CreateMap<Edition, EditionDto>().ReverseMap();
 
@@ -41,7 +40,7 @@ namespace Negocios.AutoMapper
 
                 cfg.CreateMap<Gender, GenderDto>().ReverseMap();
 
-                cfg.CreateMap<ImageFile, ImageFileDto>().ReverseMap();
+
 
                 cfg.CreateMap<Occupation, OccupationDto>().ReverseMap();
 
@@ -108,16 +107,10 @@ namespace Negocios.AutoMapper
 
 
                 cfg.CreateMap<ReturnSale, ReturnSaleDto>()
-                       .ForMember(r => r.IdStore, s => s.MapFrom(n => n.Store.IdStore))
-                             .ForMember(r => r.IdWareHouse, s => s.MapFrom(n => n.WareHouse.IdWareHouse))
-                .ReverseMap();
-
-
+                   .ForMember(r => r.IdStore, s => s.MapFrom(n => n.Store.IdStore))
+                   .ForMember(r => r.IdWareHouse, s => s.MapFrom(n => n.WareHouse.IdWareHouse)).ReverseMap();
 
                 cfg.CreateMap<Rol, RolDto>().ReverseMap();
-
-                //cfg.CreateMap<Orders, ReceptionOrderDto>().ReverseMap();
-                // cfg.CreateMap<Purchase, ReceptionPurchaseDto>().ReverseMap();
 
                 cfg.CreateMap<Sale, SaleDto>().ReverseMap();
 
@@ -140,11 +133,8 @@ namespace Negocios.AutoMapper
                 cfg.CreateMap<Taxes, TaxesDto>().ReverseMap();
 
                 cfg.CreateMap<WareHouseBook, WareHouseBookDto>().ReverseMap();
+
                 cfg.CreateMap<WareHouse, WareHouseDto>().ReverseMap();
-
-
-
-
 
 
             });

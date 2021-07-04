@@ -1,71 +1,83 @@
 ﻿using Ado.Library;
 using Models.Ado.Library;
 using Models.Dtos;
-using Negocios.BookStoreServices.Abstracts;
-using Nucleo.DBAccess.Ado;
-using Nucleo.Services.Abstracts;
+using Business.BookStoreServices.Abstracts;
+using Core.DBAccess.Ado;
+using Core.Services.Abstracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Negocios.BookStoreServices.Specifics
+namespace Business.BookStoreServices.Specifics
 {
     public class ReceptionService : ServiceMapperBase<ReceptionDto, Reception>, IReceptionService
     {
+        readonly new IReceptionRepository _repository;
         public ReceptionService(IReceptionRepository repository) : base(repository)
         {
+            _repository = repository;
         }
 
         public IEnumerable<ReceptionDto> GetByDate(DateTime date)
         {
-            throw new NotImplementedException();
+            IEnumerable<Reception> result = _repository.GetByDate(date);
+            return mapper.Map<IEnumerable<ReceptionDto>>(result);
         }
 
         public IEnumerable<ReceptionDto> GetByDate(DateTime date, int pag, int element)
         {
-            throw new NotImplementedException();
+            IEnumerable<Reception> result = _repository.GetByDate(date);
+            return mapper.Map<IEnumerable<ReceptionDto>>(result);
         }
 
         public IEnumerable<ReceptionDto> GetByDate(DateTime dateStart, DateTime dateEnd)
         {
-            throw new NotImplementedException();
+            IEnumerable<Reception> result = _repository.GetByDate(dateStart,dateEnd);
+            return mapper.Map<IEnumerable<ReceptionDto>>(result);
         }
 
         public IEnumerable<ReceptionDto> GetByDate(DateTime dateStart, DateTime dateEnd, int pag, int element)
         {
-            throw new NotImplementedException();
+            IEnumerable<Reception> result = _repository.GetByDate(dateStart,dateEnd,pag,element);
+            return mapper.Map<IEnumerable<ReceptionDto>>(result);
         }
 
         public IEnumerable<ReceptionDto> GetByOrder(string idOrder)
         {
-            throw new NotImplementedException();
+            IEnumerable<Reception> result = _repository.GetByOrder(idOrder);
+            return mapper.Map<IEnumerable<ReceptionDto>>(result);
         }
 
         public IEnumerable<ReceptionDto> GetByPurchase(string idPurchase)
         {
-            throw new NotImplementedException();
+            IEnumerable<Reception> result = _repository.GetByPurchase(idPurchase);
+            return mapper.Map<IEnumerable<ReceptionDto>>(result);
         }
 
         public IEnumerable<ReceptionDto> GetByStore(string idStore)
         {
-            throw new NotImplementedException();
+            IEnumerable<Reception> result = _repository.GetByStore(idStore);
+            return mapper.Map<IEnumerable<ReceptionDto>>(result);
         }
 
         public IEnumerable<ReceptionDto> GetByStore(string idStore, int pag, int element)
         {
-            throw new NotImplementedException();
+            IEnumerable<Reception> result = _repository.GetByStore(idStore,pag,element);
+            return mapper.Map<IEnumerable<ReceptionDto>>(result);
         }
 
         public IEnumerable<ReceptionDto> GetByStore(string idStore, DateTime date)
         {
-            throw new NotImplementedException();
+            IEnumerable<Reception> result = _repository.GetByStore(idStore,date);
+            return mapper.Map<IEnumerable<ReceptionDto>>(result);
         }
 
         public IEnumerable<ReceptionDto> GetByStore(string idStore, DateTime date, int pag, int element)
         {
-            throw new NotImplementedException();
+            IEnumerable<Reception> result = _repository.GetByStore(idStore,date,pag,element);
+            return mapper.Map<IEnumerable<ReceptionDto>>(result);
         }
     }
 }

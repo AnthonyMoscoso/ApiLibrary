@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using Models.Ado.Library;
-using Nucleo.DBAccess.Ado;
+using Core.DBAccess.Ado;
 using Ado.Library;
+using Core.Logger.Repository.Specifics;
 
 namespace Ado.Library.Specifics
 {
-    public class RegisterLineRepository : Repository<RegisterLine>, IRegisterLineRepository
+    public class RegisterLineRepository : AdoRepository<RegisterLine>, IRegisterLineRepository
     {
-        public RegisterLineRepository(BookStoreEntities context,string identificator="IdRegisterLine") : base(context,identificator)
+        public RegisterLineRepository(BookStoreEntities context, string identificator="IdRegisterLine") : base(context,identificator)
         {
         }
 

@@ -61,13 +61,17 @@
       <Project>{37dc8af1-e48d-47ce-bd66-baee73948d9d}</Project>
       <Name>Models.Dtos</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nucleo.DBAccess\Nucleo.DBAccess.csproj">
-      <Project>{b7816c94-c966-4571-9afb-5154cdf25f2e}</Project>
-      <Name>Nucleo.DBAccess</Name>
+    <ProjectReference Include="..\Nucleo.DataAccess\Core.DataAccess.csproj">
+      <Project>{3B9ADFCA-8EAC-4A89-AC2E-EA167CCDCA55}</Project>
+      <Name>Core.DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nucleo.Utilities\Nucleo.Utilities.csproj">
+    <ProjectReference Include="..\Nucleo.Logger\Core.Logger.csproj">
+      <Project>{CF188DBB-1B1B-4BF2-8A11-0274FE2C73C1}</Project>
+      <Name>Core.Logger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nucleo.Utilities\Core.Utilities.csproj">
       <Project>{3936FFBD-66E2-4B8C-876F-5747289E3D6B}</Project>
-      <Name>Nucleo.Utilities</Name>
+      <Name>Core.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

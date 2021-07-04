@@ -1,12 +1,12 @@
 ﻿using Models.Dtos;
-using Nucleo.Services.Abstracts;
+using Core.Services.Abstracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Negocios.BookStoreServices.Abstracts
+namespace Business.BookStoreServices.Abstracts
 {
     public interface IReceptionService : IServices<ReceptionDto>
     {

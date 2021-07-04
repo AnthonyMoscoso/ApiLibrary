@@ -1,17 +1,22 @@
 ﻿using System.Web.Http;
 using Ado.Library;
-using Nucleo.Files.Web;
+using Core.Files.Web;
 
-namespace Nucleo.FilesAcces
+namespace Core.FilesAcces
 {
     [RoutePrefix("api/File")]
     public class FileController : ApiController
     {
-        readonly IFileRepository _repository = new FileRepository();
+        readonly IFileRepository _repository;
+
+        public FileController(IFileRepository repository)
+        {
+            _repository = repository;
+        }
 
         [HttpGet]
         [Route("DownLoad")]
-        public IHttpActionResult DownLoad(int type,string dir,string name)
+        public IHttpActionResult DownLoad(string type,string dir,string name)
         {
             return ResponseMessage(_repository.DownLoad(type,dir,name));
         }
@@ -25,9 +30,9 @@ namespace Nucleo.FilesAcces
 
         [HttpDelete]
         [Route("Delete")]
-        public IHttpActionResult Delete(int type, string dir, string name,string format)
+        public IHttpActionResult Delete(string dir, string name)
         {
-            return Ok(_repository.Delete(type, dir, name,format));
+            return Ok(_repository.Delete(dir, name));
         }
     }
 }

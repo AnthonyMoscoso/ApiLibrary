@@ -1,6 +1,8 @@
-﻿namespace Models.Dtos
+﻿using Core.Models.Abstracts;
+
+namespace Models.Dtos
 {
-    public class ProviderDto
+    public class ProviderDto : IEntity
     {
         public string IdProvider { get; set; }
         public string IdDirection { get; set; }
@@ -14,5 +16,6 @@
         public int StatusCode { get; set; }
 
         public DirectionDto Direction { get; set; }
+        public string _Id { get => IdProvider; set => IdProvider = value; }
     }
 }

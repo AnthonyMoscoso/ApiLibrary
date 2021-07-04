@@ -1,57 +1,68 @@
 ﻿using Models.Ado.Library;
 using Models.Dtos;
 using Ado.Library.Specifics;
-using Negocios.BookStoreServices.Abstracts;
-using Nucleo.Services.Abstracts;
+using Business.BookStoreServices.Abstracts;
+using Core.Services.Abstracts;
 using System.Collections.Generic;
 using System;
+using Ado.Library;
 
-namespace Negocios.BookStoreServices.Specifics
+namespace Business.BookStoreServices.Specifics
 {
     public class CouponService : ServiceMapperBase<CouponDto, Coupon>, ICouponService
     {
-        public CouponService(CouponRepository repository) : base(repository)
+        readonly new ICouponRepository _repository;
+        public CouponService(ICouponRepository repository) : base(repository)
         {
+            _repository = repository;
         }
 
         public IEnumerable<CouponDto> GetByDate(DateTime createTime)
         {
-            throw new NotImplementedException();
+            IEnumerable<Coupon> result = _repository.GetByDate(createTime);
+            return mapper.Map<IEnumerable<CouponDto>>(result);
         }
 
         public IEnumerable<CouponDto> GetByDate(DateTime createTime, int pag, int element)
         {
-            throw new NotImplementedException();
+            IEnumerable<Coupon> result = _repository.GetByDate(createTime,pag,element);
+            return mapper.Map<IEnumerable<CouponDto>>(result);
         }
 
         public IEnumerable<CouponDto> GetBySale(string IdSale)
         {
-            throw new NotImplementedException();
+            IEnumerable<Coupon> result = _repository.GetBySale(IdSale);
+            return mapper.Map<IEnumerable<CouponDto>>(result);
         }
 
         public IEnumerable<CouponDto> GetBySale(string IdSale, int pag, int element)
         {
-            throw new NotImplementedException();
+            IEnumerable<Coupon> result = _repository.GetBySale(IdSale,pag,element);
+            return mapper.Map<IEnumerable<CouponDto>>(result);
         }
 
         public IEnumerable<CouponDto> GetFinalized()
         {
-            throw new NotImplementedException();
+            IEnumerable<Coupon> result = _repository.GetFinalized();
+            return mapper.Map<IEnumerable<CouponDto>>(result);
         }
 
         public IEnumerable<CouponDto> GetFinalized(int pag, int element)
         {
-            throw new NotImplementedException();
+            IEnumerable<Coupon> result = _repository.GetFinalized(pag,element);
+            return mapper.Map<IEnumerable<CouponDto>>(result);
         }
 
         public IEnumerable<CouponDto> GetNotFinalized()
         {
-            throw new NotImplementedException();
+            IEnumerable<Coupon> result = _repository.GetNotFinalized();
+            return mapper.Map<IEnumerable<CouponDto>>(result);
         }
 
         public IEnumerable<CouponDto> GetNotFinalized(int pag, int element)
         {
-            throw new NotImplementedException();
+            IEnumerable<Coupon> result = _repository.GetNotFinalized(pag,element);
+            return mapper.Map<IEnumerable<CouponDto>>(result);
         }
     }
 }

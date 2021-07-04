@@ -4,16 +4,15 @@ using Ado.User.Abstracts;
 using Ado.User.Specifics;
 using DBAccess.Ado.Repositories.Concrect;
 using Models.Repositories.Abstract;
+using Ninject.Modules;
+using Business.BookStoreServices.Abstracts;
+using Business.BookStoreServices.Specifics;
 using Negocio.UserServices.Abstracts;
 using Negocio.UserServices.Specifics;
-using Negocios.BookStoreServices.Abstracts;
-using Negocios.BookStoreServices.Specifics;
-using Ninject.Modules;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Core.Logger.Abstracts;
+using Core.Logger.Repository.Specifics;
 
-namespace Negocios.DependencyInjection
+namespace Business.DependencyInjection
 {
     public class ModuleNinject : NinjectModule
     {
@@ -60,10 +59,7 @@ namespace Negocios.DependencyInjection
             Bind<IDiscountRepository>().To<DiscountRepository>().InSingletonScope();
             Bind<IDiscountService>().To<DiscountService>().InSingletonScope();
 
-            // DocumentFile 
-
-            Bind<IDocumentFileRepository>().To<DocumentFileRepository>().InSingletonScope();
-            Bind<IDocumentFileService>().To<DocumentFileService>().InSingletonScope();
+ 
 
             // Edition
 
@@ -85,10 +81,7 @@ namespace Negocios.DependencyInjection
             Bind<IGenderRepository>().To<GenderRepository>().InSingletonScope();
             Bind<IGenderService>().To<GenderService>().InSingletonScope();
 
-            // ImageFile
-
-            Bind<IImageFileRepository>().To<ImageFileRepository>().InSingletonScope();
-            Bind<IImageFileService>().To<ImageFileService>().InSingletonScope();
+          
 
             // Occupation
 
@@ -249,7 +242,11 @@ namespace Negocios.DependencyInjection
 
             Bind<IUserRepository>().To<UserRepository>().InSingletonScope();
             Bind<IUserService>().To<UserService>().InSingletonScope();
-        
+
+
+            //
+
+            Bind<ILogService>().To<DbSerilogService>().InSingletonScope();
         }
 
     }

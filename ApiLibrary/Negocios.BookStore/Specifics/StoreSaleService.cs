@@ -2,16 +2,16 @@
 using Models.Ado.Library;
 using Models.Dtos;
 using Models.Repositories.Abstract;
-using Negocios.BookStoreServices.Abstracts;
-using Nucleo.DBAccess.Ado;
-using Nucleo.Services.Abstracts;
+using Business.BookStoreServices.Abstracts;
+using Core.DBAccess.Ado;
+using Core.Services.Abstracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Negocios.BookStoreServices.Specifics
+namespace Business.BookStoreServices.Specifics
 {
     public class StoreSaleService : ServiceMapperBase<StoreSaleDto, StoreSale>, IStoreSaleService
     {

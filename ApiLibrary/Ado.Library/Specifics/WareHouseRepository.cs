@@ -2,15 +2,16 @@
 using Models.Dtos;
 using System.Collections.Generic;
 using System.Linq;
-using Nucleo.DBAccess.Ado;
+using Core.DBAccess.Ado;
 using Ado.Library;
+using Core.Logger.Repository.Specifics;
 
 namespace Ado.Library.Specifics
 { 
-    public class WareHouseRepository : Repository<WareHouse>, IWareHouseRepository
+    public class WareHouseRepository : AdoRepository<WareHouse>, IWareHouseRepository
     {
       
-        public WareHouseRepository(BookStoreEntities context,string identificator="IdWareHouse") : base(context,identificator)
+        public WareHouseRepository(BookStoreEntities context, string identificator = "IdWareHouse") : base(context, identificator)
         {
 
         }
@@ -69,9 +70,10 @@ namespace Ado.Library.Specifics
                 ;
             return list;
         }
+
         public new dynamic Delete(IEnumerable<string> ids)
         {
-            string message = "";
+            string message = string.Empty;
             foreach (string id in ids)
             {
                 var search = dbSet.Find(id);
@@ -90,6 +92,7 @@ namespace Ado.Library.Specifics
 
             }
             return Save();
+            
         }
     }
 }

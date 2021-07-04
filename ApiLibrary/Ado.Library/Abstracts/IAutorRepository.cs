@@ -1,6 +1,6 @@
 ﻿using Models.Ado.Library;
 using Models.Dtos;
-using Nucleo.DBAccess.Ado;
+using Core.DBAccess.Ado;
 using System.Collections.Generic;
 
 namespace Ado.Library

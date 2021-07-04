@@ -1,8 +1,9 @@
 ﻿using System;
+using Core.Models.Abstracts;
 
 namespace Models.Dtos
 {
-    public class ScheduleLineDto
+    public class ScheduleLineDto : IEntity
     {
         public string IdScheduleLine { get; set; }
         public string IdSchedule { get; set; }
@@ -16,5 +17,6 @@ namespace Models.Dtos
         public DateTime LastUpdateDate { get; set; }
         public int StatusCode { get; set; }
         public int MonthDay { get; set; }
+        public string _Id { get => IdScheduleLine; set => IdScheduleLine = value; }
     }
 }

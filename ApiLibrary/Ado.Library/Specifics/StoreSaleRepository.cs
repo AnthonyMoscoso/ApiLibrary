@@ -5,13 +5,14 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using Models.Ado.Library;
-using Nucleo.DBAccess.Ado;
+using Core.DBAccess.Ado;
+using Core.Logger.Repository.Specifics;
 
 namespace Ado.Library.Specifics
 {
-    public class StoreSaleRepository : Repository<StoreSale>, IStoreSaleRepository
+    public class StoreSaleRepository : AdoRepository<StoreSale>, IStoreSaleRepository
     {
-        public StoreSaleRepository(BookStoreEntities context,string identificator="idStoreSale") : base(context,identificator)
+        public StoreSaleRepository(BookStoreEntities context,  string identificator = "idStoreSale") : base(context, identificator)
         {
         }
         /*     #region Buyer

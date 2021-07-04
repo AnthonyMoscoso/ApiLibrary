@@ -1,16 +1,16 @@
 ﻿using Ado.Library;
 using Models.Ado.Library;
 using Models.Dtos;
-using Negocios.BookStoreServices.Abstracts;
-using Nucleo.Services.Abstracts;
+using Business.BookStoreServices.Abstracts;
+using Core.Services.Abstracts;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Negocios.BookStoreServices.Specifics
+namespace Business.BookStoreServices.Specifics
 {
     public class AutorService : ServiceMapperBase<AutorDto, Autor>, IAutorService
     {
-        readonly new IAutorRepository _repository;
+        new readonly IAutorRepository _repository;
         public AutorService(IAutorRepository repository) : base(repository)
         {
             _repository = repository;
@@ -25,19 +25,20 @@ namespace Negocios.BookStoreServices.Specifics
         public AutorDto GetByName(string name)
         {
             Autor entity  = _repository.GetByName(name);
-            return Map(entity);
+            return mapper.Map<AutorDto>(entity);
 
         }
 
         public IEnumerable<AutorDto> SearchByName(string text)
         {
-
-            return Map(_repository.Get(w => w.AutorName.Contains(text)));
+            IEnumerable<Autor> result = _repository.Get(w => w.AutorName.Contains(text));
+            return mapper.Map<IEnumerable<AutorDto>>(result);
         }
 
         public IEnumerable<AutorDto> SearchByName(string text, int pag, int element)
         {
-            return Map(_repository.Get(w => w.AutorName.Contains(text)).Skip((pag - 1) * element).Take(element));
+            IEnumerable<Autor> result = _repository.Get(w => w.AutorName.Contains(text)).OrderBy(w=> w.AutorName).Skip((pag - 1) * element).Take(element);
+            return mapper.Map<IEnumerable<AutorDto>>(result);
         }
 
 

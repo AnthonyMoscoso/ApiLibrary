@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
-using Negocios.BookStoreServices.Abstracts;
+using Business.BookStoreServices.Abstracts;
 using Models.Dtos;
 
 namespace Models.Controllers.Library.Purchases

@@ -2,7 +2,7 @@
 using Models.Dtos;
 using System;
 using System.Collections.Generic;
-using Nucleo.DBAccess.Ado;
+using Core.DBAccess.Ado;
 
 namespace Ado.Library
 {
@@ -39,8 +39,8 @@ namespace Ado.Library
         IEnumerable<Employee> GetByOccupationInStore(string idOccupation, string idStore,int pag,int element);
         IEnumerable<Employee> GetByOccupationInWareHouse(string idOccupation, string idWareHouse);
         IEnumerable<Employee> GetByOccupationInWareHouse(string idOccupation, string idWareHouse,int pag,int element);
-        dynamic Hire(EmployeeWorkPlace employeeWorkPlace);
-        dynamic Fired(EmployeeWorkPlace employeeWorkPlace);
+        void Hire(EmployeeWorkPlace employeeWorkPlace);
+        void Fired(EmployeeWorkPlace employeeWorkPlace);
         new dynamic Insert(IEnumerable<Employee> list);
         new dynamic Update(IEnumerable<Employee> list);
 

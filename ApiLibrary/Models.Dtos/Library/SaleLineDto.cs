@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Core.Models.Abstracts;
+using System;
 
 namespace Models.Dtos
 {
-    public class SaleLineDto
+    public class SaleLineDto : IEntity 
     {
         public string IdSaleLine { get; set; }
         public string IdSale { get; set; }
@@ -14,6 +15,6 @@ namespace Models.Dtos
         public System.DateTime CreateDate { get; set; }
         public System.DateTime LastUpdateDate { get; set; }
         public int StatusCode { get; set; }
-
+        public string _Id { get => IdSaleLine; set => IdSaleLine = value; }
     }
 }

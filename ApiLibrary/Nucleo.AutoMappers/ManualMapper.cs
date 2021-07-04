@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
-namespace Nucleo.Mappers
+namespace Core.Mappers
 {
     public class ManualMapper<TMapTo, TMapFrom> : IManualMapper<TMapTo, TMapFrom>
         where TMapTo : class, new()
@@ -83,13 +83,7 @@ namespace Nucleo.Mappers
                 {
                     someObjectType.GetProperty(item.Key)
                         .SetValue(someObject,
-                        // Convert change type (le pasamos un valor , y lo convertimos al tipo indicado) , Convert.ChangeType("2",int) me convierte el 2 que viene en formato string  en un int
-                        Convert.ChangeType(
-                            // valor del nuestro diccionario ej : 2 
-                            item.Value,
-
-                            // valor de nuestra entidad con la clave  ej :  int cantidad  la clave es cantidad y el tipo int
-                            someObjectType.GetProperty(item.Key).PropertyType), null);
+                        Convert.ChangeType(item.Value,someObjectType.GetProperty(item.Key).PropertyType), null);
 
                 }
             }

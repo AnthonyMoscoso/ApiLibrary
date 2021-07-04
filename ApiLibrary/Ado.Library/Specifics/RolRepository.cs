@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using Models.Ado.Library;
-using Nucleo.DBAccess.Ado;
+using Core.DBAccess.Ado;
 using Ado.Library;
+using Core.Logger.Repository.Specifics;
 
 namespace Ado.Library.Specifics
 {
-    public class RolRepository : Repository<Rol>, IRolRepository
+    public class RolRepository : AdoRepository<Rol>, IRolRepository
     {
-        public RolRepository(BookStoreEntities context,string identificator="IdRol") : base(context,identificator)
+        public RolRepository(BookStoreEntities context, string identificator = "IdRol") : base(context, identificator)
         {
         }
      /*   public new dynamic Update(List<Rol> list)
@@ -29,7 +30,7 @@ namespace Ado.Library.Specifics
             return Save(); ; 
         }*/
 
-      /*  private void DeletePermit(List<Permit> list,Rol entity)
+      /*  private dynamic DeletePermit(List<Permit> list,Rol entity)
         {
             if (list.Count > 0)
             {
@@ -49,7 +50,7 @@ namespace Ado.Library.Specifics
             }
         }*/
 
-      /*  private void InsertPermit(Rol entity,List<Permit> permitsInDB)
+      /*  private dynamic InsertPermit(Rol entity,List<Permit> permitsInDB)
         {
             if (entity.Permit.Count > 0)
             {
@@ -80,9 +81,9 @@ namespace Ado.Library.Specifics
             }
         }*/
 
-      /*  public new dynamic Delete(List<string> ids)
+       public new dynamic Delete(List<string> ids)
         {
-            string message = "";
+            string message = string.Empty;
             foreach (string id in ids)
             {
 
@@ -91,18 +92,18 @@ namespace Ado.Library.Specifics
                 if (search != null)
                 {
                     var query = string.Format("Delete from RolPermit where IdRol='{0}'",id);
-                    Context.Database.ExecuteSqlCommand(query); 
+                    base.ExecuteQuery(query);
                     dbSet.Remove(dbSet.Find(id));
-                    message += Save();
+            
                 }
                 else
                 {
                     message += "Entity whith Id =" + id + " not was found";
                 }
             }
-
-            return message;
-        }*/
+            return Save();
+           
+        }
 
         public IEnumerable<Rol> SearchByName(string text)
         {

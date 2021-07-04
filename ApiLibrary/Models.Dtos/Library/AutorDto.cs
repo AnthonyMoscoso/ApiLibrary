@@ -1,6 +1,8 @@
-﻿namespace Models.Dtos
+﻿using Core.Models.Abstracts;
+
+namespace Models.Dtos
 {
-    public class AutorDto
+    public class AutorDto : IEntity
     {
         #region Atributes 
         public string IdAutor { get; set; }
@@ -8,6 +10,7 @@
         public System.DateTime CreateDate { get; set; }
         public System.DateTime LastUpdateDate { get; set; }
         public int StatusCode { get; set; }
+        public string _Id { get => IdAutor; set => IdAutor = value; }
         #endregion
 
         #region Methods

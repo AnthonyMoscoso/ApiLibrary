@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Web.Http;
 using Models.Dtos;
-using Negocios.BookStoreServices.Abstracts;
+using Business.BookStoreServices.Abstracts;
 
 namespace Models.Controllers.Library.Registers
 {
@@ -49,19 +49,19 @@ namespace Models.Controllers.Library.Registers
         }
 
         [HttpPost]
-        public IHttpActionResult Post(List<RegisterDto> list)
+        public IHttpActionResult Post(IEnumerable<RegisterDto> list)
         {
             return Ok(_service.Insert(list));
         }
 
         [HttpPut]
-        public IHttpActionResult Put(List<RegisterDto> list)
+        public IHttpActionResult Put(IEnumerable<RegisterDto> list)
         {
             return Ok(_service.Update(list));
         }
 
         [HttpDelete]
-        public IHttpActionResult Delete(List<string> ids)
+        public IHttpActionResult Delete(IEnumerable<string> ids)
         {
             return Ok(_service.Delete(ids));
         }

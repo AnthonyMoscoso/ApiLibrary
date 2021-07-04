@@ -4,20 +4,21 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using Models.Ado.Library;
-using Nucleo.DBAccess.Ado;
+using Core.DBAccess.Ado;
 using Ado.Library;
+using Core.Logger.Repository.Specifics;
 
 namespace Ado.Library.Specifics
 {
-    public class OrderRepository : Repository<Orders>, IOrderRepository
+    public class OrderRepository : AdoRepository<Orders>, IOrderRepository
     {
-        public OrderRepository(BookStoreEntities context,string identificator="IdOrder") : base(context,identificator)
+        public OrderRepository(BookStoreEntities context, string identificator="IdOrder") : base(context,identificator)
         {
         }
 
         public new dynamic Update(IEnumerable<Orders> list)
         {
-            string message = "";
+          
             foreach (Orders o in list)
             {
                 if (o.OrderLine.Count > 0)
@@ -39,9 +40,10 @@ namespace Ado.Library.Specifics
 
                 dbSet.Attach(o);
                 _Context.Entry(o).State = EntityState.Modified;
-                message += Save();
+               
             }
             return Save();
+          
         }
 
         public new dynamic Delete(IEnumerable<string> ids)
@@ -58,7 +60,7 @@ namespace Ado.Library.Specifics
                         _Context.Set<OrderLine>().Remove(line);
                     }
                     dbSet.Remove(search);
-                    message += Save();
+                   
                 }
                 else
                 {
@@ -67,8 +69,9 @@ namespace Ado.Library.Specifics
 
 
             }
+            return Save();
 
-            return message;
+           
         }
 
 

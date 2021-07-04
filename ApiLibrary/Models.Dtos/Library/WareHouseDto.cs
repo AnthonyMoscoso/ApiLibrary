@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Core.Models.Abstracts;
+using System.Collections.Generic;
 
 namespace Models.Dtos
 {
-    public class WareHouseDto
+    public class WareHouseDto : IEntity
     {
         public string IdWareHouse { get; set; }
         public string IdDirection { get; set; }
@@ -18,5 +19,6 @@ namespace Models.Dtos
 
 
         public virtual List<EmployeeDto> Employee { get; set; }
+        public string _Id { get => IdWareHouse; set => IdWareHouse = value; }
     }
 }

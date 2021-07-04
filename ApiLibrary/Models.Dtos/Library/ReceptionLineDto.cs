@@ -1,6 +1,8 @@
-﻿namespace Models.Dtos
+﻿using Core.Models.Abstracts;
+
+namespace Models.Dtos
 {
-    public class ReceptionLineDto
+    public class ReceptionLineDto : IEntity
     {
         public string IdReceptionLine { get; set; }
         public string IdReception { get; set; }
@@ -9,5 +11,6 @@
         public System.DateTime CreateDate { get; set; }
         public System.DateTime LastUpdateDate { get; set; }
         public int StatusCode { get; set; }
+        public string _Id { get => IdReceptionLine; set => IdReceptionLine = value; }
     }
 }

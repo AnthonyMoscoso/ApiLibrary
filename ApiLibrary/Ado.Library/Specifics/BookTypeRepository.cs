@@ -2,12 +2,13 @@
 using Models.Ado.Library;
 using System.Collections.Generic;
 using System.Linq;
-using Nucleo.DBAccess.Ado;
+using Core.DBAccess.Ado;
 using Ado.Library;
+using Core.Logger.Repository.Specifics;
 
 namespace Ado.Library.Specifics
 {
-    public class BookTypeRepository : Repository<BookType>, IBookTypeRepository
+    public class BookTypeRepository : AdoRepository<BookType>, IBookTypeRepository
     {
         public BookTypeRepository(BookStoreEntities context, string identificator= "IdType") : base(context,identificator)
         {

@@ -1,5 +1,5 @@
 ﻿using Models.Ado.Library;
-using Nucleo.DBAccess.Ado;
+using Core.DBAccess.Ado;
 
 namespace Ado.Library
 {

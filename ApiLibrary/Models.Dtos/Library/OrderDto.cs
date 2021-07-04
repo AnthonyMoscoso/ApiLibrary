@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Core.Models.Abstracts;
+using System.Collections.Generic;
 
 namespace Models.Dtos
 {
-    public class OrderDto
+    public class OrderDto : IEntity
     {
         public string IdOrder { get; set; }
         public string IdStore { get; set; }
@@ -14,5 +15,6 @@ namespace Models.Dtos
         public int StatusCode { get; set; }
         public string note { get; set; }
         public List<OrderLineDto> OrderLine { get; set; }
+        public string _Id { get => IdOrder; set => IdOrder = value; }
     }
 }

@@ -1,12 +1,12 @@
 ﻿using Ado.Library.Specifics;
 using Models.Ado.Library;
 using Models.Dtos;
-using Negocios.BookStoreServices.Abstracts;
-using Nucleo.Services.Abstracts;
+using Business.BookStoreServices.Abstracts;
+using Core.Services.Abstracts;
 using System;
 using System.Collections.Generic;
 
-namespace Negocios.BookStoreServices.Specifics
+namespace Business.BookStoreServices.Specifics
 {
     public class DiscountService : ServiceMapperBase<DiscountDto, Discount>, IDiscountService
     {

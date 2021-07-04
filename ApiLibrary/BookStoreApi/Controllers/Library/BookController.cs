@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using Negocios.BookStoreServices.Specifics;
-using Negocios.BookStoreServices.Abstracts;
+using Business.BookStoreServices.Specifics;
+using Business.BookStoreServices.Abstracts;
 using Models.Dtos;
 
 namespace Models.Controllers.Library.Books
@@ -12,7 +12,7 @@ namespace Models.Controllers.Library.Books
     {
         readonly IBookService _service ;
 
-        public BookController(BookService service)
+        public BookController(IBookService service)
         {
             _service = service;
         }
@@ -48,19 +48,19 @@ namespace Models.Controllers.Library.Books
             return Ok(_service.Get(element, pag));
         }
         [HttpPost]
-        public IHttpActionResult Post(List<BookDto> list)
+        public IHttpActionResult Post(IEnumerable<BookDto> list)
         {
             return Ok(_service.Insert(list));
         }
 
         [HttpPut]
-        public IHttpActionResult Put(List<BookDto> list)
+        public IHttpActionResult Put(IEnumerable<BookDto> list)
         {
-            return Ok(_service.Update(list));
+            return Ok(_service.Update(list)); ;
         }
 
         [HttpDelete]
-        public IHttpActionResult Delete(List<string> ids)
+        public IHttpActionResult Delete(IEnumerable<string> ids)
         {
             return Ok(_service.Delete(ids));
         }

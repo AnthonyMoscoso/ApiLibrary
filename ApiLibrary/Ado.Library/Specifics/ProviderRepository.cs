@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using Models.Ado.Library;
-using Nucleo.DBAccess.Ado;
+using Core.DBAccess.Ado;
 using Ado.Library;
+using Core.Logger.Repository.Specifics;
 
 namespace Ado.Library.Specifics
 {
-    public class ProviderRepository : Repository<Providers>, IProviderRepository
+    public class ProviderRepository : AdoRepository<Providers>, IProviderRepository
     {
-        public ProviderRepository(BookStoreEntities context,string identificator="IdProvider") : base(context,identificator)
+        public ProviderRepository(BookStoreEntities context,  string identificator = "IdProvider") : base(context, identificator)
         {
         }
 

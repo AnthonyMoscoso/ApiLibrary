@@ -1,16 +1,16 @@
 ﻿using Ado.Library;
 using Models.Ado.Library;
 using Models.Dtos;
-using Negocios.BookStoreServices.Abstracts;
-using Nucleo.DBAccess.Ado;
-using Nucleo.Services.Abstracts;
+using Business.BookStoreServices.Abstracts;
+using Core.DBAccess.Ado;
+using Core.Services.Abstracts;
 using System.Collections.Generic;
 
-namespace Negocios.BookStoreServices.Specifics
+namespace Business.BookStoreServices.Specifics
 {
     public class BookTypeService : ServiceMapperBase<BookTypeDto, BookType>, IBookTypeService
     {
-        IBookTypeRepository _Irepository;
+        readonly new  IBookTypeRepository _repository;
         public BookTypeService(IBookTypeRepository repository) : base(repository)
         {
             _repository = repository;
@@ -19,17 +19,17 @@ namespace Negocios.BookStoreServices.Specifics
         public BookTypeDto GetByName(string text)
         {
             
-            return mapper.Map<BookTypeDto>(_Irepository.GetByName(text));
+            return mapper.Map<BookTypeDto>(_repository.GetByName(text));
         }
 
         public IEnumerable<BookTypeDto> SearchByName(string text)
         {
-            return mapper.Map<IEnumerable<BookTypeDto>>(_Irepository.SearchByName(text));
+            return mapper.Map<IEnumerable<BookTypeDto>>(_repository.SearchByName(text));
         }
 
         public IEnumerable<BookTypeDto> SearchByName(string text, int pag, int element)
         {
-            return mapper.Map<IEnumerable<BookTypeDto>>(_Irepository.SearchByName(text,pag,element));
+            return mapper.Map<IEnumerable<BookTypeDto>>(_repository.SearchByName(text,pag,element));
         }
     }
 }

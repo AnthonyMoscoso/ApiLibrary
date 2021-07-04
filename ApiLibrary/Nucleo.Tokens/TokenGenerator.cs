@@ -5,7 +5,7 @@ using System;
 using System.Configuration;
 using System.Security.Claims;
 
-namespace Nucleo.Tokens
+namespace Core.Tokens
 {
     public static class TokenGenerator
     {

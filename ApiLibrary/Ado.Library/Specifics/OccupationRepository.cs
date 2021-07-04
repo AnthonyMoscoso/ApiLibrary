@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using Models.Ado.Library;
-using Nucleo.DBAccess.Ado;
+using Core.DBAccess.Ado;
 using Ado.Library;
+using Core.Logger.Repository.Specifics;
 
 namespace DBAccess.Ado.Repositories.Concrect
 {
-    public class OccupationRepository : Repository<Occupation>, IOccupationRepository
+    public class OccupationRepository : AdoRepository<Occupation>, IOccupationRepository
     {
-        public OccupationRepository(BookStoreEntities context,string identificator="IdOccupation") : base(context,identificator)
+        public OccupationRepository(BookStoreEntities context, string identificator="IdOccupation") : base(context,identificator)
         {
         }
 

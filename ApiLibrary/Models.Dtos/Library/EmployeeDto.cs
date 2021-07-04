@@ -1,9 +1,10 @@
-﻿using Models.Dtos;
+﻿using Core.Models.Abstracts;
+using Models.Dtos;
 using System;
 
 namespace Models.Dtos
 {
-    public class EmployeeDto : PersonDto
+    public class EmployeeDto : PersonDto , IEntity
     {
         #region Atributes 
         public string IdBoss { get; set; }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Nucleo.Mappers
+namespace Core.Mappers
 {
     public interface IManualMapper<TMapTo,TMapFrom>
     {

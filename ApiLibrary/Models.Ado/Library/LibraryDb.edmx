@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BookStoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BookStoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Autor">
           <Key>
             <PropertyRef Name="IdAutor" />
@@ -14,14 +14,6 @@
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateDate" Type="datetime" Nullable="false" />
           <Property Name="StatusCode" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Barcode">
-          <Key>
-            <PropertyRef Name="IdBarcode" />
-          </Key>
-          <Property Name="IdBarcode" Type="varchar" MaxLength="40" Nullable="false" />
-          <Property Name="IdImageFile" Type="varchar" MaxLength="40" Nullable="false" />
-          <Property Name="IdBook" Type="varchar" MaxLength="40" Nullable="false" />
         </EntityType>
         <EntityType Name="Book">
           <Key>
@@ -42,6 +34,7 @@
           <Property Name="LastUpdateDate" Type="datetime" Nullable="false" />
           <Property Name="StatusCode" Type="int" Nullable="false" />
           <Property Name="BindingType" Type="int" Nullable="false" />
+          <Property Name="Url_Image" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="BookAutor">
           <Key>
@@ -75,13 +68,6 @@
           </Key>
           <Property Name="IdBook" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="IdGender" Type="varchar" MaxLength="40" Nullable="false" />
-        </EntityType>
-        <EntityType Name="BookImageFile">
-          <Key>
-            <PropertyRef Name="IdBook" />
-          </Key>
-          <Property Name="IdBook" Type="varchar" MaxLength="40" Nullable="false" />
-          <Property Name="IdImageFile" Type="varchar" MaxLength="40" Nullable="false" />
         </EntityType>
         <EntityType Name="BookStore">
           <Key>
@@ -165,19 +151,6 @@
           <Property Name="LastUpdateDate" Type="datetime" Nullable="false" />
           <Property Name="StatusCode" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="DocumentFile">
-          <Key>
-            <PropertyRef Name="IdDocument" />
-          </Key>
-          <Property Name="IdDocument" Type="varchar" MaxLength="40" Nullable="false" />
-          <Property Name="DocumentDir" Type="varchar(max)" Nullable="false" />
-          <Property Name="DocumentName" Type="varchar" MaxLength="125" Nullable="false" />
-          <Property Name="DocumentType" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="Note" Type="varchar(max)" />
-          <Property Name="CreateDate" Type="datetime" Nullable="false" />
-          <Property Name="LastUpdateDate" Type="datetime" Nullable="false" />
-          <Property Name="StatusCode" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="Edition">
           <Key>
             <PropertyRef Name="IdEdition" />
@@ -221,13 +194,7 @@
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateDate" Type="datetime" Nullable="false" />
           <Property Name="StatusCode" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="EmployeeImageFile">
-          <Key>
-            <PropertyRef Name="IdEmployee" />
-          </Key>
-          <Property Name="IdEmployee" Type="varchar" MaxLength="40" Nullable="false" />
-          <Property Name="IdImageFile" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="Url_Image" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="EmployeeRol">
           <Key>
@@ -258,19 +225,6 @@
           <Property Name="IdGender" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="GenderName" Type="varchar" MaxLength="75" Nullable="false" />
           <Property Name="GenderDescription" Type="varchar(max)" Nullable="false" />
-          <Property Name="CreateDate" Type="datetime" Nullable="false" />
-          <Property Name="LastUpdateDate" Type="datetime" Nullable="false" />
-          <Property Name="StatusCode" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ImageFile">
-          <Key>
-            <PropertyRef Name="IdImageFile" />
-          </Key>
-          <Property Name="IdImageFile" Type="varchar" MaxLength="40" Nullable="false" />
-          <Property Name="FileDir" Type="varchar(max)" Nullable="false" />
-          <Property Name="ImageFileName" Type="varchar" MaxLength="125" Nullable="false" />
-          <Property Name="ImageType" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="Note" Type="varchar(max)" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateDate" Type="datetime" Nullable="false" />
           <Property Name="StatusCode" Type="int" Nullable="false" />
@@ -761,10 +715,10 @@
           <Property Name="Reason" Type="varchar" MaxLength="75" Nullable="false" />
           <Property Name="Details" Type="varchar(max)" />
           <Property Name="SickLeaveStatus" Type="int" Nullable="false" />
-          <Property Name="IdDocument" Type="varchar" MaxLength="40" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="LastUpdateDate" Type="datetime" Nullable="false" />
           <Property Name="StatusCode" Type="int" Nullable="false" />
+          <Property Name="Url_DocumentFile" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Socie">
           <Key>
@@ -850,30 +804,6 @@
           <Property Name="IdBook" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="Stock" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="Fk_Barcode_IdBook">
-          <End Role="Book" Type="Self.Book" Multiplicity="1" />
-          <End Role="Barcode" Type="Self.Barcode" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Book">
-              <PropertyRef Name="IdBook" />
-            </Principal>
-            <Dependent Role="Barcode">
-              <PropertyRef Name="IdBook" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="Fk_Barcode_IdImageFile">
-          <End Role="ImageFile" Type="Self.ImageFile" Multiplicity="1" />
-          <End Role="Barcode" Type="Self.Barcode" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ImageFile">
-              <PropertyRef Name="IdImageFile" />
-            </Principal>
-            <Dependent Role="Barcode">
-              <PropertyRef Name="IdImageFile" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="Fk_Book_IdEdition">
           <End Role="Edition" Type="Self.Edition" Multiplicity="1" />
           <End Role="Book" Type="Self.Book" Multiplicity="*" />
@@ -994,30 +924,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Fk_BookImageFile_IdBook">
-          <End Role="Book" Type="Self.Book" Multiplicity="1" />
-          <End Role="BookImageFile" Type="Self.BookImageFile" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Book">
-              <PropertyRef Name="IdBook" />
-            </Principal>
-            <Dependent Role="BookImageFile">
-              <PropertyRef Name="IdBook" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="Fk_BookImageFile_IdImageFile">
-          <End Role="ImageFile" Type="Self.ImageFile" Multiplicity="1" />
-          <End Role="BookImageFile" Type="Self.BookImageFile" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ImageFile">
-              <PropertyRef Name="IdImageFile" />
-            </Principal>
-            <Dependent Role="BookImageFile">
-              <PropertyRef Name="IdImageFile" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="Fk_BookStore_IdBook">
           <End Role="Book" Type="Self.Book" Multiplicity="1" />
           <End Role="BookStore" Type="Self.BookStore" Multiplicity="*" />
@@ -1111,30 +1017,6 @@
             </Principal>
             <Dependent Role="Employee">
               <PropertyRef Name="IdPerson" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="Fk_EmployeeImageFile_IdEmployee">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
-          <End Role="EmployeeImageFile" Type="Self.EmployeeImageFile" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="IdPerson" />
-            </Principal>
-            <Dependent Role="EmployeeImageFile">
-              <PropertyRef Name="IdEmployee" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="Fk_EmployeeImageFile_IdImageFile">
-          <End Role="ImageFile" Type="Self.ImageFile" Multiplicity="1" />
-          <End Role="EmployeeImageFile" Type="Self.EmployeeImageFile" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ImageFile">
-              <PropertyRef Name="IdImageFile" />
-            </Principal>
-            <Dependent Role="EmployeeImageFile">
-              <PropertyRef Name="IdImageFile" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2074,18 +1956,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Fk_SickLeave_IdDocument">
-          <End Role="DocumentFile" Type="Self.DocumentFile" Multiplicity="0..1" />
-          <End Role="SickLeave" Type="Self.SickLeave" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DocumentFile">
-              <PropertyRef Name="IdDocument" />
-            </Principal>
-            <Dependent Role="SickLeave">
-              <PropertyRef Name="IdDocument" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="Fk_SickLeave_IdEmployee">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="SickLeave" Type="Self.SickLeave" Multiplicity="*" />
@@ -2196,29 +2066,24 @@
         </Association>
         <EntityContainer Name="BookStoreModelStoreContainer">
           <EntitySet Name="Autor" EntityType="Self.Autor" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Barcode" EntityType="Self.Barcode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BookAutor" EntityType="Self.BookAutor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BookDiscount" EntityType="Self.BookDiscount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BookEditorial" EntityType="Self.BookEditorial" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BookGender" EntityType="Self.BookGender" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="BookImageFile" EntityType="Self.BookImageFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BookStore" EntityType="Self.BookStore" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BookType" EntityType="Self.BookType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Box" EntityType="Self.Box" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Coupon" EntityType="Self.Coupon" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Direction" EntityType="Self.Direction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Discount" EntityType="Self.Discount" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="DocumentFile" EntityType="Self.DocumentFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Edition" EntityType="Self.Edition" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Editorial" EntityType="Self.Editorial" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="EmployeeImageFile" EntityType="Self.EmployeeImageFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeRol" EntityType="Self.EmployeeRol" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeStore" EntityType="Self.EmployeeStore" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeWareHouse" EntityType="Self.EmployeeWareHouse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ImageFile" EntityType="Self.ImageFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Occupation" EntityType="Self.Occupation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OnlineSale" EntityType="Self.OnlineSale" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OnlineSaleShipping" EntityType="Self.OnlineSaleShipping" Schema="dbo" store:Type="Tables" />
@@ -2270,14 +2135,6 @@
           <EntitySet Name="Taxes" EntityType="Self.Taxes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WareHouse" EntityType="Self.WareHouse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WareHouseBook" EntityType="Self.WareHouseBook" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="Fk_Barcode_IdBook" Association="Self.Fk_Barcode_IdBook">
-            <End Role="Book" EntitySet="Book" />
-            <End Role="Barcode" EntitySet="Barcode" />
-          </AssociationSet>
-          <AssociationSet Name="Fk_Barcode_IdImageFile" Association="Self.Fk_Barcode_IdImageFile">
-            <End Role="ImageFile" EntitySet="ImageFile" />
-            <End Role="Barcode" EntitySet="Barcode" />
-          </AssociationSet>
           <AssociationSet Name="Fk_Book_IdEdition" Association="Self.Fk_Book_IdEdition">
             <End Role="Edition" EntitySet="Edition" />
             <End Role="Book" EntitySet="Book" />
@@ -2318,14 +2175,6 @@
             <End Role="Gender" EntitySet="Gender" />
             <End Role="BookGender" EntitySet="BookGender" />
           </AssociationSet>
-          <AssociationSet Name="Fk_BookImageFile_IdBook" Association="Self.Fk_BookImageFile_IdBook">
-            <End Role="Book" EntitySet="Book" />
-            <End Role="BookImageFile" EntitySet="BookImageFile" />
-          </AssociationSet>
-          <AssociationSet Name="Fk_BookImageFile_IdImageFile" Association="Self.Fk_BookImageFile_IdImageFile">
-            <End Role="ImageFile" EntitySet="ImageFile" />
-            <End Role="BookImageFile" EntitySet="BookImageFile" />
-          </AssociationSet>
           <AssociationSet Name="Fk_BookStore_IdBook" Association="Self.Fk_BookStore_IdBook">
             <End Role="Book" EntitySet="Book" />
             <End Role="BookStore" EntitySet="BookStore" />
@@ -2357,14 +2206,6 @@
           <AssociationSet Name="Fk_Employee_IdPerson" Association="Self.Fk_Employee_IdPerson">
             <End Role="Person" EntitySet="Person" />
             <End Role="Employee" EntitySet="Employee" />
-          </AssociationSet>
-          <AssociationSet Name="Fk_EmployeeImageFile_IdEmployee" Association="Self.Fk_EmployeeImageFile_IdEmployee">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="EmployeeImageFile" EntitySet="EmployeeImageFile" />
-          </AssociationSet>
-          <AssociationSet Name="Fk_EmployeeImageFile_IdImageFile" Association="Self.Fk_EmployeeImageFile_IdImageFile">
-            <End Role="ImageFile" EntitySet="ImageFile" />
-            <End Role="EmployeeImageFile" EntitySet="EmployeeImageFile" />
           </AssociationSet>
           <AssociationSet Name="Fk_EmployeeRol_IdEmployee" Association="Self.Fk_EmployeeRol_IdEmployee">
             <End Role="Employee" EntitySet="Employee" />
@@ -2678,10 +2519,6 @@
             <End Role="Shipping" EntitySet="Shipping" />
             <End Role="ShippingLine" EntitySet="ShippingLine" />
           </AssociationSet>
-          <AssociationSet Name="Fk_SickLeave_IdDocument" Association="Self.Fk_SickLeave_IdDocument">
-            <End Role="DocumentFile" EntitySet="DocumentFile" />
-            <End Role="SickLeave" EntitySet="SickLeave" />
-          </AssociationSet>
           <AssociationSet Name="Fk_SickLeave_IdEmployee" Association="Self.Fk_SickLeave_IdEmployee">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="SickLeave" EntitySet="SickLeave" />
@@ -2719,8 +2556,7 @@
             <End Role="WareHouseBook" EntitySet="WareHouseBook" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BookStoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -2734,16 +2570,6 @@
           <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="StatusCode" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Book" Relationship="Self.BookAutor" FromRole="Autor" ToRole="Book" />
-        </EntityType>
-        <EntityType Name="Barcode">
-          <Key>
-            <PropertyRef Name="IdBarcode" />
-          </Key>
-          <Property Name="IdBarcode" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="IdImageFile" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="IdBook" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Book" Relationship="Self.Fk_Barcode_IdBook" FromRole="Barcode" ToRole="Book" />
-          <NavigationProperty Name="ImageFile" Relationship="Self.Fk_Barcode_IdImageFile" FromRole="Barcode" ToRole="ImageFile" />
         </EntityType>
         <EntityType Name="Book">
           <Key>
@@ -2764,7 +2590,6 @@
           <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="StatusCode" Type="Int32" Nullable="false" />
           <Property Name="BindingType" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Barcode" Relationship="Self.Fk_Barcode_IdBook" FromRole="Book" ToRole="Barcode" />
           <NavigationProperty Name="Edition" Relationship="Self.Fk_Book_IdEdition" FromRole="Book" ToRole="Edition" />
           <NavigationProperty Name="BookType" Relationship="Self.Fk_Book_IdType" FromRole="Book" ToRole="BookType" />
           <NavigationProperty Name="BookEditorial" Relationship="Self.Fk_BookEditorial_IdBook" FromRole="Book" ToRole="BookEditorial" />
@@ -2780,7 +2605,7 @@
           <NavigationProperty Name="Autor" Relationship="Self.BookAutor" FromRole="Book" ToRole="Autor" />
           <NavigationProperty Name="Discount" Relationship="Self.BookDiscount" FromRole="Book" ToRole="Discount" />
           <NavigationProperty Name="Gender" Relationship="Self.BookGender" FromRole="Book" ToRole="Gender" />
-          <NavigationProperty Name="ImageFile" Relationship="Self.BookImageFile" FromRole="Book" ToRole="ImageFile" />
+          <Property Name="Url_Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="BookEditorial">
           <Key>
@@ -2889,20 +2714,6 @@
           <Property Name="StatusCode" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Book" Relationship="Self.BookDiscount" FromRole="Discount" ToRole="Book" />
         </EntityType>
-        <EntityType Name="DocumentFile">
-          <Key>
-            <PropertyRef Name="IdDocument" />
-          </Key>
-          <Property Name="IdDocument" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DocumentDir" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DocumentName" Type="String" MaxLength="125" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DocumentType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="StatusCode" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="SickLeave" Relationship="Self.Fk_SickLeave_IdDocument" FromRole="DocumentFile" ToRole="SickLeave" />
-        </EntityType>
         <EntityType Name="Edition">
           <Key>
             <PropertyRef Name="IdEdition" />
@@ -2965,10 +2776,10 @@
           <NavigationProperty Name="Schedule" Relationship="Self.Fk_Schedule_IdEmployee" FromRole="Employee" ToRole="Schedule" />
           <NavigationProperty Name="SickLeave" Relationship="Self.Fk_SickLeave_IdEmployee" FromRole="Employee" ToRole="SickLeave" />
           <NavigationProperty Name="StoreSale" Relationship="Self.Fk_StoreSale_IdSeller" FromRole="Employee" ToRole="StoreSale" />
-          <NavigationProperty Name="ImageFile" Relationship="Self.EmployeeImageFile" FromRole="Employee" ToRole="ImageFile" />
           <NavigationProperty Name="Rol" Relationship="Self.EmployeeRol" FromRole="Employee" ToRole="Rol" />
           <NavigationProperty Name="Store" Relationship="Self.EmployeeStore" FromRole="Employee" ToRole="Store" />
           <NavigationProperty Name="WareHouse" Relationship="Self.EmployeeWareHouse" FromRole="Employee" ToRole="WareHouse" />
+          <Property Name="Url_Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Gender">
           <Key>
@@ -2981,22 +2792,6 @@
           <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="StatusCode" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Book" Relationship="Self.BookGender" FromRole="Gender" ToRole="Book" />
-        </EntityType>
-        <EntityType Name="ImageFile">
-          <Key>
-            <PropertyRef Name="IdImageFile" />
-          </Key>
-          <Property Name="IdImageFile" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FileDir" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ImageFileName" Type="String" MaxLength="125" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ImageType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="StatusCode" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Barcode" Relationship="Self.Fk_Barcode_IdImageFile" FromRole="ImageFile" ToRole="Barcode" />
-          <NavigationProperty Name="Book" Relationship="Self.BookImageFile" FromRole="ImageFile" ToRole="Book" />
-          <NavigationProperty Name="Employee" Relationship="Self.EmployeeImageFile" FromRole="ImageFile" ToRole="Employee" />
         </EntityType>
         <EntityType Name="Occupation">
           <Key>
@@ -3450,12 +3245,11 @@
           <Property Name="Reason" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="SickLeaveStatus" Type="Int32" Nullable="false" />
-          <Property Name="IdDocument" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LastUpdateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="StatusCode" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="DocumentFile" Relationship="Self.Fk_SickLeave_IdDocument" FromRole="SickLeave" ToRole="DocumentFile" />
           <NavigationProperty Name="Employee" Relationship="Self.Fk_SickLeave_IdEmployee" FromRole="SickLeave" ToRole="Employee" />
+          <Property Name="Url_DocumentFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Socie">
           <Key>
@@ -3569,30 +3363,6 @@
           <NavigationProperty Name="Book" Relationship="Self.Fk_WareHouseBook_IdBook" FromRole="WareHouseBook" ToRole="Book" />
           <NavigationProperty Name="WareHouse" Relationship="Self.Fk_WareHouseBook_IdWareHouse" FromRole="WareHouseBook" ToRole="WareHouse" />
         </EntityType>
-        <Association Name="Fk_Barcode_IdBook">
-          <End Role="Book" Type="Self.Book" Multiplicity="1" />
-          <End Role="Barcode" Type="Self.Barcode" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Book">
-              <PropertyRef Name="IdBook" />
-            </Principal>
-            <Dependent Role="Barcode">
-              <PropertyRef Name="IdBook" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="Fk_Barcode_IdImageFile">
-          <End Role="ImageFile" Type="Self.ImageFile" Multiplicity="1" />
-          <End Role="Barcode" Type="Self.Barcode" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ImageFile">
-              <PropertyRef Name="IdImageFile" />
-            </Principal>
-            <Dependent Role="Barcode">
-              <PropertyRef Name="IdImageFile" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="Fk_Book_IdEdition">
           <End Role="Edition" Type="Self.Edition" Multiplicity="1" />
           <End Role="Book" Type="Self.Book" Multiplicity="*" />
@@ -3842,18 +3612,6 @@
             </Principal>
             <Dependent Role="WareHouse">
               <PropertyRef Name="IdDirection" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="Fk_SickLeave_IdDocument">
-          <End Role="DocumentFile" Type="Self.DocumentFile" Multiplicity="0..1" />
-          <End Role="SickLeave" Type="Self.SickLeave" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DocumentFile">
-              <PropertyRef Name="IdDocument" />
-            </Principal>
-            <Dependent Role="SickLeave">
-              <PropertyRef Name="IdDocument" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4349,14 +4107,6 @@
           <End Role="Book" Type="Self.Book" Multiplicity="*" />
           <End Role="Gender" Type="Self.Gender" Multiplicity="*" />
         </Association>
-        <Association Name="BookImageFile">
-          <End Role="Book" Type="Self.Book" Multiplicity="*" />
-          <End Role="ImageFile" Type="Self.ImageFile" Multiplicity="0..1" />
-        </Association>
-        <Association Name="EmployeeImageFile">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
-          <End Role="ImageFile" Type="Self.ImageFile" Multiplicity="0..1" />
-        </Association>
         <Association Name="EmployeeRol">
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <End Role="Rol" Type="Self.Rol" Multiplicity="*" />
@@ -4435,7 +4185,6 @@
         </Association>
         <EntityContainer Name="BookStoreEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Autor" EntityType="Self.Autor" />
-          <EntitySet Name="Barcode" EntityType="Self.Barcode" />
           <EntitySet Name="Book" EntityType="Self.Book" />
           <EntitySet Name="BookEditorial" EntityType="Self.BookEditorial" />
           <EntitySet Name="BookStore" EntityType="Self.BookStore" />
@@ -4444,12 +4193,10 @@
           <EntitySet Name="Coupon" EntityType="Self.Coupon" />
           <EntitySet Name="Direction" EntityType="Self.Direction" />
           <EntitySet Name="Discount" EntityType="Self.Discount" />
-          <EntitySet Name="DocumentFile" EntityType="Self.DocumentFile" />
           <EntitySet Name="Edition" EntityType="Self.Edition" />
           <EntitySet Name="Editorial" EntityType="Self.Editorial" />
           <EntitySet Name="Employee" EntityType="Self.Employee" />
           <EntitySet Name="Gender" EntityType="Self.Gender" />
-          <EntitySet Name="ImageFile" EntityType="Self.ImageFile" />
           <EntitySet Name="Occupation" EntityType="Self.Occupation" />
           <EntitySet Name="OnlineSale" EntityType="Self.OnlineSale" />
           <EntitySet Name="OrderLine" EntityType="Self.OrderLine" />
@@ -4485,14 +4232,6 @@
           <EntitySet Name="Taxes" EntityType="Self.Taxes" />
           <EntitySet Name="WareHouse" EntityType="Self.WareHouse" />
           <EntitySet Name="WareHouseBook" EntityType="Self.WareHouseBook" />
-          <AssociationSet Name="Fk_Barcode_IdBook" Association="Self.Fk_Barcode_IdBook">
-            <End Role="Book" EntitySet="Book" />
-            <End Role="Barcode" EntitySet="Barcode" />
-          </AssociationSet>
-          <AssociationSet Name="Fk_Barcode_IdImageFile" Association="Self.Fk_Barcode_IdImageFile">
-            <End Role="ImageFile" EntitySet="ImageFile" />
-            <End Role="Barcode" EntitySet="Barcode" />
-          </AssociationSet>
           <AssociationSet Name="Fk_Book_IdEdition" Association="Self.Fk_Book_IdEdition">
             <End Role="Edition" EntitySet="Edition" />
             <End Role="Book" EntitySet="Book" />
@@ -4576,10 +4315,6 @@
           <AssociationSet Name="Fk_WareHouse_IdDirection" Association="Self.Fk_WareHouse_IdDirection">
             <End Role="Direction" EntitySet="Direction" />
             <End Role="WareHouse" EntitySet="WareHouse" />
-          </AssociationSet>
-          <AssociationSet Name="Fk_SickLeave_IdDocument" Association="Self.Fk_SickLeave_IdDocument">
-            <End Role="DocumentFile" EntitySet="DocumentFile" />
-            <End Role="SickLeave" EntitySet="SickLeave" />
           </AssociationSet>
           <AssociationSet Name="Fk_Editorial_IdEditorialFather" Association="Self.Fk_Editorial_IdEditorialFather">
             <End Role="Editorial" EntitySet="Editorial" />
@@ -4753,14 +4488,6 @@
             <End Role="Book" EntitySet="Book" />
             <End Role="Gender" EntitySet="Gender" />
           </AssociationSet>
-          <AssociationSet Name="BookImageFile" Association="Self.BookImageFile">
-            <End Role="Book" EntitySet="Book" />
-            <End Role="ImageFile" EntitySet="ImageFile" />
-          </AssociationSet>
-          <AssociationSet Name="EmployeeImageFile" Association="Self.EmployeeImageFile">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="ImageFile" EntitySet="ImageFile" />
-          </AssociationSet>
           <AssociationSet Name="EmployeeRol" Association="Self.EmployeeRol">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Rol" EntitySet="Rol" />
@@ -4855,18 +4582,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Barcode">
-            <EntityTypeMapping TypeName="BookStoreModel.Barcode">
-              <MappingFragment StoreEntitySet="Barcode">
-                <ScalarProperty Name="IdBarcode" ColumnName="IdBarcode" />
-                <ScalarProperty Name="IdImageFile" ColumnName="IdImageFile" />
-                <ScalarProperty Name="IdBook" ColumnName="IdBook" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Book">
             <EntityTypeMapping TypeName="BookStoreModel.Book">
               <MappingFragment StoreEntitySet="Book">
+                <ScalarProperty Name="Url_Image" ColumnName="Url_Image" />
                 <ScalarProperty Name="IdBook" ColumnName="IdBook" />
                 <ScalarProperty Name="IdType" ColumnName="IdType" />
                 <ScalarProperty Name="IdEdition" ColumnName="IdEdition" />
@@ -4984,20 +4703,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DocumentFile">
-            <EntityTypeMapping TypeName="BookStoreModel.DocumentFile">
-              <MappingFragment StoreEntitySet="DocumentFile">
-                <ScalarProperty Name="IdDocument" ColumnName="IdDocument" />
-                <ScalarProperty Name="DocumentDir" ColumnName="DocumentDir" />
-                <ScalarProperty Name="DocumentName" ColumnName="DocumentName" />
-                <ScalarProperty Name="DocumentType" ColumnName="DocumentType" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
-                <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Edition">
             <EntityTypeMapping TypeName="BookStoreModel.Edition">
               <MappingFragment StoreEntitySet="Edition">
@@ -5031,6 +4736,7 @@
           <EntitySetMapping Name="Employee">
             <EntityTypeMapping TypeName="BookStoreModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="Url_Image" ColumnName="Url_Image" />
                 <ScalarProperty Name="IdPerson" ColumnName="IdPerson" />
                 <ScalarProperty Name="IdBoss" ColumnName="IdBoss" />
                 <ScalarProperty Name="IdOccupation" ColumnName="IdOccupation" />
@@ -5051,20 +4757,6 @@
                 <ScalarProperty Name="IdGender" ColumnName="IdGender" />
                 <ScalarProperty Name="GenderName" ColumnName="GenderName" />
                 <ScalarProperty Name="GenderDescription" ColumnName="GenderDescription" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
-                <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ImageFile">
-            <EntityTypeMapping TypeName="BookStoreModel.ImageFile">
-              <MappingFragment StoreEntitySet="ImageFile">
-                <ScalarProperty Name="IdImageFile" ColumnName="IdImageFile" />
-                <ScalarProperty Name="FileDir" ColumnName="FileDir" />
-                <ScalarProperty Name="ImageFileName" ColumnName="ImageFileName" />
-                <ScalarProperty Name="ImageType" ColumnName="ImageType" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
                 <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
@@ -5458,6 +5150,7 @@
           <EntitySetMapping Name="SickLeave">
             <EntityTypeMapping TypeName="BookStoreModel.SickLeave">
               <MappingFragment StoreEntitySet="SickLeave">
+                <ScalarProperty Name="Url_DocumentFile" ColumnName="Url_DocumentFile" />
                 <ScalarProperty Name="IdSickLeave" ColumnName="IdSickLeave" />
                 <ScalarProperty Name="IdEmployee" ColumnName="IdEmployee" />
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />
@@ -5465,7 +5158,6 @@
                 <ScalarProperty Name="Reason" ColumnName="Reason" />
                 <ScalarProperty Name="Details" ColumnName="Details" />
                 <ScalarProperty Name="SickLeaveStatus" ColumnName="SickLeaveStatus" />
-                <ScalarProperty Name="IdDocument" ColumnName="IdDocument" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
                 <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
@@ -5585,22 +5277,6 @@
             </EndProperty>
             <EndProperty Name="Gender">
               <ScalarProperty Name="IdGender" ColumnName="IdGender" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="BookImageFile" TypeName="BookStoreModel.BookImageFile" StoreEntitySet="BookImageFile">
-            <EndProperty Name="Book">
-              <ScalarProperty Name="IdBook" ColumnName="IdBook" />
-            </EndProperty>
-            <EndProperty Name="ImageFile">
-              <ScalarProperty Name="IdImageFile" ColumnName="IdImageFile" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="EmployeeImageFile" TypeName="BookStoreModel.EmployeeImageFile" StoreEntitySet="EmployeeImageFile">
-            <EndProperty Name="Employee">
-              <ScalarProperty Name="IdPerson" ColumnName="IdEmployee" />
-            </EndProperty>
-            <EndProperty Name="ImageFile">
-              <ScalarProperty Name="IdImageFile" ColumnName="IdImageFile" />
             </EndProperty>
           </AssociationSetMapping>
           <AssociationSetMapping Name="EmployeeRol" TypeName="BookStoreModel.EmployeeRol" StoreEntitySet="EmployeeRol">

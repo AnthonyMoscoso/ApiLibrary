@@ -1,5 +1,5 @@
 ﻿using Models.Dtos;
-using Negocios.BookStoreServices.Abstracts;
+using Business.BookStoreServices.Abstracts;
 using System;
 using System.Collections.Generic;
 using System.Web.Http;
@@ -72,6 +72,7 @@ namespace Models.Controllers.Library.Persons
         {
             return Ok(_service.Get(idBoss));
         }
+
         [HttpGet]
         [Route("Boss")]
         public IHttpActionResult GetByBoss(string idBoss,int pag,int element)

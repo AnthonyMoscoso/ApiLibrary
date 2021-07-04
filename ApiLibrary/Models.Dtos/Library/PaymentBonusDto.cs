@@ -1,6 +1,8 @@
-﻿namespace Models.Dtos
+﻿using Core.Models.Abstracts;
+
+namespace Models.Dtos
 {
-    public class PaymentBonusDto
+    public class PaymentBonusDto : IEntity
     {
         public string IdPaymentBonus { get; set; }
         public string BonusTittle { get; set; }
@@ -10,6 +12,8 @@
         public System.DateTime CreateDate { get; set; }
         public System.DateTime LastUpdateDate { get; set; }
         public int StatusCode { get; set; }
+        public string _Id { get => IdPaymentBonus; set => IdPaymentBonus = value; }
+
         public override int GetHashCode()
         {
             return IdPaymentBonus.GetHashCode();

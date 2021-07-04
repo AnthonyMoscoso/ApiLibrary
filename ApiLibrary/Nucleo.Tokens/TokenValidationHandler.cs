@@ -9,7 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace Nucleo.Tokens
+namespace Core.Tokens
 {
     public  class TokenValidationHandler : DelegatingHandler
     {

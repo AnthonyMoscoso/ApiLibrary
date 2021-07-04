@@ -1,6 +1,8 @@
-﻿namespace Models.Dtos
+﻿using Core.Models.Abstracts;
+
+namespace Models.Dtos
 {
-    public class EditorialDto
+    public class EditorialDto : IEntity
     {
         public string IdEditorial { get; set; }
         public string IdDirection { get; set; }
@@ -14,5 +16,6 @@
         public System.DateTime CreateDate { get; set; }
         public System.DateTime LastUpdateDate { get; set; }
         public int StatusCode { get; set; }
+        public string _Id { get => IdEditorial; set => IdEditorial = value; }
     }
 }

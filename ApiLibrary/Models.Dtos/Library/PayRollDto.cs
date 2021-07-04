@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Core.Models.Abstracts;
+using System.Collections.Generic;
 
 namespace Models.Dtos
 {
-    public class PayRollDto
+    public class PayRollDto : IEntity
     {
+        #region Atribute
         public string IdPayRoll { get; set; }
         public string IdEmployee { get; set; }
         public int YearValue { get; set; }
@@ -20,8 +22,35 @@ namespace Models.Dtos
         public System.DateTime CreateDate { get; set; }
         public System.DateTime LastUpdateDate { get; set; }
         public int StatusCode { get; set; }
+        #endregion
+
+        #region Connections
 
         public ICollection<TaxesDto> Taxes { get; set; }
         public ICollection<PaymentBonusDto> PaymentBonus { get; set; }
+        #endregion
+
+        #region IEnity
+        public string _Id { get => IdPayRoll; set => IdPayRoll = value; }
+        #endregion
+
+        #region Methods
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        #endregion
     }
 }

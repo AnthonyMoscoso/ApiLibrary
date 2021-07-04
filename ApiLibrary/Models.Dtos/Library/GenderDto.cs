@@ -1,16 +1,24 @@
-﻿using System;
+﻿using Core.Models.Abstracts;
+using System;
 
 namespace Models.Dtos
 {
-    public class GenderDto
+    public class GenderDto : IEntity
     {
+        #region Atributes
         public string IdGender { get; set; }
         public string GenderName { get; set; }
         public string GenderDescription { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime LastUpdateDate { get; set; }
         public int StatusCode { get; set; }
+        #endregion
 
+        #region IEntity
+        public string _Id { get => IdGender; set => IdGender = value; }
+        #endregion
+
+        #region Methods
         public override int GetHashCode()
         {
             return IdGender.GetHashCode();
@@ -31,5 +39,6 @@ namespace Models.Dtos
         {
             return GenderName;
         }
+        #endregion
     }
 }

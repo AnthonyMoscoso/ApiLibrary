@@ -4,16 +4,17 @@ using System.Data.Entity;
 using System.Data.SqlClient;
 using Models.Ado.Library;
 using System.Linq;
-using Nucleo.DBAccess.Ado;
+using Core.DBAccess.Ado;
 using Models.Dtos;
 using Ado.Library;
+using Core.Logger.Repository.Specifics;
 
 namespace Ado.Library.Specifics
 {
-    public class SocieRepository : Repository<Socie>, ISocieRepository
+    public class SocieRepository : AdoRepository<Socie>, ISocieRepository
     {
-        readonly IPersonRepository personRepositorie;
-        public SocieRepository(BookStoreEntities context,string identificator="IdSocie") : base(context,identificator)
+        readonly new IPersonRepository repositorie;
+        public SocieRepository(BookStoreEntities context, string identificator="IdSocie") : base(context,identificator)
         {
             
         }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using Models.Dtos;
-using Negocios.BookStoreServices.Abstracts;
+using Business.BookStoreServices.Abstracts;
 
 namespace Models.Controllers.Library.Persons
 {

@@ -3,14 +3,14 @@ using System.Linq;
 using Models.Ado.Library;
 
 using Models.Dtos;
-using Nucleo.DBAccess.Ado;
+using Core.DBAccess.Ado;
 using Ado.Library;
-
+using Core.Logger.Repository.Specifics;
 namespace Ado.Library.Specifics
 {
-    public class PermitRepository : Repository<Permit>, IPermitRepository
+    public class PermitRepository : AdoRepository<Permit>, IPermitRepository
     {
-        public PermitRepository(BookStoreEntities context,string identificator="IdPermit") : base(context,identificator)
+        public PermitRepository(BookStoreEntities context, string identificator="IdPermit") : base(context,identificator)
         {
         }
 

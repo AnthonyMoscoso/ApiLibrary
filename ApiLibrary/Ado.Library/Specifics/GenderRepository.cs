@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using Models.Ado.Library;
-using Nucleo.DBAccess.Ado;
+using Core.DBAccess.Ado;
 using Ado.Library;
+using Core.Logger.Repository.Specifics;
 
 namespace Ado.Library.Specifics
 {
-    public class GenderRepository : Repository<Gender>, IGenderRepository
+    public class GenderRepository : AdoRepository<Gender>, IGenderRepository
     {
-        public GenderRepository(BookStoreEntities context,string identificator="IdGender") : base(context,identificator)
+        public GenderRepository(BookStoreEntities context, string identificator="IdGender") : base(context,identificator)
         {
         }
 

@@ -5,17 +5,18 @@ using System.Linq;
 using Models.Ado.Library;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
-using Nucleo.DBAccess.Ado;
-using Nucleo.Utilities;
-using Nucleo.Utilities.Enums;
+using Core.DBAccess.Ado;
+using Core.Utilities;
+using Core.Utilities.Enums;
 using Ado.Library;
 using System.Data.Entity;
+using Core.Logger.Repository.Specifics;
 
 namespace Ado.Library.Specifics
 {
-    public class ReturnSaleRepository : Repository<ReturnSale>, IReturnSaleRepository
+    public class ReturnSaleRepository : AdoRepository<ReturnSale>, IReturnSaleRepository
     {
-        public ReturnSaleRepository(BookStoreEntities context,string identificator="IdReturn") : base(context,identificator)
+        public ReturnSaleRepository(BookStoreEntities context, string identificator="IdReturn") : base(context,identificator)
         {
         }
 
@@ -155,113 +156,64 @@ namespace Ado.Library.Specifics
 
         #region Private Methods
 
-        private void InsertReturnWareHouse(string idReturn, string idWareHouse)
+        private dynamic InsertReturnWareHouse(string idReturn, string idWareHouse)
         {
             try
             {
                 var query = $"Insert into ReturnWareHouse values ('{idReturn}','{idWareHouse}');";
                 _Context.Database.ExecuteSqlCommand(query);
-                MessageControl message = new MessageControl()
-                {
-                    Code = MessageCode.exception,
-                    Type = MessageType.Exception,
-                    Error = true,
-                    Note = $"ReturnWareHouse with {Identificator} : {idReturn} was insert",
-                };
 
-                messages.Add(message);
+               _log.Write( $"ReturnWareHouse with {Identificator} : {idReturn} was insert");
+                
+
+              
             }
             catch (DbUpdateException e)
             {
-                MessageControl message = new MessageControl()
-                {
-                    Code = MessageCode.exception,
-                    Type = MessageType.Exception,
-                    Error = true,
-                    Note = $"{e.InnerException.InnerException.Message}",
-                };
 
-                messages.Add(message);
+                _log.Write($"{e.InnerException.InnerException.Message ?? e.Message}", MessageCode.exception);
+
+            
             }
             catch (SqlException e)
             {
-                MessageControl message = new MessageControl()
-                {
-                    Code = MessageCode.exception,
-                    Type = MessageType.Exception,
-                    Error = true,
-                    Note = $"{e.InnerException.InnerException.Message}",
-                };
-
-                messages.Add(message);
+                _log.Write($"{e.InnerException.InnerException.Message ?? e.Message}", MessageCode.exception);
             }
             catch (Exception e)
             {
-                MessageControl message = new MessageControl()
-                {
-                    Code = MessageCode.exception,
-                    Type = MessageType.Exception,
-                    Error = true,
-                    Note = $"{e.InnerException.InnerException.Message}",
-                };
-                messages.Add(message);
+                _log.Write($"{e.InnerException.InnerException.Message ?? e.Message}", MessageCode.exception);
 
             }
+            return Save();
 
         }
 
-        private void InsertReturnStore(string idReturn, string idStore)
+        private dynamic InsertReturnStore(string idReturn, string idStore)
         {
             try
             {
                 var query = $"Insert into ReturnStore values ('{idReturn}','{idStore}');";
                 _Context.Database.ExecuteSqlCommand(query);
-                MessageControl message = new MessageControl()
-                {
-                    Code = MessageCode.exception,
-                    Type = MessageType.Exception,
-                    Error = true,
-                    Note = $"ReturnStore with {Identificator} : {idReturn} was insert",
-                };
 
-                messages.Add(message);
+                _log.Write($"ReturnStore with {Identificator} : {idReturn} was insert");
+                
             }
             catch (DbUpdateException e)
             {
-                MessageControl message = new MessageControl()
-                {
-                    Code = MessageCode.exception,
-                    Type = MessageType.Exception,
-                    Error = true,
-                    Note = $"{e.InnerException.InnerException.Message}",
-                };
+                _log.Write($"{e.InnerException.InnerException.Message ?? e.Message}", MessageCode.exception);
 
-                messages.Add(message);
+               
             }
             catch (SqlException e)
             {
-                MessageControl message = new MessageControl()
-                {
-                    Code = MessageCode.exception,
-                    Type = MessageType.Exception,
-                    Error = true,
-                    Note = $"{e.InnerException.InnerException.Message}",
-                };
-
-                messages.Add(message);
+                _log.Write($"{e.InnerException.InnerException.Message ?? e.Message}", MessageCode.exception);
             }
             catch (Exception e)
             {
-                MessageControl message = new MessageControl()
-                {
-                    Code = MessageCode.exception,
-                    Type = MessageType.Exception,
-                    Error = true,
-                    Note = $"{e.InnerException.InnerException.Message}",
-                };
-                messages.Add(message);
+                _log.Write($"{e.InnerException.InnerException.Message ?? e.Message}", MessageCode.exception);
 
             }
+            return Save();
 
         }
 

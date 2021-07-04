@@ -4,14 +4,15 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using Models.Ado.Library;
-using Nucleo.DBAccess.Ado;
+using Core.DBAccess.Ado;
 using Ado.Library;
+using Core.Logger.Repository.Specifics;
 
 namespace Ado.Library.Specifics
 {
-    public class RegisterRepository : Repository<Register>, IRegisterRepository
+    public class RegisterRepository : AdoRepository<Register>, IRegisterRepository
     {
-        public RegisterRepository(BookStoreEntities context,string identificator="IdRegister") : base(context,identificator)
+        public RegisterRepository(BookStoreEntities context, string identificator="IdRegister") : base(context,identificator)
         {
         }
         public IEnumerable<Register> GetByDate(DateTime date)

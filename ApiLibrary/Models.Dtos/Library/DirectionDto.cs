@@ -1,6 +1,8 @@
-﻿namespace Models.Dtos
+﻿using Core.Models.Abstracts;
+
+namespace Models.Dtos
 {
-    public class DirectionDto
+    public class DirectionDto : IEntity
     {
         public string IdDirection { get; set; }
         public string Country { get; set; }
@@ -13,5 +15,6 @@
         public System.DateTime CreateDate { get; set; }
         public System.DateTime LastUpdateDate { get; set; }
         public int StatusCode { get; set; }
+        public string _Id { get => IdDirection; set => IdDirection = value; }
     }
 }

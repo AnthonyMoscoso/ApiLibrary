@@ -31,9 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005" />
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\BookStoreApi\bin\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
@@ -50,7 +49,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstracts\IAutorRepository.cs" />
-    <Compile Include="Abstracts\IBarCodeRepository.cs" />
     <Compile Include="Abstracts\IBookEditorialRepository.cs" />
     <Compile Include="Abstracts\IBookRepository.cs" />
     <Compile Include="Abstracts\IBookStoreRepository.cs" />
@@ -58,12 +56,10 @@
     <Compile Include="Abstracts\ICouponRepository.cs" />
     <Compile Include="Abstracts\IDirectionRepository.cs" />
     <Compile Include="Abstracts\IDiscountRepository.cs" />
-    <Compile Include="Abstracts\IDocumentFileRepository.cs" />
     <Compile Include="Abstracts\IEditionRepository.cs" />
     <Compile Include="Abstracts\IEditorialRepository.cs" />
     <Compile Include="Abstracts\IEmployeeRepository.cs" />
     <Compile Include="Abstracts\IGenderRepository.cs" />
-    <Compile Include="Abstracts\IImageFileRepository.cs" />
     <Compile Include="Abstracts\IOccupationRepository.cs" />
     <Compile Include="Abstracts\IOrderLineRepository.cs" />
     <Compile Include="Abstracts\IOrderRepository.cs" />
@@ -97,7 +93,6 @@
     <Compile Include="Abstracts\IWareHouseRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Specifics\AutorRepository.cs" />
-    <Compile Include="Specifics\BarCodeRepository.cs" />
     <Compile Include="Specifics\BookEditorialRepository.cs" />
     <Compile Include="Specifics\BookRepository.cs" />
     <Compile Include="Specifics\BookStoreRepository.cs" />
@@ -105,12 +100,10 @@
     <Compile Include="Specifics\CouponRepository.cs" />
     <Compile Include="Specifics\DirectionRepository.cs" />
     <Compile Include="Specifics\DiscountRepository.cs" />
-    <Compile Include="Specifics\DocumentFileRepository.cs" />
     <Compile Include="Specifics\EditionRepository.cs" />
     <Compile Include="Specifics\EditorialRepository.cs" />
     <Compile Include="Specifics\EmployeeRepository.cs" />
     <Compile Include="Specifics\GenderRepository.cs" />
-    <Compile Include="Specifics\ImageFileRepository.cs" />
     <Compile Include="Specifics\OccupationRepository.cs" />
     <Compile Include="Specifics\OrderLineRepository.cs" />
     <Compile Include="Specifics\OrderRepository.cs" />
@@ -153,17 +146,21 @@
       <Project>{c4e1b4b8-771f-4aaa-9eb1-77cc371b88e7}</Project>
       <Name>Models.Utilities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nucleo.DBAccess\Nucleo.DBAccess.csproj">
-      <Project>{b7816c94-c966-4571-9afb-5154cdf25f2e}</Project>
-      <Name>Nucleo.DBAccess</Name>
+    <ProjectReference Include="..\Nucleo.DataAccess\Core.DataAccess.csproj">
+      <Project>{3B9ADFCA-8EAC-4A89-AC2E-EA167CCDCA55}</Project>
+      <Name>Core.DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nucleo.Files.Web\Nucleo.Files.Web.csproj">
+    <ProjectReference Include="..\Nucleo.Files.Web\Core.Files.Web.csproj">
       <Project>{f1c0ff4f-9179-432f-8a91-f9ead4a7b687}</Project>
-      <Name>Nucleo.Files.Web</Name>
+      <Name>Core.Files.Web</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nucleo.Utilities\Nucleo.Utilities.csproj">
+    <ProjectReference Include="..\Nucleo.Logger\Core.Logger.csproj">
+      <Project>{CF188DBB-1B1B-4BF2-8A11-0274FE2C73C1}</Project>
+      <Name>Core.Logger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nucleo.Utilities\Core.Utilities.csproj">
       <Project>{3936ffbd-66e2-4b8c-876f-5747289e3d6b}</Project>
-      <Name>Nucleo.Utilities</Name>
+      <Name>Core.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

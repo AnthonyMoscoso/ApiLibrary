@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Core.Models.Abstracts;
+using System;
 
 namespace Models.Dtos
 {
-    public class ReservationDto
+    public class ReservationDto : IEntity
     {
         public string IdReservation { get; set; }
         public string IdBuyer { get; set; }
@@ -16,5 +17,6 @@ namespace Models.Dtos
         public int Quantity { get; set; }
         public double BookReservationPrice { get; set; }
         public byte ReservationType { get; set; }
+        public string _Id { get => IdReservation; set => IdReservation = value; }
     }
 }

@@ -4,15 +4,15 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using Nucleo.DBAccess.Ado;
-using Nucleo.Utilities.Enums;
+using Core.DBAccess.Ado;
+using Core.Utilities.Enums;
 using Ado.Library;
-
+using Core.Logger.Repository.Specifics;
 namespace Ado.Library.Specifics
 {
-    public class ReservationRepository : Repository<Reservation>, IReservationRepository
+    public class ReservationRepository : AdoRepository<Reservation>, IReservationRepository
     {
-        public ReservationRepository(BookStoreEntities context,string identificator="IdReservation") : base(context,identificator)
+        public ReservationRepository(BookStoreEntities context, string identificator="IdReservation") : base(context,identificator)
         {
         }
 

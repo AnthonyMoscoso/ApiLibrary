@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using Models.Ado.Library;
-using Nucleo.DBAccess.Ado;
+using Core.DBAccess.Ado;
 using Ado.Library;
+using Core.Logger.Repository.Specifics;
 
 namespace Ado.Library.Specifics
 {
-    public class TaxesRepository : Repository<Taxes>, ITaxesRepository
+    public class TaxesRepository : AdoRepository<Taxes>, ITaxesRepository
     {
-        public TaxesRepository(BookStoreEntities context,string identificator="IdTaxes") : base(context,identificator)
+        public TaxesRepository(BookStoreEntities context, string identificator="IdTaxes") : base(context,identificator)
         {
         }
 
-        /*   public new dynamic Delete(List<string> ids)
+          public new dynamic Delete(IEnumerable<string> ids)
            {
                string message = "";
                foreach (string id in ids)
@@ -29,7 +30,7 @@ namespace Ado.Library.Specifics
                        else
                        {
                            dbSet.Remove(search);
-                           message += Save();
+                         
                        }
                    }
                    else
@@ -37,8 +38,9 @@ namespace Ado.Library.Specifics
                        message += "Entity whith Id =" + id + " not was found";
                    }
                }
-               return message;
-           }*/
+            return Save();
+              
+           }
 
         public IEnumerable<Taxes> GetByType(int type)
         {

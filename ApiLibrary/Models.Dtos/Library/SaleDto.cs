@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Core.Models.Abstracts;
+using System;
 using System.Collections.Generic;
 
 namespace Models.Dtos
 {
-    public class SaleDto
+    public class SaleDto : IEntity
     {
         public string IdSale { get; set; }
         public string IdBuyer { get; set; }
@@ -22,5 +23,6 @@ namespace Models.Dtos
         public List<SaleLineDto> SaleLine { get; set; }
         public List<ReservationDto> Reservation { get; set; }
         public CouponDto Coupon { get; set; }
+        public string _Id { get => IdSale; set => IdSale = value; }
     }
 }

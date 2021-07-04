@@ -1,25 +1,29 @@
 ﻿using Models.Ado.Library;
 using Models.Dtos;
-using Negocios.BookStoreServices.Abstracts;
-using Nucleo.DBAccess.Ado;
-using Nucleo.Services.Abstracts;
+using Business.BookStoreServices.Abstracts;
+using Core.DBAccess.Ado;
+using Core.Services.Abstracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ado.Library;
 
-namespace Negocios.BookStoreServices.Specifics
+namespace Business.BookStoreServices.Specifics
 {
     public class ReceptionLineService : ServiceMapperBase<ReceptionLineDto, ReceptionLine>, IReceptionLineService
     {
-        public ReceptionLineService(IRepository<ReceptionLine> repository) : base(repository)
+        readonly new  IReceptionLineRepository _repository;
+        public ReceptionLineService(IReceptionLineRepository repository) : base(repository)
         {
+            _repository = repository;
         }
 
         public IEnumerable<ReceptionLineDto> GetByReception(string idReception)
         {
-            throw new NotImplementedException();
+            IEnumerable<ReceptionLine> result = _repository.GetByReception(idReception);
+            return mapper.Map<IEnumerable<ReceptionLineDto>>(result);
         }
     }
 }

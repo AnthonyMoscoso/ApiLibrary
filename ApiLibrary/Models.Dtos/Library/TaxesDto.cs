@@ -1,6 +1,8 @@
-﻿namespace Models.Dtos
+﻿using Core.Models.Abstracts;
+
+namespace Models.Dtos
 {
-    public class TaxesDto
+    public class TaxesDto : IEntity
     {
         public string IdTaxes { get; set; }
         public string TaxTittle { get; set; }
@@ -10,6 +12,7 @@
         public System.DateTime CreateDate { get; set; }
         public System.DateTime LastUpdateDate { get; set; }
         public int StatusCode { get; set; }
+        public string _Id { get => IdTaxes; set => IdTaxes = value; }
 
         public override int GetHashCode()
         {

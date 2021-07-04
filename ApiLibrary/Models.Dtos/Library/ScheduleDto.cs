@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Core.Models.Abstracts;
+using System.Collections.Generic;
 
 namespace Models.Dtos
 {
-    public class ScheduleDto
+    public class ScheduleDto : IEntity
     {
         public string IdSchedule { get; set; }
         public int YearValue { get; set; }
@@ -12,5 +13,6 @@ namespace Models.Dtos
         public string IdEmployee { get; set; }
 
         public List<ScheduleLineDto> ScheduleLine { get; set; }
+        public string _Id { get => IdSchedule; set => IdSchedule = value; }
     }
 }

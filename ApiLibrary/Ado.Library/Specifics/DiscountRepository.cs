@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Models.Dtos;
 using Models.Ado.Library;
-using Nucleo.DBAccess.Ado;
+using Core.DBAccess.Ado;
 using Ado.Library;
+using Core.Logger.Repository.Specifics;
 
 namespace Ado.Library.Specifics
 {
-    public class DiscountRepository : Repository<Discount>, IDiscountRepository
+    public class DiscountRepository : AdoRepository<Discount>, IDiscountRepository
     {
-        public DiscountRepository(BookStoreEntities context,string identificator="IdDiscount") : base(context,identificator)
+        public DiscountRepository(BookStoreEntities context, string identificator="IdDiscount") : base(context,identificator)
         {
         }
 

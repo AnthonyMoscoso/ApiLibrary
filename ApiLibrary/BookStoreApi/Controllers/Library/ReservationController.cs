@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Web.Http;
-using Negocios.BookStoreServices.Abstracts;
+using Business.BookStoreServices.Abstracts;
 using Ado.Library.Specifics;
-using Negocios.BookStoreServices.Specifics;
+using Business.BookStoreServices.Specifics;
 using Models.Dtos;
 using System.Collections.Generic;
 

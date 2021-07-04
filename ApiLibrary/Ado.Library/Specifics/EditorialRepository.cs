@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using Models.Ado.Library;
-using Nucleo.DBAccess.Ado;
+using Core.DBAccess.Ado;
 using Ado.Library;
+using Core.Logger.Repository.Specifics;
 
 namespace Ado.Library.Specifics
 {
-    public class EditorialRepository : Repository<Editorial>, IEditorialRepository
+    public class EditorialRepository : AdoRepository<Editorial>, IEditorialRepository
     {
-        public EditorialRepository(BookStoreEntities context,string identificator="IdEditorial") : base(context,identificator)
+        public EditorialRepository(BookStoreEntities context, string identificator="IdEditorial") : base(context,identificator)
         {
         }
 

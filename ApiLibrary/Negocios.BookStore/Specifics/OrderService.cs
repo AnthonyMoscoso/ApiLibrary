@@ -1,100 +1,119 @@
 ﻿using Models.Ado.Library;
 using Models.Dtos;
-using Negocios.BookStoreServices.Abstracts;
-using Nucleo.DBAccess.Ado;
-using Nucleo.Services.Abstracts;
+using Business.BookStoreServices.Abstracts;
+using Core.DBAccess.Ado;
+using Core.Services.Abstracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ado.Library;
 
-namespace Negocios.BookStoreServices.Specifics
+namespace Business.BookStoreServices.Specifics
 {
     public class OrderService : ServiceMapperBase<OrderDto, Orders>, IOrderService
     {
-        public OrderService(IRepository<Orders> repository) : base(repository)
+        readonly new IOrderRepository _repository;
+        public OrderService(IOrderRepository repository) : base(repository)
         {
+            _repository = repository;
         }
 
         public IEnumerable<OrderDto> GetByDate(DateTime date)
         {
-            throw new NotImplementedException();
+            IEnumerable<Orders> result = _repository.GetByDate(date);
+            return mapper.Map<IEnumerable<OrderDto>>(result);
         }
 
         public IEnumerable<OrderDto> GetByDate(DateTime date, int pag, int element)
         {
-            throw new NotImplementedException();
+            IEnumerable<Orders> result = _repository.GetByDate(date);
+            return mapper.Map<IEnumerable<OrderDto>>(result);
         }
 
         public IEnumerable<OrderDto> GetByDate(DateTime dateStart, DateTime dateEnd)
         {
-            throw new NotImplementedException();
+            IEnumerable<Orders> result = _repository.GetByDate(dateStart,dateEnd);
+            return mapper.Map<IEnumerable<OrderDto>>(result);
         }
 
         public IEnumerable<OrderDto> GetByDate(DateTime dateStart, DateTime dateEnd, int pag, int element)
         {
-            throw new NotImplementedException();
+            IEnumerable<Orders> result = _repository.GetByDate(dateStart,dateEnd,pag,element);
+            return mapper.Map<IEnumerable<OrderDto>>(result);
         }
 
         public IEnumerable<OrderDto> GetByStore(string idStore, DateTime date)
         {
-            throw new NotImplementedException();
+            IEnumerable<Orders> result = _repository.GetByStore(idStore,date);
+            return mapper.Map<IEnumerable<OrderDto>>(result);
         }
 
         public IEnumerable<OrderDto> GetByStore(string idStore, DateTime date, int pag, int element)
         {
-            throw new NotImplementedException();
+            IEnumerable<Orders> result = _repository.GetByStore(idStore,date,pag,element);
+            return mapper.Map<IEnumerable<OrderDto>>(result);
         }
 
         public IEnumerable<OrderDto> GetByStore(string idStore)
         {
-            throw new NotImplementedException();
+            IEnumerable<Orders> result = _repository.GetByStore(idStore);
+            return mapper.Map<IEnumerable<OrderDto>>(result);
         }
 
         public IEnumerable<OrderDto> GetByStore(string idStore, int pag, int element)
         {
-            throw new NotImplementedException();
+            IEnumerable<Orders> result = _repository.GetByStore(idStore,pag,element);
+            return mapper.Map<IEnumerable<OrderDto>>(result);
         }
 
         public IEnumerable<OrderDto> GetByStore(string idStore, DateTime dateStart, DateTime dateEnd)
         {
-            throw new NotImplementedException();
+            IEnumerable<Orders> result = _repository.GetByStore(idStore,dateStart,dateEnd);
+            return mapper.Map<IEnumerable<OrderDto>>(result);
         }
 
         public IEnumerable<OrderDto> GetByStore(string idStore, DateTime dateStart, DateTime dateEnd, int pag, int element)
         {
-            throw new NotImplementedException();
+            IEnumerable<Orders> result = _repository.GetByStore(idStore,dateStart,dateEnd,pag,element);
+            return mapper.Map<IEnumerable<OrderDto>>(result);
         }
 
         public IEnumerable<OrderDto> GetByWareHouse(string idWareHouse, DateTime date)
         {
-            throw new NotImplementedException();
+            IEnumerable<Orders> result = _repository.GetByWareHouse(idWareHouse,date);
+            return mapper.Map<IEnumerable<OrderDto>>(result);
         }
 
         public IEnumerable<OrderDto> GetByWareHouse(string idWareHouse, DateTime date, int pag, int element)
         {
-            throw new NotImplementedException();
+            IEnumerable<Orders> result = _repository.GetByWareHouse(idWareHouse,date,pag,element);
+            return mapper.Map<IEnumerable<OrderDto>>(result);
         }
 
         public IEnumerable<OrderDto> GetByWareHouse(string idWareHouse)
         {
-            throw new NotImplementedException();
+            IEnumerable<Orders> result = _repository.GetByWareHouse(idWareHouse);
+            return mapper.Map<IEnumerable<OrderDto>>(result);
         }
 
         public IEnumerable<OrderDto> GetByWareHouse(string idWareHouse, int pag, int element)
         {
-            throw new NotImplementedException();
+            IEnumerable<Orders> result = _repository.GetByWareHouse(idWareHouse,pag,element);
+            return mapper.Map<IEnumerable<OrderDto>>(result);
         }
 
         public IEnumerable<OrderDto> GetByWareHouse(string idWareHouse, DateTime dateStart, DateTime dateEnd)
         {
-            throw new NotImplementedException();
+            IEnumerable<Orders> result = _repository.GetByWareHouse(idWareHouse,dateStart,dateEnd);
+            return mapper.Map<IEnumerable<OrderDto>>(result);
         }
 
         public IEnumerable<OrderDto> GetByWareHouse(string idWareHouse, DateTime dateStart, DateTime dateEnd, int pag, int element)
         {
-            throw new NotImplementedException();
+            IEnumerable<Orders> result = _repository.GetByWareHouse(idWareHouse,dateStart,dateEnd,pag,element);
+            return mapper.Map<IEnumerable<OrderDto>>(result);
         }
     }
 }

@@ -1,30 +1,22 @@
-﻿using AutoMapper;
-
-using Negocios.AutoMapper;
-using Nucleo.DBAccess.Ado;
-using Nucleo.Utilities;
-using System;
+﻿
+using Core.DBAccess.Ado;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq.Expressions;
-using System.Text;
+using System.Linq;
 
-namespace Nucleo.Services.Abstracts
+namespace Core.Services.Abstracts
 {
     public abstract class ServiceMapperBase<TDtoEntity, TEntity> : IServices<TDtoEntity>
-        where TDtoEntity : class, new()
+        where TDtoEntity : class, Models.Abstracts.IEntity, new()
     {
-        public IRepository<TEntity> _repository;
-        public IMapper mapper;
-        public ICollection<MessageControl> messages;
+        public DBAccess.Ado.IRepository<TEntity> _repository;
+        public AutoMapper.IMapper mapper;
 
         public string name;
 
         public ServiceMapperBase(IRepository<TEntity> repository)
         {
             _repository = repository;
-            mapper = AutoMapperConfig.MapperConfiguration.CreateMapper();
-            messages = new List<MessageControl>();
+            mapper = Business.AutoMapper.AutoMapperConfig.MapperConfiguration.CreateMapper();
             name = typeof(TEntity).Name;
 
         }
@@ -44,14 +36,9 @@ namespace Nucleo.Services.Abstracts
             return _repository.Delete(ids as List<string>);
         }
 
-        public void Dispose()
-        {
-            _repository.Dispose();
-        }
-
         public TDtoEntity Get(string id)
         {
-            return mapper.Map<TDtoEntity>(_repository.Get(id));
+            return mapper.Map<TDtoEntity>(_repository.GetSingle(id));
         }
 
         public IEnumerable<TDtoEntity> Get()
@@ -66,7 +53,17 @@ namespace Nucleo.Services.Abstracts
 
         public IEnumerable<TDtoEntity> GetList(string ids)
         {
-            return mapper.Map<IEnumerable<TDtoEntity>>(_repository.Get(ids));
+            IEnumerable<string> list = ids.Split(',').ToList();
+            foreach (string id in list)
+            {
+
+                TEntity search = _repository.GetSingle(id);
+                if (search != null)
+                {
+                    TDtoEntity dtoEntity = mapper.Map<TDtoEntity>(search);
+                    yield return dtoEntity;
+                }
+            }
         }
 
         public dynamic Insert(TDtoEntity dtoEntity)
@@ -90,16 +87,9 @@ namespace Nucleo.Services.Abstracts
         public dynamic Update(IEnumerable<TDtoEntity> list)
         {
             IEnumerable<TEntity> entities = mapper.Map<IEnumerable<TEntity>>(list);
-            return _repository.Update(entities);
+            return  _repository.Update(entities);
         }
 
-        public IEnumerable<TDtoEntity> Map(IEnumerable<TEntity> list)
-        {
-            return mapper.Map<IEnumerable<TDtoEntity>>(list);
-        }
-        public TDtoEntity Map(TEntity entity)
-        {
-            return mapper.Map<TDtoEntity>(entity);
-        }
+     
     }
 }

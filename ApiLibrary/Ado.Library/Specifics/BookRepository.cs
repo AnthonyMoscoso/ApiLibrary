@@ -1,160 +1,301 @@
 ﻿using Models.Ado.Library;
-using Models.Dtos;
-using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Data.SqlClient;
 using System.Linq;
-
-using Nucleo.Utilities;
 using BookStoreApi.Utilities.Enums;
-using Nucleo.DBAccess.Ado;
-using Ado.Library;
+using Core.Logger.Models;
+using Core.DBAccess.Ado;
+using Core.Utilities.Enums;
+using Core.Logger.Repository.Specifics;
 
 namespace Ado.Library.Specifics
 {
-    public class BookRepository : Repository<Book>, IBookRepository
+    public class BookRepository : AdoRepository<Book>, IBookRepository
     {
-     
 
-        new BookStoreEntities _Context { get  ; set ; }
-
-        public BookRepository(BookStoreEntities context, string identificator="IdBook") : base(context,identificator)
+        public BookRepository(BookStoreEntities context,  string identificator = "IdBook") : base(context, identificator)
         {
         }
 
-        #region Autor
-        public IEnumerable<Book> GetByAutor(string idAutor)
+
+        public new dynamic Insert(Book entity)
         {
-            var list = dbSet.Where(w => w.Autor.Any(a => a.IdAutor.Equals(idAutor)));
-            return list;
+            List<string> querys = new List<string>();
+            if (entity.Autor.Count > 0)
+            {
+                IEnumerable<Autor> book_autors = entity.Autor;
+                foreach (Autor autor in book_autors)
+                {
+                    Autor search = _Context.Set<Autor>().Find(autor);
+                    if (search != null)
+                    {
+                        entity.Autor.Remove(autor);
+                        string query = $"Insert into BookAutor values ('{entity.IdBook}','{ autor.IdAutor}')";
+                        querys.Add(query);
+                    }
+                }
+            }
+            if (entity.Gender.Count > 0)
+            {
+
+                IEnumerable<Gender> book_genders = entity.Gender;
+                foreach (Gender gender in book_genders)
+                {
+                    Gender search = _Context.Set<Gender>().Find(gender.IdGender);
+                    if (search != null)
+                    {
+                        entity.Gender.Remove(gender);
+                        string query = $"Insert into BookGender values('{entity.IdBook}','{gender.IdGender}')";
+                        querys.Add(query);
+                    }
+                }
+            }
+            base.Insert(entity);
+            AddBookToStore(entity);
+            AddBookToWareHouse(entity);
+            querys.ForEach(query => base.ExecuteQuery(query));
+            return Save();
         }
 
-        public IEnumerable<Book> GetByAutor(string idAutor, int pag, int element)
+        public new dynamic Update(Book entity)
         {
-            var list = dbSet.Where(w => w.Autor.Any(a => a.IdAutor.Equals(idAutor)))
-                .OrderBy(w => w.BookTittle)
-                .Skip((pag - 1) * element)
-                .Take(element);
-            return list;
+            return null;
         }
 
-        #endregion
-
-        #region Category
-        public IEnumerable<Book> GetByCategory(string idCategory)
+        private void AddBookToStore(Book b)
         {
-            List<Book>list = dbSet.Where(w => w.IdType.Equals(idCategory) 
-            || w.BookType.BookType2.IdFather.Equals(idCategory))
-                .ToList();
-            return list;
+            IEnumerable<Store> stores = _Context.Set<Store>();
+            foreach (Store store in stores)
+            {
+                BookStore bookStore = new BookStore()
+                {
+                    IdBookStore = IdGenerator.GetNewId(),
+                    IdBook = b.IdBook,
+                    BookPrice = b.Price,
+                    Stock = 0,
+
+                    IdStore = store.IdStore
+                };
+                _Context.Set<BookStore>().Add(bookStore);
+            }
         }
 
-        public IEnumerable<Book> GetByCategory(string idCategory, int pag, int element)
+        private void AddBookToWareHouse(Book b)
         {
-            List<Book> list = dbSet.Where(w => w.IdType.Equals(idCategory) || w.BookType.BookType2.IdFather.Equals(idCategory))
-               .OrderBy(w=>w.BookTittle)
-               .Skip((pag-1)*element)
-               .Take(element).ToList();
-            return list;
+            IEnumerable<WareHouse> wareHouses = _Context.Set<WareHouse>();
+            foreach (WareHouse ware in wareHouses)
+              {
+                  WareHouseBook wareHouseBook = new WareHouseBook()
+                  {
+                      IdWareHouse = ware.IdWareHouse,
+                      IdBook = b.IdBook,
+                      IdWareHouseBook = IdGenerator.GetNewId(),
+                      Stock = 0,
+
+                  };
+                  _Context.Set<WareHouseBook>().Add(wareHouseBook);
+            }
         }
 
-        #endregion
-
-        #region Edition
-        public IEnumerable<Book> GetByEdition(string idEdition)
+        private dynamic UpdatePrice(Book entity)
         {
-            var list = dbSet.Where(w => w.IdEdition.Equals(idEdition)).ToList();
-            return list;
+             List<BookStore> bookStores = _Context.Set<BookStore>().Where(w => w.IdBook.Equals(entity.IdBook)).ToList();
+             bookStores.ForEach(e => e.BookPrice = entity.Price);
+            return Save();
         }
 
-        public IEnumerable<Book> GetByEdition(string idEdition, int pag, int element)
+        public new dynamic Delete(IEnumerable<string> ids)
         {
-            var list = dbSet.Where(w => w.IdEdition.Equals(idEdition))
-                 .OrderBy(w => w.BookTittle)
-                 .Skip((pag - 1) * element).Take(element)
-                 .ToList();
-            return list;
+
+            foreach (string id in ids)
+            {
+                Book search = GetSingle(id);
+                if (search != null)
+                {
+                    if (!HasConnections(search.IdBook))
+                    {
+
+                        var query = $"Delete from BookAutor where IdBook='{search.IdBook}';";
+                        ExecuteQuery(query);  
+                        _Context.Set<BookStore>().RemoveRange(_Context.Set<BookStore>().Where(w => w.IdBook.Equals(id)));
+                        _Context.Set<WareHouseBook>().RemoveRange(_Context.Set<WareHouseBook>().Where(w => w.IdBook.Equals(id)));
+                        DeleteBookAutors(search.Autor.ToList(), search);
+                        DeleteBookGenders(search.Gender.ToList(), search);
+                        base.Delete(search.IdBook);
+
+
+                    }                  
+                }
+                else
+                {
+           
+                    _log.Write($"any {name} was found with this Id :{id}",MessageCode.error);
+                }
+            }
+            return messages;
         }
 
-        #endregion
 
-        #region Editorial
-        public IEnumerable<Book> GetByEditorial(string idEditorial)
+        private bool HasConnections(string id)
         {
-            var list = dbSet.Where(w => w.BookEditorial.Any(e => e.IdEditorial.Equals(idEditorial))).ToList();
-            return list;
+            int n = 0;
+            n += HasSales(id) ? 1 : 0;
+            n += HasReservations(id) ? 1 : 0;
+            n += HasOrders(id) ? 1 : 0;
+            n += HasPurchase(id) ? 1 : 0;
+            n += HasShippings(id) ? 1 : 0;
+            return n > 0;
         }
 
-        public IEnumerable<Book> GetByEditorial(string idEditorial, int pag, int element)
+        private bool HasSales(string id)
         {
-            var list = dbSet.Where(w => w.BookEditorial.Any(e => e.IdEditorial.Equals(idEditorial)))
-                .OrderBy(w => w.CreateDate)
-                .Skip((pag - 1) * element)
-                .Take(element)
-                .ToList();
-            return list;
+           return  _Context.Set<SaleLine>().Where(w => w.IdBook.Equals(id)) != null;
+
         }
 
-        #endregion
-
-        #region gender
-        public IEnumerable<Book> GetByGender(List<string> idGeners)
+        private bool HasReservations(string id)
         {
-            var list = dbSet.Where(w => w.Gender.Any(g => idGeners.Any(y=> y.Equals(g.IdGender)))).ToList();
-            return list;
+           return _Context.Set<Reservation>().Where(w => w.IdBook.Equals(id)).ToList() != null;
+        
         }
 
-        public IEnumerable<Book> GetByGender(List<string> idGenders, int pag, int element)
+        private bool HasOrders(string id)
         {
-            var list = dbSet.Where(w => w.Gender.Any(g => idGenders.Any(y => y.Equals(g.IdGender))))
-                 .OrderBy(w => w.BookTittle)
-                 .Skip((pag - 1) * element).Take(element)
-                 .ToList();
-            return list;
+            return _Context.Set<OrderLine>().Where(w => w.IdBook.Equals(id)).ToList() != null;
+
         }
 
-        #endregion
-
-
-        #region Search By Name
-        public IEnumerable<Book> SearchByName(string text)
+        private bool HasPurchase(string id)
         {
-            var list = dbSet.Where(w => w.BookTittle.Contains(text)).ToList();
-            return list;
-        }
-        public IEnumerable<Book> SearchByName(string text,int pag,int element)
-        {
-            var list = dbSet.Where(w => w.BookTittle.Contains(text))
-                .OrderBy(w => w.BookTittle)
-                .Skip((pag - 1) * element)
-                .Take(element)
-                .ToList();
-            return list;
+            return _Context.Set<PurchaseLine>().Where(W => W.IdBook.Equals(id)).ToList() != null;
+
         }
 
-        #endregion
-
-
-        #region Search By Autor Name
-        public IEnumerable<Book> SearchByAutorName(string text)
+        private bool HasShippings(string id)
         {
-            var list = dbSet.Where(w => w.Autor.Any(a => a.AutorName.Contains(text))).ToList();
-            return list;
+          return _Context.Set<Book>().Where(w => w.IdBook.Equals(id)).ToList() != null;
+
+        }
+        private dynamic UpdateBookAutors(Book entity)
+        {
+            IEnumerable<Autor> autorsDb = _Context.Set<Autor>().Where(w => w.Book.Any(b => b.IdBook.Equals(entity.IdBook)));
+
+            DeleteBookAutors(autorsDb.ToList(), entity);
+            CreateBookAutors(entity, autorsDb.ToList());
+            return Save();
         }
 
-        public IEnumerable<Book> SearchByAutorName(string text, int pag, int element)
+        private dynamic UpdateBookGenders(Book entity)
         {
-            var list = dbSet.Where(w => w.Autor.Any(a => a.AutorName.Contains(text)))
-                 .OrderBy(w => w.BookTittle)
-                 .Skip((pag - 1) * element).Take(element).
-                 ToList();
-            return list;
+            IEnumerable<Gender> genersDb = _Context.Set<Gender>().Where(w => w.Book.Any(b => b.IdBook.Equals(entity.IdBook)));
+            DeleteBookGenders(genersDb, entity);
+            CreateBookGenders(genersDb, entity);
+            return Save();
         }
-        #endregion
+
+        private dynamic DeleteBookGenders(IEnumerable<Gender> list, Book entity)
+        {
+            if (list.Count() > 0)
+            {
+                List<Gender> genders = list.ToList(); 
+                foreach (Gender gender in entity.Gender)
+                {
+                    if (!entity.Gender.Contains(gender))
+                    {
+                        genders.Remove(gender);
+                        var query = string.Format("Delete from BookGender where IdBook='{0}' AND IdGender='{1}' ;", entity.IdBook, gender.IdGender);
+                        _Context.Database.ExecuteSqlCommand(query);
+                    }
+                }
+
+            }
+            return Save();
+        }
+
+        private void CreateBookGenders(IEnumerable<Gender> gendersFromDb, Book entity)
+        {
+            if (gendersFromDb.Count() > 0)
+            {
+
+                List<Gender> gendersBook = entity.Gender.ToList();
+                foreach (Gender dto in gendersBook)
+                {
+                    Gender g = gendersBook.FirstOrDefault( w=> w.IdGender.Equals(dto.IdGender));
+                    if (g!=null)
+                    {
+                        var query = string.Format("Insert into BookGender values('{0}','{1}')", entity.IdBook, dto.IdGender);
+                        _Context.Database.ExecuteSqlCommand(query);
+                    }
+
+                }
+            }
+            else if (entity.Gender.Count > 0)
+            {
+                foreach (Gender gender in entity.Gender)
+                {
+                    var query = string.Format("Insert into BookGender values('{0}','{1}')", entity.IdBook, gender.IdGender);
+                    _Context.Database.ExecuteSqlCommand(query);
+                }
+
+            }
+            Save();
+        }
+
+        private dynamic DeleteBookAutors(IList<Autor> autorsFromDb, Book entity)
+        {
+
+            if (autorsFromDb.Count() > 0)
+            {
 
 
-       
+                foreach (Autor autor in autorsFromDb)
+                {
+                    Autor search = entity.Autor.FirstOrDefault(w => w.IdAutor.Equals(autor.IdAutor));
+                    if (search!=null)
+                    {
+                        autorsFromDb.Remove(autor);
+                        var query = string.Format("Delete from BookAutor where IdBook='{0}' AND IdAutor='{1}' ;", entity.IdBook, autor.IdAutor);
+                        _Context.Database.ExecuteSqlCommand(query);
+                    }
+                }
+               
+            }
+            return Save();
+        }
+
+        private void CreateBookAutors(Book entity, List<Autor> AutorsFromDb)
+        {
+
+            if (entity.Autor.Count > 0)
+            {
+                
+                if (AutorsFromDb.Count > 0)
+                {
+                    foreach (Autor autor in entity.Autor)
+                    {
+                        if (!AutorsFromDb.Contains(autor))
+                        {
+                            var query = string.Format("Insert into BookAutor values('{0}','{1}')", entity.IdBook, autor.IdAutor);
+                            _Context.Database.ExecuteSqlCommand(query);
+                        }
+                    }
+                    Save();
+                }
+                else
+                {
+                    foreach (Autor e in entity.Autor)
+                    {
+                        var query = string.Format("Insert into BookAutor values ('{0}','{1}'); ", entity.IdBook, e.IdAutor);
+                        _Context.Database.ExecuteSqlCommand(query);
+                    }
+                    Save();
+                }
+
+            }
+        }
+
+
+
+
+
     }
 }

@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Models.Ado.Library;
 using Ado.Library;
-using Nucleo.DBAccess.Ado;
+using Core.DBAccess.Ado;
+using Core.Logger.Repository.Specifics;
 
 namespace Ado.Library.Specifics
 {
-    public class PurchaseLineRepository : Repository<PurchaseLine>, IPurchaseLineRepository
+    public class PurchaseLineRepository : AdoRepository<PurchaseLine>, IPurchaseLineRepository
     {
-        public PurchaseLineRepository(BookStoreEntities context,string identificator="IdPurchaseLine") : base(context,identificator)
+        public PurchaseLineRepository(BookStoreEntities context, string identificator = "IdPurchaseLine") : base(context, identificator)
         {
         }
 

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Models.Dtos;
-using Nucleo.DBAccess.Ado;
+using Core.DBAccess.Ado;
 
 namespace Ado.Library
 {

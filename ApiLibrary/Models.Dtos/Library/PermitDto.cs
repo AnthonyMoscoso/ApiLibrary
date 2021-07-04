@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Core.Models.Abstracts;
+using System;
 
 namespace Models.Dtos
 {
-    public class PermitDto
+    public class PermitDto : IEntity
     {
+        #region Atributes
         public string IdPermit { get; set; }
         public string PermitName { get; set; }
         public string PermitDescription { get; set; }
@@ -11,6 +13,13 @@ namespace Models.Dtos
         public DateTime LastUpdateDate { get; set; }
         public int StatusCode { get; set; }
 
+        #endregion
+
+        #region IEntity
+        public string _Id { get => IdPermit; set => IdPermit = value; }
+        #endregion
+
+        #region Methods
         public override bool Equals(object obj)
         {
             if ((obj == null) || !this.GetType().Equals(obj.GetType()))
@@ -27,5 +36,6 @@ namespace Models.Dtos
         {
             return IdPermit.GetHashCode();
         }
+        #endregion
     }
 }

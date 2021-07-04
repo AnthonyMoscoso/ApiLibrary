@@ -5,11 +5,12 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using Ado.Library;
-using Nucleo.DBAccess.Ado;
+using Core.DBAccess.Ado;
+using Core.Logger.Repository.Specifics;
 
 namespace Ado.Library.Specifics
 {
-    public class CouponRepository : Repository<Coupon>, ICouponRepository
+    public class CouponRepository : AdoRepository<Coupon>, ICouponRepository
     {
         public CouponRepository(BookStoreEntities context,string identificator="IdCoupon") : base(context,identificator)
         {

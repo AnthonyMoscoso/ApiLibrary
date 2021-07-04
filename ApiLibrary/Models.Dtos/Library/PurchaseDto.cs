@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Core.Models.Abstracts;
+using System;
 using System.Collections.Generic;
 
 namespace Models.Dtos
 {
-    public class PurchaseDto
+    public class PurchaseDto : IEntity
     {
         public string IdPurchase { get; set; }
         public string IdEditorial { get; set; }
@@ -17,5 +18,6 @@ namespace Models.Dtos
         public int StatusCode { get; set; }
 
         public List<PurchaseLineDto> PurchaseLine { get; set; }
+        public string _Id { get => IdPurchase; set => IdPurchase = value; }
     }
 }

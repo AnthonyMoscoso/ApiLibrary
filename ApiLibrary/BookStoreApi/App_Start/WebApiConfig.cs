@@ -1,8 +1,8 @@
 ﻿
-using Nucleo.Tokens;
+using Core.Tokens;
 using System.Web.Http;
 
-namespace WebApplication1
+namespace WebApplication
 {
     public static class WebApiConfig
     {

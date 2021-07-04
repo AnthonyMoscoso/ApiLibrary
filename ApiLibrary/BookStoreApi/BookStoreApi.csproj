@@ -54,6 +54,9 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -94,71 +97,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\AutoMapper.dll" />
-    <Content Include="bin\AutoMapper.xml" />
-    <Content Include="bin\BookStoreApi.dll" />
-    <Content Include="bin\BookStoreApi.pdb" />
-    <Content Include="bin\EntityFramework.dll" />
-    <Content Include="bin\EntityFramework.SqlServer.dll" />
-    <Content Include="bin\EntityFramework.SqlServer.xml" />
-    <Content Include="bin\EntityFramework.xml" />
-    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
-    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml" />
-    <Content Include="bin\Microsoft.IdentityModel.JsonWebTokens.dll" />
-    <Content Include="bin\Microsoft.IdentityModel.JsonWebTokens.xml" />
-    <Content Include="bin\Microsoft.IdentityModel.Logging.dll" />
-    <Content Include="bin\Microsoft.IdentityModel.Logging.xml" />
-    <Content Include="bin\Microsoft.IdentityModel.Tokens.dll" />
-    <Content Include="bin\Microsoft.IdentityModel.Tokens.xml" />
-    <Content Include="bin\Newtonsoft.Json.dll" />
-    <Content Include="bin\Newtonsoft.Json.xml" />
-    <Content Include="bin\roslyn\csc.exe" />
-    <Content Include="bin\roslyn\csi.exe" />
-    <Content Include="bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll" />
-    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll" />
-    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll" />
-    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.dll" />
-    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll" />
-    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll" />
-    <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll" />
-    <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll" />
-    <Content Include="bin\roslyn\Microsoft.Win32.Primitives.dll" />
-    <Content Include="bin\roslyn\System.AppContext.dll" />
-    <Content Include="bin\roslyn\System.Collections.Immutable.dll" />
-    <Content Include="bin\roslyn\System.Console.dll" />
-    <Content Include="bin\roslyn\System.Diagnostics.DiagnosticSource.dll" />
-    <Content Include="bin\roslyn\System.Diagnostics.FileVersionInfo.dll" />
-    <Content Include="bin\roslyn\System.Diagnostics.StackTrace.dll" />
-    <Content Include="bin\roslyn\System.Globalization.Calendars.dll" />
-    <Content Include="bin\roslyn\System.IO.Compression.dll" />
-    <Content Include="bin\roslyn\System.IO.Compression.ZipFile.dll" />
-    <Content Include="bin\roslyn\System.IO.FileSystem.dll" />
-    <Content Include="bin\roslyn\System.IO.FileSystem.Primitives.dll" />
-    <Content Include="bin\roslyn\System.Net.Http.dll" />
-    <Content Include="bin\roslyn\System.Net.Sockets.dll" />
-    <Content Include="bin\roslyn\System.Reflection.Metadata.dll" />
-    <Content Include="bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll" />
-    <Content Include="bin\roslyn\System.Security.Cryptography.Algorithms.dll" />
-    <Content Include="bin\roslyn\System.Security.Cryptography.Encoding.dll" />
-    <Content Include="bin\roslyn\System.Security.Cryptography.Primitives.dll" />
-    <Content Include="bin\roslyn\System.Security.Cryptography.X509Certificates.dll" />
-    <Content Include="bin\roslyn\System.Text.Encoding.CodePages.dll" />
-    <Content Include="bin\roslyn\System.Threading.Tasks.Extensions.dll" />
-    <Content Include="bin\roslyn\System.ValueTuple.dll" />
-    <Content Include="bin\roslyn\System.Xml.ReaderWriter.dll" />
-    <Content Include="bin\roslyn\System.Xml.XmlDocument.dll" />
-    <Content Include="bin\roslyn\System.Xml.XPath.dll" />
-    <Content Include="bin\roslyn\System.Xml.XPath.XDocument.dll" />
-    <Content Include="bin\roslyn\vbc.exe" />
-    <Content Include="bin\roslyn\VBCSCompiler.exe" />
-    <Content Include="bin\System.IdentityModel.Tokens.Jwt.dll" />
-    <Content Include="bin\System.IdentityModel.Tokens.Jwt.xml" />
-    <Content Include="bin\System.Net.Http.Formatting.dll" />
-    <Content Include="bin\System.Net.Http.Formatting.xml" />
-    <Content Include="bin\System.Web.Http.dll" />
-    <Content Include="bin\System.Web.Http.WebHost.dll" />
-    <Content Include="bin\System.Web.Http.WebHost.xml" />
-    <Content Include="bin\System.Web.Http.xml" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -166,7 +104,6 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Files\FileController.cs" />
     <Compile Include="Controllers\Library\AutorController.cs" />
-    <Compile Include="Controllers\Library\BarCodeController.cs" />
     <Compile Include="Controllers\Library\BookController.cs" />
     <Compile Include="Controllers\Library\BookEditorialController.cs" />
     <Compile Include="Controllers\Library\BookStoreController.cs" />
@@ -176,8 +113,6 @@
     <Compile Include="Controllers\Library\DiscountController.cs" />
     <Compile Include="Controllers\Library\EditionController.cs" />
     <Compile Include="Controllers\Library\EditorialController.cs" />
-    <Compile Include="Controllers\Library\DocumentFileController.cs" />
-    <Compile Include="Controllers\Library\ImageFileController.cs" />
     <Compile Include="Controllers\Library\GenderController.cs" />
     <Compile Include="Controllers\Library\OccupationController.cs" />
     <Compile Include="Controllers\Library\OrderController.cs" />
@@ -213,17 +148,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\BookStoreApi.dll.config" />
-    <Content Include="bin\roslyn\csc.exe.config" />
-    <Content Include="bin\roslyn\csc.rsp" />
-    <Content Include="bin\roslyn\csi.exe.config" />
-    <Content Include="bin\roslyn\csi.rsp" />
-    <Content Include="bin\roslyn\Microsoft.CSharp.Core.targets" />
-    <Content Include="bin\roslyn\Microsoft.Managed.Core.targets" />
-    <Content Include="bin\roslyn\Microsoft.VisualBasic.Core.targets" />
-    <Content Include="bin\roslyn\vbc.exe.config" />
-    <Content Include="bin\roslyn\vbc.rsp" />
-    <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -263,45 +187,41 @@
       <Project>{c4e1b4b8-771f-4aaa-9eb1-77cc371b88e7}</Project>
       <Name>Models.Utilities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Negocio.UserServices\Negocio.UserServices.csproj">
+    <ProjectReference Include="..\Negocio.UserServices\Business.UserServices.csproj">
       <Project>{3d8b36a0-d7fb-4921-8dd3-b86e42d48748}</Project>
-      <Name>Negocio.UserServices</Name>
+      <Name>Business.UserServices</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Negocios.AutoMapper\Negocios.AutoMapper.csproj">
+    <ProjectReference Include="..\Negocios.AutoMapper\Business.AutoMapper.csproj">
       <Project>{bcb673ce-b524-46de-9600-2943734b2dd0}</Project>
-      <Name>Negocios.AutoMapper</Name>
+      <Name>Business.AutoMapper</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Negocios.BookStore\Negocios.BookStoreServices.csproj">
+    <ProjectReference Include="..\Negocios.BookStore\Business.BookStoreServices.csproj">
       <Project>{f705ce98-3f51-4c4a-9c73-e73dacd56bea}</Project>
-      <Name>Negocios.BookStoreServices</Name>
+      <Name>Business.BookStoreServices</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Negocios.DependencyInjection\Negocios.DependencyInjection.csproj">
+    <ProjectReference Include="..\Negocios.DependencyInjection\Business.DependencyInjection.csproj">
       <Project>{ac2cc079-63b1-4025-b9d7-50e382fa8c8e}</Project>
-      <Name>Negocios.DependencyInjection</Name>
+      <Name>Business.DependencyInjection</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nucleo.AutoMappers\Nucleo.Mappers.csproj">
+    <ProjectReference Include="..\Nucleo.AutoMappers\Core.Mappers.csproj">
       <Project>{00be379b-8d19-41a6-ad0a-3d253268f8bd}</Project>
-      <Name>Nucleo.Mappers</Name>
+      <Name>Core.Mappers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nucleo.DBAccess\Nucleo.DBAccess.csproj">
-      <Project>{b7816c94-c966-4571-9afb-5154cdf25f2e}</Project>
-      <Name>Nucleo.DBAccess</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Nucleo.DependencyInjection\Nucleo.DependencyInjection.csproj">
+    <ProjectReference Include="..\Nucleo.DependencyInjection\Core.DependencyInjection.csproj">
       <Project>{5e281f55-4bf7-4ead-ae8b-a02c174bbac9}</Project>
-      <Name>Nucleo.DependencyInjection</Name>
+      <Name>Core.DependencyInjection</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nucleo.Files.Web\Nucleo.Files.Web.csproj">
+    <ProjectReference Include="..\Nucleo.Files.Web\Core.Files.Web.csproj">
       <Project>{f1c0ff4f-9179-432f-8a91-f9ead4a7b687}</Project>
-      <Name>Nucleo.Files.Web</Name>
+      <Name>Core.Files.Web</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nucleo.Services\Nucleo.Services.csproj">
+    <ProjectReference Include="..\Nucleo.Services\Core.Services.csproj">
       <Project>{2b6fcd47-fe07-4633-9e3d-c0f67e3db210}</Project>
-      <Name>Nucleo.Services</Name>
+      <Name>Core.Services</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nucleo.Tokens\Nucleo.Tokens.csproj">
+    <ProjectReference Include="..\Nucleo.Tokens\Core.Tokens.csproj">
       <Project>{9d06fda9-b989-4596-bace-1edb4f10676f}</Project>
-      <Name>Nucleo.Tokens</Name>
+      <Name>Core.Tokens</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

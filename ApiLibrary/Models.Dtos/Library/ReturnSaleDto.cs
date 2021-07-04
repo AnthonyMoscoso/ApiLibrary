@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Core.Models.Abstracts;
+using System.Collections.Generic;
 
 namespace Models.Dtos
 {
-    public class ReturnSaleDto
+    public class ReturnSaleDto : IEntity
     {
         public string IdReturn { get; set; }
         public string IdSale { get; set; }
@@ -20,9 +21,6 @@ namespace Models.Dtos
         public byte RepaymentMethod { get; set; }
         public string IdStore { get; set; }
         public string IdWareHouse { get; set; }
-
-
-        
-
+        public string _Id { get => IdReturn; set => IdReturn = value; }
     }
 }

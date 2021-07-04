@@ -1,13 +1,13 @@
 ﻿
-using Negocios.AutoMapper;
-using Negocios.DependencyInjection;
+using Business.AutoMapper;
+using Business.DependencyInjection;
+using Core.DependencyInjection;
 using Ninject;
 using Ninject.Modules;
-using Nucleo.DependencyInjection;
 using System.Web;
 using System.Web.Http;
 
-namespace WebApplication1
+namespace WebApplication
 {
     public class WebApiApplication : HttpApplication
     {
@@ -15,13 +15,13 @@ namespace WebApplication1
         {
             AutoMapperConfig.RegisterMappings();
 
+
             NinjectModule registrations = new ModuleNinject();
-            var kernel = new StandardKernel(registrations);
-            var ninjectResolver = new NinjectDependencyResolver(kernel);
+            StandardKernel kernel = new StandardKernel(registrations);
 
-      //      DependencyResolver.SetResolver(ninjectResolver); // MVC
-            GlobalConfiguration.Configuration.DependencyResolver = ninjectResolver; // Web API
-
+            NinjectDependencyResolver ninjectResolver = new NinjectDependencyResolver(kernel);
+            //      DependencyResolver.SetResolver(ninjectResolver); // MVC
+            GlobalConfiguration.Configuration.DependencyResolver = ninjectResolver;
             GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings
             .ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             GlobalConfiguration.Configuration.Formatters

@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Models.Ado.Library;
 
-using Nucleo.DBAccess.Ado;
+using Core.DBAccess.Ado;
 using Ado.Library;
+using Core.Logger.Repository.Specifics;
 
 namespace Ado.Library.Specifics
 {
-    public class OrderLineRepository : Repository<OrderLine>, IOrderLineRepository
+    public class OrderLineRepository : AdoRepository<OrderLine>, IOrderLineRepository
     {
-        public OrderLineRepository(BookStoreEntities context,string identificator="IdOrderLine") : base(context,identificator)
+        public OrderLineRepository(BookStoreEntities context, string identificator="IdOrderLine") : base(context,identificator)
         {
         }
 

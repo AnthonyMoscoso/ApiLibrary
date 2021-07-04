@@ -1,4 +1,4 @@
-﻿namespace Nucleo.Utilities
+﻿namespace Core.Utilities
 {
     public class UrlDirectoryFiles
     {

@@ -3,15 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using Nucleo.DBAccess.Ado;
+using Core.DBAccess.Ado;
 using Ado.Library;
+using Core.Logger.Repository.Specifics;
 
 namespace Ado.Library.Specifics
 {
-    public class ReservationStoreRepository : Repository<ReservationStore>, IReservationStoreRepository
+    public class ReservationStoreRepository : AdoRepository<ReservationStore>, IReservationStoreRepository
     {
 
-        public ReservationStoreRepository(BookStoreEntities context,string identificator ="IdReservation") : base(context,identificator)
+        public ReservationStoreRepository(BookStoreEntities context, string identificator = "IdReservation") : base(context, identificator)
         {
         }
 
@@ -68,9 +69,9 @@ namespace Ado.Library.Specifics
                     Context.SaveChanges();
                     MessageControl message = new MessageControl()
                     {
-                        Code = Nucleo.Utilities.Enums.MessageCode.correct,
+                        Code = Core.Utilities.Enums.MessageCode.correct,
                         Error = false,
-                        Type = Nucleo.Utilities.Enums.MessageType.Insert,
+                        Type = Core.Utilities.Enums.MessageType.Insert,
                         Note = $"{name} with id {Identificator} : {dto.IdReservation} was insert"
                     };
                     messages.Add(message);
@@ -79,9 +80,9 @@ namespace Ado.Library.Specifics
                 {
                     MessageControl message = new MessageControl()
                     {
-                        Code = Nucleo.Utilities.Enums.MessageCode.exception,
+                        Code = Core.Utilities.Enums.MessageCode.exception,
                         Error = false,
-                        Type = Nucleo.Utilities.Enums.MessageType.Exception,
+                        Type = Core.Utilities.Enums.MessageType.Exception,
                         Note = $"{e.InnerException.InnerException.Message}"
                     };
                     messages.Add(message);
@@ -92,9 +93,9 @@ namespace Ado.Library.Specifics
                 {
                     MessageControl message = new MessageControl()
                     {
-                        Code = Nucleo.Utilities.Enums.MessageCode.exception,
+                        Code = Core.Utilities.Enums.MessageCode.exception,
                         Error = false,
-                        Type = Nucleo.Utilities.Enums.MessageType.Exception,
+                        Type = Core.Utilities.Enums.MessageType.Exception,
                         Note = $"{e.InnerException.InnerException.Message}"
                     };
                     messages.Add(message);
@@ -105,9 +106,9 @@ namespace Ado.Library.Specifics
                 {
                     MessageControl message = new MessageControl()
                     {
-                        Code = Nucleo.Utilities.Enums.MessageCode.exception,
+                        Code = Core.Utilities.Enums.MessageCode.exception,
                         Error = false,
-                        Type = Nucleo.Utilities.Enums.MessageType.Exception,
+                        Type = Core.Utilities.Enums.MessageType.Exception,
                         Note = $"{e.InnerException.InnerException.Message}"
                     };
                     messages.Add(message);
@@ -140,9 +141,9 @@ namespace Ado.Library.Specifics
                     {
                         MessageControl message = new MessageControl()
                         {
-                            Code = Nucleo.Utilities.Enums.MessageCode.error,
+                            Code = Core.Utilities.Enums.MessageCode.error,
                             Error = false,
-                            Type = Nucleo.Utilities.Enums.MessageType.Not_Found,
+                            Type = Core.Utilities.Enums.MessageType.Not_Found,
                             Note = $"{name} with  {Identificator} : {dto.IdReservation} not was found"
                         };
                         messages.Add(message);
@@ -154,9 +155,9 @@ namespace Ado.Library.Specifics
                 {
                     MessageControl message = new MessageControl()
                     {
-                        Code = Nucleo.Utilities.Enums.MessageCode.exception,
+                        Code = Core.Utilities.Enums.MessageCode.exception,
                         Error = false,
-                        Type = Nucleo.Utilities.Enums.MessageType.Exception,
+                        Type = Core.Utilities.Enums.MessageType.Exception,
                         Note = $"{e.InnerException.InnerException.Message}"
                     };
                     messages.Add(message);
@@ -165,9 +166,9 @@ namespace Ado.Library.Specifics
                 {
                     MessageControl message = new MessageControl()
                     {
-                        Code = Nucleo.Utilities.Enums.MessageCode.exception,
+                        Code = Core.Utilities.Enums.MessageCode.exception,
                         Error = false,
-                        Type = Nucleo.Utilities.Enums.MessageType.Exception,
+                        Type = Core.Utilities.Enums.MessageType.Exception,
                         Note = $"{e.InnerException.InnerException.Message}"
                     };
                     messages.Add(message);
@@ -176,9 +177,9 @@ namespace Ado.Library.Specifics
                 {
                     MessageControl message = new MessageControl()
                     {
-                        Code = Nucleo.Utilities.Enums.MessageCode.exception,
+                        Code = Core.Utilities.Enums.MessageCode.exception,
                         Error = false,
-                        Type = Nucleo.Utilities.Enums.MessageType.Exception,
+                        Type = Core.Utilities.Enums.MessageType.Exception,
                         Note = $"{e.InnerException.InnerException.Message}"
                     };
                     messages.Add(message);
@@ -202,9 +203,9 @@ namespace Ado.Library.Specifics
                         Context.SaveChanges();
                         MessageControl message = new MessageControl()
                         {
-                            Code = Nucleo.Utilities.Enums.MessageCode.correct,
+                            Code = Core.Utilities.Enums.MessageCode.correct,
                             Error = false,
-                            Type = Nucleo.Utilities.Enums.MessageType.Delete,
+                            Type = Core.Utilities.Enums.MessageType.Delete,
                             Note = $"{name} with {Identificator} :{id} was delete"
                         };
                         messages.Add(message);
@@ -213,9 +214,9 @@ namespace Ado.Library.Specifics
                     {
                         MessageControl message = new MessageControl()
                         {
-                            Code = Nucleo.Utilities.Enums.MessageCode.exception,
+                            Code = Core.Utilities.Enums.MessageCode.exception,
                             Error = false,
-                            Type = Nucleo.Utilities.Enums.MessageType.Exception,
+                            Type = Core.Utilities.Enums.MessageType.Exception,
                             Note = $"{e.InnerException.InnerException.Message}"
                         };
                         messages.Add(message);
@@ -224,9 +225,9 @@ namespace Ado.Library.Specifics
                     {
                         MessageControl message = new MessageControl()
                         {
-                            Code = Nucleo.Utilities.Enums.MessageCode.exception,
+                            Code = Core.Utilities.Enums.MessageCode.exception,
                             Error = false,
-                            Type = Nucleo.Utilities.Enums.MessageType.Exception,
+                            Type = Core.Utilities.Enums.MessageType.Exception,
                             Note = $"{e.InnerException.InnerException.Message}"
                         };
                         messages.Add(message);
@@ -235,9 +236,9 @@ namespace Ado.Library.Specifics
                     {
                         MessageControl message = new MessageControl()
                         {
-                            Code = Nucleo.Utilities.Enums.MessageCode.exception,
+                            Code = Core.Utilities.Enums.MessageCode.exception,
                             Error = false,
-                            Type = Nucleo.Utilities.Enums.MessageType.Exception,
+                            Type = Core.Utilities.Enums.MessageType.Exception,
                             Note = $"{e.InnerException.InnerException.Message}"
                         };
                         messages.Add(message);
@@ -248,9 +249,9 @@ namespace Ado.Library.Specifics
                 {
                     MessageControl message = new MessageControl()
                     {
-                        Code = Nucleo.Utilities.Enums.MessageCode.error,
+                        Code = Core.Utilities.Enums.MessageCode.error,
                         Error = false,
-                        Type = Nucleo.Utilities.Enums.MessageType.Not_Found,
+                        Type = Core.Utilities.Enums.MessageType.Not_Found,
                         Note = $"{name} with  {Identificator} : {id} not was found"
                     };
                     messages.Add(message);

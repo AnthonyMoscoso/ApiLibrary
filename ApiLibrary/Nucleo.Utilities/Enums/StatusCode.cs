@@ -1,4 +1,4 @@
-﻿namespace Nucleo.Utilities.Enums
+﻿namespace Core.Utilities.Enums
 {
     enum StatusCode
     {

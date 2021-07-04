@@ -4,14 +4,15 @@ using System.Collections.Generic;
 using Models.Ado.Library;
 using System.Data.Entity;
 using System.Linq;
-using Nucleo.DBAccess.Ado;
+using Core.DBAccess.Ado;
 using Ado.Library;
+using Core.Logger.Repository.Specifics;
 
 namespace Ado.Library.Specifics
 {
-    public class ShippingRepository : Repository<Shipping>, IShippingRepository
+    public class ShippingRepository : AdoRepository<Shipping>, IShippingRepository
     {
-        public ShippingRepository(BookStoreEntities context,string identificator="IdShipping") : base(context,identificator)
+        public ShippingRepository(BookStoreEntities context,  string identificator = "IdShipping") : base(context, identificator)
         {
         }
 

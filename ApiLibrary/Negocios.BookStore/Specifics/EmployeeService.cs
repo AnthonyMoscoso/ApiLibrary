@@ -1,12 +1,12 @@
 ﻿using Ado.Library;
 using Models.Ado.Library;
 using Models.Dtos;
-using Nucleo.Services.Abstracts;
+using Core.Services.Abstracts;
 using System;
 using System.Collections.Generic;
 using Ado.Library.Specifics;
 
-namespace Negocios.BookStoreServices.Abstracts
+namespace Business.BookStoreServices.Abstracts
 {
     public class EmployeeService : ServiceMapperBase<EmployeeDto, Employee>, IEmployeeService
     {

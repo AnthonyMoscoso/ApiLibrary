@@ -1,6 +1,6 @@
 ﻿using Models.Ado.Library;
 using Models.Dtos;
-using Nucleo.DBAccess.Ado;
+using Core.DBAccess.Ado;
 using System.Collections.Generic;
 
 namespace Ado.Library
@@ -14,5 +14,6 @@ namespace Ado.Library
         IEnumerable<WareHouse> GetByPoblation(string poblation);
         IEnumerable<WareHouse> GetByPoblation(string poblation, int pag, int element);
         WareHouse GetByEmployee(string idEmployee);
+        new dynamic Delete(IEnumerable<string> ids);
     }
 }

@@ -4,14 +4,16 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using Models.Ado.Library;
-using Nucleo.DBAccess.Ado;
+using Core.DBAccess.Ado;
 using Ado.Library;
+using Core.Logger.Repository.Specifics;
+
 
 namespace Ado.Library.Specifics
 {
-    public class PayRollRepository : Repository<PayRoll>, IPayRollRepository
+    public class PayRollRepository : AdoRepository<PayRoll>, IPayRollRepository
     {
-        public PayRollRepository(BookStoreEntities context,string identificator="IdPayRoll") : base(context,identificator)
+        public PayRollRepository(BookStoreEntities context,DbSerilogService serilogService,string identificator="IdPayRoll") : base(context,identificator)
         {
         }
 
@@ -91,14 +93,14 @@ namespace Ado.Library.Specifics
             return result;
         }
 
-  /*      public new dynamic Insert(List<PayRoll> list)
+            public new dynamic Insert(List<PayRoll> list)
         {
             string message = "";
             List<PayRoll> PayRollWithTaxes = new List<PayRoll>();
             List<PayRoll> PayRollWithBonus = new List<PayRoll>();
             ManageTaxes(list, PayRollWithTaxes);
             ManagePaymentBonus(list, PayRollWithBonus);
-            message += base.Insert(list);
+             base.Insert(list);
 
             if (PayRollWithTaxes.Count > 0)
             {
@@ -107,10 +109,10 @@ namespace Ado.Library.Specifics
                     foreach (Taxes t in p.Taxes)
                     {
                         var query = $"Insert into PayRollTaxes values ('{p.IdPayRoll}','{t.IdTaxes}')";
-                        Context.Database.ExecuteSqlCommand(query);
+                        base.ExecuteQuery(query);
                     }
                 }
-                message += Save();
+            
             }
 
             if (PayRollWithBonus.Count > 0)
@@ -120,48 +122,48 @@ namespace Ado.Library.Specifics
                     foreach (PaymentBonus t in p.PaymentBonus)
                     {
                         var query = $"Insert into PayRollBonus values ('{t.IdPaymentBonus}','{p.IdPayRoll}')";
-                        Context.Database.ExecuteSqlCommand(query);
+                        base.ExecuteQuery(query);
                     }
                 }
-                message += Save();
+              
             }
 
+            return Save();
 
-
-            return message;
+           
         }
 
-        public new dynamic Update(List<PayRoll> list)
+        public new dynamic Update(IEnumerable<PayRoll> list)
         {
-           /* string message = "";
+            string message = "";
             foreach (PayRoll payRoll in list)
             {
-                var search = dbSet.Find(payRoll.IdPayRoll);
+               PayRoll search = dbSet.Find(payRoll.IdPayRoll);
                 if (search != null)
                 {
-                    var TaxesInDdb = search.Taxes;
-                    var BonusInDb = search.PaymentBonus;
-                    if (TaxesInDdb.Count > 0)
+                    IList<Taxes> TaxesInDdb = search.Taxes.ToList();
+                    IList<PaymentBonus> BonusInDb = search.PaymentBonus.ToList();
+                    if (TaxesInDdb.Count() > 0)
                     {
                         if (payRoll.Taxes.Count > 0)
                         {
-                            var taxesInDbDto = mapper.Map<IEnumerable<TaxesDto>>(TaxesInDdb);
-                            var taxesDto = mapper.Map<IEnumerable<TaxesDto>>(payRoll.Taxes);
+                            IList<Taxes> taxesInDbDto = (TaxesInDdb);
+                            IList<Taxes> taxesDto = (payRoll.Taxes.ToList());
 
-                            message += $"\n{DeletePayRollTaxes(taxesInDbDto, taxesDto, payRoll.IdPayRoll)}";
-                            message += $"\n{InsertPayRollTaxes(taxesInDbDto, taxesDto, payRoll.IdPayRoll)}";
+                            DeletePayRollTaxes(taxesInDbDto, taxesDto, payRoll.IdPayRoll);
+                            InsertPayRollTaxes(taxesInDbDto, taxesDto, payRoll.IdPayRoll);
 
                         }
                         else
                         {
-                            var auxList = TaxesInDdb;
+                            IList<Taxes> auxList = TaxesInDdb;
                             foreach (Taxes t in auxList)
                             {
                                 var query = $"Delete from PayRollBonus where IdPayRoll='{payRoll.IdPayRoll}' and IdTaxes='{t.IdTaxes}'";
-                                Context.Database.ExecuteSqlCommand(query);
+                                base.ExecuteQuery(query);
                                 TaxesInDdb.Remove(t);
                             }
-                            message += $"\n{Save()}";
+                          
                         }
                     }
                     else if (payRoll.Taxes.Count > 0)
@@ -169,7 +171,7 @@ namespace Ado.Library.Specifics
                         foreach (Taxes t in payRoll.Taxes)
                         {
                             var query = $"Insert into PayRollTaxes values ('{payRoll.IdPayRoll}','{t.IdTaxes}');";
-                            Context.Database.ExecuteSqlCommand(query);
+                            base.ExecuteQuery(query);
                         }
                     }
 
@@ -177,10 +179,10 @@ namespace Ado.Library.Specifics
                     {
                         if (payRoll.PaymentBonus.Count > 0)
                         {
-                            var payMentBonusInDbDto = mapper.Map<IEnumerable<PaymentBonusDto>>(BonusInDb);
-                            var payMentBonusDto = mapper.Map<IEnumerable<PaymentBonusDto>>(payRoll.PaymentBonus);
-                            message += $"\n{DeletePayRollBonus(payMentBonusInDbDto, payMentBonusDto, payRoll.IdPayRoll)}";
-                            message += $"\n{InsertPayRollBonus(payMentBonusInDbDto, payMentBonusDto, payRoll.IdPayRoll)}";
+                            var payMentBonusInDbDto = (BonusInDb);
+                            var payMentBonusDto = (payRoll.PaymentBonus);
+                            DeletePayRollBonus(payMentBonusInDbDto, payMentBonusDto, payRoll.IdPayRoll);
+                            InsertPayRollBonus(payMentBonusInDbDto, payMentBonusDto, payRoll.IdPayRoll);
                         }
                         else
                         {
@@ -188,9 +190,9 @@ namespace Ado.Library.Specifics
                             foreach (PaymentBonus t in auxList)
                             {
                                 var query = $"Delete from PayRollBonus where IdPayRoll='{payRoll.IdPayRoll}' and IdPaymentBonus='{t.IdPaymentBonus}'";
-                                Context.Database.ExecuteSqlCommand(query);
+                                base.ExecuteQuery(query);
                             }
-                            message += $"\n{Save()}";
+                      
                         }
                     }
                     else if (payRoll.PaymentBonus.Count > 0)
@@ -198,7 +200,7 @@ namespace Ado.Library.Specifics
                         foreach (PaymentBonus t in payRoll.PaymentBonus)
                         {
                             var query = $"Insert into PayRollBonus values ('{t.IdPaymentBonus}','{payRoll.IdPayRoll}');";
-                            Context.Database.ExecuteSqlCommand(query);
+                            base.ExecuteQuery(query);
                         }
                     }
 
@@ -208,10 +210,11 @@ namespace Ado.Library.Specifics
                     message += $"\n PayRoll with id {payRoll.IdPayRoll} not was found";
                 }
             }
-            return messages;
+            return Save();
+           
         }
 
-        public new dynamic Delete(List<string> ids)
+        public new dynamic Delete(IEnumerable<string> ids)
         {
             string message = "";
             foreach (string id in ids)
@@ -224,25 +227,25 @@ namespace Ado.Library.Specifics
                         foreach (Taxes taxes in search.Taxes)
                         {
                             var query = $"Delete from PayRollTaxes where IdPayRoll='{id}'";
-                            Context.Database.ExecuteSqlCommand(query);
+                            base.ExecuteQuery(query);
 
                         }
-                        message += $"\n{Save()}";
+                        
                     }
                     if (search.PaymentBonus.Count > 0)
                     {
                         foreach (PaymentBonus bonus in search.PaymentBonus)
                         {
                             var query = $"Delete from PayRollBonus where IdPayRoll='{id}'";
-                            Context.Database.ExecuteSqlCommand(query);
+                            base.ExecuteQuery(query);
                         }
-                        message += $"\n{Save()}";
+                       
                     }
 
                     try
                     {
                         dbSet.Remove(search);
-                        message += $"\n{Save()}";
+                        
                         message += $"\n{name} with {Identificator} = {id} was delete";
                     }
                     catch (SqlException e)
@@ -256,69 +259,73 @@ namespace Ado.Library.Specifics
                     message += $"\n{name} with {Identificator} {id} not was found";
                 }
             }
-            return message;
+            return Save();
         }
 
-    /*    private string DeletePayRollTaxes(List<TaxesDto> taxesInDbDto, IEnumerable<TaxesDto> taxesDto, string idPayRoll)
+       private dynamic DeletePayRollTaxes(IList<Taxes> taxesInDbDto, IList<Taxes> taxesDto, string idPayRoll)
         {
-            string message = "";
-            foreach (TaxesDto t in taxesInDbDto)
+            string message = string.Empty;
+            foreach (Taxes t in taxesInDbDto)
             {
                 if (!taxesDto.Contains(t))
                 {
                     var query = $"Delete from PayRollTaxes where IdPayRoll='{idPayRoll}' and IdTaxes='{t.IdTaxes}'";
-                    Context.Database.ExecuteSqlCommand(query);
+                    base.ExecuteQuery(query);
                     taxesInDbDto.Remove(t);
                 }
             }
-            return message += $"\n{Save()}";
+            return Save();
+         
         }
-        private string InsertPayRollTaxes(IEnumerable<TaxesDto> taxesInDbDto, IEnumerable<TaxesDto> taxesDto, string idPayRoll)
+        private dynamic InsertPayRollTaxes(IList<Taxes> taxesInDbDto, IList<Taxes> taxesDto, string idPayRoll)
         {
-            string message = "";
-            foreach (TaxesDto t in taxesDto)
+            string message = string.Empty;
+            foreach (Taxes t in taxesDto)
             {
                 if (!taxesInDbDto.Contains(t))
                 {
                     var query = $"Insert into PayRollTaxes values ('{idPayRoll}','{t.IdTaxes}');";
-                    Context.Database.ExecuteSqlCommand(query);
+                    base.ExecuteQuery(query);
                 }
 
             }
-            return message += $"\n{Save()}";
-        }*/
+            return Save();
+          
+        }
 
-      /*  private string DeletePayRollBonus(List<PaymentBonusDto> paymentBonusDbDtos, IEnumerable<PaymentBonusDto> paymentBonusDto, string idPayRoll)
+       private dynamic DeletePayRollBonus(IList<PaymentBonus> paymentBonusDbDtos, IEnumerable<PaymentBonus> paymentBonusDto, string idPayRoll)
         {
-            string message = "";
-            foreach (PaymentBonusDto t in paymentBonusDbDtos)
+            string message =string.Empty;
+            foreach (PaymentBonus t in paymentBonusDbDtos)
             {
                 if (!paymentBonusDto.Contains(t))
                 {
                     var query = $"Delete from PayRollBonus where IdPayRoll='{idPayRoll}' and IdPaymentBonus='{t.IdPaymentBonus}'";
-                    Context.Database.ExecuteSqlCommand(query);
+                    base.ExecuteQuery(query);
                     paymentBonusDbDtos.Remove(t);
                 }
             }
-            return message += $"\n{Save()}";
+            return Save();
+            
         }
 
-        private string InsertPayRollBonus(IEnumerable<PaymentBonusDto> paymentBonusDbDtos, IEnumerable<PaymentBonusDto> paymentBonusDto, string idPayRoll)
+        private dynamic InsertPayRollBonus(IEnumerable<PaymentBonus> paymentBonusDbDtos, IEnumerable<PaymentBonus> paymentBonusDto, string idPayRoll)
         {
-            string message = "";
+            string message = string.Empty;
 
-            foreach (PaymentBonusDto dto in paymentBonusDto)
+            foreach (PaymentBonus dto in paymentBonusDto)
             {
                 if (!paymentBonusDbDtos.Contains(dto))
                 {
                     var query = $"Insert into PayRollBonus values ('{dto.IdPaymentBonus}','{idPayRoll}');";
-                    Context.Database.ExecuteSqlCommand(query);
+                    base.ExecuteQuery(query);
                 }
             }
-            return message += $"\n{Save()}";
+            return Save();
+           
         }
 
-        private void ManageTaxes(IEnumerable<PayRoll> list, List<PayRoll> PayRollWithTaxes)
+        private void ManageTaxes(IEnumerable<PayRoll> list, IList<PayRoll> PayRollWithTaxes)
         {
 
 
@@ -335,7 +342,7 @@ namespace Ado.Library.Specifics
                     IEnumerable<Taxes> taxes = payRoll.Taxes;
                     foreach (Taxes t in taxes)
                     {
-                        var search = Context.Taxes.Find(t.IdTaxes);
+                        var search = _Context.Set<Taxes>().Find(t.IdTaxes);
                         if (search != null)
                         {
                             payRoll.Taxes.Remove(t);
@@ -365,7 +372,7 @@ namespace Ado.Library.Specifics
                     IEnumerable<PaymentBonus> paymentBonus = payRoll.PaymentBonus;
                     foreach (PaymentBonus t in paymentBonus)
                     {
-                        var search = Context.PaymentBonus.Find(t.IdPaymentBonus);
+                        var search = _Context.Set<PaymentBonus>().Find(t.IdPaymentBonus);
                         if (search != null)
                         {
                             payRoll.PaymentBonus.Remove(t);
@@ -381,7 +388,7 @@ namespace Ado.Library.Specifics
             }
 
 
-        }*/
+        }
     }
 
         

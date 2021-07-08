@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Web.Http;
 using Business.BookStoreServices.Abstracts;
-using Ado.Library.Specifics;
-using Business.BookStoreServices.Specifics;
 using Models.Dtos;
 using System.Collections.Generic;
+using System.Net;
 
 namespace Models.Controllers.Library.Reservations
 {
@@ -23,48 +22,48 @@ namespace Models.Controllers.Library.Reservations
         [Route("Count")]
         public IHttpActionResult Count()
         {
-            return Ok(_service.Count());
+            return Content(HttpStatusCode.OK,_service.Count());
         }
         [HttpGet]
         public IHttpActionResult Get()
         {
-            return Ok(_service.Get());
+            return Content(HttpStatusCode.OK,_service.Get());
         }
 
         [HttpGet]
         public IHttpActionResult Get(string id)
         {
-            return Ok(_service.Get(id));
+            return Content(HttpStatusCode.OK,_service.Get(id));
         }
 
         [HttpGet]
         public IHttpActionResult GetList(string ids)
         {
-            return Ok(_service.GetList(ids));
+            return Content(HttpStatusCode.OK,_service.GetList(ids));
         }
 
         [HttpGet]
         [Route("Pag")]
         public IHttpActionResult Get(int element, int pag)
         {
-            return Ok(_service.Get(element, pag));
+            return Content(HttpStatusCode.OK,_service.Get(element, pag));
         }
        [HttpPost]
         public IHttpActionResult Post(List<ReservationDto> list)
         {
-            return Ok(_service.Insert(list));
+            return Content(HttpStatusCode.OK,_service.Insert(list));
         }
 
         [HttpPut]
         public IHttpActionResult Put(List<ReservationDto> list)
         {
-            return Ok(_service.Update(list));
+            return Content(HttpStatusCode.OK,_service.Update(list));
         }
 
         [HttpDelete]
         public IHttpActionResult Delete(List<string> ids)
         {
-            return Ok(_service.Delete(ids));
+            return Content(HttpStatusCode.OK,_service.Delete(ids));
         }
 
         #endregion
@@ -74,7 +73,7 @@ namespace Models.Controllers.Library.Reservations
         [Route("Count")]
         public IHttpActionResult Count(string idBook)
         {
-            return Ok(_service.CountByBook(idBook));
+            return Content(HttpStatusCode.OK,_service.CountByBook(idBook));
         }
 
         #endregion
@@ -84,14 +83,14 @@ namespace Models.Controllers.Library.Reservations
         [Route("Book")]
         public IHttpActionResult GetByBook(string idBook)
         {
-            return Ok(_service.GetByBook(idBook));
+            return Content(HttpStatusCode.OK,_service.GetByBook(idBook));
         }
        
         [HttpGet]
         [Route("Book")]
         public IHttpActionResult GetByBook(string idBook,int pag,int element)
         {
-            return Ok(_service.GetByBook(idBook,pag,element));
+            return Content(HttpStatusCode.OK,_service.GetByBook(idBook,pag,element));
         }
         
         #endregion
@@ -101,25 +100,25 @@ namespace Models.Controllers.Library.Reservations
         [Route("Date")]
         public IHttpActionResult GetByDate(DateTime date)
         {
-            return Ok(_service.GetByDate(date));
+            return Content(HttpStatusCode.OK,_service.GetByDate(date));
         }
         [HttpGet]
         [Route("Date")]
         public IHttpActionResult GetByDate(DateTime date,int pag,int element)
         {
-            return Ok(_service.GetByDate(date,pag,element));
+            return Content(HttpStatusCode.OK,_service.GetByDate(date,pag,element));
         }
         [HttpGet]
         [Route("Date")]
         public IHttpActionResult GetByDate(DateTime start,DateTime end)
         {
-            return Ok(_service.GetByDate(start,end));
+            return Content(HttpStatusCode.OK,_service.GetByDate(start,end));
         }
         [HttpGet]
         [Route("Date")]
         public IHttpActionResult GetByDate(DateTime start, DateTime end, int pag, int element)
         {
-            return Ok(_service.GetByDate(start, end,pag,element));
+            return Content(HttpStatusCode.OK,_service.GetByDate(start, end,pag,element));
         }
         #endregion
 
@@ -128,14 +127,14 @@ namespace Models.Controllers.Library.Reservations
         [Route("FinalizedDate")]
         public IHttpActionResult GetByFinalizedDate(DateTime date)
         {
-            return Ok(_service.GetByFinalizedDate(date));
+            return Content(HttpStatusCode.OK,_service.GetByFinalizedDate(date));
         }
 
         [HttpGet]
         [Route("FinalizedDate")]
         public IHttpActionResult GetByFinalizedDate(DateTime date,int pag,int element)
         {
-            return Ok(_service.GetByFinalizedDate(date,pag,element));
+            return Content(HttpStatusCode.OK,_service.GetByFinalizedDate(date,pag,element));
         }
       
         #endregion
@@ -145,13 +144,13 @@ namespace Models.Controllers.Library.Reservations
         [Route("Cancel")]
         public IHttpActionResult GetCancel()
         {
-            return Ok(_service.GetCancel());
+            return Content(HttpStatusCode.OK,_service.GetCancel());
         }
         [HttpGet]
         [Route("Cancel")]
         public IHttpActionResult GetCancel(int pag,int element)
         {
-            return Ok(_service.GetCancel(pag,element));
+            return Content(HttpStatusCode.OK,_service.GetCancel(pag,element));
         }
 
       
@@ -163,7 +162,7 @@ namespace Models.Controllers.Library.Reservations
         [Route("Finalized")]
         public IHttpActionResult GetFinalized(int pag,int element)
         {
-            return Ok(_service.GetFinalized(pag,element));
+            return Content(HttpStatusCode.OK,_service.GetFinalized(pag,element));
         }
 
       
@@ -174,41 +173,41 @@ namespace Models.Controllers.Library.Reservations
         [Route("NotFinalized")]
         public IHttpActionResult GetNotFinalized()
         {
-            return Ok(_service.GetNotFinalized());
+            return Content(HttpStatusCode.OK,_service.GetNotFinalized());
         }
 
         [HttpGet]
         [Route("NotFinalized")]
         public IHttpActionResult GetNotFinalized(int pag, int element)
         {
-            return Ok(_service.GetNotFinalized(pag, element));
+            return Content(HttpStatusCode.OK,_service.GetNotFinalized(pag, element));
         }
 
         [HttpGet]
         [Route("Cliente/{id}")]
         public IHttpActionResult GetByCliente(string idCliente)
         {
-            return Ok(_service.GetByClient(idCliente));
+            return Content(HttpStatusCode.OK,_service.GetByClient(idCliente));
         }
 
         [HttpGet]
         [Route("Cliente/{id}")]
         public IHttpActionResult GetByCliente(string idCliente,int pag,int element)
         {
-            return Ok(_service.GetByClient(idCliente,pag,element));
+            return Content(HttpStatusCode.OK,_service.GetByClient(idCliente,pag,element));
         }
 
         [HttpGet]
         [Route("Cliente/{id}")]
         public IHttpActionResult GetByCliente(string idCliente,DateTime start ,DateTime end)
         {
-            return Ok(_service.GetByClient(idCliente,start,end));
+            return Content(HttpStatusCode.OK,_service.GetByClient(idCliente,start,end));
         }
         [HttpGet]
         [Route("Cliente/{id}")]
         public IHttpActionResult GetByCliente(string idCliente, DateTime start, DateTime end, int pag, int element)
         {
-            return Ok(_service.GetByClient(idCliente, start, end,pag,element));
+            return Content(HttpStatusCode.OK,_service.GetByClient(idCliente, start, end,pag,element));
         }
         #endregion
 

@@ -172,11 +172,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\Abstracts\ILogService.cs" />
-    <Compile Include="Core\Specifics\Serilogs\DbSerilogService.cs" />
-    <Compile Include="Core\Specifics\Serilogs\FileSerilogRepository.cs" />
+    <Compile Include="Abstracts\ILogService.cs" />
+    <Compile Include="Specifics\Serilogs\DbSerilogService.cs" />
+    <Compile Include="Specifics\Serilogs\FileSerilogService.cs" />
     <Compile Include="Enums\MessageCode.cs" />
-    <Compile Include="Models\MessageLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

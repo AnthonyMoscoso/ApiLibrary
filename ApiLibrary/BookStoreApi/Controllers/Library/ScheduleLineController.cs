@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using System.Web.Http;
 using Business.BookStoreServices.Abstracts;
 using Models.Dtos;
@@ -17,40 +18,40 @@ namespace Models.Controllers.Library
         [HttpGet]
         public IHttpActionResult Get()
         {
-            return Ok(_service.Get());
+            return Content(HttpStatusCode.OK,_service.Get());
         }
 
         [HttpGet]
         public IHttpActionResult Get(string idSchedule)
         {
-            return Ok(_service.GetBySchedule(idSchedule));
+            return Content(HttpStatusCode.OK,_service.GetBySchedule(idSchedule));
         }
         [HttpGet]
         public IHttpActionResult Get(string idSchedule,int month)
         {
-            return Ok(_service.GetBySchedule(idSchedule,month));
+            return Content(HttpStatusCode.OK,_service.GetBySchedule(idSchedule,month));
         }
         [HttpGet]
         public IHttpActionResult Get(string idSchedule, int month,int day)
         {
-            return Ok(_service.GetBySchedule(idSchedule, month,day));
+            return Content(HttpStatusCode.OK,_service.GetBySchedule(idSchedule, month,day));
         }
         [HttpPost]
         public IHttpActionResult Post(List<ScheduleLineDto> list)
         {
-            return Ok(_service.Insert(list));
+            return Content(HttpStatusCode.OK,_service.Insert(list));
         }
 
         [HttpPut]
         public IHttpActionResult Put(List<ScheduleLineDto> list)
         {
-            return Ok(_service.Update(list));
+            return Content(HttpStatusCode.OK,_service.Update(list));
         }
 
         [HttpDelete]
         public IHttpActionResult Delete(List<string> ids)
         {
-            return Ok(_service.Delete(ids));
+            return Content(HttpStatusCode.OK,_service.Delete(ids));
         }
     }
 }

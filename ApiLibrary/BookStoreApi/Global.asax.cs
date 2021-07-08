@@ -4,6 +4,7 @@ using Business.DependencyInjection;
 using Core.DependencyInjection;
 using Ninject;
 using Ninject.Modules;
+using System;
 using System.Web;
 using System.Web.Http;
 
@@ -29,5 +30,7 @@ namespace WebApplication
             GlobalConfiguration.Configure(WebApiConfig.Register);
        
         }
+
+
     }
 }

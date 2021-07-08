@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Logger.Abstracts;
 
 namespace Business.BookStoreServices.Specifics
 {

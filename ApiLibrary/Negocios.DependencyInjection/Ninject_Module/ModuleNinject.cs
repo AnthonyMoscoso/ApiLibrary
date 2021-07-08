@@ -7,10 +7,10 @@ using Models.Repositories.Abstract;
 using Ninject.Modules;
 using Business.BookStoreServices.Abstracts;
 using Business.BookStoreServices.Specifics;
-using Negocio.UserServices.Abstracts;
-using Negocio.UserServices.Specifics;
+using Businness.UserServices.Abstracts;
+using Businness.UserServices.Specifics;
 using Core.Logger.Abstracts;
-using Core.Logger.Repository.Specifics;
+using Logger.Specifics;
 
 namespace Business.DependencyInjection
 {
@@ -246,7 +246,7 @@ namespace Business.DependencyInjection
 
             //
 
-            Bind<ILogService>().To<DbSerilogService>().InSingletonScope();
+            Bind<ILogService>().To<FileSerilogService>().InSingletonScope();
         }
 
     }

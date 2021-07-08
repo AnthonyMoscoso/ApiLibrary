@@ -9,8 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Ado.Library\DataAccess.Ado.Library.csproj" />
-    <ProjectReference Include="..\Ado.Users\DataAccess.Ado.User.csproj" />
     <ProjectReference Include="..\Negocio.UserServices\Business.UserServices.csproj" />
     <ProjectReference Include="..\Negocios.BookStore\Business.BookStoreServices.csproj" />
   </ItemGroup>

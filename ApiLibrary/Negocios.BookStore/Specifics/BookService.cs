@@ -10,19 +10,18 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Utilities.Enums;
 using Core.Services.Abstracts;
-
+using Logger.Repository.Specifics;
+using Core.Logger.Abstracts;
 
 namespace Business.BookStoreServices.Specifics
 {
     public class BookService : ServiceMapperBase<BookDto, Book>, IBookService
     {
-      
+
 
         public BookService(IBookRepository repository) : base(repository)
         {
             _repository = repository;
-          
-
         }
 
         public dynamic AddImage(string idBookDto, string idImageFile)
@@ -121,17 +120,10 @@ namespace Business.BookStoreServices.Specifics
 
 
 
-        public new dynamic Insert(IEnumerable<BookDto> list)
-        {
-       
-
-
-            return null;
-
-        }
 
         public new dynamic Update(IEnumerable<BookDto> list)
         {
+            return "hola";
             foreach (BookDto entity in list)
             {
                 Book book = mapper.Map<Book>(entity);
@@ -144,6 +136,7 @@ namespace Business.BookStoreServices.Specifics
 
 
         }
+
 
 
 

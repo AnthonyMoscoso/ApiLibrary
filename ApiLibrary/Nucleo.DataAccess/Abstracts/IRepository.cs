@@ -1,5 +1,4 @@
-﻿using Core.Utilities.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
@@ -24,6 +23,6 @@ namespace Core.DBAccess.Ado
         dynamic Insert(T entity);
         dynamic Delete(IEnumerable<string> id);
         dynamic Delete(string id);
-        dynamic Save(string text = null, MessageCode Code = MessageCode.information);       
+        dynamic Save();       
     }
 }

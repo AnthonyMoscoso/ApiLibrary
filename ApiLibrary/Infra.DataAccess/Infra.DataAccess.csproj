@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C1215C71-2A78-4F8A-ADD7-D73BB6BE9A6F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Infra.DataAccess</RootNamespace>
+    <AssemblyName>Infra.DataAccess</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Nucleo.Utilities">
+      <HintPath>..\Nucleo.Utilities\bin\Debug\netstandard2.0\Nucleo.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Abstracts\Library\IAutorRepository.cs" />
+    <Compile Include="Abstracts\Library\IBookEditorialRepository.cs" />
+    <Compile Include="Abstracts\Library\IBookRepository.cs" />
+    <Compile Include="Abstracts\Library\IBookStoreRepository.cs" />
+    <Compile Include="Abstracts\Library\IBookTypeRepository.cs" />
+    <Compile Include="Abstracts\Library\ICouponRepository.cs" />
+    <Compile Include="Abstracts\Library\IDirectionRepository.cs" />
+    <Compile Include="Abstracts\Library\IDiscountRepository.cs" />
+    <Compile Include="Abstracts\Library\IEditionRepository.cs" />
+    <Compile Include="Abstracts\Library\IEditorialRepository.cs" />
+    <Compile Include="Abstracts\Library\IEmployeeRepository.cs" />
+    <Compile Include="Abstracts\Library\IGenderRepository.cs" />
+    <Compile Include="Abstracts\Library\IOccupationRepository.cs" />
+    <Compile Include="Abstracts\Library\IOrderLineRepository.cs" />
+    <Compile Include="Abstracts\Library\IOrderRepository.cs" />
+    <Compile Include="Abstracts\Library\IPaymentBonusRepository.cs" />
+    <Compile Include="Abstracts\Library\IPayRollRepository.cs" />
+    <Compile Include="Abstracts\Library\IPermitRepository.cs" />
+    <Compile Include="Abstracts\Library\IPersonRepository.cs" />
+    <Compile Include="Abstracts\Library\IProviderRepository.cs" />
+    <Compile Include="Abstracts\Library\IPurchaseLineRepository.cs" />
+    <Compile Include="Abstracts\Library\IPurchaseRepository.cs" />
+    <Compile Include="Abstracts\Library\IReceptionLineRepository.cs" />
+    <Compile Include="Abstracts\Library\IReceptionRepository.cs" />
+    <Compile Include="Abstracts\Library\IRegisterLineRepository.cs" />
+    <Compile Include="Abstracts\Library\IRegisterRepository.cs" />
+    <Compile Include="Abstracts\Library\IReservationOnlineRepository.cs" />
+    <Compile Include="Abstracts\Library\IReservationRepository.cs" />
+    <Compile Include="Abstracts\Library\IReservationStoreRepository.cs" />
+    <Compile Include="Abstracts\Library\IReturnSaleRepository.cs" />
+    <Compile Include="Abstracts\Library\IRolRepository.cs" />
+    <Compile Include="Abstracts\Library\ISaleLineRepository.cs" />
+    <Compile Include="Abstracts\Library\ISaleRepository.cs" />
+    <Compile Include="Abstracts\Library\IScheduleLineRepository.cs" />
+    <Compile Include="Abstracts\Library\IScheduleRepository.cs" />
+    <Compile Include="Abstracts\Library\IShippingLineRepository.cs" />
+    <Compile Include="Abstracts\Library\IShippingRepository.cs" />
+    <Compile Include="Abstracts\Library\ISocieRepository.cs" />
+    <Compile Include="Abstracts\Library\IStoreRepository.cs" />
+    <Compile Include="Abstracts\Library\IStoreSaleRepository.cs" />
+    <Compile Include="Abstracts\Library\ITaxesRepository.cs" />
+    <Compile Include="Abstracts\Library\IWareHouseBookRepository.cs" />
+    <Compile Include="Abstracts\Library\IWareHouseRepository.cs" />
+    <Compile Include="Abstracts\Users\IUserRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Specifics\Ado\Library\AutorRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\BookEditorialRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\BookRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\BookStoreRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\BookTypeRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\CouponRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\DirectionRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\DiscountRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\EditionRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\EditorialRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\EmployeeRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\GenderRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\OccupationRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\OrderLineRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\OrderRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\PaymentBonusRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\PayRollRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\PermitRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\PersonRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\ProviderRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\PurchaseLineRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\PurchaseRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\ReceptionLineRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\ReceptionRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\RegisterLineRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\RegisterRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\ReservationOnlineRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\ReservationRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\ReservationStoreRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\ReturnSaleRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\RolRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\SaleLineRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\SaleRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\ScheduleLineRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\ScheduleRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\ShippingLineRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\ShippingRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\SocieRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\StoreRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\StoreSaleRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\TaxesRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\WareHouseBookRepository.cs" />
+    <Compile Include="Specifics\Ado\Library\WareHouseRepository.cs" />
+    <Compile Include="Specifics\Ado\Users\UserRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Specifics\Files\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Models.Ado\Models.Ado.csproj">
+      <Project>{e95982b4-23d7-406c-b457-8ebf5ed7c521}</Project>
+      <Name>Models.Ado</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models.Dtos\Models.Dtos.csproj">
+      <Project>{37dc8af1-e48d-47ce-bd66-baee73948d9d}</Project>
+      <Name>Models.Dtos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models.Utilities\Models.Utilities.csproj">
+      <Project>{c4e1b4b8-771f-4aaa-9eb1-77cc371b88e7}</Project>
+      <Name>Models.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nucleo.DataAccess\Core.DataAccess.csproj">
+      <Project>{3B9ADFCA-8EAC-4A89-AC2E-EA167CCDCA55}</Project>
+      <Name>Core.DataAccess</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,11 +1,10 @@
-﻿using Ado.User.Abstracts;
-using Ado.User.Specifics;
-using Models.Models.Login;
-using Negocio.UserServices.Abstracts;
+﻿using Models.Models.Login;
+
 using Core.Tokens;
 using System.Net;
 using System.Threading;
 using System.Web.Http;
+using Businness.UserServices.Abstracts;
 
 namespace Models.Controllers
 {

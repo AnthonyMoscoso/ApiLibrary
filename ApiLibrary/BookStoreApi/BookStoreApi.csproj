@@ -145,6 +145,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="GlobalHandler\CustomExceptionFilter.cs" />
+    <Compile Include="GlobalHandler\GlobalExceptionHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -167,13 +169,9 @@
     <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Ado.Library\DataAccess.Ado.Library.csproj">
-      <Project>{7965865a-d1f6-4d42-9563-9d2dde070995}</Project>
-      <Name>DataAccess.Ado.Library</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Ado.Users\DataAccess.Ado.User.csproj">
-      <Project>{78a7aa00-6c83-4336-9768-61fd5aa433db}</Project>
-      <Name>DataAccess.Ado.User</Name>
+    <ProjectReference Include="..\Core.MiddleWareService\Core.MiddleWareService.csproj">
+      <Project>{AFF0B9F9-F761-444E-A486-9FCC7927EB55}</Project>
+      <Name>Core.MiddleWareService</Name>
     </ProjectReference>
     <ProjectReference Include="..\Models.Ado\Models.Ado.csproj">
       <Project>{E95982B4-23D7-406C-B457-8EBF5ED7C521}</Project>
@@ -214,6 +212,10 @@
     <ProjectReference Include="..\Nucleo.Files.Web\Core.Files.Web.csproj">
       <Project>{f1c0ff4f-9179-432f-8a91-f9ead4a7b687}</Project>
       <Name>Core.Files.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nucleo.Logger\Core.Logger.csproj">
+      <Project>{CF188DBB-1B1B-4BF2-8A11-0274FE2C73C1}</Project>
+      <Name>Core.Logger</Name>
     </ProjectReference>
     <ProjectReference Include="..\Nucleo.Services\Core.Services.csproj">
       <Project>{2b6fcd47-fe07-4633-9e3d-c0f67e3db210}</Project>

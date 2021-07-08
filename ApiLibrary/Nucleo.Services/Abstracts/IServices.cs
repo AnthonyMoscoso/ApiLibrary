@@ -4,8 +4,7 @@ namespace Core.Services.Abstracts
 {
     public interface IServices<T>
     {
-        int Count();
-        
+        int Count();       
         T Get(string id);
         IEnumerable<T> Get();
         IEnumerable<T> GetList(string ids);

@@ -146,9 +146,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Ado.Library\DataAccess.Ado.Library.csproj">
-      <Project>{7965865a-d1f6-4d42-9563-9d2dde070995}</Project>
-      <Name>DataAccess.Ado.Library</Name>
+    <ProjectReference Include="..\Infra.DataAccess\Infra.DataAccess.csproj">
+      <Project>{C1215C71-2A78-4F8A-ADD7-D73BB6BE9A6F}</Project>
+      <Name>Infra.DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\Models.Ado\Models.Ado.csproj">
       <Project>{e95982b4-23d7-406c-b457-8ebf5ed7c521}</Project>

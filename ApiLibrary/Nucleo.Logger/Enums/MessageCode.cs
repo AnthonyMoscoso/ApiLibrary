@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.Utilities.Enums
+namespace Utilities.Enums
 {
     public enum MessageCode
     {

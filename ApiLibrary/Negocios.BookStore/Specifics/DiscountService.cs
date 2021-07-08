@@ -5,6 +5,7 @@ using Business.BookStoreServices.Abstracts;
 using Core.Services.Abstracts;
 using System;
 using System.Collections.Generic;
+using Core.Logger.Abstracts;
 
 namespace Business.BookStoreServices.Specifics
 {

@@ -28,10 +28,9 @@ namespace Core.Tokens
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             HttpStatusCode statusCode;
-            string token;
 
             // determine whether a jwt exists or not
-            if (!TryRetrieveToken(request, out token))
+            if (!TryRetrieveToken(request, out string token))
             {
                 statusCode = HttpStatusCode.Unauthorized;
                 return base.SendAsync(request, cancellationToken);
@@ -44,7 +43,6 @@ namespace Core.Tokens
                 var issuerToken = ConfigurationManager.AppSettings["JWT_ISSUER_TOKEN"];
                 var securityKey = new SymmetricSecurityKey(System.Text.Encoding.Default.GetBytes(secretKey));
 
-                SecurityToken securityToken;
                 var tokenHandler = new System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler();
                 TokenValidationParameters validationParameters = new TokenValidationParameters()
                 {
@@ -57,7 +55,7 @@ namespace Core.Tokens
                 };
 
                 // Extract and assign Current Principal and user
-                Thread.CurrentPrincipal = tokenHandler.ValidateToken(token, validationParameters, out securityToken);
+                Thread.CurrentPrincipal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken securityToken);
                 HttpContext.Current.User = tokenHandler.ValidateToken(token, validationParameters, out securityToken);
 
                 return base.SendAsync(request, cancellationToken);

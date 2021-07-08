@@ -1,16 +1,11 @@
 ﻿using Core.DBAccess.Ado;
 using Core.Models.Abstracts;
-using Core.Utilities.Enums;
-using Core.Utilities.Enums;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using MessageCode = Core.Utilities.Enums.MessageCode;
 
 namespace Core.DataAccess.Specifics.Files
 {
@@ -136,7 +131,7 @@ namespace Core.DataAccess.Specifics.Files
             throw new NotImplementedException();
         }
 
-        public dynamic Save(string text = null, MessageCode Code = MessageCode.information)
+        public dynamic Save()
         {
             throw new NotImplementedException();
         }
@@ -210,7 +205,8 @@ namespace Core.DataAccess.Specifics.Files
 
         private void WriteFile(IEnumerable<TEntity> entities)
         {
-            StreamWriter streamWriter = new StreamWriter(Path.Combine(_connectionString, _name));
+            string url = $@"{_connectionString}\{_name}.txt";
+            StreamWriter streamWriter = new StreamWriter(url);
             string line;
             List<string> columns = _columns.ToList();
             foreach (TEntity entity in entities)

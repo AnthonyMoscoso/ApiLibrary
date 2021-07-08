@@ -1,5 +1,7 @@
 ﻿
+using Business.AutoMapper;
 using Core.DBAccess.Ado;
+using Core.Logger.Abstracts;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,22 +10,22 @@ namespace Core.Services.Abstracts
     public abstract class ServiceMapperBase<TDtoEntity, TEntity> : IServices<TDtoEntity>
         where TDtoEntity : class, Models.Abstracts.IEntity, new()
     {
-        public DBAccess.Ado.IRepository<TEntity> _repository;
+        public IRepository<TEntity> _repository;
         public AutoMapper.IMapper mapper;
 
         public string name;
-
         public ServiceMapperBase(IRepository<TEntity> repository)
         {
             _repository = repository;
-            mapper = Business.AutoMapper.AutoMapperConfig.MapperConfiguration.CreateMapper();
+            mapper = AutoMapperConfig.MapperConfiguration.CreateMapper();
             name = typeof(TEntity).Name;
-
         }
 
         public int Count()
         {
-            return _repository.Count();
+    
+            int count = _repository.Count();
+            return count;
         }
 
         public dynamic Delete(string id)
@@ -38,7 +40,15 @@ namespace Core.Services.Abstracts
 
         public TDtoEntity Get(string id)
         {
-            return mapper.Map<TDtoEntity>(_repository.GetSingle(id));
+            TEntity result = _repository.GetSingle(id);
+            if (result == null)
+            {
+                throw new System.Exception("Not found");
+            }
+  
+            return mapper.Map<TDtoEntity>(result);
+            
+            
         }
 
         public IEnumerable<TDtoEntity> Get()

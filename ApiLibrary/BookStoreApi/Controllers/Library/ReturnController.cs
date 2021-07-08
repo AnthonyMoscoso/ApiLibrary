@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Net;
 using System.Web.Http;
-using Ado.Library;
-using Models.Dtos;
-using Ado.Library.Specifics;
 using Business.BookStoreServices.Abstracts;
 
 namespace Models.Controllers.Library.Returns
@@ -22,13 +19,13 @@ namespace Models.Controllers.Library.Returns
         [HttpGet]
         public IHttpActionResult Get()
         {
-            return Ok(_service.Get());
+            return Content(HttpStatusCode.OK,_service.Get());
         }
 
         [HttpGet]
         public IHttpActionResult Get(string id)
         {
-            return Ok(_service.Get(id));
+            return Content(HttpStatusCode.OK,_service.Get(id));
         }
 
         #region Date
@@ -36,25 +33,25 @@ namespace Models.Controllers.Library.Returns
         [Route("Date")]
         public IHttpActionResult GetByDate(DateTime date)
         {
-            return Ok(_service.GetByDate(date));
+            return Content(HttpStatusCode.OK,_service.GetByDate(date));
         }
         [HttpGet]
         [Route("Date")]
         public IHttpActionResult GetByDate(DateTime start,DateTime end)
         {
-            return Ok(_service.GetByDate(start,end));
+            return Content(HttpStatusCode.OK,_service.GetByDate(start,end));
         }
         [HttpGet]
         [Route("Date")]
         public IHttpActionResult GetByDate(DateTime date,int pag,int element)
         {
-            return Ok(_service.GetByDate(date,pag,element));
+            return Content(HttpStatusCode.OK,_service.GetByDate(date,pag,element));
         }
         [HttpGet]
         [Route("Date")]
         public IHttpActionResult GetByDate(DateTime start,DateTime end, int pag, int element)
         {
-            return Ok(_service.GetByDate(start,end, pag, element));
+            return Content(HttpStatusCode.OK,_service.GetByDate(start,end, pag, element));
         }
         #endregion
 
@@ -63,25 +60,25 @@ namespace Models.Controllers.Library.Returns
         [Route("Method")]
         public IHttpActionResult GetByMethod(int method)
         {
-            return Ok(_service.GetByMethod(method));
+            return Content(HttpStatusCode.OK,_service.GetByMethod(method));
         }
         [HttpGet]
         [Route("Method")]
         public IHttpActionResult GetByMethod(int method, string idStore)
         {
-            return Ok(_service.GetByMethod(method, idStore));
+            return Content(HttpStatusCode.OK,_service.GetByMethod(method, idStore));
         }
         [HttpGet]
         [Route("Method")]
         public IHttpActionResult GetByMethod(int method,int pag,int element)
         {
-            return Ok(_service.GetByMethod(method,pag,element));
+            return Content(HttpStatusCode.OK,_service.GetByMethod(method,pag,element));
         }
         [HttpGet]
         [Route("Method")]
         public IHttpActionResult GetByMethod(int method,string idStore, int pag, int element)
         {
-            return Ok(_service.GetByMethod(method,idStore, pag, element));
+            return Content(HttpStatusCode.OK,_service.GetByMethod(method,idStore, pag, element));
         }
         #endregion
 
@@ -90,25 +87,25 @@ namespace Models.Controllers.Library.Returns
         [Route("Motive")]
         public IHttpActionResult GetByMotive(string motive)
         {
-            return Ok(_service.GetByMotive(motive));
+            return Content(HttpStatusCode.OK,_service.GetByMotive(motive));
         }
         [HttpGet]
         [Route("Motive")]
         public IHttpActionResult GetByMotive(string motive,string idStore)
         {
-            return Ok(_service.GetByMotive(motive,idStore));
+            return Content(HttpStatusCode.OK,_service.GetByMotive(motive,idStore));
         }
         [HttpGet]
         [Route("Motive")]
         public IHttpActionResult GetByMotive(string motive,int pag,int element)
         {
-            return Ok(_service.GetByMotive(motive,pag,element));
+            return Content(HttpStatusCode.OK,_service.GetByMotive(motive,pag,element));
         }
         [HttpGet]
         [Route("Motive")]
         public IHttpActionResult GetByMotive(string motive,string idStore, int pag, int element)
         {
-            return Ok(_service.GetByMotive(motive,idStore, pag, element));
+            return Content(HttpStatusCode.OK,_service.GetByMotive(motive,idStore, pag, element));
         }
         #endregion
 
@@ -117,7 +114,7 @@ namespace Models.Controllers.Library.Returns
         [Route("Sale")]
         public IHttpActionResult GetBySale(string idSale)
         {
-            return Ok(_service.GetBySale(idSale));
+            return Content(HttpStatusCode.OK,_service.GetBySale(idSale));
         }
         #endregion
 
@@ -126,27 +123,27 @@ namespace Models.Controllers.Library.Returns
         [Route("Store")]
         public IHttpActionResult GetByStore(string idStore)
         {
-            return Ok(_service.GetByStore(idStore));
+            return Content(HttpStatusCode.OK,_service.GetByStore(idStore));
         }
         [HttpGet]
         [Route("Store")]
         public IHttpActionResult GetByStore(string idStore,int pag,int element)
         {
-            return Ok(_service.GetByStore(idStore,pag,element));
+            return Content(HttpStatusCode.OK,_service.GetByStore(idStore,pag,element));
         }
         #endregion
 
         [HttpGet]
         public IHttpActionResult GetList(string ids)
         {
-            return Ok(_service.GetList(ids));
+            return Content(HttpStatusCode.OK,_service.GetList(ids));
         }
 
         [HttpGet]
         [Route("Pag")]
         public IHttpActionResult Get(int element, int page)
         {
-            return Ok(_service.Get(element, page));
+            return Content(HttpStatusCode.OK,_service.Get(element, page));
         }
         /*[HttpPost]
         public IHttpActionResult Post(List<ReturnSaleDto> list)
@@ -173,28 +170,28 @@ namespace Models.Controllers.Library.Returns
         [Route("WareHouse/{id}")]
         public IHttpActionResult GetByWareHouse(string id)
         {
-            return Ok(_service.GetByWareHouse(id));
+            return Content(HttpStatusCode.OK,_service.GetByWareHouse(id));
         }
 
         [HttpGet]
         [Route("WareHouse")]
         public IHttpActionResult GetByWareHouse(string id, int pag, int element)
         {
-            return Ok(_service.GetByWareHouse(id, pag, element));
+            return Content(HttpStatusCode.OK,_service.GetByWareHouse(id, pag, element));
         }
 
         [HttpGet]
         [Route("WareHouse")]
         public IHttpActionResult GetByWareHouse(string id, DateTime start, DateTime end)
         {
-            return Ok(_service.GetByWareHouse(id, start, end));
+            return Content(HttpStatusCode.OK,_service.GetByWareHouse(id, start, end));
         }
 
         [HttpGet]
         [Route("WareHouse")]
         public IHttpActionResult GetByWareHouse(string id, DateTime start, DateTime end, int pag, int element)
         {
-            return Ok(_service.GetByWareHouse(id, start, end, pag, element));
+            return Content(HttpStatusCode.OK,_service.GetByWareHouse(id, start, end, pag, element));
         }
 
         #endregion

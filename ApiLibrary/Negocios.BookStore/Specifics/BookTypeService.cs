@@ -5,6 +5,7 @@ using Business.BookStoreServices.Abstracts;
 using Core.DBAccess.Ado;
 using Core.Services.Abstracts;
 using System.Collections.Generic;
+using Core.Logger.Abstracts;
 
 namespace Business.BookStoreServices.Specifics
 {
@@ -18,18 +19,20 @@ namespace Business.BookStoreServices.Specifics
 
         public BookTypeDto GetByName(string text)
         {
-            
-            return mapper.Map<BookTypeDto>(_repository.GetByName(text));
+            BookType result = _repository.GetByName(text);
+            return mapper.Map<BookTypeDto>(result);
         }
 
         public IEnumerable<BookTypeDto> SearchByName(string text)
         {
-            return mapper.Map<IEnumerable<BookTypeDto>>(_repository.SearchByName(text));
+            IEnumerable<BookType> result = _repository.SearchByName(text);
+            return mapper.Map<IEnumerable<BookTypeDto>>(result);
         }
 
         public IEnumerable<BookTypeDto> SearchByName(string text, int pag, int element)
         {
-            return mapper.Map<IEnumerable<BookTypeDto>>(_repository.SearchByName(text,pag,element));
+            IEnumerable<BookType> result = _repository.SearchByName(text, pag, element);
+            return mapper.Map<IEnumerable<BookTypeDto>>(result);
         }
     }
 }

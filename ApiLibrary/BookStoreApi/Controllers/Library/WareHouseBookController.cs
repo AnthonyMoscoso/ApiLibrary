@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using System.Web.Http;
 using Business.BookStoreServices.Abstracts;
 using Models.Dtos;
@@ -21,36 +22,36 @@ namespace Models.Controllers.Library
         [HttpGet]
         public IHttpActionResult Get()
         {
-            return Ok(_service.Get());
+            return Content(HttpStatusCode.OK,_service.Get());
         }
         [HttpGet]
         public IHttpActionResult Get(string id)
         {
-            return Ok(_service.Get(id));
+            return Content(HttpStatusCode.OK,_service.Get(id));
         }
         #endregion
         [HttpGet]
         [Route("Stock")]
         public IHttpActionResult GetStock(string idBook, string idWareHouse)
         {
-            return Ok(_service.GetStock(idBook, idWareHouse));
+            return Content(HttpStatusCode.OK,_service.GetStock(idBook, idWareHouse));
         }
         [HttpPost]
         public IHttpActionResult Post(List<WareHouseBookDto> list)
         {
-            return Ok(_service.Insert(list));
+            return Content(HttpStatusCode.OK,_service.Insert(list));
         }
 
         [HttpPut]
         public IHttpActionResult Put(List<WareHouseBookDto> list)
         {
-            return Ok(_service.Update(list));
+            return Content(HttpStatusCode.OK,_service.Update(list));
         }
 
         [HttpDelete]
         public IHttpActionResult Delete(List<string> ids)
         {
-            return Ok(_service.Delete(ids));
+            return Content(HttpStatusCode.OK,_service.Delete(ids));
         }
     }
 }

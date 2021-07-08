@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Negocio.UserServices.Abstracts
+namespace Businness.UserServices.Abstracts
 {
     public interface IUserService : IServices<UserDto>
     {

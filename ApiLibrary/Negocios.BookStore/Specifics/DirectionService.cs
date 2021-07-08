@@ -10,6 +10,7 @@ using Core.Services.Abstracts;
 using Models.Ado.Library;
 using Core.DBAccess.Ado;
 using Ado.Library;
+using Core.Logger.Abstracts;
 
 namespace Business.BookStoreServices.Specifics
 {

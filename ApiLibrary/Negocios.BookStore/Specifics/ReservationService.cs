@@ -10,13 +10,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Logger.Abstracts;
 
 namespace Business.BookStoreServices.Specifics
 {
 
     public class ReservationService : ServiceMapperBase<ReservationDto, Reservation>, IReservationService
     {
-        public ReservationService(ReservationRepository repository) : base(repository)
+        public ReservationService(IReservationRepository repository) : base(repository)
         {
         }
 

@@ -1,15 +1,13 @@
-﻿using Ado.User.Abstracts;
+﻿
 using Models.Ado.Login;
 using Models.Dtos.User;
 using Models.Models.Login;
-using Negocio.UserServices.Abstracts;
-using Core.DBAccess.Ado;
+using Businness.UserServices.Abstracts;
 using Core.Services.Abstracts;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Ado.User.Abstracts;
+using Core.Logger.Abstracts;
 
-namespace Negocio.UserServices.Specifics
+namespace Businness.UserServices.Specifics
 {
     public class UserService : ServiceMapperBase<UserDto, Users>, IUserService
     {

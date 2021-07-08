@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ado.Library;
+using Core.Logger.Abstracts;
 
 namespace Business.BookStoreServices.Specifics
 {

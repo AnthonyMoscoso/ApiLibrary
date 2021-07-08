@@ -5,6 +5,7 @@ using Core.DBAccess.Ado;
 using Core.Services.Abstracts;
 using System.Collections.Generic;
 using Ado.Library;
+using Core.Logger.Abstracts;
 
 namespace Business.BookStoreServices.Specifics
 {

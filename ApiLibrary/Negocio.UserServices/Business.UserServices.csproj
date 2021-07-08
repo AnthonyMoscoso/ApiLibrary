@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Ado.Users\DataAccess.Ado.User.csproj" />
+    <ProjectReference Include="..\Infra.DataAccess\Infra.DataAccess.csproj" />
     <ProjectReference Include="..\Nucleo.Services\Core.Services.csproj" />
   </ItemGroup>
 

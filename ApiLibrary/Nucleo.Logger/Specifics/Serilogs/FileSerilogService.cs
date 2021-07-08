@@ -33,7 +33,7 @@ namespace Logger.Specifics
           
            _logger = new LoggerConfiguration()
                 .MinimumLevel.Debug() 
-                .WriteTo.File(_logFile, rollingInterval: RollingInterval.Day)
+                .WriteTo.File(_logFile, rollingInterval: RollingInterval.Day,shared: true)
                 .CreateLogger();
 
 

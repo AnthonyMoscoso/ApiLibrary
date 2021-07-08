@@ -1,6 +1,5 @@
 ﻿
 using BookStoreApi.GlobalHandler;
-using Core.MiddleWareService;
 using Core.Tokens;
 using System.Web.Http;
 using System.Web.Http.ExceptionHandling;

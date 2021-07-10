@@ -8,6 +8,7 @@ using Models.Dtos;
 namespace Models.Controllers.Library.Receptions
 {
     [RoutePrefix("Api/Reception")]
+    [Authorize]
     public class ReceptionController : ApiController
     {
         readonly IReceptionService  _service;

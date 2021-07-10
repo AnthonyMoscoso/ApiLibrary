@@ -1,12 +1,9 @@
 ﻿using Models.Ado.Library;
-using Models.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using Core.DBAccess.Ado;
-
-using Ado.Library;
 using Nucleo.Utilities.Enums;
 
 namespace Ado.Library.Specifics

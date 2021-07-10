@@ -7,6 +7,7 @@ using Models.Dtos;
 namespace Models.Controllers.Library.Genders
 {
     [RoutePrefix("Api/Gender")]
+    [Authorize]
     public class GenderController : ApiController
     {
         readonly IGenderService _service ;

@@ -11,6 +11,10 @@ using Businness.UserServices.Abstracts;
 using Businness.UserServices.Specifics;
 using Core.Logger.Abstracts;
 using Logger.Specifics;
+using Business.FileServices.Abstracts;
+using Business.FileServices.Specifics;
+using Core.FileService.Abstracts;
+using Core.FileService.Specifics;
 
 namespace Business.DependencyInjection
 {
@@ -247,6 +251,14 @@ namespace Business.DependencyInjection
             //
 
             Bind<ILogService>().To<FileSerilogService>().InSingletonScope();
+
+
+            // FileService
+
+            Bind<IFileServices>().To<FileServiceBase>().InSingletonScope();
+            Bind<IWebFileService>().To<WebFileService>().InSingletonScope();
+
+
         }
 
     }

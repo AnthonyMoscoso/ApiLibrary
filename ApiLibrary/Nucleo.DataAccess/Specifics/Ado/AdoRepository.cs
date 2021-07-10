@@ -97,7 +97,8 @@ namespace Core.DBAccess.Ado
         {
 
             dbSet.AddRange(list);
-            return Save();
+            Save();
+            return list;
 
         }
 
@@ -109,10 +110,9 @@ namespace Core.DBAccess.Ado
             return entity;
         }
 
-        public dynamic Save()
+        public void Save()
         {
             _Context.SaveChanges();
-            return null;
         }
 
        
@@ -124,8 +124,8 @@ namespace Core.DBAccess.Ado
                 _Context.Entry(entity).State = EntityState.Modified;
                 Save();
             }
-            return Save();
 
+            return list;
         }
 
 
@@ -134,7 +134,8 @@ namespace Core.DBAccess.Ado
 
             dbSet.Attach(entity);
             _Context.Entry(entity).State = EntityState.Modified;
-            return  Save();
+            Save();
+            return entity;
         }
 
 
@@ -156,7 +157,8 @@ namespace Core.DBAccess.Ado
             {
                 dbSet.Remove(search);
             }
-            return Save();
+            Save();
+            return 0;
         }
 
         public IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> predicate)

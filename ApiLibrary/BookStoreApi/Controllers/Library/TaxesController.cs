@@ -7,6 +7,7 @@ using Models.Dtos;
 namespace Models.Controllers.Library.Taxe
 {
     [RoutePrefix("Api/Taxes")]
+    [Authorize]
     public class TaxesController : ApiController
     {
         readonly ITaxesService _service ;

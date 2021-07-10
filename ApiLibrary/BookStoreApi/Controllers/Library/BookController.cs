@@ -9,6 +9,7 @@ using System.Net;
 namespace Models.Controllers.Library.Books
 {
     [RoutePrefix("Api/Book")]
+    [Authorize]
     public class BookController : ApiController
     {
         readonly IBookService _service ;
@@ -23,7 +24,7 @@ namespace Models.Controllers.Library.Books
         [Route("Count")]
         public IHttpActionResult Count()
         {
-            return Content( System.Net.HttpStatusCode.OK,_service.Count());
+            return Content(HttpStatusCode.OK,_service.Count());
         }
         [HttpGet]
         public IHttpActionResult Get()
@@ -51,13 +52,13 @@ namespace Models.Controllers.Library.Books
         [HttpPost]
         public IHttpActionResult Post(IEnumerable<BookDto> list)
         {
-            return Ok(_service.Insert(list));
+            return Content(HttpStatusCode.OK, _service.Insert(list));
         }
 
         [HttpPut]
         public IHttpActionResult Put(IEnumerable<BookDto> list)
         {
-            return Content(System.Net.HttpStatusCode.BadRequest,_service.Update(list)); ;
+            return Content(HttpStatusCode.BadRequest,_service.Update(list)); ;
         }
 
         [HttpDelete]

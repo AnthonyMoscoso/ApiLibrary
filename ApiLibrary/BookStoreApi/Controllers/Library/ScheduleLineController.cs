@@ -6,6 +6,8 @@ using Models.Dtos;
 
 namespace Models.Controllers.Library
 {
+    [Authorize]
+    [RoutePrefix("Api/ScheduleLine")]
     public class ScheduleLineController : ApiController
     {
         readonly IScheduleLineService _service ;

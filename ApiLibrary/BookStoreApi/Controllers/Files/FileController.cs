@@ -1,37 +1,35 @@
-﻿using System.Web.Http;
-using Core.Files.Web;
+﻿using Business.FileServices.Abstracts;
+using Core.FileService.Abstracts;
+using Core.FileService.Enums;
+using System;
+using System.Web.Http;
 
 namespace Core.FilesAcces
 {
     [RoutePrefix("api/File")]
     public class FileController : ApiController
     {
-        readonly IFileRepository _repository;
+        readonly IWebFileService _service;
 
-        public FileController(IFileRepository repository)
+        public FileController(IWebFileService service)
         {
-            _repository = repository;
+            _service = service;
         }
 
         [HttpGet]
         [Route("DownLoad")]
-        public IHttpActionResult DownLoad(string type,string dir,string name)
+        public IHttpActionResult DownLoad(string name,string dir,FileType type)
         {
-            return ResponseMessage(_repository.DownLoad(type,dir,name));
+            return ResponseMessage(_service.DonwloadFromWeb(name,dir,type));
         }
 
         [HttpPost]
         [Route("Upload")]
         public IHttpActionResult Upload()
         {
-            return Ok(_repository.Upload());
+            return Ok(_service.UploadFromHttpRequest());
         }
 
-        [HttpDelete]
-        [Route("Delete")]
-        public IHttpActionResult Delete(string dir, string name)
-        {
-            return Ok(_repository.Delete(dir, name));
-        }
+        
     }
 }

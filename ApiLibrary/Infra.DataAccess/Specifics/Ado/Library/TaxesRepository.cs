@@ -38,7 +38,8 @@ namespace Ado.Library.Specifics
                        message += "Entity whith Id =" + id + " not was found";
                    }
                }
-            return Save();
+               Save();
+            return ids;
               
            }
 

@@ -42,7 +42,8 @@ namespace Ado.Library.Specifics
                 _Context.Entry(o).State = EntityState.Modified;
                
             }
-            return Save();
+            Save();
+            return list;
           
         }
 
@@ -69,8 +70,8 @@ namespace Ado.Library.Specifics
 
 
             }
-            return Save();
-
+            Save();
+            return 0;
            
         }
 

@@ -8,6 +8,7 @@ using System.Net;
 namespace Models.Controllers.Library.Reservations
 {
     [RoutePrefix("Api/Reservation")]
+    [Authorize]
     public class ReservationController : ApiController
     {
         readonly IReservationService _service ;

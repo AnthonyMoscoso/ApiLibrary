@@ -7,6 +7,7 @@ using System.Net;
 namespace Models.Controllers.Library.Books
 {
     [RoutePrefix("Api/BookEditorial")]
+    [Authorize]
     public class BookEditorialController : ApiController
     {
         readonly IBookEditorialService _service ;

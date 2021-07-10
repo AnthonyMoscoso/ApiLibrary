@@ -7,6 +7,7 @@ using System.Net;
 namespace Models.Controllers.Library.Provide
 {
     [RoutePrefix("Api/Provider")]
+    [Authorize]
     public class ProviderController : ApiController
     {
         readonly IProviderService _service ;

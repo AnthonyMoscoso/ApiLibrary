@@ -7,6 +7,7 @@ using System.Net;
 namespace BookStoreApi.Controllers.Library
 {
     [RoutePrefix("Api/Occupation")]
+    [Authorize]
     public class OccupationController : ApiController
     {
         readonly IOccupationService _service ;

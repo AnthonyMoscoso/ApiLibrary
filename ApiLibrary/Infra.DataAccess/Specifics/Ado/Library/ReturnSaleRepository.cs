@@ -12,7 +12,7 @@ namespace Ado.Library.Specifics
 {
     public class ReturnSaleRepository : AdoRepository<ReturnSale>, IReturnSaleRepository
     {
-        public ReturnSaleRepository(BookStoreEntities context, string identificator="IdReturn") : base(context,identificator)
+        public ReturnSaleRepository(BookStoreEntities context, string identificator = "IdReturn") : base(context, identificator)
         {
         }
 
@@ -152,25 +152,21 @@ namespace Ado.Library.Specifics
 
         #region Private Methods
 
-        private dynamic InsertReturnWareHouse(string idReturn, string idWareHouse)
+        private void InsertReturnWareHouse(string idReturn, string idWareHouse)
         {
-   
-                var query = $"Insert into ReturnWareHouse values ('{idReturn}','{idWareHouse}');";
-                _Context.Database.ExecuteSqlCommand(query);
 
-            return Save();
+            var query = $"Insert into ReturnWareHouse values ('{idReturn}','{idWareHouse}');";
+            _Context.Database.ExecuteSqlCommand(query);
+            Save();
 
         }
 
-        private dynamic InsertReturnStore(string idReturn, string idStore)
+        private void InsertReturnStore(string idReturn, string idStore)
         {
-  
-                var query = $"Insert into ReturnStore values ('{idReturn}','{idStore}');";
-                _Context.Database.ExecuteSqlCommand(query);
 
-     
-
-            return Save();
+            var query = $"Insert into ReturnStore values ('{idReturn}','{idStore}');";
+            _Context.Database.ExecuteSqlCommand(query);
+            Save();
 
         }
 

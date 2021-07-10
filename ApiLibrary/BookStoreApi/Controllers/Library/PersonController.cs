@@ -7,6 +7,7 @@ using System.Net;
 namespace Models.Controllers.Library.Persons
 {
     [RoutePrefix("Api/Person")]
+    [Authorize]
     public class PersonController : ApiController
     {
         readonly IPersonService _service ;

@@ -8,6 +8,7 @@ using System.Net;
 namespace Models.Controllers.Library.Registers
 {
     [RoutePrefix("Api/Register")]
+    [Authorize]
     public class RegisterController : ApiController
     {
         readonly IRegisterService _service ;

@@ -7,6 +7,7 @@ using Models.Dtos;
 namespace Models.Controllers.Library.Rols
 {
     [RoutePrefix("Api/Rol")]
+    [Authorize]
     public class RolController : ApiController
     {
         readonly IRolService _service ;

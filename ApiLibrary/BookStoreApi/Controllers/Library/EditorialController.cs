@@ -7,6 +7,7 @@ using Models.Dtos;
 namespace Models.Controllers.Library.Editorials
 {
     [RoutePrefix("Api/Editorial")]
+    [Authorize]
     public class EditorialController : ApiController
     {
         readonly IEditorialService _service;

@@ -1,17 +1,18 @@
 ﻿
+using AutoMapper;
 using Business.AutoMapper;
 using Core.DBAccess.Ado;
-using Core.Logger.Abstracts;
+using Core.Models.Abstracts;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Core.Services.Abstracts
 {
     public abstract class ServiceMapperBase<TDtoEntity, TEntity> : IServices<TDtoEntity>
-        where TDtoEntity : class, Models.Abstracts.IEntity, new()
+        where TDtoEntity : class, IEntity, new()
     {
         public IRepository<TEntity> _repository;
-        public AutoMapper.IMapper mapper;
+        public IMapper mapper;
 
         public string name;
         public ServiceMapperBase(IRepository<TEntity> repository)
@@ -43,9 +44,8 @@ namespace Core.Services.Abstracts
             TEntity result = _repository.GetSingle(id);
             if (result == null)
             {
-                throw new System.Exception("Not found");
+                throw new System.Exception($"{name} with {id} was not found");
             }
-  
             return mapper.Map<TDtoEntity>(result);
             
             

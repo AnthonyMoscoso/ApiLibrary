@@ -7,6 +7,7 @@ using Models.Dtos;
 namespace Models.Controllers.Library
 {
     [RoutePrefix("Api/WareHouseBook")]
+    [Authorize]
     public class WareHouseBookController : ApiController
     {
         readonly IWareHouseBookService _service ;

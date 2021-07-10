@@ -1,4 +1,6 @@
-﻿using Core.Models.Abstracts;
+﻿
+
+using Core.Models.Abstracts;
 
 namespace Models.Dtos
 {

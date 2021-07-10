@@ -8,6 +8,7 @@ using Models.Dtos;
 namespace Models.Controllers.Library.Shippings
 {
     [RoutePrefix("Api/Shipping")]
+    [Authorize]
     public class ShippingController : ApiController
     {
         readonly IShippingService _service ;

@@ -101,8 +101,8 @@ namespace Ado.Library.Specifics
                     message += "Entity whith Id =" + id + " not was found";
                 }
             }
-            return Save();
-           
+            Save();
+            return 0;
         }
 
         public IEnumerable<Rol> SearchByName(string text)

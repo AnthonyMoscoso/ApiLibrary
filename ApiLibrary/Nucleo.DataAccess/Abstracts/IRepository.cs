@@ -23,6 +23,6 @@ namespace Core.DBAccess.Ado
         dynamic Insert(T entity);
         dynamic Delete(IEnumerable<string> id);
         dynamic Delete(string id);
-        dynamic Save();       
+        void Save();       
     }
 }

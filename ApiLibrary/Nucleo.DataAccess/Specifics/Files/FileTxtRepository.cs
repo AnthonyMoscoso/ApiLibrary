@@ -21,7 +21,7 @@ namespace Core.DataAccess.Specifics.Files
         public string _connectionString;
         public string _FileDir;
 
-        public FileTxtRepository(string connectionString,string identificator,char separador)
+        public FileTxtRepository(string connectionString, string identificator, char separador)
         {
             _name = typeof(TEntity).Name;
             _columns = GetColumns(typeof(TEntity));
@@ -39,8 +39,7 @@ namespace Core.DataAccess.Specifics.Files
 
         public int Count(Expression<Func<TEntity, bool>> predicate)
         {
-            IQueryable<TEntity> entities = (IQueryable<TEntity>)ReadFile();
-            return entities.Count(predicate);
+            return ReadFile().AsQueryable().Count(predicate);
         }
 
         public dynamic Delete(IEnumerable<string> id)
@@ -50,12 +49,13 @@ namespace Core.DataAccess.Specifics.Files
 
         public dynamic Delete(string id)
         {
-            TEntity search = ReadFile().FirstOrDefault(w=> _identificator.Equals(id));
-            if (search!=null)
+            TEntity search = ReadFile().FirstOrDefault(w => _identificator.Equals(id));
+            if (search != null)
             {
                 ReadFile().ToList().Remove(search);
             }
-            return Save();
+            Save();
+            return 0;
         }
 
         public IEnumerable<TEntity> Get()
@@ -80,13 +80,13 @@ namespace Core.DataAccess.Specifics.Files
         }
 
         public IEnumerable<TEntity> GetOrderBy(string order)
-        {            
+        {
             return ReadFile().AsQueryable().OrderBy(w => order);
         }
 
         public IEnumerable<TEntity> GetOrderBy(int elements, int pag, string order)
         {
-           
+
             return ReadFile().AsQueryable().OrderBy(w => order).Skip((pag - 1) * elements).Take(elements); ;
         }
 
@@ -116,22 +116,24 @@ namespace Core.DataAccess.Specifics.Files
                 {
                     entities.Add(search);
                 }
-                else
-                {
 
-                }
-                
             }
             WriteFile(entities);
-            return Save();
+            Save();
+            return entities;
         }
 
         public dynamic Insert(TEntity entity)
         {
-            throw new NotImplementedException();
+            TEntity search = GetSingle(entity._Id);
+            if (search == null)
+            {
+
+            }
+            return search;
         }
 
-        public dynamic Save()
+        public void Save()
         {
             throw new NotImplementedException();
         }
@@ -168,35 +170,25 @@ namespace Core.DataAccess.Specifics.Files
             {
                 File.Create(Path.Combine()).Close();
             }
-
-            try
+            StreamReader streamReader = new StreamReader(Path.Combine(_connectionString, _name));
+            string line;
+            while ((line = streamReader.ReadLine()) != null)
             {
-                StreamReader streamReader = new StreamReader(Path.Combine(_connectionString, _name));
-                string line = string.Empty;
-                while ((line = streamReader.ReadLine()) != null)
+
+                string[] values = line.Split(';');
+                List<string> columnDatas = _columns.ToList();
+                for (int i = 0; i < _columns.Count(); i++)
                 {
-
-                    string[] values = line.Split(';');
-                    List<string> columnDatas = _columns.ToList();
-                    for (int i = 0; i < _columns.Count(); i++)
-                    {
-                        PropertyInfo property = typeof(TEntity).GetProperty(columnDatas[i]);
-                        property.SetValue(entity, Convert.ChangeType(columnDatas[i], property.GetType()), null);
-                    }
-
-
+                    PropertyInfo property = typeof(TEntity).GetProperty(columnDatas[i]);
+                    property.SetValue(entity, Convert.ChangeType(columnDatas[i], property.GetType()), null);
                 }
 
-                streamReader.Close();
-            }
-            catch (FileNotFoundException e)
-            {
 
             }
-            catch (Exception e)
-            {
 
-            }
+            streamReader.Close();
+
+
             yield return entity;
 
 
@@ -214,7 +206,7 @@ namespace Core.DataAccess.Specifics.Files
                 line = typeof(TEntity).GetProperty(columns[0]).GetValue(entity).ToString();
                 for (int i = 1; i < columns.Count(); i++)
                 {
-                    line += $"{_separador} {_type.GetProperty(columns[i]).GetValue(entity).ToString()}"; 
+                    line += $"{_separador} {_type.GetProperty(columns[i]).GetValue(entity).ToString()}";
                 }
                 streamWriter.WriteLine(line);
             }

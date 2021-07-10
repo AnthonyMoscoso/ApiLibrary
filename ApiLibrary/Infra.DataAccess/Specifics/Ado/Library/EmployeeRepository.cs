@@ -315,7 +315,8 @@ namespace Ado.Library.Specifics
                 }
             }
 
-            return Save();
+            Save();
+            return 0;
            
         }
 

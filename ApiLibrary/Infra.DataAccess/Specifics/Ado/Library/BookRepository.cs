@@ -50,7 +50,8 @@ namespace Ado.Library.Specifics
             AddBookToStore(entity);
             AddBookToWareHouse(entity);
             querys.ForEach(query => base.ExecuteQuery(query));
-            return Save();
+            Save();
+            return entity;
         }
 
         public new dynamic Update(Book entity)
@@ -93,11 +94,11 @@ namespace Ado.Library.Specifics
             }
         }
 
-        private dynamic UpdatePrice(Book entity)
+        private void UpdatePrice(Book entity)
         {
              List<BookStore> bookStores = _Context.Set<BookStore>().Where(w => w.IdBook.Equals(entity.IdBook)).ToList();
              bookStores.ForEach(e => e.BookPrice = entity.Price);
-            return Save();
+             Save(); 
         }
 
         public new dynamic Delete(IEnumerable<string> ids)
@@ -167,24 +168,24 @@ namespace Ado.Library.Specifics
           return _Context.Set<Book>().Where(w => w.IdBook.Equals(id)).ToList() != null;
 
         }
-        private dynamic UpdateBookAutors(Book entity)
+        private void UpdateBookAutors(Book entity)
         {
             IEnumerable<Autor> autorsDb = _Context.Set<Autor>().Where(w => w.Book.Any(b => b.IdBook.Equals(entity.IdBook)));
 
             DeleteBookAutors(autorsDb.ToList(), entity);
             CreateBookAutors(entity, autorsDb.ToList());
-            return Save();
+            Save();
         }
 
-        private dynamic UpdateBookGenders(Book entity)
+        private void UpdateBookGenders(Book entity)
         {
             IEnumerable<Gender> genersDb = _Context.Set<Gender>().Where(w => w.Book.Any(b => b.IdBook.Equals(entity.IdBook)));
             DeleteBookGenders(genersDb, entity);
             CreateBookGenders(genersDb, entity);
-            return Save();
+            Save();
         }
 
-        private dynamic DeleteBookGenders(IEnumerable<Gender> list, Book entity)
+        private void DeleteBookGenders(IEnumerable<Gender> list, Book entity)
         {
             if (list.Count() > 0)
             {
@@ -200,7 +201,8 @@ namespace Ado.Library.Specifics
                 }
 
             }
-            return Save();
+             Save();
+
         }
 
         private void CreateBookGenders(IEnumerable<Gender> gendersFromDb, Book entity)
@@ -232,7 +234,7 @@ namespace Ado.Library.Specifics
             Save();
         }
 
-        private dynamic DeleteBookAutors(IList<Autor> autorsFromDb, Book entity)
+        private void DeleteBookAutors(IList<Autor> autorsFromDb, Book entity)
         {
 
             if (autorsFromDb.Count() > 0)
@@ -251,7 +253,7 @@ namespace Ado.Library.Specifics
                 }
                
             }
-            return Save();
+            Save();
         }
 
         private void CreateBookAutors(Book entity, List<Autor> AutorsFromDb)

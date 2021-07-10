@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Negocios.AutoMapper\Business.AutoMapper.csproj" />
-    <ProjectReference Include="..\Nucleo.AutoMappers\Core.Mappers.csproj" />
     <ProjectReference Include="..\Nucleo.DataAccess\Core.DataAccess.csproj" />
     <ProjectReference Include="..\Nucleo.Models\Core.Models.csproj" />
   </ItemGroup>

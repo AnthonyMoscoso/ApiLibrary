@@ -7,6 +7,7 @@ using Models.Dtos;
 namespace Models.Controllers.Library.Purchases
 {
     [RoutePrefix("Api/Purchase")]
+    [Authorize]
     public class PurchaseController : ApiController
     {
         readonly IPurchaseService _service ;

@@ -7,6 +7,7 @@ using Models.Dtos;
 namespace Models.Controllers.Library.Books
 {
     [RoutePrefix("Api/BookType")]
+    [Authorize]
     public class BookTypeController : ApiController
     {
         readonly IBookTypeService _service;

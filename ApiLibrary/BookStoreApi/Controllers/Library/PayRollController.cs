@@ -8,6 +8,7 @@ using Models.Dtos;
 namespace Models.Controllers.Library.PayRolls
 {
     [RoutePrefix("Api/PayRoll")]
+    [Authorize]
     public class PayRollController : ApiController
     {
         readonly IPayRollService _service;

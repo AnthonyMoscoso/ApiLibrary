@@ -7,6 +7,7 @@ using Models.Dtos;
 namespace Models.Controllers.Library.Payments
 {
     [RoutePrefix("Api/PaymentBonus")]
+    [Authorize]
     public class PaymentBonusController : ApiController
     {
         readonly IPaymentBonusService _service ;

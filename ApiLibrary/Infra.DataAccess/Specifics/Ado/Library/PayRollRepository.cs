@@ -128,7 +128,8 @@ namespace Ado.Library.Specifics
               
             }
 
-            return Save();
+            Save();
+            return list;
 
            
         }
@@ -210,7 +211,8 @@ namespace Ado.Library.Specifics
                     message += $"\n PayRoll with id {payRoll.IdPayRoll} not was found";
                 }
             }
-            return Save();
+            Save();
+            return list;
            
         }
 
@@ -259,25 +261,25 @@ namespace Ado.Library.Specifics
                     message += $"\n{name} with {Identificator} {id} not was found";
                 }
             }
-            return Save();
+            Save();
+            return 0;
         }
 
-       private dynamic DeletePayRollTaxes(IList<Taxes> taxesInDbDto, IList<Taxes> taxesDto, string idPayRoll)
+       private void DeletePayRollTaxes(IList<Taxes> taxesInDbDto, IList<Taxes> taxesDto, string idPayRoll)
         {
-            string message = string.Empty;
             foreach (Taxes t in taxesInDbDto)
             {
                 if (!taxesDto.Contains(t))
                 {
-                    var query = $"Delete from PayRollTaxes where IdPayRoll='{idPayRoll}' and IdTaxes='{t.IdTaxes}'";
+                    string query = $"Delete from PayRollTaxes where IdPayRoll='{idPayRoll}' and IdTaxes='{t.IdTaxes}'";
                     base.ExecuteQuery(query);
                     taxesInDbDto.Remove(t);
                 }
             }
-            return Save();
+            Save();
          
         }
-        private dynamic InsertPayRollTaxes(IList<Taxes> taxesInDbDto, IList<Taxes> taxesDto, string idPayRoll)
+        private  void InsertPayRollTaxes(IList<Taxes> taxesInDbDto, IList<Taxes> taxesDto, string idPayRoll)
         {
             string message = string.Empty;
             foreach (Taxes t in taxesDto)
@@ -289,11 +291,11 @@ namespace Ado.Library.Specifics
                 }
 
             }
-            return Save();
+            Save();
           
         }
 
-       private dynamic DeletePayRollBonus(IList<PaymentBonus> paymentBonusDbDtos, IEnumerable<PaymentBonus> paymentBonusDto, string idPayRoll)
+       private void DeletePayRollBonus(IList<PaymentBonus> paymentBonusDbDtos, IEnumerable<PaymentBonus> paymentBonusDto, string idPayRoll)
         {
             string message =string.Empty;
             foreach (PaymentBonus t in paymentBonusDbDtos)
@@ -305,14 +307,13 @@ namespace Ado.Library.Specifics
                     paymentBonusDbDtos.Remove(t);
                 }
             }
-            return Save();
+            Save();
             
         }
 
-        private dynamic InsertPayRollBonus(IEnumerable<PaymentBonus> paymentBonusDbDtos, IEnumerable<PaymentBonus> paymentBonusDto, string idPayRoll)
+        private void InsertPayRollBonus(IEnumerable<PaymentBonus> paymentBonusDbDtos, IEnumerable<PaymentBonus> paymentBonusDto, string idPayRoll)
         {
-            string message = string.Empty;
-
+            
             foreach (PaymentBonus dto in paymentBonusDto)
             {
                 if (!paymentBonusDbDtos.Contains(dto))
@@ -321,7 +322,7 @@ namespace Ado.Library.Specifics
                     base.ExecuteQuery(query);
                 }
             }
-            return Save();
+            Save();
            
         }
 

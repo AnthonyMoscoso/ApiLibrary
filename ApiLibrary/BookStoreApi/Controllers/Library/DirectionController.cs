@@ -7,12 +7,14 @@ using Models.Dtos;
 namespace Models.Controllers.Library.Directions
 {
     [RoutePrefix("Api/Direction")]
+    [Authorize]
     public class DirectionController : ApiController
     {
         readonly IDirectionService _service;
         public DirectionController(IDirectionService service)
         {
             _service = service;
+
         }
 
         #region Generics 

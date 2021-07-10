@@ -7,6 +7,7 @@ using Models.Dtos;
 namespace Models.Controllers.Library.Discounts
 {
     [RoutePrefix("Api/Discount")]
+    [Authorize]
     public class DiscountController : ApiController
     {
         readonly IDiscountService _service ;

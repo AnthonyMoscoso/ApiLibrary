@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Http;
-using Models.Ado.Library;
-using Models.Ado.Library;
+
 using Models.Dtos;
 using Business.BookStoreServices.Abstracts;
 using System.Net;
@@ -10,6 +9,7 @@ using System.Net;
 namespace Models.Controllers.Library.Coupons
 {
     [RoutePrefix("Api/Coupon")]
+    [Authorize]
     public class CouponController : ApiController
     {
         readonly ICouponService _service;

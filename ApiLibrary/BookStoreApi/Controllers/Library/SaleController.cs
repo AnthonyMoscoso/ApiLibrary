@@ -8,6 +8,7 @@ using Models.Dtos;
 namespace Models.Controllers.Library.Sales
 {
     [RoutePrefix("Api/Sale")]
+    [Authorize]
     public class SaleController : ApiController
     {
         readonly ISaleService _service ;

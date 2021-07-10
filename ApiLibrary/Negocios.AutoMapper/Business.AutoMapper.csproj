@@ -5,9 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Models.Ado\Models.Ado.csproj" />
     <ProjectReference Include="..\Models.Dtos\Models.Dtos.csproj" />
-    <ProjectReference Include="..\Nucleo.AutoMappers\Core.Mappers.csproj" />
   </ItemGroup>
 
   <ItemGroup>

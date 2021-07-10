@@ -169,9 +169,13 @@
     <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core.MiddleWareService\Core.MiddleWareService.csproj">
-      <Project>{AFF0B9F9-F761-444E-A486-9FCC7927EB55}</Project>
-      <Name>Core.MiddleWareService</Name>
+    <ProjectReference Include="..\Business.FileServices\Business.FileServices.csproj">
+      <Project>{F49DB1AE-5635-40E9-ADA8-CC509AE90929}</Project>
+      <Name>Business.FileServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.FileService\Core.FileService.csproj">
+      <Project>{34390323-AD81-4572-9074-7AF9F2114B67}</Project>
+      <Name>Core.FileService</Name>
     </ProjectReference>
     <ProjectReference Include="..\Models.Ado\Models.Ado.csproj">
       <Project>{E95982B4-23D7-406C-B457-8EBF5ED7C521}</Project>
@@ -208,10 +212,6 @@
     <ProjectReference Include="..\Nucleo.DependencyInjection\Core.DependencyInjection.csproj">
       <Project>{5e281f55-4bf7-4ead-ae8b-a02c174bbac9}</Project>
       <Name>Core.DependencyInjection</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Nucleo.Files.Web\Core.Files.Web.csproj">
-      <Project>{f1c0ff4f-9179-432f-8a91-f9ead4a7b687}</Project>
-      <Name>Core.Files.Web</Name>
     </ProjectReference>
     <ProjectReference Include="..\Nucleo.Logger\Core.Logger.csproj">
       <Project>{CF188DBB-1B1B-4BF2-8A11-0274FE2C73C1}</Project>

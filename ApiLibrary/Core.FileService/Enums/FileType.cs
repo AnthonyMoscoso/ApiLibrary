@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Business.ExceptionsHandlers
+namespace Core.FileService.Enums
 {
-    public class Class1
+    public enum FileType
     {
+        pdf,png,jpeg,jpg,gif
     }
 }

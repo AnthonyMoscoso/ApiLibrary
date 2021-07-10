@@ -7,6 +7,7 @@ using System.Net;
 namespace Models.Controllers.Library.Editions
 {
     [RoutePrefix("Api/Edition")]
+    [Authorize]
     public class EditionController : ApiController
     {
         readonly IEditionService _service;

@@ -7,6 +7,7 @@ using System.Net;
 namespace Models.Controllers.Library.Permits
 {
     [RoutePrefix("Api/Permit")]
+    [Authorize]
     public class PermitController : ApiController
     {
         readonly IPermitService _service ;

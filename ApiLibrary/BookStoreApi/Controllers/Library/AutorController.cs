@@ -8,7 +8,7 @@ namespace Models.Controllers
 {
 
     [RoutePrefix("Api/Autor")]
-   // [Authorize]
+    [Authorize]
     public class AutorController : ApiController 
     {
 
